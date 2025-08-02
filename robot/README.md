@@ -1,56 +1,56 @@
-# Pixel Animals NFT Collection
+# Mechanical Animals NFT Collection
 
-ピクセルアート風の動物NFTコレクションジェネレーターです。
+動物の姿をした機械生命体のみが存在する世界を描いたピクセルアートNFTコレクション。
 
 ## 🎨 特徴
 
-- **10種類のピクセルアート動物**
-  - Cat（猫）
-  - Dog（犬）
-  - Rabbit（うさぎ）
-  - Bear（クマ）
-  - Fox（キツネ）
-  - Pig（ブタ）
-  - Penguin（ペンギン）
-  - Owl（フクロウ）
-  - Chicken（ニワトリ）
-  - Hamster（ハムスター）
+- **10種類のメカニカルアニマル（ユニットタイプ）**
+  - Recon（偵察型 - 猫）
+  - Sentinel（警備型 - 犬）
+  - Velocity（高速型 - うさぎ）
+  - Industrial（重工業型 - クマ）
+  - Humanoid（人型 - 猫の姿だが自身を人間と認識）
+  - Builder（建設型 - ブタ）
+  - Cryo（極地型 - ペンギン）
+  - Observer（監視型 - フクロウ）
+  - BeeHive（群体型 - ニワトリ）
+  - Multi-Purpose（汎用型 - ハムスター）
 
-- **10種類のアイテム**
-  - Crown（王冠）
-  - Sword（剣）
-  - Shield（盾）
-  - Potion（ポーション）
-  - Lantern（ランタン）
-  - Scroll（巻物）
-  - Wine（ワイングラス）
-  - Beer（ビールジョッキ）
-  - Ice Cream（ソフトクリーム）
-  - Heart（ハート）
+- **10種類のギア**
+  - Bomb（爆弾）
+  - Lightsaber（ライトセイバー）
+  - Shield（エネルギーシールド）
+  - Exotic Matter（エキゾチック物質）
+  - Heat Rod（熱棒）
+  - Missile Launcher（ミサイルランチャー）
+  - Heat Hawk（ヒートホーク）
+  - Utility Rod（汎用ロッド）
+  - Robot Arm（ロボットアーム - レア）
+  - Tragedy（悲劇 - 極レア：404の倍数でのみ出現）
 
-- **10種類のカラースキーム**
-  - Sunset（夕焼け）
-  - Ocean（海）
-  - Forest（森）
-  - Royal（王室）
-  - Candy（キャンディ）
-  - Night（夜）
-  - Fire（炎）
-  - Ice（氷）
-  - Gold（金）
-  - Shadow（影）
+- **10種類のドメイン**
+  - Terminus（終着点）
+  - Abyss（深淵）
+  - Synthesis（統合）
+  - Dominion（支配領域）
+  - Neon（ネオン）
+  - Ragnarok（終末）
+  - Forge（鍛冶場）
+  - Void（虚無）
+  - Cryos（凍土）
+  - Eclipse（日食）
 
-- **10種類のエフェクト**
-  - Sparkle（キラキラ）
-  - Glow（光輪）
-  - Rainbow（虹）
-  - Stars（星）
-  - Hearts（ハート）
-  - Bubbles（泡）
-  - Lightning（稲妻）
-  - Ripple（波紋）
-  - Pulse（パルス）
-  - Minimal（ミニマル）
+- **10種類のイクイップメント**
+  - Quantum Reactor（量子リアクター）
+  - Shield Module（シールドモジュール）
+  - Spectrum Scanner（スペクトラムスキャナー）
+  - Cloaking Device（光学迷彩装置）
+  - Drones（ドローン群）
+  - Matrix（マトリックス）
+  - EMP Generator（EMPジェネレーター）
+  - Sonar Array（ソナーアレイ）
+  - Beacon Transmitter（ビーコン送信機）
+  - Active Attitude System（アクティブ姿勢制御システム）
 
 ## 🚀 使い方
 
@@ -84,31 +84,39 @@ api.php?id=123
 ## 📁 ファイル構成
 
 ```
-animal/
+robot/
 ├── index.html          # メインのWebインターフェース
 ├── generate.js         # NFT生成ロジック
 ├── api.php            # メタデータAPI
 ├── assets/
-│   ├── animals/       # 動物のSVGファイル
-│   └── items/         # アイテムのSVGファイル
+│   ├── robots/        # ロボットのSVGファイル
+│   └── items/         # ギアのSVGファイル
 └── README.md          # このファイル
 ```
 
 ## 🎨 カスタマイズ
 
-### 新しい動物やアイテムの追加
-1. `assets/animals/`または`assets/items/`に新しいSVGファイルを追加
+### 新しいユニットやギアの追加
+1. `assets/robots/`または`assets/items/`に新しいSVGファイルを追加
 2. `generate.js`と`api.php`の配列に新しいエントリを追加
 
-### カラースキームの変更
+### ドメインの変更
 `generate.js`の`colorSchemes`配列を編集して、新しい色の組み合わせを追加できます。
 
 ## 🌟 特別な機能
 
-- **NFT名**: `[Color Scheme] [Animal] #[ID]`形式（例：Forest Dog #123）
-- **動的な色変換**: 各カラースキームで動物の色相が自動的に変換
-- **アイテムの位置調整**: 王冠は頭の上、その他は手元に配置
-- **アニメーションエフェクト**: 各エフェクトには独自のアニメーションが付属
+- **NFT名**: `[Unit Type] with [Gear] #[ID]`形式（例：Sentinel with Lightsaber #123）
+- **Tragedy（悲劇）**: 404の倍数のIDでのみ出現する唯一の有機物の痕跡
+  - 例：ID 404では、情報の海（Matrix）に囚われたHumanoidがTragedyを抱える
+- **動的な色変換**: 各ドメインでユニットの色相が自動的に変換
+- **ギアの位置調整**: すべてのギアは統一された位置に配置
+- **アニメーションエフェクト**: 各イクイップメントには独自のアニメーションが付属
+
+## 🌍 世界観
+
+有機生命体が消滅し、動物の姿をした機械生命体のみが存在する世界。各メカニカルアニマルは異なるドメイン（領域）で活動し、様々なギアとイクイップメントを装備して生き延びている。
+
+唯一の例外が「Tragedy」- 404エラーの時にのみ現れる、最後の有機物の痕跡。それを抱えるHumanoidは、猫の姿をしながらも自らを人間だと信じているユニットである。
 
 ## 📝 ライセンス
 
