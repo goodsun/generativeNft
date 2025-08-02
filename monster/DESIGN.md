@@ -80,7 +80,7 @@ Pixel Monsters NFTは、ダークファンタジーをテーマにしたピク�
 - **Werewolf + Head** = "The Alpha's Trophy" (Legendary)
 - **Frankenstein + Arm** = "The Collector" (Epic)
 - **Mummy + Magic Wand** = "Pharaoh's Awakening" (Epic)
-- **Goblin + Poison** = "Plague Alchemist" (Epic)
+- **Goblin + Sword** = "Blade Master" (Epic)
 - **Succubus + Shield** = "Temptress Guardian" (Epic)
 - **Zombie + Poison** = "Patient Zero" (Epic)
 
@@ -103,7 +103,7 @@ Pixel Monsters NFTは、ダークファンタジーをテーマにしたピク�
 特定の3要素が完璧に調和する組み合わせ：
 
 **炎の三位一体**
-- Dragon + Torch + Burning = "Primordial Flame Lord"
+- Dragon + Sword + Burning = "Primordial Flame Lord"
 - Demon + Torch + Inferno = "Hell's Gatekeeper"
 
 **死の三位一体**
@@ -113,10 +113,24 @@ Pixel Monsters NFTは、ダークファンタジーをテーマにしたピク�
 **精神の三位一体**
 - Succubus + Wine + Brain Wash = "Mind Seductress"
 - Vampire + Crown + Mind Blast = "Psychic Monarch"
+- Vampire + Wine + Bats = "Classic Nosferatu" (特別枠・自動Legendary)
 
 **自然の三位一体**
 - Werewolf + Arm + Bloodmoon = "Lunar Beast"
-- Mummy + Magic Wand + Ragnarok = "Ancient Apocalypse"
+- Mummy + Void + Ragnarok = "Ancient Apocalypse"
+
+**狂気の三位一体**
+- Frankenstein + Lightning + Seizure = "Aberrant Creation"
+- Goblin + Corruption + Confusion = "Mad Trickster"
+
+**毒の三位一体**
+- Poison + Venom + Poisoning = "Toxic Trinity"
+
+**氷の三位一体**
+- Shield + Frost + Blizzard = "Frozen Fortress"
+
+**宇宙の三位一体**
+- Magic Wand + Abyss + Meteor = "Cosmic Sorcery"
 
 ### 3. Quad Synergy (4要素の完璧な調和)
 
@@ -126,20 +140,32 @@ Pixel Monsters NFTは、ダークファンタジーをテーマにしたピク�
 1. **Dragon + Crown + Ragnarok + Meteor** = "Cosmic Sovereign"
    - 宇宙の支配者、終末をもたらす存在
 
-2. **Vampire + Wine + Bloodmoon + Burning** = "Crimson Phoenix"
-   - 不死の炎を宿す血の不死鳥
-
-3. **Skeleton + Scythe + Shadow + Mind Blast** = "Soul Harvester"
+2. **Skeleton + Scythe + Shadow + Mind Blast** = "Soul Harvester"
    - 魂を刈り取る究極の死神
+
+3. **Vampire + Wine + Bloodmoon + Bats** = "Crimson Lord"
+   - 血月の下、蝙蝠を従える真紅の支配者
 
 4. **Demon + Torch + Inferno + Lightning** = "Hellstorm Avatar"
    - 地獄の嵐を具現化した存在
 
-5. **Werewolf + Head + Abyss + Confusion** = "Lunatic Alpha"
+5. **Succubus + Magic Wand + Corruption + Brain Wash** = "Mind Empress"
+   - 精神を支配する堕落の女帝
+
+6. **Mummy + Sword + Void + Burning** = "Eternal Warrior"
+   - 虚無の炎を纏う不滅の古代戦士
+
+7. **Frankenstein + Poison + Venom + Seizure** = "Toxic Abomination"
+   - 毒に侵された不死の怪物、その体は常に痙攣している
+
+8. **Werewolf + Head + Abyss + Confusion** = "Lunatic Alpha"
    - 血月の狂気に支配された群れのリーダー
 
-6. **Succubus + Magic Wand + Corruption + Brain Wash** = "Mind Empress"
-   - 精神を支配する堕落の女帝
+9. **Zombie + Arm + Decay + Poisoning** = "Rotting Collector"
+   - 腐敗した腕を収集する毒に満ちた屍者
+
+10. **Goblin + Shield + Frost + Blizzard** = "Frozen Guardian"
+    - 永久凍土を守護する氷の小鬼
 
 ## Special Token IDs (実装済み)
 
