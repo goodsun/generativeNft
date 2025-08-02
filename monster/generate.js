@@ -9,7 +9,7 @@ const monsters = [
     { name: 'Zombie', file: 'zombie.svg' },
     { name: 'Vampire', file: 'vampire.svg' },
     { name: 'Mummy', file: 'mummy.svg' },
-    { name: 'Orc', file: 'orc.svg' },
+    { name: 'Succubus', file: 'succubus.svg' },
     { name: 'Skeleton', file: 'skeleton.svg' }
 ];
 
@@ -56,33 +56,39 @@ const colorSchemes = [
 ];
 
 const effects = [
-    { name: 'Sparkle', svg: `<g>
-        <circle cx="6" cy="6" r="0.5" fill="#32CD32">
-            <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="#32CD32;#7CFC00;#00FF00" dur="3s" repeatCount="indefinite"/>
+    { name: 'Seizure', svg: `<g>
+        <circle cx="6" cy="6" r="0.8" fill="#FF0080">
+            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#FF0080;#00FF00;#FF00FF;#FFFF00" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="0.8;1.0;0.8" dur="2s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="18" cy="8" r="0.5" fill="#9400D3">
-            <animate attributeName="opacity" values="0;1;0" dur="2s" begin="0.5s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="#9400D3;#FF00FF;#8B008B" dur="3s" repeatCount="indefinite"/>
+        <circle cx="18" cy="8" r="0.8" fill="#00FF00">
+            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.2s" begin="0.3s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#00FF00;#FF0080;#00FFFF;#FF00FF" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="0.8;1.0;0.8" dur="2.2s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="12" cy="18" r="0.5" fill="#00FF00">
-            <animate attributeName="opacity" values="0;1;0" dur="2s" begin="1s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="#00FF00;#ADFF2F;#32CD32" dur="3s" repeatCount="indefinite"/>
+        <circle cx="12" cy="18" r="0.8" fill="#FFFF00">
+            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.4s" begin="0.6s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#FFFF00;#FF00FF;#00FF00;#FF0080" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="0.8;1.0;0.8" dur="2.4s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="3" cy="12" r="0.5" fill="#7CFC00">
-            <animate attributeName="opacity" values="0;1;0" dur="2s" begin="0.3s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="#7CFC00;#00FF00;#32CD32" dur="3s" repeatCount="indefinite"/>
+        <circle cx="3" cy="12" r="0.8" fill="#00FFFF">
+            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.6s" begin="0.9s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#00FFFF;#FFFF00;#FF0080;#00FF00" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="0.8;1.0;0.8" dur="2.6s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="21" cy="15" r="0.5" fill="#FF00FF">
-            <animate attributeName="opacity" values="0;1;0" dur="2s" begin="0.7s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="#FF00FF;#9400D3;#8B008B" dur="3s" repeatCount="indefinite"/>
+        <circle cx="21" cy="15" r="0.8" fill="#FF00FF">
+            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.3s" begin="1.2s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#FF00FF;#00FFFF;#FFFF00;#FF0080" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="0.8;1.0;0.8" dur="2.3s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="9" cy="21" r="0.5" fill="#32CD32">
-            <animate attributeName="opacity" values="0;1;0" dur="2s" begin="1.3s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="#32CD32;#ADFF2F;#7CFC00" dur="3s" repeatCount="indefinite"/>
+        <circle cx="9" cy="21" r="0.8" fill="#FF0080">
+            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.1s" begin="1.5s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#FF0080;#00FF00;#FF00FF;#00FFFF" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="0.8;1.0;0.8" dur="2.1s" repeatCount="indefinite"/>
         </circle>
     </g>` },
-    { name: 'Glow', svg: `<g>
+    { name: 'Mind Blast', svg: `<g>
         <circle cx="12" cy="12" r="10" fill="none" stroke="cyan" stroke-width="0.5">
             <animate attributeName="r" values="8;12;8" dur="3s" repeatCount="indefinite"/>
             <animate attributeName="opacity" values="0.8;0.2;0.8" dur="3s" repeatCount="indefinite"/>
@@ -97,7 +103,7 @@ const effects = [
             <animate attributeName="opacity" values="0.4;0.1;0.4" dur="2s" repeatCount="indefinite"/>
         </circle>
     </g>` },
-    { name: 'Rainbow', svg: `<rect x="0" y="0" width="24" height="24" fill="url(#rainbow)">
+    { name: 'Confusion', svg: `<rect x="0" y="0" width="24" height="24" fill="url(#rainbow)">
         <animate attributeName="opacity" values="0.1;0.3;0.1" dur="4s" repeatCount="indefinite"/>
     </rect>
     <defs>
@@ -113,14 +119,28 @@ const effects = [
             </stop>
         </linearGradient>
     </defs>` },
-    { name: 'Stars', svg: `<g>
-        <text x="4" y="4" font-size="8" fill="yellow">★
-            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="yellow;white;yellow" dur="3s" repeatCount="indefinite"/>
+    { name: 'Meteor', svg: `<g>
+        <text x="24" y="-4" font-size="6" fill="yellow">★
+            <animateTransform attributeName="transform" type="translate" values="0,0; -28,28" dur="1.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;1;1;0" dur="1.5s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="yellow;white;orange;yellow" dur="1.5s" repeatCount="indefinite"/>
         </text>
-        <text x="16" y="20" font-size="8" fill="yellow">★
-            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" begin="1s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="yellow;gold;yellow" dur="3s" repeatCount="indefinite"/>
+        <text x="20" y="-2" font-size="4" fill="orange">★
+            <animateTransform attributeName="transform" type="translate" values="0,0; -24,26" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.8;0.8;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+        </text>
+        <text x="28" y="2" font-size="5" fill="yellow">★
+            <animateTransform attributeName="transform" type="translate" values="0,0; -32,30" dur="1.5s" begin="0.6s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.9;0.9;0" dur="1.5s" begin="0.6s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="yellow;white;yellow" dur="1.5s" begin="0.6s" repeatCount="indefinite"/>
+        </text>
+        <text x="26" y="-6" font-size="3" fill="white">★
+            <animateTransform attributeName="transform" type="translate" values="0,0; -30,32" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.6;0.6;0" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
+        </text>
+        <text x="22" y="4" font-size="4" fill="orange">★
+            <animateTransform attributeName="transform" type="translate" values="0,0; -26,24" dur="1.5s" begin="1.2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.7;0.7;0" dur="1.5s" begin="1.2s" repeatCount="indefinite"/>
         </text>
     </g>` },
     { name: 'Bats', svg: `<g>
@@ -170,7 +190,7 @@ const effects = [
             </g>
         </g>
     </g>` },
-    { name: 'Bubbles', svg: `<g>
+    { name: 'Poisoning', svg: `<g>
         <circle cx="6" cy="20" r="2" fill="none" stroke="#32CD32" stroke-width="1">
             <animate attributeName="cy" values="20;-2" dur="4s" repeatCount="indefinite"/>
             <animate attributeName="opacity" values="0;0.7;0" dur="4s" repeatCount="indefinite"/>
@@ -203,37 +223,161 @@ const effects = [
             <animate attributeName="opacity" values="0;0;0;0;0.5;0.5;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0" dur="3s" repeatCount="indefinite"/>
         </path>
     </g>` },
-    { name: 'Ripple', svg: `<g>
-        ${Array.from({length: 4}, (_, i) => `
-            <circle cx="12" cy="12" r="1" fill="none" stroke="#00FFFF" stroke-width="0.3">
-                <animate attributeName="r" 
-                         values="1;10;1" 
-                         dur="4s" 
-                         begin="${i}s" 
-                         repeatCount="indefinite"/>
+    { name: 'Blizzard', svg: `<g>
+        <!-- ピクセルアート風の斜めに流れる吹雪 -->
+        ${Array.from({length: 25}, (_, i) => {
+            const startX = Math.floor(Math.random() * 40) - 10; // 左から始まる雪も含む
+            const size = Math.random() > 0.7 ? 2 : 1;
+            const delay = Math.random() * 2;
+            const duration = 0.75 + Math.random() * 0.5; // 半分の時間に
+            const speed = Math.random() > 0.5 ? 1.5 : 1; // 速度の変化
+            return `
+            <rect x="${startX}" y="-${size}" width="${size}" height="${size}" fill="#FFFFFF">
+                <animateTransform 
+                    attributeName="transform" 
+                    type="translate" 
+                    values="0,0; ${30 * speed},${28 * speed}" 
+                    dur="${duration}s" 
+                    begin="${delay}s" 
+                    repeatCount="indefinite"/>
                 <animate attributeName="opacity" 
-                         values="1;0.1;1" 
-                         dur="4s" 
-                         begin="${i}s" 
+                         values="0;0.9;0.9;0.5;0" 
+                         dur="${duration}s" 
+                         begin="${delay}s" 
                          repeatCount="indefinite"/>
-                <animate attributeName="stroke" 
-                         values="#00FFFF;#00BFFF;#1E90FF;#00FFFF" 
-                         dur="4s" 
-                         begin="${i}s" 
-                         repeatCount="indefinite"/>
-                <animate attributeName="stroke-width" 
-                         values="0.3;0.1;0.3" 
-                         dur="4s" 
-                         begin="${i}s" 
-                         repeatCount="indefinite"/>
-            </circle>
-        `).join('')}
+            </rect>`;
+        }).join('')}
+        <!-- 横風のエフェクト -->
+        <rect x="0" y="0" width="24" height="24" fill="#B0E0E6" opacity="0">
+            <animate attributeName="opacity" 
+                     values="0;0.15;0.25;0.15;0" 
+                     dur="1.5s" 
+                     repeatCount="indefinite"/>
+        </rect>
+        <!-- 強い吹雪の筋 -->
+        ${Array.from({length: 3}, (_, i) => {
+            const delay = i * 0.4;
+            return `
+            <g opacity="0.4">
+                <rect x="-10" y="${i * 8}" width="40" height="1" fill="#E0FFFF" transform="rotate(-30 12 12)">
+                    <animateTransform 
+                        attributeName="transform" 
+                        type="translate" 
+                        values="0,0; 35,30" 
+                        dur="0.6s" 
+                        begin="${delay}s" 
+                        repeatCount="indefinite"
+                        additive="sum"/>
+                    <animate attributeName="opacity" 
+                             values="0;0.6;0.6;0" 
+                             dur="0.6s" 
+                             begin="${delay}s" 
+                             repeatCount="indefinite"/>
+                </rect>
+            </g>`;
+        }).join('')}
+        <!-- 大きな雪片（斜めに流れる） -->
+        ${Array.from({length: 5}, (_, i) => {
+            const startX = Math.floor(Math.random() * 30) - 5;
+            const delay = Math.random() * 1;
+            return `
+            <g>
+                <rect x="${startX}" y="-2" width="2" height="2" fill="#F0FFFF">
+                    <animateTransform 
+                        attributeName="transform" 
+                        type="translate" 
+                        values="0,0; 25,26" 
+                        dur="1s" 
+                        begin="${delay}s" 
+                        repeatCount="indefinite"/>
+                    <animate attributeName="opacity" 
+                             values="0;1;1;0.3;0" 
+                             dur="1s" 
+                             begin="${delay}s" 
+                             repeatCount="indefinite"/>
+                </rect>
+            </g>`;
+        }).join('')}
     </g>` },
-    { name: 'Pulse', svg: `<rect x="0" y="0" width="24" height="24" fill="white">
-        <animate attributeName="opacity" values="0;0.3;0" dur="2s" repeatCount="indefinite"/>
-        <animate attributeName="fill" values="white;cyan;magenta;white" dur="4s" repeatCount="indefinite"/>
-    </rect>` },
-    { name: 'Minimal', svg: `<g>
+{ name: 'Burning', svg: `<g>
+        <!-- ピクセルアート風の松明の炎（複数配置） -->
+        <!-- 左の炎 -->
+        <g>
+            <rect x="3" y="16" width="2" height="2" fill="#FFFF00">
+                <animate attributeName="fill" values="#FFFF00;#FFFAF0;#FFFF00" dur="0.6s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="2" y="17" width="4" height="2" fill="#FFD700">
+                <animate attributeName="fill" values="#FFD700;#FFFF00;#FFD700" dur="0.8s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="1" y="19" width="6" height="2" fill="#FFA500">
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="1.1s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="2" y="21" width="4" height="1" fill="#FF8C00">
+                <animate attributeName="width" values="4;5;3;4" dur="1.3s" repeatCount="indefinite"/>
+                <animate attributeName="x" values="2;1;2;2" dur="1.3s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="0" y="22" width="8" height="2" fill="#FF4500">
+                <animate attributeName="opacity" values="0.6;0.9;0.6" dur="1.4s" repeatCount="indefinite"/>
+            </rect>
+        </g>
+        <!-- 中央の炎 -->
+        <g>
+            <rect x="11" y="21" width="2" height="2" fill="#FFFF00">
+                <animate attributeName="fill" values="#FFFF00;#FFFAF0;#FFFF00" dur="0.5s" begin="0.2s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="10" y="22" width="4" height="2" fill="#FFD700">
+                <animate attributeName="fill" values="#FFD700;#FFFF00;#FFD700" dur="0.7s" begin="0.2s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="9" y="24" width="6" height="2" fill="#FFA500">
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="1s" begin="0.2s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="10" y="26" width="4" height="1" fill="#FF8C00">
+                <animate attributeName="width" values="4;5;3;4" dur="1.2s" begin="0.2s" repeatCount="indefinite"/>
+                <animate attributeName="x" values="10;9;10;10" dur="1.2s" begin="0.2s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="8" y="27" width="8" height="0" fill="#FF4500">
+                <animate attributeName="opacity" values="0.6;0.9;0.6" dur="1.3s" begin="0.2s" repeatCount="indefinite"/>
+            </rect>
+            <!-- 揺らめく先端 -->
+            <rect x="12" y="20" width="1" height="1" fill="#FFFF00">
+                <animate attributeName="x" values="12;11;12;13;12" dur="2s" begin="0.2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0;1;0.8;1;0" dur="2s" begin="0.2s" repeatCount="indefinite"/>
+            </rect>
+        </g>
+        <!-- 右の炎 -->
+        <g>
+            <rect x="19" y="16" width="2" height="2" fill="#FFFF00">
+                <animate attributeName="fill" values="#FFFF00;#FFFAF0;#FFFF00" dur="0.7s" begin="0.4s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="18" y="17" width="4" height="2" fill="#FFD700">
+                <animate attributeName="fill" values="#FFD700;#FFFF00;#FFD700" dur="0.9s" begin="0.4s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="17" y="19" width="6" height="2" fill="#FFA500">
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="1.2s" begin="0.4s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="18" y="21" width="4" height="1" fill="#FF8C00">
+                <animate attributeName="width" values="4;5;3;4" dur="1.4s" begin="0.4s" repeatCount="indefinite"/>
+                <animate attributeName="x" values="18;17;18;18" dur="1.4s" begin="0.4s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="16" y="22" width="8" height="2" fill="#FF4500">
+                <animate attributeName="opacity" values="0.6;0.9;0.6" dur="1.5s" begin="0.4s" repeatCount="indefinite"/>
+            </rect>
+        </g>
+        <!-- 火の粉 -->
+        <rect x="5" y="12" width="1" height="1" fill="#FFA500">
+            <animate attributeName="y" values="18;12;8" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.8;0" dur="2s" repeatCount="indefinite"/>
+        </rect>
+        <rect x="12" y="10" width="1" height="1" fill="#FF8C00">
+            <animate attributeName="y" values="16;10;6" dur="2.2s" begin="0.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.6;0" dur="2.2s" begin="0.5s" repeatCount="indefinite"/>
+        </rect>
+        <rect x="20" y="11" width="1" height="1" fill="#FFFF00">
+            <animate attributeName="y" values="17;11;7" dur="2.4s" begin="1s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.7;0" dur="2.4s" begin="1s" repeatCount="indefinite"/>
+        </rect>
+    </g>` },
+    { name: 'Brain Wash', svg: `<g>
         <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="15s" repeatCount="indefinite"/>
         ${Array.from({length: 10}, (_, i) => {
             const angle = (i * Math.PI * 2) / 10;
@@ -305,19 +449,19 @@ async function generateMetadataById(id) {
         external_url: `https://pixelmonsters.example.com/nft/${id}`,
         attributes: [
             {
-                trait_type: "Monster",
+                trait_type: "Species",
                 value: monster.name
             },
             {
-                trait_type: "Item",
+                trait_type: "Equipment",
                 value: item.name
             },
             {
-                trait_type: "Color Scheme",
+                trait_type: "Realm",
                 value: colorScheme.name
             },
             {
-                trait_type: "Effect",
+                trait_type: "Curse",
                 value: effect.name
             },
             {

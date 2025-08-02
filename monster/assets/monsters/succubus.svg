@@ -1,12 +1,12 @@
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <!-- Succubus Monster (ロングヘア・ハイレグ水着風) -->
-  <!-- Horns (小さめ) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- Succubus with Hip Curve (右半身を1ピクセルずらしてお尻の膨らみを表現) -->
+  <!-- V1 Horns (小さめ) -->
   <rect x="8" y="2" width="1" height="2" fill="#8B0000"/>
   <rect x="15" y="2" width="1" height="2" fill="#8B0000"/>
   <rect x="7" y="3" width="2" height="1" fill="#DC143C"/>
   <rect x="15" y="3" width="2" height="1" fill="#DC143C"/>
   
-  <!-- Long Hair -->
+  <!-- V1 Long Hair -->
   <rect x="6" y="4" width="12" height="3" fill="#4B0082"/>
   <rect x="5" y="5" width="14" height="3" fill="#4B0082"/>
   <rect x="4" y="7" width="16" height="2" fill="#4B0082"/>
@@ -16,54 +16,77 @@
   <rect x="3" y="13" width="3" height="3" fill="#4B0082"/>
   <rect x="18" y="13" width="3" height="3" fill="#4B0082"/>
   
-  <!-- Head -->
-  <rect x="7" y="6" width="10" height="7" fill="#FFB6C1"/>
-  <rect x="6" y="7" width="1" height="5" fill="#FFB6C1"/>
-  <rect x="17" y="7" width="1" height="5" fill="#FFB6C1"/>
+  <!-- V4 Head (pale skin) -->
+  <rect x="7" y="6" width="10" height="7" fill="#FFE4E1"/>
+  <rect x="6" y="7" width="1" height="5" fill="#FFE4E1"/>
+  <rect x="17" y="7" width="1" height="5" fill="#FFE4E1"/>
   
-  <!-- Eyes (seductive) -->
-  <rect x="8" y="8" width="3" height="2" fill="#FF1493"/>
-  <rect x="13" y="8" width="3" height="2" fill="#FF1493"/>
+  <!-- V4 Eyes (sultry) -->
+  <rect x="8" y="8" width="3" height="2" fill="#8B0000"/>
+  <rect x="13" y="8" width="3" height="2" fill="#8B0000"/>
+  <rect x="9" y="9" width="1" height="1" fill="#DC143C"/>
+  <rect x="14" y="9" width="1" height="1" fill="#DC143C"/>
   <rect x="9" y="8" width="1" height="1" fill="#FFFFFF"/>
   <rect x="14" y="8" width="1" height="1" fill="#FFFFFF"/>
   
-  <!-- Mouth (sensual) -->
+  <!-- V4 Lips -->
   <rect x="10" y="11" width="4" height="1" fill="#DC143C"/>
-  <rect x="11" y="10" width="2" height="1" fill="#DC143C"/>
+  <rect x="11" y="10" width="2" height="1" fill="#FF1493"/>
   
-  <!-- Neck -->
-  <rect x="10" y="13" width="4" height="1" fill="#FFB6C1"/>
+  <!-- V1 Neck -->
+  <rect x="10" y="13" width="4" height="1" fill="#FFE4E1"/>
   
-  <!-- High-leg swimsuit body -->
-  <rect x="9" y="14" width="6" height="4" fill="#8B0000"/>
-  <rect x="8" y="15" width="8" height="2" fill="#8B0000"/>
+  <!-- High-leg swimsuit body (左側はそのまま) -->
+  <rect x="9" y="14" width="3" height="4" fill="#8B0000"/>
+  <rect x="8" y="15" width="4" height="2" fill="#8B0000"/>
+  
+  <!-- 右側を1ピクセル左にずらす -->
+  <rect x="11" y="14" width="3" height="4" fill="#8B0000"/>
+  <rect x="11" y="15" width="4" height="2" fill="#8B0000"/>
+  
+  <!-- お尻の膨らみ（右側の空いたスペースに） -->
+  <rect x="15" y="16" width="1" height="4" fill="#8B0000"/>
+  
   <!-- High-leg cut -->
-  <rect x="7" y="17" width="2" height="2" fill="#FFB6C1"/>
-  <rect x="15" y="17" width="2" height="2" fill="#FFB6C1"/>
-  <rect x="9" y="18" width="6" height="2" fill="#8B0000"/>
+  <rect x="7" y="17" width="2" height="2" fill="#FFE4E1"/>
+  <rect x="14" y="17" width="2" height="2" fill="#FFE4E1"/>
+  
+  <!-- Bottom part -->
+  <rect x="9" y="18" width="3" height="2" fill="#8B0000"/>
+  <rect x="11" y="18" width="3" height="2" fill="#8B0000"/>
   
   <!-- Arms -->
-  <rect x="6" y="15" width="2" height="3" fill="#FFB6C1"/>
-  <rect x="16" y="15" width="2" height="3" fill="#FFB6C1"/>
+  <rect x="6" y="15" width="2" height="3" fill="#FFE4E1"/>
+  <rect x="15" y="15" width="2" height="3" fill="#FFE4E1"/>
   
-  <!-- Wings (bat-like) -->
+  <!-- Wings -->
   <rect x="2" y="13" width="3" height="4" fill="#4B0000"/>
-  <rect x="19" y="13" width="3" height="4" fill="#4B0000"/>
+  <rect x="18" y="13" width="3" height="4" fill="#4B0000"/>
   <rect x="1" y="14" width="1" height="2" fill="#4B0000"/>
-  <rect x="22" y="14" width="1" height="2" fill="#4B0000"/>
+  <rect x="21" y="14" width="1" height="2" fill="#4B0000"/>
   
   <!-- Exposed skin (stomach/sides) -->
-  <rect x="7" y="16" width="1" height="2" fill="#FFB6C1"/>
-  <rect x="16" y="16" width="1" height="2" fill="#FFB6C1"/>
+  <rect x="7" y="16" width="1" height="2" fill="#FFE4E1"/>
+  <rect x="15" y="16" width="1" height="2" fill="#FFE4E1"/>
   
-  <!-- Legs -->
-  <rect x="8" y="19" width="2" height="3" fill="#FFB6C1"/>
-  <rect x="14" y="19" width="2" height="3" fill="#FFB6C1"/>
-  <rect x="9" y="22" width="1" height="1" fill="#FFB6C1"/>
-  <rect x="14" y="22" width="1" height="1" fill="#FFB6C1"/>
+  <!-- Legs (右脚も1ピクセル左に) -->
+  <rect x="8" y="19" width="2" height="3" fill="#FFE4E1"/>
+  <rect x="13" y="19" width="2" height="3" fill="#FFE4E1"/>
+  <rect x="9" y="22" width="1" height="1" fill="#FFE4E1"/>
+  <rect x="13" y="22" width="1" height="1" fill="#FFE4E1"/>
   
-  <!-- Tail with heart tip -->
-  <rect x="16" y="18" width="2" height="1" fill="#8B0000"/>
-  <rect x="18" y="19" width="1" height="2" fill="#8B0000"/>
-  <rect x="17" y="21" width="2" height="1" fill="#DC143C"/>
+  <!-- 尻尾があった場所に肌色（脚の延長） -->
+  <rect xmlns="http://www.w3.org/2000/svg" x="15" y="18" width="2" height="4" fill="#FFE4E1"/>
+<rect xmlns="http://www.w3.org/2000/svg" x="15" y="19" width="1" height="2" fill="#EEccc5"/>
+
+<rect xmlns="http://www.w3.org/2000/svg" x="18" y="19" width="1" height="1" fill="#8B0000"/>
+<rect xmlns="http://www.w3.org/2000/svg" x="19" y="18" width="1" height="1" fill="#DC143C"/>
+
+  <rect x="17" y="19" width="1" height="2" fill="#FFE4E1"/>
+  
+  <!-- その上に丸く見えるような赤（お尻の形状） -->
+  <rect x="16" y="17" width="1" height="2" fill="#8B0000"/>
+  <rect xmlns="http://www.w3.org/2000/svg" x="14" y="20" width="1" height="2" fill="#CCAAAA"/><rect xmlns="http://www.w3.org/2000/svg" x="17" y="18" width="1" height="1" fill="#8B0000"/>
+<rect xmlns="http://www.w3.org/2000/svg" x="12" y="20" width="1" height="2" fill="#bb9999"/><rect xmlns="http://www.w3.org/2000/svg" x="11" y="20" width="1" height="2" fill="#EEccc5"/>
+
 </svg>
