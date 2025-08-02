@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Animals NFT Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .download-button {
+            background: #10b981;
+        }
+        
+        .download-button:hover {
+            background: #059669;
+        }
+        
+        .metadata-display {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .metadata-display.show {
+            display: block;
+        }
+        
+        .metadata-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .metadata-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        .metadata-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .metadata-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .attributes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .attribute {
+            background: #e2e8f0;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .attribute-type {
+            font-size: 0.9em;
+            color: #64748b;
+        }
+        
+        .attribute-value {
+            font-weight: bold;
+            color: #334155;
+        }
+        
+        .json-display {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+        
+        pre {
+            margin: 0;
+        }
+        
+        .copy-button {
+            background: #4b5563;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            float: right;
+            margin-top: -15px;
+            margin-right: -15px;
+        }
+        
+        .copy-button:hover {
+            background: #374151;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pixel Animals NFT Generator</h1>
+        
+        <div class="button-group">
+            <button onclick="generateSingle()">Generate Single</button>
+            <button onclick="generateBatch(5)">Generate Batch (5)</button>
+            <button onclick="generateBatch(10)">Generate Batch (10)</button>
+            <button onclick="downloadAll()" class="download-button">Download All as JSON</button>
+        </div>
+        
+        <div style="margin: 20px 0; text-align: center;">
+            <div style="display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                <input type="number" id="idInput" placeholder="Enter ID (e.g. 1, 100, 9999)" style="padding: 10px; width: 200px; border-radius: 5px; border: 1px solid #ddd;">
+                <button onclick="generateById()" style="background: #059669; padding: 10px 20px; border-radius: 5px; border: none; color: white; cursor: pointer;">Generate by ID</button>
+                <div style="display: flex; gap: 5px;">
+                    <button onclick="generatePrev()" style="background: #3B82F6; padding: 10px 20px; border-radius: 5px; border: none; color: white; cursor: pointer;">← Prev ID</button>
+                    <button onclick="generateNext()" style="background: #3B82F6; padding: 10px 20px; border-radius: 5px; border: none; color: white; cursor: pointer;">Next ID →</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="metadataDisplay" class="metadata-display"></div>
+    </div>
+    
+    <script src="generate.js"></script>
+    <script>
+        let currentMetadata = [];
+        
+        async function generateSingle() {
+            const id = Math.floor(Math.random() * 9999) + 1;
+            const metadata = await generateMetadataById(id);
+            currentMetadata = [metadata];
+            displayMetadata(currentMetadata);
+        }
+        
+        async function generateBatch(count) {
+            const promises = [];
+            for (let i = 0; i < count; i++) {
+                const id = Math.floor(Math.random() * 9999) + 1;
+                promises.push(generateMetadataById(id));
+            }
+            currentMetadata = await Promise.all(promises);
+            displayMetadata(currentMetadata);
+        }
+        
+        async function generateById() {
+            const idInput = document.getElementById('idInput');
+            const id = idInput.value;
+            if (!id) {
+                alert('Please enter an ID');
+                return;
+            }
+            const metadata = await generateMetadataById(id);
+            currentMetadata = [metadata];
+            displayMetadata(currentMetadata);
+        }
+        
+        async function generateNext() {
+            const idInput = document.getElementById('idInput');
+            const currentId = parseInt(idInput.value) || 0;
+            let nextId = currentId + 1;
+            if (nextId > 10000) nextId = 1;
+            idInput.value = nextId;
+            const metadata = await generateMetadataById(nextId);
+            currentMetadata = [metadata];
+            displayMetadata(currentMetadata);
+        }
+        
+        async function generatePrev() {
+            const idInput = document.getElementById('idInput');
+            const currentId = parseInt(idInput.value) || 1;
+            let prevId = currentId - 1;
+            if (prevId < 1) prevId = 10000;
+            idInput.value = prevId;
+            const metadata = await generateMetadataById(prevId);
+            currentMetadata = [metadata];
+            displayMetadata(currentMetadata);
+        }
+        
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+        
+        function displayMetadata(metadataArray) {
+            const display = document.getElementById('metadataDisplay');
+            display.innerHTML = '';
+            display.classList.add('show');
+            
+            metadataArray.forEach((metadata, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'metadata-item';
+                
+                const attributesHtml = metadata.attributes.map(attr => `
+                    <div class="attribute">
+                        <div class="attribute-type">${attr.trait_type}</div>
+                        <div class="attribute-value">${attr.value}</div>
+                    </div>
+                `).join('');
+                
+                const jsonString = JSON.stringify(metadata, null, 2);
+                
+                itemDiv.innerHTML = `
+                    <img src="${metadata.image}" alt="${metadata.name}" class="metadata-image">
+                    <div class="metadata-name">${metadata.name}</div>
+                    <div class="metadata-description">${metadata.description}</div>
+                    <div class="attributes">${attributesHtml}</div>
+                    <div class="json-display">
+                        <button class="copy-button" onclick="copyToClipboard(\`${jsonString.replace(/`/g, '\\`')}\`, this)">Copy JSON</button>
+                        <pre>${jsonString}</pre>
+                    </div>
+                `;
+                
+                display.appendChild(itemDiv);
+            });
+        }
+        
+        function downloadAll() {
+            if (currentMetadata.length === 0) {
+                alert('Please generate some metadata first!');
+                return;
+            }
+            
+            const dataStr = JSON.stringify(currentMetadata, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `nft-metadata-${Date.now()}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+        
+        // Generate initial metadata on load
+        generateSingle();
+    </script>
+</body>
+</html>

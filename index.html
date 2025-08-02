@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metasample - NFT Projects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #a0a0a0;
+            margin-bottom: 60px;
+            font-size: 1.2rem;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .project-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 20px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+        
+        .project-card:hover::before {
+            opacity: 1;
+        }
+        
+        .project-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .project-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        
+        .project-description {
+            color: #a0a0a0;
+            line-height: 1.6;
+        }
+        
+        .coming-soon {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .coming-soon .project-title::after {
+            content: ' (Coming Soon)';
+            font-size: 0.8rem;
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Metasample</h1>
+        <p class="subtitle">NFT メタデータサンプル集</p>
+        
+        <div class="projects-grid">
+            <div class="project-card">
+                <a href="original/index.html">
+                    <span class="project-icon">🎨</span>
+                    <h2 class="project-title">Original</h2>
+                    <p class="project-description">
+                        基本的なNFTメタデータ生成サンプル。シンプルな実装で、NFTメタデータの仕組みを理解するのに最適です。
+                    </p>
+                </a>
+            </div>
+            
+            <div class="project-card coming-soon">
+                <a href="animal">
+                    <span class="project-icon">🐾</span>
+                    <h2 class="project-title">Animal Collection</h2>
+                    <p class="project-description">
+                        動物をテーマにしたジェネレイティブNFTコレクション。ランダムな特徴を組み合わせてユニークな動物を生成。
+                    </p>
+                </a>
+            </div>
+            <div class="project-card coming-soon">
+                <a href="sol">
+                    <span class="project-icon">🏛️</span>
+                    <h2 class="project-title">On-Chain Metadata</h2>
+                    <p class="project-description">
+                        完全にオンチェーンに保存されるメタデータの実装例。IPFSを使用しない永続的なNFTデータ。
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
