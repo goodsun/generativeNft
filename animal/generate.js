@@ -27,16 +27,16 @@ const items = [
 ];
 
 const colorSchemes = [
-    { name: 'Sunset', primary: '#FF6B6B', secondary: '#4ECDC4', background: '#FFE66D' },
-    { name: 'Ocean', primary: '#0077BE', secondary: '#00A8E8', background: '#00F5FF' },
-    { name: 'Forest', primary: '#2D5016', secondary: '#73A942', background: '#AAD576' },
-    { name: 'Royal', primary: '#6B5B95', secondary: '#B565A7', background: '#D64545' },
-    { name: 'Candy', primary: '#FF69B4', secondary: '#FFB6C1', background: '#FFC0CB' },
-    { name: 'Night', primary: '#1B1B3A', secondary: '#693668', background: '#51355A' },
-    { name: 'Fire', primary: '#FF4500', secondary: '#FF6347', background: '#FFA500' },
-    { name: 'Ice', primary: '#4682B4', secondary: '#87CEEB', background: '#E0FFFF' },
-    { name: 'Gold', primary: '#FFD700', secondary: '#FFA500', background: '#FFFFE0' },
-    { name: 'Shadow', primary: '#2F4F4F', secondary: '#696969', background: '#A9A9A9' }
+    { name: 'Sunset', primary: '#FF6B6B', secondary: '#4ECDC4', background: '#FFE66D', hueRotate: 0 },
+    { name: 'Ocean', primary: '#0077BE', secondary: '#00A8E8', background: '#00F5FF', hueRotate: 200 },
+    { name: 'Forest', primary: '#2D5016', secondary: '#73A942', background: '#AAD576', hueRotate: 90 },
+    { name: 'Royal', primary: '#6B5B95', secondary: '#B565A7', background: '#D64545', hueRotate: 270 },
+    { name: 'Candy', primary: '#FF69B4', secondary: '#FFB6C1', background: '#FFC0CB', hueRotate: 330 },
+    { name: 'Night', primary: '#1B1B3A', secondary: '#693668', background: '#51355A', hueRotate: 240 },
+    { name: 'Fire', primary: '#FF4500', secondary: '#FF6347', background: '#FFA500', hueRotate: 15 },
+    { name: 'Ice', primary: '#4682B4', secondary: '#87CEEB', background: '#E0FFFF', hueRotate: 180 },
+    { name: 'Gold', primary: '#FFD700', secondary: '#FFA500', background: '#FFFFE0', hueRotate: 45 },
+    { name: 'Shadow', primary: '#2F4F4F', secondary: '#696969', background: '#A9A9A9', hueRotate: 0, saturate: 0.3 }
 ];
 
 const effects = [
@@ -220,7 +220,7 @@ async function generateMetadataById(id) {
     else if (rarityScore > 70) rarity = 'Rare';
     else if (rarityScore > 50) rarity = 'Uncommon';
     
-    const name = `Pixel ${animal.name} #${id}`;
+    const name = `${colorScheme.name} ${animal.name} #${id}`;
     const description = `A unique pixel art ${animal.name.toLowerCase()} with ${item.name.toLowerCase()} in ${colorScheme.name.toLowerCase()} color scheme. ${rarity} collectible from the Pixel Animals collection.`;
     
     // SVG画像を生成
@@ -279,7 +279,7 @@ async function generateCompositeImage(animalSVG, itemSVG, colorScheme, effect, i
             
             <!-- 動物（カラーフィルター適用） -->
             <g transform="translate(12, 12) scale(9)">
-                <g style="filter: hue-rotate(${colorScheme.primary === '#FF6B6B' ? '0' : '180'}deg) saturate(1.5)">
+                <g style="filter: hue-rotate(${colorScheme.hueRotate}deg) saturate(${colorScheme.saturate || 1.5})">
                     ${animalSVG.replace(/<svg[^>]*>|<\/svg>/g, '')}
                 </g>
             </g>

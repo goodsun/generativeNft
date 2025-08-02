@@ -177,14 +177,17 @@
             <button onclick="generateBatch(5)">Generate Batch (5)</button>
             <button onclick="generateBatch(10)">Generate Batch (10)</button>
             <button onclick="downloadAll()" class="download-button">Download All as JSON</button>
-            <a href="mint.html" style="text-decoration: none;">
-                <button style="background: #10b981;">Mint NFT</button>
-            </a>
         </div>
         
         <div style="margin: 20px 0; text-align: center;">
-            <input type="number" id="idInput" placeholder="Enter ID (e.g. 1, 100, 9999)" style="padding: 10px; width: 200px; border-radius: 5px; border: 1px solid #ddd;">
-            <button onclick="generateById()" style="background: #059669;">Generate by ID</button>
+            <div style="display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                <input type="number" id="idInput" placeholder="Enter ID (e.g. 1, 100, 9999)" style="padding: 10px; width: 200px; border-radius: 5px; border: 1px solid #ddd;">
+                <button onclick="generateById()" style="background: #059669; padding: 10px 20px; border-radius: 5px; border: none; color: white; cursor: pointer;">Generate by ID</button>
+                <div style="display: flex; gap: 5px;">
+                    <button onclick="generatePrev()" style="background: #3B82F6; padding: 10px 20px; border-radius: 5px; border: none; color: white; cursor: pointer;">← Prev ID</button>
+                    <button onclick="generateNext()" style="background: #3B82F6; padding: 10px 20px; border-radius: 5px; border: none; color: white; cursor: pointer;">Next ID →</button>
+                </div>
+            </div>
         </div>
         
         <div id="metadataDisplay" class="metadata-display"></div>
@@ -459,6 +462,28 @@
             displayMetadata(currentMetadata);
         }
         
+        function generateNext() {
+            const idInput = document.getElementById('idInput');
+            const currentId = parseInt(idInput.value) || 0;
+            let nextId = currentId + 1;
+            if (nextId > 10000) nextId = 1;
+            idInput.value = nextId;
+            const metadata = generateMetadataById(nextId);
+            currentMetadata = [metadata];
+            displayMetadata(currentMetadata);
+        }
+        
+        function generatePrev() {
+            const idInput = document.getElementById('idInput');
+            const currentId = parseInt(idInput.value) || 1;
+            let prevId = currentId - 1;
+            if (prevId < 1) prevId = 10000;
+            idInput.value = prevId;
+            const metadata = generateMetadataById(prevId);
+            currentMetadata = [metadata];
+            displayMetadata(currentMetadata);
+        }
+        
         function copyToClipboard(text, button) {
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = button.textContent;
@@ -486,10 +511,16 @@
                 `).join('');
                 
                 const jsonString = JSON.stringify(metadata, null, 2);
+                const idMatch = metadata.name.match(/#(\d+)$/);
+                const nftId = idMatch ? idMatch[1] : '1';
+                const metadataUrl = `${window.location.origin}${window.location.pathname}api.php?id=${nftId}`;
                 
                 itemDiv.innerHTML = `
                     <img src="${metadata.image}" alt="${metadata.name}" class="metadata-image">
-                    <div class="metadata-name">${metadata.name}</div>
+                    <div style="display: flex; align-items: flex-end; gap: 10px; justify-content: center; margin-bottom: 10px;">
+                        <div class="metadata-name" style="margin-bottom: 0;">${metadata.name}</div>
+                        <button class="copy-button" onclick="copyToClipboard('${metadataUrl}', this)" style="background: #8B5CF6; padding: 5px 15px; font-size: 14px; margin-bottom: 3px;">Copy Link</button>
+                    </div>
                     <div class="metadata-description">${metadata.description}</div>
                     <div class="attributes">${attributesHtml}</div>
                     <div class="json-display">
@@ -519,8 +550,18 @@
             linkElement.click();
         }
         
-        // Generate initial metadata on load
-        generateSingle();
+        // Check URL parameters and generate initial metadata
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const idFromUrl = urlParams.get('id');
+            
+            if (idFromUrl) {
+                document.getElementById('idInput').value = idFromUrl;
+                generateById();
+            } else {
+                generateSingle();
+            }
+        });
     </script>
 </body>
 </html>

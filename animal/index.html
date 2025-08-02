@@ -275,10 +275,16 @@
                 `).join('');
                 
                 const jsonString = JSON.stringify(metadata, null, 2);
+                const idMatch = metadata.name.match(/#(\d+)$/);
+                const nftId = idMatch ? idMatch[1] : '1';
+                const metadataUrl = `${window.location.origin}${window.location.pathname}api.php?id=${nftId}`;
                 
                 itemDiv.innerHTML = `
                     <img src="${metadata.image}" alt="${metadata.name}" class="metadata-image">
-                    <div class="metadata-name">${metadata.name}</div>
+                    <div style="display: flex; align-items: flex-end; gap: 10px; justify-content: center; margin-bottom: 10px;">
+                        <div class="metadata-name" style="margin-bottom: 0;">${metadata.name}</div>
+                        <button class="copy-button" onclick="copyToClipboard('${metadataUrl}', this)" style="background: #8B5CF6; padding: 5px 15px; font-size: 14px; margin-bottom: 3px;">Copy Link</button>
+                    </div>
                     <div class="metadata-description">${metadata.description}</div>
                     <div class="attributes">${attributesHtml}</div>
                     <div class="json-display">
@@ -308,8 +314,18 @@
             linkElement.click();
         }
         
-        // Generate initial metadata on load
-        generateSingle();
+        // Check URL parameters and generate initial metadata
+        window.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const idFromUrl = urlParams.get('id');
+            
+            if (idFromUrl) {
+                document.getElementById('idInput').value = idFromUrl;
+                await generateById();
+            } else {
+                await generateSingle();
+            }
+        });
     </script>
 </body>
 </html>
