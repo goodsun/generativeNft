@@ -18,11 +18,11 @@ const items = [
     { name: 'Sword', file: 'sword.svg' },
     { name: 'Shield', file: 'shield.svg' },
     { name: 'Potion', file: 'potion.svg' },
-    { name: 'Gem', file: 'gem.svg' },
+    { name: 'Lantern', file: 'lantern.svg' },
     { name: 'Scroll', file: 'scroll.svg' },
-    { name: 'Coin', file: 'coin.svg' },
-    { name: 'Key', file: 'key.svg' },
-    { name: 'Lollipop', file: 'lollipop.svg' },
+    { name: 'Wine', file: 'wine.svg' },
+    { name: 'Beer', file: 'beer.svg' },
+    { name: 'Ice Cream', file: 'icecream.svg' },
     { name: 'Heart', file: 'heart.svg' }
 ];
 
@@ -285,7 +285,7 @@ async function generateCompositeImage(animalSVG, itemSVG, colorScheme, effect, i
             </g>
             
             <!-- アイテム（動物の近くに配置） -->
-            <g transform="translate(${item.name === 'Key' ? '140' : item.name === 'Crown' ? '88' : '120'}, ${item.name === 'Crown' ? '8' : '120'}) scale(3)">
+            <g transform="translate(${item.name === 'Beer' ? '130' : item.name === 'Crown' ? '88' : '120'}, ${item.name === 'Crown' ? '8' : '120'}) scale(3)">
                 ${itemSVG.replace(/<svg[^>]*>|<\/svg>/g, '')}
             </g>
             
