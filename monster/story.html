@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Monsters NFT - Story Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a0033 0%, #330066 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #6B46C1;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(107, 70, 193, 0.3);
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            color: white;
+        }
+        
+        h1 {
+            color: #E9D5FF;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 0 0 20px rgba(233, 213, 255, 0.5);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #C084FC;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        
+        .back-to-top {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .back-to-top a {
+            color: #C084FC;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .back-to-top a:hover {
+            color: #E9D5FF;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: linear-gradient(45deg, #6B46C1, #9333EA);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(147, 51, 234, 0.4);
+        }
+        
+        .download-button {
+            background: linear-gradient(45deg, #059669, #10b981);
+        }
+        
+        .download-button:hover {
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .legendary-button {
+            background: linear-gradient(45deg, #DC2626, #EF4444);
+        }
+        
+        .legendary-button:hover {
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+        }
+        
+        .id-controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .id-controls-inner {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        #idInput {
+            padding: 10px;
+            width: 200px;
+            border-radius: 5px;
+            border: 1px solid #6B46C1;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 16px;
+        }
+        
+        .generate-button {
+            background: linear-gradient(45deg, #059669, #10b981);
+        }
+        
+        .nav-button {
+            background: linear-gradient(45deg, #3B82F6, #60A5FA);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .metadata-display {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            display: none;
+            border: 1px solid #6B46C1;
+        }
+        
+        .metadata-display.show {
+            display: block;
+        }
+        
+        .metadata-item {
+            background: rgba(107, 70, 193, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(107, 70, 193, 0.3);
+        }
+        
+        .metadata-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.5);
+        }
+        
+        .metadata-header {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .metadata-name {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #E9D5FF;
+            margin-bottom: 0;
+            text-align: center;
+        }
+        
+        .special-badge {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #1a0033;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .legendary-badge {
+            background: linear-gradient(45deg, #DC2626, #EF4444);
+            color: white;
+        }
+        
+        .copy-link-button {
+            background: linear-gradient(45deg, #8B5CF6, #A78BFA);
+            padding: 5px 15px;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+        
+        .metadata-description {
+            color: #E9D5FF;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            font-style: italic;
+            padding: 0 20px;
+        }
+        
+        .attributes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .attribute {
+            background: rgba(147, 51, 234, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(147, 51, 234, 0.3);
+        }
+        
+        .attribute-type {
+            font-size: 0.9em;
+            color: #C084FC;
+        }
+        
+        .attribute-value {
+            font-weight: bold;
+            color: #E9D5FF;
+        }
+        
+        .rarity-legendary {
+            background: linear-gradient(45deg, rgba(220, 38, 38, 0.3), rgba(239, 68, 68, 0.3));
+            border-color: #EF4444;
+        }
+        
+        .rarity-epic {
+            background: linear-gradient(45deg, rgba(147, 51, 234, 0.3), rgba(167, 139, 250, 0.3));
+            border-color: #A78BFA;
+        }
+        
+        .rarity-rare {
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.3), rgba(96, 165, 250, 0.3));
+            border-color: #60A5FA;
+        }
+        
+        .json-display {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .copy-json-button {
+            background: #4b5563;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        
+        .copy-json-button:hover {
+            background: #374151;
+        }
+        
+        .legendary-ids {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(220, 38, 38, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+        }
+        
+        .legendary-ids h3 {
+            color: #EF4444;
+            margin-bottom: 10px;
+        }
+        
+        .legendary-ids-list {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .legendary-id-button {
+            background: rgba(220, 38, 38, 0.3);
+            border: 1px solid #EF4444;
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: #FCA5A5;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .legendary-id-button:hover {
+            background: rgba(220, 38, 38, 0.5);
+            color: white;
+        }
+        
+        pre {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pixel Monsters NFT - Story Edition</h1>
+        <p class="subtitle">Discover legendary combinations and hidden stories</p>
+        
+        <div class="back-to-top">
+            <a href="../">← TOPへ戻る</a>
+        </div>
+        
+        <div class="button-group">
+            <button onclick="generateSingle()">Generate Random</button>
+            <button onclick="generateCombo()" class="legendary-button">Generate Special Combo</button>
+            <button onclick="downloadAll()" class="download-button">JSON Download</button>
+        </div>
+        
+        <div class="id-controls">
+            <div class="id-controls-inner">
+                <input type="number" id="idInput" placeholder="Enter ID (1-10000)" min="1" max="10000">
+                <button onclick="generateById()" class="generate-button">Generate by ID</button>
+                <div class="nav-buttons">
+                    <button onclick="generatePrev()" class="nav-button">← Prev ID</button>
+                    <button onclick="generateNext()" class="nav-button">Next ID →</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="legendary-ids">
+            <h3>🔥 Legendary IDs</h3>
+            <div class="legendary-ids-list">
+                <button class="legendary-id-button" onclick="generateSpecificId(666)">666 - The Beast</button>
+                <button class="legendary-id-button" onclick="generateSpecificId(1337)">1337 - The Chosen</button>
+                <button class="legendary-id-button" onclick="generateSpecificId(9999)">9999 - Final Guardian</button>
+                <button class="legendary-id-button" onclick="generateSpecificId(404)">404 - Lost Soul</button>
+                <button class="legendary-id-button" onclick="generateSpecificId(7777)">7777 - Fortune's Avatar</button>
+                <button class="legendary-id-button" onclick="generateSpecificId(13)">13 - The Cursed</button>
+                <button class="legendary-id-button" onclick="generateSpecificId(1000)">1000 - The Millennial</button>
+                <button class="legendary-id-button" onclick="generateSpecificId(42)">42 - The Answer</button>
+            </div>
+        </div>
+        
+        <div id="metadataDisplay" class="metadata-display"></div>
+    </div>
+    
+    <script src="generate-with-story.js"></script>
+    <script>
+        let currentMetadata = [];
+        
+        // Generate single random NFT
+        async function generateSingle() {
+            const id = Math.floor(Math.random() * 10000) + 1;
+            const metadata = await generateMetadataById(id);
+            currentMetadata = [metadata];
+            displayMetadata(currentMetadata);
+        }
+        
+        // Generate special combo
+        async function generateCombo() {
+            // List of IDs that are likely to have special combos
+            const comboSeeds = [1, 234, 567, 890, 1234, 2345, 3456, 4567, 5678, 6789, 7890, 8901, 9012];
+            const id = comboSeeds[Math.floor(Math.random() * comboSeeds.length)];
+            const metadata = await generateMetadataById(id);
+            currentMetadata = [metadata];
+            displayMetadata(currentMetadata);
+        }
+        
+        // Generate specific legendary ID
+        async function generateSpecificId(id) {
+            document.getElementById('idInput').value = id;
+            await generateById();
+        }
+        
+        // Generate NFT by specific ID
+        async function generateById() {
+            const idInput = document.getElementById('idInput');
+            const id = parseInt(idInput.value);
+            
+            if (!id || id < 1 || id > 10000) {
+                alert('Please enter a valid ID between 1 and 10000');
+                return;
+            }
+            
+            const metadata = await generateMetadataById(id);
+            currentMetadata = [metadata];
+            displayMetadata(currentMetadata);
+        }
+        
+        // Navigate to next ID
+        async function generateNext() {
+            const idInput = document.getElementById('idInput');
+            const currentId = parseInt(idInput.value) || 0;
+            let nextId = currentId + 1;
+            if (nextId > 10000) nextId = 1;
+            
+            idInput.value = nextId;
+            await generateById();
+        }
+        
+        // Navigate to previous ID
+        async function generatePrev() {
+            const idInput = document.getElementById('idInput');
+            const currentId = parseInt(idInput.value) || 1;
+            let prevId = currentId - 1;
+            if (prevId < 1) prevId = 10000;
+            
+            idInput.value = prevId;
+            await generateById();
+        }
+        
+        // Copy text to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+        
+        // Display metadata
+        function displayMetadata(metadataArray) {
+            const display = document.getElementById('metadataDisplay');
+            display.innerHTML = '';
+            display.classList.add('show');
+            
+            metadataArray.forEach(metadata => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'metadata-item';
+                
+                // Check for special attributes
+                const isSpecial = metadata.attributes.find(a => a.trait_type === 'Special');
+                const isLegendary = metadata.attributes.find(a => a.trait_type === 'Legendary');
+                const rarity = metadata.attributes.find(a => a.trait_type === 'Rarity')?.value || 'Common';
+                
+                // Add rarity class
+                if (rarity === 'Legendary') itemDiv.classList.add('rarity-legendary');
+                else if (rarity === 'Epic') itemDiv.classList.add('rarity-epic');
+                else if (rarity === 'Rare') itemDiv.classList.add('rarity-rare');
+                
+                // Extract ID from name
+                const idMatch = metadata.name.match(/#(\d+)$/);
+                const nftId = idMatch ? idMatch[1] : '1';
+                const metadataUrl = `${window.location.origin}${window.location.pathname}api.php?id=${nftId}`;
+                
+                // Build attributes HTML
+                const attributesHtml = metadata.attributes.map(attr => `
+                    <div class="attribute">
+                        <div class="attribute-type">${attr.trait_type}</div>
+                        <div class="attribute-value">${attr.value}</div>
+                    </div>
+                `).join('');
+                
+                // Format JSON
+                const jsonString = JSON.stringify(metadata, null, 2);
+                
+                // Build badges
+                let badgesHtml = '';
+                if (isLegendary) {
+                    badgesHtml += '<span class="special-badge legendary-badge">⚡ LEGENDARY ID</span>';
+                }
+                if (isSpecial) {
+                    badgesHtml += '<span class="special-badge">✨ SPECIAL COMBO</span>';
+                }
+                
+                // Build item HTML
+                itemDiv.innerHTML = `
+                    <img src="${metadata.image}" alt="${metadata.name}" class="metadata-image">
+                    <div class="metadata-header">
+                        ${badgesHtml}
+                    </div>
+                    <div class="metadata-name">${metadata.name}</div>
+                    <div class="metadata-description">"${metadata.description}"</div>
+                    <div class="attributes">${attributesHtml}</div>
+                    <div class="json-display">
+                        <button class="copy-json-button" onclick="copyToClipboard(\`${jsonString.replace(/`/g, '\\`')}\`, this)">Copy JSON</button>
+                        <pre>${jsonString}</pre>
+                    </div>
+                `;
+                
+                display.appendChild(itemDiv);
+            });
+        }
+        
+        // Download all metadata as JSON
+        function downloadAll() {
+            if (currentMetadata.length === 0) {
+                alert('Please generate some metadata first!');
+                return;
+            }
+            
+            // Extract ID from the first metadata item's name
+            const idMatch = currentMetadata[0].name.match(/#(\d+)$/);
+            const id = idMatch ? idMatch[1] : '1';
+            
+            const dataStr = JSON.stringify(currentMetadata, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+            const exportFileDefaultName = `PixelMonsters-Story#${id}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+        
+        // Handle URL parameters on load
+        window.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const idFromUrl = urlParams.get('id');
+            
+            if (idFromUrl) {
+                const id = parseInt(idFromUrl);
+                if (id >= 1 && id <= 10000) {
+                    document.getElementById('idInput').value = id;
+                    await generateById();
+                } else {
+                    await generateSingle();
+                }
+            } else {
+                await generateSingle();
+            }
+        });
+    </script>
+</body>
+</html>
