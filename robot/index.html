@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Robots NFT Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .back-to-top {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .back-to-top a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .back-to-top a:hover {
+            color: #5a67d8;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .download-button {
+            background: #10b981;
+        }
+        
+        .download-button:hover {
+            background: #059669;
+        }
+        
+        .id-controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .id-controls-inner {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        #idInput {
+            padding: 10px;
+            width: 200px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        
+        .generate-button {
+            background: #059669;
+        }
+        
+        .generate-button:hover {
+            background: #047857;
+        }
+        
+        .nav-button {
+            background: #3B82F6;
+        }
+        
+        .nav-button:hover {
+            background: #2563EB;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .metadata-display {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .metadata-display.show {
+            display: block;
+        }
+        
+        .metadata-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .metadata-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        .metadata-header {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        .metadata-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0;
+        }
+        
+        .copy-link-button {
+            background: #8B5CF6;
+            padding: 5px 15px;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+        
+        .copy-link-button:hover {
+            background: #7C3AED;
+        }
+        
+        .metadata-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .attributes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .attribute {
+            background: #e2e8f0;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .attribute-type {
+            font-size: 0.9em;
+            color: #64748b;
+        }
+        
+        .attribute-value {
+            font-weight: bold;
+            color: #334155;
+        }
+        
+        .json-display {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .copy-json-button {
+            background: #4b5563;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        
+        .copy-json-button:hover {
+            background: #374151;
+        }
+        
+        pre {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pixel Robots NFT Generator</h1>
+        
+        <div class="back-to-top">
+            <a href="../">← TOPへ戻る</a>
+        </div>
+        
+        <div class="button-group">
+            <button onclick="generateSingle()">Generate Single</button>
+            <button onclick="downloadAll()" class="download-button">JSON Download</button>
+        </div>
+        
+        <div class="id-controls">
+            <div class="id-controls-inner">
+                <input type="number" id="idInput" placeholder="Enter ID (1-10000)" min="1" max="10000">
+                <button onclick="generateById()" class="generate-button">Generate by ID</button>
+                <div class="nav-buttons">
+                    <button onclick="generatePrev()" class="nav-button">← Prev ID</button>
+                    <button onclick="generateNext()" class="nav-button">Next ID →</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="metadataDisplay" class="metadata-display"></div>
+    </div>
+    
+    <script src="generate.js"></script>
+    <script>
+        let currentMetadata = [];
+        
+        // Generate single random NFT
+        async function generateSingle() {
+            const id = Math.floor(Math.random() * 10000) + 1;
+            const metadata = await generateMetadataById(id);
+            currentMetadata = [metadata];
+            displayMetadata(currentMetadata);
+        }
+        
+        // Generate batch of NFTs
+        async function generateBatch(count) {
+            const promises = [];
+            const usedIds = new Set();
+            
+            for (let i = 0; i < count; i++) {
+                let id;
+                do {
+                    id = Math.floor(Math.random() * 10000) + 1;
+                } while (usedIds.has(id));
+                usedIds.add(id);
+                promises.push(generateMetadataById(id));
+            }
+            
+            currentMetadata = await Promise.all(promises);
+            displayMetadata(currentMetadata);
+        }
+        
+        // Generate NFT by specific ID
+        async function generateById() {
+            const idInput = document.getElementById('idInput');
+            const id = parseInt(idInput.value);
+            
+            if (!id || id < 1 || id > 10000) {
+                alert('Please enter a valid ID between 1 and 10000');
+                return;
+            }
+            
+            const metadata = await generateMetadataById(id);
+            currentMetadata = [metadata];
+            displayMetadata(currentMetadata);
+        }
+        
+        // Navigate to next ID
+        async function generateNext() {
+            const idInput = document.getElementById('idInput');
+            const currentId = parseInt(idInput.value) || 0;
+            let nextId = currentId + 1;
+            if (nextId > 10000) nextId = 1;
+            
+            idInput.value = nextId;
+            await generateById();
+        }
+        
+        // Navigate to previous ID
+        async function generatePrev() {
+            const idInput = document.getElementById('idInput');
+            const currentId = parseInt(idInput.value) || 1;
+            let prevId = currentId - 1;
+            if (prevId < 1) prevId = 10000;
+            
+            idInput.value = prevId;
+            await generateById();
+        }
+        
+        // Copy text to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+        
+        // Display metadata
+        function displayMetadata(metadataArray) {
+            const display = document.getElementById('metadataDisplay');
+            display.innerHTML = '';
+            display.classList.add('show');
+            
+            metadataArray.forEach(metadata => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'metadata-item';
+                
+                // Extract ID from name
+                const idMatch = metadata.name.match(/#(\d+)$/);
+                const nftId = idMatch ? idMatch[1] : '1';
+                const metadataUrl = `${window.location.origin}${window.location.pathname}api.php?id=${nftId}`;
+                
+                // Build attributes HTML
+                const attributesHtml = metadata.attributes.map(attr => `
+                    <div class="attribute">
+                        <div class="attribute-type">${attr.trait_type}</div>
+                        <div class="attribute-value">${attr.value}</div>
+                    </div>
+                `).join('');
+                
+                // Format JSON
+                const jsonString = JSON.stringify(metadata, null, 2);
+                
+                // Build item HTML
+                itemDiv.innerHTML = `
+                    <img src="${metadata.image}" alt="${metadata.name}" class="metadata-image">
+                    <div class="metadata-header">
+                        <div class="metadata-name">${metadata.name}</div>
+                        <button class="copy-link-button" onclick="copyToClipboard('${metadataUrl}', this)">Copy Link</button>
+                    </div>
+                    <div class="metadata-description">${metadata.description}</div>
+                    <div class="attributes">${attributesHtml}</div>
+                    <div class="json-display">
+                        <button class="copy-json-button" onclick="copyToClipboard(\`${jsonString.replace(/`/g, '\\`')}\`, this)">Copy JSON</button>
+                        <pre>${jsonString}</pre>
+                    </div>
+                `;
+                
+                display.appendChild(itemDiv);
+            });
+        }
+        
+        // Download all metadata as JSON
+        function downloadAll() {
+            if (currentMetadata.length === 0) {
+                alert('Please generate some metadata first!');
+                return;
+            }
+            
+            // Extract ID from the first metadata item's name
+            const idMatch = currentMetadata[0].name.match(/#(\d+)$/);
+            const id = idMatch ? idMatch[1] : '1';
+            
+            const dataStr = JSON.stringify(currentMetadata, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+            const exportFileDefaultName = `PixelRobots#${id}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+        
+        // Handle URL parameters on load
+        window.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const idFromUrl = urlParams.get('id');
+            
+            if (idFromUrl) {
+                const id = parseInt(idFromUrl);
+                if (id >= 1 && id <= 10000) {
+                    document.getElementById('idInput').value = id;
+                    await generateById();
+                } else {
+                    await generateSingle();
+                }
+            } else {
+                await generateSingle();
+            }
+        });
+    </script>
+</body>
+</html>
