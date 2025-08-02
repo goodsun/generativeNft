@@ -1,0 +1,39 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- ミサイルランチャー（2連装） -->
+  <!-- 発射管（2連装） -->
+  <rect x="8" y="5" width="3" height="8" fill="#404040"/>
+  <rect x="13" y="5" width="3" height="8" fill="#404040"/>
+  
+  <!-- 発射管の開口部 -->
+  <rect x="8" y="4" width="3" height="1" fill="#202020"/>
+  <rect x="13" y="4" width="3" height="1" fill="#202020"/>
+  
+  <!-- 発射管の底部 -->
+  <rect x="8" y="13" width="3" height="1" fill="#606060"/>
+  <rect x="13" y="13" width="3" height="1" fill="#606060"/>
+  
+  <!-- ミサイルの先端（赤い弾頭） -->
+  <rect x="9" y="5" width="1" height="2" fill="#FF0000"/>
+  <rect x="14" y="5" width="1" height="2" fill="#FF0000"/>
+  
+  <!-- 支持フレーム -->
+  <rect x="7" y="10" width="10" height="1" fill="#808080"/>
+  <rect x="6" y="11" width="12" height="2" fill="#808080"/>
+  
+  <!-- グリップ -->
+  <rect x="11" y="13" width="2" height="5" fill="#303030"/>
+  <rect x="10" y="14" width="4" height="1" fill="#505050"/>
+  <rect x="10" y="16" width="4" height="1" fill="#505050"/>
+  <rect x="11" y="18" width="2" height="1" fill="#303030"/>
+  
+  <!-- 照準器 -->
+  <rect x="11" y="9" width="2" height="1" fill="#00FF00"/>
+  <rect x="10" y="10" width="4" height="1" fill="#00FF00" opacity="0.6"/>
+  
+  <!-- メタリックハイライト -->
+  <rect x="8" y="6" width="1" height="3" fill="#A0A0A0"/>
+  <rect x="13" y="6" width="1" height="3" fill="#A0A0A0"/>
+  
+  <!-- 連結部 -->
+  <rect x="11" y="6" width="2" height="6" fill="#505050"/>
+</svg>

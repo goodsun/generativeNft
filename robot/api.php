@@ -4,47 +4,63 @@ header('Access-Control-Allow-Origin: *');
 
 // ピクセルアートロボットNFTのデータ
 $robots = [
-    ['name' => 'Android', 'file' => 'android.svg'],
-    ['name' => 'Guard', 'file' => 'guard.svg'],
-    ['name' => 'Speed', 'file' => 'speed.svg'],
-    ['name' => 'Heavy Duty', 'file' => 'heavy-duty.svg'],
-    ['name' => 'Scout', 'file' => 'scout.svg'],
-    ['name' => 'Construction', 'file' => 'construction.svg'],
-    ['name' => 'Arctic', 'file' => 'arctic.svg'],
-    ['name' => 'Surveillance', 'file' => 'surveillance.svg'],
-    ['name' => 'Drone', 'file' => 'drone.svg'],
-    ['name' => 'Utility', 'file' => 'utility.svg']
+    ['name' => 'Recon', 'file' => 'scout.svg'],
+    ['name' => 'Sentinel', 'file' => 'guard.svg'],
+    ['name' => 'Velocity', 'file' => 'speeder.svg'],
+    ['name' => 'Industrial', 'file' => 'heavy-duty.svg'],
+    ['name' => 'Humanoid', 'file' => 'android.svg'],
+    ['name' => 'Builder', 'file' => 'construction.svg'],
+    ['name' => 'Cryo', 'file' => 'arctic.svg'],
+    ['name' => 'Observer', 'file' => 'surveillance.svg'],
+    ['name' => 'BeeHive', 'file' => 'beehive.svg'],
+    ['name' => 'Multi-Purpose', 'file' => 'utility.svg']
 ];
 
 $items = [
-    ['name' => 'Crown', 'file' => 'crown.svg'],
-    ['name' => 'Sword', 'file' => 'sword.svg'],
+    ['name' => 'Bomb', 'file' => 'bomb.svg'],
+    ['name' => 'Lightsaber', 'file' => 'lightsaber.svg'],
     ['name' => 'Shield', 'file' => 'shield.svg'],
-    ['name' => 'Potion', 'file' => 'potion.svg'],
-    ['name' => 'Lantern', 'file' => 'lantern.svg'],
-    ['name' => 'Scroll', 'file' => 'scroll.svg'],
-    ['name' => 'Wine', 'file' => 'wine.svg'],
-    ['name' => 'Beer', 'file' => 'beer.svg'],
-    ['name' => 'Ice Cream', 'file' => 'icecream.svg'],
-    ['name' => 'Heart', 'file' => 'heart.svg']
+    ['name' => 'Exotic Matter', 'file' => 'poison.svg'],
+    ['name' => 'Heat Rod', 'file' => 'heat-rod.svg'],
+    ['name' => 'Missile Launcher', 'file' => 'missile-launcher.svg'],
+    ['name' => 'Heat Hawk', 'file' => 'heat-hawk.svg'],
+    ['name' => 'Utility Rod', 'file' => 'staff.svg'],
+    ['name' => 'Bomb', 'file' => 'bomb.svg'],
+    ['name' => 'Lightsaber', 'file' => 'lightsaber.svg'],
+    ['name' => 'Shield', 'file' => 'shield.svg'],
+    ['name' => 'Exotic Matter', 'file' => 'poison.svg'],
+    ['name' => 'Heat Rod', 'file' => 'heat-rod.svg'],
+    ['name' => 'Missile Launcher', 'file' => 'missile-launcher.svg'],
+    ['name' => 'Heat Hawk', 'file' => 'heat-hawk.svg'],
+    ['name' => 'Utility Rod', 'file' => 'staff.svg'],
+    ['name' => 'Bomb', 'file' => 'bomb.svg'],
+    ['name' => 'Lightsaber', 'file' => 'lightsaber.svg'],
+    ['name' => 'Shield', 'file' => 'shield.svg'],
+    ['name' => 'Exotic Matter', 'file' => 'poison.svg'],
+    ['name' => 'Heat Rod', 'file' => 'heat-rod.svg'],
+    ['name' => 'Missile Launcher', 'file' => 'missile-launcher.svg'],
+    ['name' => 'Heat Hawk', 'file' => 'heat-hawk.svg'],
+    ['name' => 'Utility Rod', 'file' => 'staff.svg'],
+    ['name' => 'Robot Arm', 'file' => 'arm.svg'],
+    ['name' => 'Tragedy', 'file' => 'head.svg']
 ];
 
 $colorSchemes = [
-    ['name' => 'Sunset', 'primary' => '#FF6B6B', 'secondary' => '#4ECDC4', 'background' => '#FFE66D'],
-    ['name' => 'Ocean', 'primary' => '#0077BE', 'secondary' => '#00A8E8', 'background' => '#00F5FF'],
-    ['name' => 'Forest', 'primary' => '#2D5016', 'secondary' => '#73A942', 'background' => '#AAD576'],
-    ['name' => 'Royal', 'primary' => '#6B5B95', 'secondary' => '#B565A7', 'background' => '#D64545'],
-    ['name' => 'Candy', 'primary' => '#FF69B4', 'secondary' => '#FFB6C1', 'background' => '#FFC0CB'],
-    ['name' => 'Night', 'primary' => '#1B1B3A', 'secondary' => '#693668', 'background' => '#51355A'],
-    ['name' => 'Fire', 'primary' => '#FF4500', 'secondary' => '#FF6347', 'background' => '#FFA500'],
-    ['name' => 'Ice', 'primary' => '#4682B4', 'secondary' => '#87CEEB', 'background' => '#E0FFFF'],
-    ['name' => 'Gold', 'primary' => '#FFD700', 'secondary' => '#FFA500', 'background' => '#FFFFE0'],
-    ['name' => 'Shadow', 'primary' => '#2F4F4F', 'secondary' => '#696969', 'background' => '#A9A9A9']
+    ['name' => 'Terminus', 'primary' => '#FF6B6B', 'secondary' => '#4ECDC4', 'background' => '#FFE66D'],
+    ['name' => 'Abyss', 'primary' => '#0077BE', 'secondary' => '#00A8E8', 'background' => '#00F5FF'],
+    ['name' => 'Synthesis', 'primary' => '#2D5016', 'secondary' => '#73A942', 'background' => '#AAD576'],
+    ['name' => 'Dominion', 'primary' => '#6B5B95', 'secondary' => '#B565A7', 'background' => '#D64545'],
+    ['name' => 'Neon', 'primary' => '#FF69B4', 'secondary' => '#FFB6C1', 'background' => '#FFC0CB'],
+    ['name' => 'Ragnarok', 'primary' => '#FFD700', 'secondary' => '#FFA500', 'background' => '#FFFFE0'],
+    ['name' => 'Forge', 'primary' => '#FF4500', 'secondary' => '#FF6347', 'background' => '#FFA500'],
+    ['name' => 'Void', 'primary' => '#1B1B3A', 'secondary' => '#693668', 'background' => '#51355A'],
+    ['name' => 'Cryos', 'primary' => '#4682B4', 'secondary' => '#87CEEB', 'background' => '#E0FFFF'],
+    ['name' => 'Eclipse', 'primary' => '#2F4F4F', 'secondary' => '#696969', 'background' => '#A9A9A9']
 ];
 
 $effects = [
-    'Sparkle', 'Glow', 'Rainbow', 'Stars', 'Hearts', 
-    'Bubbles', 'Lightning', 'Ripple', 'Pulse', 'Minimal'
+    'Quantum Reactor', 'Shield Module', 'Spectrum Scanner', 'Cloaking Device', 'Drones', 
+    'Matrix', 'EMP Generator', 'Sonar Array', 'Beacon Transmitter', 'Active Attitude System'
 ];
 
 function seededRandom($seed) {
@@ -84,14 +100,8 @@ function generateSVGImage($robot, $item, $colorScheme, $effect) {
     $saturate = ($colorScheme['name'] === 'Shadow') ? 0.3 : 1.5;
     
     // アイテムの位置調整
-    $itemX = 120;
-    $itemY = 120;
-    if ($item['name'] === 'Beer') {
-        $itemX = 130;
-    } elseif ($item['name'] === 'Crown') {
-        $itemX = 88;
-        $itemY = 8;
-    }
+    $itemX = 119;
+    $itemY = 66;
     
     // エフェクトSVGを簡略化（PHPでは複雑なアニメーションは省略）
     $effectSVG = '';
@@ -113,7 +123,7 @@ function generateSVGImage($robot, $item, $colorScheme, $effect) {
                 ' . $robotSVG . '
             </g>
         </g>
-        <g transform="translate(' . $itemX . ', ' . $itemY . ') scale(3)">
+        <g transform="translate(' . $itemX . ', ' . $itemY . ') scale(6)">
             ' . $itemSVG . '
         </g>
     </svg>';
@@ -128,9 +138,23 @@ function generateMetadataById($id) {
     $seed = intval($id) ?: 0;
     
     $robot = getSeededElement($robots, $seed, 1);
-    $item = getSeededElement($items, $seed, 2);
+    
+    // Tragedyは404の倍数でのみ出現
+    if ($seed % 404 === 0 && $seed !== 0) {
+        $item = ['name' => 'Tragedy', 'file' => 'head.svg'];
+    } else {
+        // Tragedyを除外したアイテムリスト
+        $regularItems = array_filter($items, function($i) {
+            return $i['name'] !== 'Tragedy';
+        });
+        $regularItems = array_values($regularItems); // インデックスをリセット
+        $item = getSeededElement($regularItems, $seed, 2);
+    }
+    
     $colorScheme = getSeededElement($colorSchemes, $seed, 3);
-    $effect = getSeededElement($effects, $seed, 4);
+    $effectIndex = floor(seededRandom($seed + 4) * count($effects));
+    $effectIndex = ($effectIndex + 5) % count($effects); // 5つずらす
+    $effect = $effects[$effectIndex];
     
     // レアリティ計算
     $rarityScore = ($seed % 100) + 1;
@@ -140,8 +164,23 @@ function generateMetadataById($id) {
     else if ($rarityScore > 70) $rarity = 'Rare';
     else if ($rarityScore > 50) $rarity = 'Uncommon';
     
-    $name = $colorScheme['name'] . ' ' . $robot['name'] . ' #' . $id;
-    $description = 'A unique pixel art ' . strtolower($robot['name']) . ' with ' . strtolower($item['name']) . ' in ' . strtolower($colorScheme['name']) . ' color scheme. ' . $rarity . ' collectible from the Pixel Robots collection.';
+    // Tragedyの場合は特別な名前
+    $name = $item['name'] === 'Tragedy' 
+        ? $robot['name'] . ' - Tragedy Bearer #' . $id
+        : $robot['name'] . ' with ' . $item['name'] . ' #' . $id;
+    // アイテムごとの特別な説明
+    $itemDescription = '';
+    if ($item['name'] === 'Tragedy') {
+        $itemDescription = 'carries the last remnant of organic life - a grim reminder of what once was';
+    } else if ($item['name'] === 'Exotic Matter') {
+        $itemDescription = 'powered by ' . strtolower($item['name']) . ', the mysterious substance that animates mechanical life';
+    } else if ($item['name'] === 'Robot Arm') {
+        $itemDescription = 'equipped with salvaged parts from fallen mechanical beings';
+    } else {
+        $itemDescription = 'armed with ' . strtolower($item['name']);
+    }
+    
+    $description = 'In the post-organic world, this ' . strtolower($colorScheme['name']) . '-hued ' . strtolower($robot['name']) . ' ' . $itemDescription . '. ' . $rarity . ' specimen from the Mechanical Animals archive.';
     
     // SVG画像を生成
     $image = generateSVGImage($robot, $item, $colorScheme, $effect);
@@ -153,19 +192,19 @@ function generateMetadataById($id) {
         'external_url' => 'https://pixelrobots.example.com/nft/' . $id,
         'attributes' => [
             [
-                'trait_type' => 'Robot',
+                'trait_type' => 'Unit Type',
                 'value' => $robot['name']
             ],
             [
-                'trait_type' => 'Item',
+                'trait_type' => 'Gear',
                 'value' => $item['name']
             ],
             [
-                'trait_type' => 'Color Scheme',
+                'trait_type' => 'Domain',
                 'value' => $colorScheme['name']
             ],
             [
-                'trait_type' => 'Effect',
+                'trait_type' => 'Equipment',
                 'value' => $effect
             ],
             [

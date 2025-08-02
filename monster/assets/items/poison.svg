@@ -1,0 +1,30 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- 毒ポーション (2/3サイズ) -->
+  <!-- コルク栓 -->
+  <rect x="10" y="5" width="4" height="2" fill="#2F2F2F"/>
+  <rect x="11" y="7" width="2" height="1" fill="#2F2F2F"/>
+  <!-- ボトルネック -->
+  <rect x="11" y="8" width="2" height="2" fill="#808080"/>
+  <!-- ボトル本体 -->
+  <rect x="9" y="10" width="6" height="1" fill="#808080"/>
+  <rect x="8" y="11" width="8" height="6" fill="#808080"/>
+  <rect x="9" y="17" width="6" height="1" fill="#808080"/>
+  <!-- 毒液 -->
+  <rect x="9" y="12" width="6" height="4" fill="#32CD32"/>
+  <rect x="10" y="11" width="4" height="1" fill="#32CD32"/>
+  <rect x="10" y="16" width="4" height="1" fill="#32CD32"/>
+  <!-- 毒の泡 -->
+  <rect x="10" y="12" width="1" height="1" fill="#7CFC00"/>
+  <rect x="13" y="13" width="1" height="1" fill="#7CFC00"/>
+  <rect x="11" y="14" width="1" height="1" fill="#7CFC00"/>
+  <!-- 毒ガス -->
+  <rect x="11" y="4" width="1" height="1" fill="#32CD32"/>
+  <rect x="13" y="3" width="1" height="1" fill="#7CFC00"/>
+  <rect x="10" y="3" width="1" height="1" fill="#228B22"/>
+  <!-- ドクロマーク -->
+  <rect x="11" y="13" width="2" height="1" fill="#000000"/>
+  <rect x="11" y="14" width="2" height="1" fill="#000000"/>
+  <!-- ガラスの反射 -->
+  <rect x="9" y="11" width="1" height="2" fill="#C0C0C0"/>
+  <rect x="8" y="12" width="1" height="1" fill="#A9A9A9"/>
+</svg>

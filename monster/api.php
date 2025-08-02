@@ -20,13 +20,29 @@ $items = [
     ['name' => 'Crown', 'file' => 'crown.svg'],
     ['name' => 'Sword', 'file' => 'sword.svg'],
     ['name' => 'Shield', 'file' => 'shield.svg'],
-    ['name' => 'Potion', 'file' => 'potion.svg'],
-    ['name' => 'Lantern', 'file' => 'lantern.svg'],
-    ['name' => 'Scroll', 'file' => 'scroll.svg'],
+    ['name' => 'Poison', 'file' => 'poison.svg'],
+    ['name' => 'Torch', 'file' => 'torch.svg'],
     ['name' => 'Wine', 'file' => 'wine.svg'],
-    ['name' => 'Beer', 'file' => 'beer.svg'],
-    ['name' => 'Ice Cream', 'file' => 'icecream.svg'],
-    ['name' => 'Heart', 'file' => 'heart.svg']
+    ['name' => 'Scythe', 'file' => 'scythe.svg'],
+    ['name' => 'Staff', 'file' => 'staff.svg'],
+    ['name' => 'Crown', 'file' => 'crown.svg'],
+    ['name' => 'Sword', 'file' => 'sword.svg'],
+    ['name' => 'Shield', 'file' => 'shield.svg'],
+    ['name' => 'Poison', 'file' => 'poison.svg'],
+    ['name' => 'Torch', 'file' => 'torch.svg'],
+    ['name' => 'Wine', 'file' => 'wine.svg'],
+    ['name' => 'Scythe', 'file' => 'scythe.svg'],
+    ['name' => 'Staff', 'file' => 'staff.svg'],
+    ['name' => 'Crown', 'file' => 'crown.svg'],
+    ['name' => 'Sword', 'file' => 'sword.svg'],
+    ['name' => 'Shield', 'file' => 'shield.svg'],
+    ['name' => 'Poison', 'file' => 'poison.svg'],
+    ['name' => 'Torch', 'file' => 'torch.svg'],
+    ['name' => 'Wine', 'file' => 'wine.svg'],
+    ['name' => 'Scythe', 'file' => 'scythe.svg'],
+    ['name' => 'Staff', 'file' => 'staff.svg'],
+    ['name' => 'Arm', 'file' => 'arm.svg'],
+    ['name' => 'Head', 'file' => 'head.svg']
 ];
 
 $colorSchemes = [
@@ -43,7 +59,7 @@ $colorSchemes = [
 ];
 
 $effects = [
-    'Sparkle', 'Glow', 'Rainbow', 'Stars', 'Hearts', 
+    'Sparkle', 'Glow', 'Rainbow', 'Stars', 'Bats', 
     'Bubbles', 'Lightning', 'Ripple', 'Pulse', 'Minimal'
 ];
 
@@ -84,13 +100,11 @@ function generateSVGImage($monster, $item, $colorScheme, $effect) {
     $saturate = ($colorScheme['name'] === 'Shadow') ? 0.3 : 1.5;
     
     // アイテムの位置調整
-    $itemX = 120;
-    $itemY = 120;
-    if ($item['name'] === 'Beer') {
-        $itemX = 130;
-    } elseif ($item['name'] === 'Crown') {
-        $itemX = 88;
-        $itemY = 8;
+    $itemX = 119;
+    $itemY = 90;
+    if ($item['name'] === 'Crown') {
+        $itemX = 46;
+        $itemY = 2;
     }
     
     // エフェクトSVGを簡略化（PHPでは複雑なアニメーションは省略）
@@ -113,7 +127,7 @@ function generateSVGImage($monster, $item, $colorScheme, $effect) {
                 ' . $monsterSVG . '
             </g>
         </g>
-        <g transform="translate(' . $itemX . ', ' . $itemY . ') scale(3)">
+        <g transform="translate(' . $itemX . ', ' . $itemY . ') scale(6)">
             ' . $itemSVG . '
         </g>
     </svg>';

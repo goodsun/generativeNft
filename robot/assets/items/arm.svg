@@ -1,0 +1,71 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- ロボットアーム (2/3サイズ、90度回転) -->
+  <g transform="rotate(180 12 12)">
+    <!-- 肩の接続部 -->
+    <rect x="8" y="5" width="4" height="2" fill="#606060"/>
+    <rect x="9" y="6" width="2" height="1" fill="#808080"/>
+    <!-- 上腕 -->
+    <rect x="9" y="7" width="3" height="4" fill="#C0C0C0"/>
+    <rect x="8" y="8" width="1" height="2" fill="#A0A0A0"/>
+    <rect x="12" y="8" width="1" height="2" fill="#E0E0E0"/>
+    <!-- 肘関節 -->
+    <rect x="9" y="11" width="3" height="1" fill="#404040"/>
+    <rect x="10" y="10" width="1" height="3" fill="#606060"/>
+    <!-- 前腕 -->
+    <rect x="10" y="12" width="3" height="4" fill="#C0C0C0"/>
+    <rect x="9" y="13" width="1" height="2" fill="#A0A0A0"/>
+    <rect x="13" y="13" width="1" height="2" fill="#E0E0E0"/>
+    <!-- 手首関節 -->
+    <rect x="10" y="16" width="3" height="1" fill="#404040"/>
+    <!-- ロボットハンド -->
+    <rect x="9" y="17" width="4" height="2" fill="#808080"/>
+    <rect x="8" y="18" width="1" height="1" fill="#606060"/>
+    <rect x="13" y="18" width="1" height="1" fill="#606060"/>
+    <rect x="14" y="17" width="1" height="1" fill="#606060"/>
+    <!-- 配線の断面 -->
+    <rect x="8" y="4" width="1" height="1" fill="#8B7355"/>
+    <rect x="11" y="4" width="1" height="1" fill="#8B4513"/>
+    <rect x="9" y="3" width="1" height="1" fill="#4B5320"/>
+    <!-- グリッパー -->
+    <rect x="9" y="19" width="1" height="1" fill="#404040"/>
+    <rect x="11" y="19" width="1" height="1" fill="#404040"/>
+    <rect x="13" y="19" width="1" height="1" fill="#404040"/>
+  </g>
+  <!-- 切断された配線 (180度回転後、付け根から出る) -->
+  <!-- 肩の付け根から出る配線（半分の長さでちぎれた感じ） -->
+  <rect x="12" y="19" width="1" height="2" fill="#8B7355"/>
+  <rect x="12" y="21" width="1" height="1" fill="#8B4513"/>
+  <rect x="12" y="22" width="1" height="1" fill="#4B5320"/>
+  
+  <rect x="13" y="20" width="1" height="2" fill="#8B4513"/>
+  <rect x="13" y="22" width="1" height="1" fill="#8B7355"/>
+  
+  <rect x="14" y="19" width="1" height="2" fill="#4B5320"/>
+  <rect x="14" y="21" width="1" height="2" fill="#696969"/>
+  
+  <rect x="15" y="20" width="1" height="2" fill="#8B7355"/>
+  <rect x="15" y="22" width="1" height="1" fill="#303030"/>
+  
+  <!-- ちぎれた端の表現 -->
+  <rect x="11" y="23" width="1" height="1" fill="#303030"/>
+  <rect x="16" y="21" width="1" height="1" fill="#505050"/>
+  <rect x="13" y="23" width="1" height="1" fill="#696969"/>
+  <rect x="15" y="23" width="1" height="1" fill="#404040"/>
+  
+  <!-- 電気火花 -->
+  <rect x="11" y="20" width="1" height="1" fill="#00FFFF">
+    <animate attributeName="opacity" values="0;1;0" dur="0.2s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="16" y="19" width="1" height="1" fill="#FFFF00">
+    <animate attributeName="opacity" values="0;1;0" dur="0.3s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="10" y="21" width="1" height="1" fill="#00FFFF">
+    <animate attributeName="opacity" values="0;1;0" dur="0.25s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="17" y="21" width="1" height="1" fill="#00FFFF">
+    <animate attributeName="opacity" values="0;1;0" dur="0.2s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="11" y="22" width="1" height="1" fill="#FFFF00">
+    <animate attributeName="opacity" values="0;1;0" dur="0.3s" repeatCount="indefinite"/>
+  </rect>
+</svg>

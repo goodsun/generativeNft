@@ -1,27 +1,27 @@
 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <!-- ピクセルアート風の王冠 -->
+  <!-- ピクセルアート風の王冠 (80%サイズ、上寄せ) -->
   <!-- 王冠の本体（金） -->
-  <rect x="5" y="11" width="2" height="5" fill="#FFD700"/>
-  <rect x="11" y="9" width="2" height="7" fill="#FFD700"/>
-  <rect x="17" y="11" width="2" height="5" fill="#FFD700"/>
-  <rect x="5" y="16" width="14" height="3" fill="#FFD700"/>
-  <rect x="7" y="12" width="4" height="4" fill="#FFD700"/>
-  <rect x="13" y="12" width="4" height="4" fill="#FFD700"/>
+  <rect x="7" y="2" width="2" height="4" fill="#FFD700"/>
+  <rect x="11" y="0" width="2" height="6" fill="#FFD700"/>
+  <rect x="15" y="2" width="2" height="4" fill="#FFD700"/>
+  <rect x="7" y="6" width="10" height="2" fill="#FFD700"/>
+  <rect x="9" y="4" width="2" height="2" fill="#FFD700"/>
+  <rect x="13" y="4" width="2" height="2" fill="#FFD700"/>
   <!-- 宝石部分（赤） -->
-  <rect x="5" y="9" width="2" height="2" fill="#DC143C"/>
-  <rect x="11" y="7" width="2" height="2" fill="#DC143C"/>
-  <rect x="17" y="9" width="2" height="2" fill="#DC143C"/>
+  <rect x="7" y="0" width="2" height="2" fill="#DC143C"/>
+  <rect x="11" y="0" width="2" height="1" fill="#DC143C"/>
+  <rect x="15" y="0" width="2" height="2" fill="#DC143C"/>
   <!-- 宝石の縁取り（銀） -->
-  <rect x="4" y="8" width="4" height="1" fill="#C0C0C0"/>
-  <rect x="4" y="11" width="4" height="1" fill="#C0C0C0"/>
-  <rect x="10" y="6" width="4" height="1" fill="#C0C0C0"/>
-  <rect x="10" y="9" width="4" height="1" fill="#C0C0C0"/>
-  <rect x="16" y="8" width="4" height="1" fill="#C0C0C0"/>
-  <rect x="16" y="11" width="4" height="1" fill="#C0C0C0"/>
+  <rect x="6" y="0" width="1" height="2" fill="#C0C0C0"/>
+  <rect x="9" y="0" width="1" height="2" fill="#C0C0C0"/>
+  <rect x="10" y="0" width="1" height="1" fill="#C0C0C0"/>
+  <rect x="13" y="0" width="1" height="1" fill="#C0C0C0"/>
+  <rect x="14" y="0" width="1" height="2" fill="#C0C0C0"/>
+  <rect x="17" y="0" width="1" height="2" fill="#C0C0C0"/>
   <!-- 装飾 -->
-  <rect x="8" y="14" width="2" height="2" fill="#FFF"/>
-  <rect x="14" y="14" width="2" height="2" fill="#FFF"/>
+  <rect x="10" y="5" width="1" height="1" fill="#FFF"/>
+  <rect x="13" y="5" width="1" height="1" fill="#FFF"/>
   <!-- ハイライト -->
-  <rect x="6" y="12" width="1" height="2" fill="#FFFFE0"/>
-  <rect x="12" y="10" width="1" height="2" fill="#FFFFE0"/>
+  <rect x="8" y="3" width="1" height="1" fill="#FFFFE0"/>
+  <rect x="12" y="1" width="1" height="2" fill="#FFFFE0"/>
 </svg>

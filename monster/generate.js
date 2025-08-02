@@ -17,13 +17,29 @@ const items = [
     { name: 'Crown', file: 'crown.svg' },
     { name: 'Sword', file: 'sword.svg' },
     { name: 'Shield', file: 'shield.svg' },
-    { name: 'Potion', file: 'potion.svg' },
-    { name: 'Lantern', file: 'lantern.svg' },
-    { name: 'Scroll', file: 'scroll.svg' },
+    { name: 'Poison', file: 'poison.svg' },
+    { name: 'Torch', file: 'torch.svg' },
     { name: 'Wine', file: 'wine.svg' },
-    { name: 'Beer', file: 'beer.svg' },
-    { name: 'Ice Cream', file: 'icecream.svg' },
-    { name: 'Heart', file: 'heart.svg' }
+    { name: 'Scythe', file: 'scythe.svg' },
+    { name: 'Staff', file: 'staff.svg' },
+    { name: 'Crown', file: 'crown.svg' },
+    { name: 'Sword', file: 'sword.svg' },
+    { name: 'Shield', file: 'shield.svg' },
+    { name: 'Poison', file: 'poison.svg' },
+    { name: 'Torch', file: 'torch.svg' },
+    { name: 'Wine', file: 'wine.svg' },
+    { name: 'Scythe', file: 'scythe.svg' },
+    { name: 'Staff', file: 'staff.svg' },
+    { name: 'Crown', file: 'crown.svg' },
+    { name: 'Sword', file: 'sword.svg' },
+    { name: 'Shield', file: 'shield.svg' },
+    { name: 'Poison', file: 'poison.svg' },
+    { name: 'Torch', file: 'torch.svg' },
+    { name: 'Wine', file: 'wine.svg' },
+    { name: 'Scythe', file: 'scythe.svg' },
+    { name: 'Staff', file: 'staff.svg' },
+    { name: 'Arm', file: 'arm.svg' },
+    { name: 'Head', file: 'head.svg' }
 ];
 
 const colorSchemes = [
@@ -41,17 +57,29 @@ const colorSchemes = [
 
 const effects = [
     { name: 'Sparkle', svg: `<g>
-        <circle cx="6" cy="6" r="1" fill="white">
+        <circle cx="6" cy="6" r="0.5" fill="#32CD32">
             <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="white;cyan;white" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#32CD32;#7CFC00;#00FF00" dur="3s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="18" cy="8" r="1" fill="white">
+        <circle cx="18" cy="8" r="0.5" fill="#9400D3">
             <animate attributeName="opacity" values="0;1;0" dur="2s" begin="0.5s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="white;yellow;white" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#9400D3;#FF00FF;#8B008B" dur="3s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="12" cy="18" r="1" fill="white">
+        <circle cx="12" cy="18" r="0.5" fill="#00FF00">
             <animate attributeName="opacity" values="0;1;0" dur="2s" begin="1s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="white;magenta;white" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#00FF00;#ADFF2F;#32CD32" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="3" cy="12" r="0.5" fill="#7CFC00">
+            <animate attributeName="opacity" values="0;1;0" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#7CFC00;#00FF00;#32CD32" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="21" cy="15" r="0.5" fill="#FF00FF">
+            <animate attributeName="opacity" values="0;1;0" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#FF00FF;#9400D3;#8B008B" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="9" cy="21" r="0.5" fill="#32CD32">
+            <animate attributeName="opacity" values="0;1;0" dur="2s" begin="1.3s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#32CD32;#ADFF2F;#7CFC00" dur="3s" repeatCount="indefinite"/>
         </circle>
     </g>` },
     { name: 'Glow', svg: `<g>
@@ -95,27 +123,69 @@ const effects = [
             <animate attributeName="fill" values="yellow;gold;yellow" dur="3s" repeatCount="indefinite"/>
         </text>
     </g>` },
-    { name: 'Hearts', svg: `<g>
-        <text x="2" y="6" font-size="8" fill="pink">♥
-            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="pink;red;pink" dur="3s" repeatCount="indefinite"/>
-            <animateTransform attributeName="transform" type="scale" values="1;1.2;1" dur="2s" repeatCount="indefinite" additive="sum"/>
-        </text>
-        <text x="16" y="18" font-size="8" fill="pink">♥
-            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="1s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="pink;hotpink;pink" dur="3s" repeatCount="indefinite"/>
-            <animateTransform attributeName="transform" type="scale" values="1;1.2;1" dur="2s" begin="1s" repeatCount="indefinite" additive="sum"/>
-        </text>
+    { name: 'Bats', svg: `<g>
+        <!-- バサバサ飛ぶコウモリ1 -->
+        <g>
+            <animateTransform attributeName="transform" type="translate" 
+                values="2,2; 8,4; 15,2; 20,6; 18,12; 10,15; 3,10; 2,2" 
+                dur="5s" repeatCount="indefinite"/>
+            <g>
+                <rect x="2" y="1" width="4" height="1" fill="#000000"/>
+                <rect x="0" y="2" width="8" height="1" fill="#000000">
+                    <animate attributeName="width" values="8;4;8;4;8" dur="0.3s" repeatCount="indefinite"/>
+                    <animate attributeName="x" values="0;2;0;2;0" dur="0.3s" repeatCount="indefinite"/>
+                </rect>
+                <rect x="3" y="2" width="2" height="1" fill="#8B008B"/>
+                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2s" repeatCount="indefinite"/>
+            </g>
+        </g>
+        <!-- バサバサ飛ぶコウモリ2 -->
+        <g>
+            <animateTransform attributeName="transform" type="translate" 
+                values="18,15; 12,12; 5,14; 2,8; 6,4; 14,6; 20,10; 18,15" 
+                dur="4s" begin="1s" repeatCount="indefinite"/>
+            <g>
+                <rect x="2" y="1" width="4" height="1" fill="#000000"/>
+                <rect x="0" y="2" width="8" height="1" fill="#000000">
+                    <animate attributeName="width" values="8;4;8;4;8" dur="0.3s" repeatCount="indefinite"/>
+                    <animate attributeName="x" values="0;2;0;2;0" dur="0.3s" repeatCount="indefinite"/>
+                </rect>
+                <rect x="3" y="2" width="2" height="1" fill="#4B0082"/>
+                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" begin="1s" repeatCount="indefinite"/>
+            </g>
+        </g>
+        <!-- バサバサ飛ぶコウモリ3 -->
+        <g>
+            <animateTransform attributeName="transform" type="translate" 
+                values="10,8; 16,3; 20,8; 15,12; 8,10; 4,6; 8,2; 10,8" 
+                dur="3.5s" begin="2s" repeatCount="indefinite"/>
+            <g>
+                <rect x="2" y="1" width="4" height="1" fill="#000000"/>
+                <rect x="0" y="2" width="8" height="1" fill="#000000">
+                    <animate attributeName="width" values="8;4;8;4;8" dur="0.3s" repeatCount="indefinite"/>
+                    <animate attributeName="x" values="0;2;0;2;0" dur="0.3s" repeatCount="indefinite"/>
+                </rect>
+                <rect x="3" y="2" width="2" height="1" fill="#2F4F4F"/>
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="2s" repeatCount="indefinite"/>
+            </g>
+        </g>
     </g>` },
     { name: 'Bubbles', svg: `<g>
-        <circle cx="6" cy="20" r="2" fill="none" stroke="lightblue" stroke-width="1">
+        <circle cx="6" cy="20" r="2" fill="none" stroke="#32CD32" stroke-width="1">
             <animate attributeName="cy" values="20;-2" dur="4s" repeatCount="indefinite"/>
             <animate attributeName="opacity" values="0;0.7;0" dur="4s" repeatCount="indefinite"/>
-            <animate attributeName="stroke" values="lightblue;white;lightblue" dur="4s" repeatCount="indefinite"/>
+            <animate attributeName="stroke" values="#32CD32;#7CFC00;#00FF00" dur="4s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="none;#32CD3220;none" dur="4s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="18" cy="20" r="1.5" fill="none" stroke="lightblue" stroke-width="1">
+        <circle cx="18" cy="20" r="1.5" fill="none" stroke="#9400D3" stroke-width="1">
             <animate attributeName="cy" values="20;-2" dur="3s" begin="1s" repeatCount="indefinite"/>
             <animate attributeName="opacity" values="0;0.7;0" dur="3s" begin="1s" repeatCount="indefinite"/>
+            <animate attributeName="stroke" values="#9400D3;#FF00FF;#8B008B" dur="3s" begin="1s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="12" cy="20" r="1" fill="none" stroke="#00FF00" stroke-width="1">
+            <animate attributeName="cy" values="20;-2" dur="3.5s" begin="0.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.8;0" dur="3.5s" begin="0.5s" repeatCount="indefinite"/>
+            <animate attributeName="stroke" values="#00FF00;#ADFF2F;#7CFC00" dur="3.5s" begin="0.5s" repeatCount="indefinite"/>
         </circle>
     </g>` },
     { name: 'Lightning', svg: `<g>
@@ -135,24 +205,24 @@ const effects = [
     </g>` },
     { name: 'Ripple', svg: `<g>
         ${Array.from({length: 4}, (_, i) => `
-            <circle cx="12" cy="12" r="1" fill="none" stroke="cyan" stroke-width="0.5">
+            <circle cx="12" cy="12" r="1" fill="none" stroke="#00FFFF" stroke-width="0.3">
                 <animate attributeName="r" 
                          values="1;10;1" 
                          dur="4s" 
                          begin="${i}s" 
                          repeatCount="indefinite"/>
                 <animate attributeName="opacity" 
-                         values="0.8;0;0.8" 
+                         values="1;0.1;1" 
                          dur="4s" 
                          begin="${i}s" 
                          repeatCount="indefinite"/>
                 <animate attributeName="stroke" 
-                         values="cyan;blue;purple;cyan" 
+                         values="#00FFFF;#00BFFF;#1E90FF;#00FFFF" 
                          dur="4s" 
                          begin="${i}s" 
                          repeatCount="indefinite"/>
                 <animate attributeName="stroke-width" 
-                         values="0.5;0.1;0.5" 
+                         values="0.3;0.1;0.3" 
                          dur="4s" 
                          begin="${i}s" 
                          repeatCount="indefinite"/>
@@ -285,7 +355,7 @@ async function generateCompositeImage(monsterSVG, itemSVG, colorScheme, effect, 
             </g>
             
             <!-- アイテム（モンスターの近くに配置） -->
-            <g transform="translate(${item.name === 'Beer' ? '130' : item.name === 'Crown' ? '88' : '120'}, ${item.name === 'Crown' ? '8' : '120'}) scale(3)">
+            <g transform="translate(${item.name === 'Crown' ? '46' : '119'}, ${item.name === 'Crown' ? '2' : '90'}) scale(6)">
                 ${itemSVG.replace(/<svg[^>]*>|<\/svg>/g, '')}
             </g>
             

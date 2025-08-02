@@ -1,0 +1,54 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- 近未来的ダイナマイト爆弾 -->
+  <!-- ダイナマイト本体（3本束） -->
+  <rect x="7" y="8" width="3" height="10" fill="#C0C0C0"/>
+  <rect x="10" y="8" width="3" height="10" fill="#C0C0C0"/>
+  <rect x="13" y="8" width="3" height="10" fill="#C0C0C0"/>
+  
+  <!-- メタルバンド -->
+  <rect x="6" y="10" width="11" height="1" fill="#606060"/>
+  <rect x="6" y="15" width="11" height="1" fill="#606060"/>
+  <rect x="6" y="9" width="11" height="1" fill="#808080"/>
+  <rect x="6" y="16" width="11" height="1" fill="#808080"/>
+  
+  <!-- デジタル起爆装置 -->
+  <rect x="9" y="5" width="5" height="3" fill="#202020"/>
+  <rect x="8" y="6" width="7" height="1" fill="#303030"/>
+  
+  <!-- LEDディスプレイ -->
+  <rect x="10" y="6" width="3" height="1" fill="#00FF00"/>
+  <rect x="10" y="6" width="3" height="1" fill="#00FF00" opacity="0">
+    <animate attributeName="opacity" values="0;1;0" dur="0.5s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- 配線 -->
+  <rect x="11" y="7" width="1" height="2" fill="#FFD700"/>
+  <rect x="10" y="6" width="1" height="2" fill="#FF4500"/>
+  <rect x="12" y="6" width="1" height="2" fill="#FF4500"/>
+  
+  <!-- 危険マーキング -->
+  <rect x="8" y="12" width="1" height="2" fill="#FFFF00"/>
+  <rect x="11" y="12" width="1" height="2" fill="#FFFF00"/>
+  <rect x="14" y="12" width="1" height="2" fill="#FFFF00"/>
+  
+  <!-- エンドキャップ -->
+  <rect x="7" y="7" width="3" height="1" fill="#808080"/>
+  <rect x="10" y="7" width="3" height="1" fill="#808080"/>
+  <rect x="13" y="7" width="3" height="1" fill="#808080"/>
+  <rect x="7" y="18" width="3" height="1" fill="#808080"/>
+  <rect x="10" y="18" width="3" height="1" fill="#808080"/>
+  <rect x="13" y="18" width="3" height="1" fill="#808080"/>
+  
+  <!-- パルスライト -->
+  <rect x="9" y="5" width="1" height="1" fill="#FF0000">
+    <animate attributeName="fill" values="#FF0000;#FFFF00;#FF0000" dur="1s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- アンテナ -->
+  <rect x="15" y="2" width="1" height="6" fill="#404040"/>
+  
+  <!-- アンテナの先端（点滅） -->
+  <rect x="15" y="0" width="1" height="2" fill="#FF0000">
+    <animate attributeName="opacity" values="0;1;0" dur="0.5s" repeatCount="indefinite"/>
+  </rect>
+</svg>
