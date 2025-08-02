@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Metadata Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .download-button {
+            background: #10b981;
+        }
+        
+        .download-button:hover {
+            background: #059669;
+        }
+        
+        .metadata-display {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .metadata-display.show {
+            display: block;
+        }
+        
+        .metadata-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .metadata-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        .metadata-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .metadata-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .attributes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .attribute {
+            background: #e2e8f0;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .attribute-type {
+            font-size: 0.9em;
+            color: #64748b;
+        }
+        
+        .attribute-value {
+            font-weight: bold;
+            color: #334155;
+        }
+        
+        .json-display {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+        
+        pre {
+            margin: 0;
+        }
+        
+        .copy-button {
+            background: #4b5563;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            float: right;
+            margin-top: -15px;
+            margin-right: -15px;
+        }
+        
+        .copy-button:hover {
+            background: #374151;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NFT Metadata Generator</h1>
+        
+        <div class="button-group">
+            <button onclick="generateSingle()">Generate Single</button>
+            <button onclick="generateBatch(5)">Generate Batch (5)</button>
+            <button onclick="generateBatch(10)">Generate Batch (10)</button>
+            <button onclick="downloadAll()" class="download-button">Download All as JSON</button>
+        </div>
+        
+        <div style="margin: 20px 0; text-align: center;">
+            <input type="number" id="idInput" placeholder="Enter ID (e.g. 1, 100, 9999)" style="padding: 10px; width: 200px; border-radius: 5px; border: 1px solid #ddd;">
+            <button onclick="generateById()" style="background: #059669;">Generate by ID</button>
+        </div>
+        
+        <div id="metadataDisplay" class="metadata-display"></div>
+    </div>
+    
+    <script>
+        const adjectives = ['Mystical', 'Legendary', 'Cosmic', 'Ancient', 'Ethereal', 'Radiant', 'Shadow', 'Crystal', 'Golden', 'Silver'];
+        const nouns = ['Dragon', 'Phoenix', 'Unicorn', 'Griffin', 'Sphinx', 'Kraken', 'Pegasus', 'Hydra', 'Minotaur', 'Chimera'];
+        const colors = ['Red', 'Blue', 'Green', 'Purple', 'Gold', 'Silver', 'Black', 'White', 'Rainbow', 'Crystal'];
+        
+        let currentMetadata = [];
+        
+        // シード付き疑似乱数生成器
+        function seededRandom(seed) {
+            const x = Math.sin(seed) * 10000;
+            return x - Math.floor(x);
+        }
+        
+        // IDベースで配列から要素を選択
+        function getSeededElement(array, seed, offset = 0) {
+            const index = Math.floor(seededRandom(seed + offset) * array.length);
+            return array[index];
+        }
+        
+        // IDベースで色を生成
+        function getSeededColor(seed) {
+            const r = Math.floor(seededRandom(seed + 100) * 256);
+            const g = Math.floor(seededRandom(seed + 200) * 256);
+            const b = Math.floor(seededRandom(seed + 300) * 256);
+            return `rgb(${r},${g},${b})`;
+        }
+        
+        function getRandomElement(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+        
+        function generateRandomColor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r},${g},${b})`;
+        }
+        
+        function getEffectByPowerLevel(powerLevel) {
+            // Power Levelを10で割って0-9のインデックスを取得
+            const effectIndex = Math.floor((powerLevel - 1) / 10);
+            const effects = [
+                // 0-10: 回転する光の粒子
+                `<g><animateTransform attributeName="transform" type="rotate" from="0 300 300" to="360 300 300" dur="30s" repeatCount="indefinite"/>${Array.from({length: 8}, (_, i) => {
+                    const angle = (i * Math.PI * 2) / 8;
+                    const radius = 150;
+                    const x = 300 + Math.cos(angle) * radius;
+                    const y = 300 + Math.sin(angle) * radius;
+                    return `<circle cx="${x}" cy="${y}" r="4" fill="white" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="${2 + i * 0.2}s" repeatCount="indefinite"/></circle>`;
+                }).join('')}</g>`,
+                // 11-20: 複数の星
+                `<g>${Array.from({length: 3}, (_, i) => `<text x="${200 + i * 100}" y="100" font-size="30" fill="yellow">★</text>`).join('')}</g>`,
+                // 21-30: 回転する魔法陣
+                `<g opacity="0.7">
+                    <circle cx="300" cy="300" r="180" fill="none" stroke="cyan" stroke-width="2"/>
+                    <circle cx="300" cy="300" r="150" fill="none" stroke="cyan" stroke-width="1"/>
+                    <animateTransform attributeName="transform" type="rotate" from="0 300 300" to="360 300 300" dur="20s" repeatCount="indefinite"/>
+                    ${Array.from({length: 6}, (_, i) => {
+                        const angle = (i * Math.PI * 2) / 6;
+                        const x1 = 300 + Math.cos(angle) * 150;
+                        const y1 = 300 + Math.sin(angle) * 150;
+                        const x2 = 300 + Math.cos(angle) * 180;
+                        const y2 = 300 + Math.sin(angle) * 180;
+                        return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="cyan" stroke-width="2"/>
+                                <circle cx="${x2}" cy="${y2}" r="8" fill="cyan">
+                                    <animate attributeName="r" values="8;12;8" dur="2s" begin="${i * 0.3}s" repeatCount="indefinite"/>
+                                </circle>`;
+                    }).join('')}
+                </g>`,
+                // 31-40: パルスする輪
+                `<circle cx="300" cy="300" r="200" fill="none" stroke="white" stroke-width="2" opacity="0.3"><animate attributeName="r" values="200;250;200" dur="3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.3;0.1;0.3" dur="3s" repeatCount="indefinite"/></circle>`,
+                // 41-50: 回転する光線
+                `<g>
+                    <g opacity="0.5">
+                        <animateTransform attributeName="transform" type="rotate" from="0 300 300" to="360 300 300" dur="15s" repeatCount="indefinite"/>
+                        <line x1="300" y1="300" x2="300" y2="50" stroke="gold" stroke-width="3"/>
+                        <line x1="300" y1="300" x2="300" y2="550" stroke="gold" stroke-width="3"/>
+                        <circle cx="300" cy="50" r="5" fill="gold">
+                            <animate attributeName="r" values="5;8;5" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="300" cy="550" r="5" fill="gold">
+                            <animate attributeName="r" values="5;8;5" dur="2s" begin="1s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                    <g opacity="0.5">
+                        <animateTransform attributeName="transform" type="rotate" from="0 300 300" to="-360 300 300" dur="15s" repeatCount="indefinite"/>
+                        <line x1="300" y1="300" x2="50" y2="300" stroke="gold" stroke-width="3"/>
+                        <line x1="300" y1="300" x2="550" y2="300" stroke="gold" stroke-width="3"/>
+                        <circle cx="50" cy="300" r="5" fill="gold">
+                            <animate attributeName="r" values="5;8;5" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="550" cy="300" r="5" fill="gold">
+                            <animate attributeName="r" values="5;8;5" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                </g>`,
+                // 51-60: ダイヤモンド
+                `<path d="M300,150 L450,300 L300,450 L150,300 Z" fill="none" stroke="magenta" stroke-width="3" opacity="0.5"><animateTransform attributeName="transform" type="rotate" from="0 300 300" to="360 300 300" dur="8s" repeatCount="indefinite"/></path>`,
+                // 61-70: オーラ
+                `<ellipse cx="300" cy="300" rx="200" ry="250" fill="none" stroke="url(#aura)" stroke-width="3" opacity="0.6"><animate attributeName="rx" values="200;220;200" dur="2s" repeatCount="indefinite"/></ellipse><defs><linearGradient id="aura"><stop offset="0%" style="stop-color:cyan;stop-opacity:1"/><stop offset="100%" style="stop-color:magenta;stop-opacity:1"/></linearGradient></defs>`,
+                // 71-80: ダビデの星（六芒星）
+                `<g>
+                    <g opacity="0.8" transform="rotate(90 300 300)">
+                        <animateTransform attributeName="transform" type="rotate" from="90 300 300" to="450 300 300" dur="12s" repeatCount="indefinite"/>
+                        <path d="M300,150 L430,375 L170,375 Z" fill="none" stroke="cyan" stroke-width="3">
+                            <animate attributeName="stroke" values="cyan;white;cyan" dur="4s" repeatCount="indefinite"/>
+                        </path>
+                        <circle cx="300" cy="150" r="5" fill="cyan">
+                            <animate attributeName="r" values="5;8;5" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="fill" values="cyan;white;cyan" dur="4s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="430" cy="375" r="5" fill="cyan">
+                            <animate attributeName="r" values="5;8;5" dur="2s" begin="0.67s" repeatCount="indefinite"/>
+                            <animate attributeName="fill" values="cyan;white;cyan" dur="4s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="170" cy="375" r="5" fill="cyan">
+                            <animate attributeName="r" values="5;8;5" dur="2s" begin="1.33s" repeatCount="indefinite"/>
+                            <animate attributeName="fill" values="cyan;white;cyan" dur="4s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                    <g opacity="0.8" transform="rotate(90 300 300)">
+                        <animateTransform attributeName="transform" type="rotate" from="90 300 300" to="-270 300 300" dur="12s" repeatCount="indefinite"/>
+                        <path d="M300,450 L430,225 L170,225 Z" fill="none" stroke="cyan" stroke-width="3">
+                            <animate attributeName="stroke" values="cyan;white;cyan" dur="4s" begin="2s" repeatCount="indefinite"/>
+                        </path>
+                        <circle cx="300" cy="450" r="5" fill="cyan">
+                            <animate attributeName="r" values="5;8;5" dur="2s" begin="1s" repeatCount="indefinite"/>
+                            <animate attributeName="fill" values="cyan;white;cyan" dur="4s" begin="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="430" cy="225" r="5" fill="cyan">
+                            <animate attributeName="r" values="5;8;5" dur="2s" begin="1.67s" repeatCount="indefinite"/>
+                            <animate attributeName="fill" values="cyan;white;cyan" dur="4s" begin="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="170" cy="225" r="5" fill="cyan">
+                            <animate attributeName="r" values="5;8;5" dur="2s" begin="0.33s" repeatCount="indefinite"/>
+                            <animate attributeName="fill" values="cyan;white;cyan" dur="4s" begin="2s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                </g>`,
+                // 81-90: 螺旋
+                `<path d="M300,300 m-150,0 a150,150 0 0,1 300,0 a150,150 0 0,1 -300,0" fill="none" stroke="lime" stroke-width="3" opacity="0.6" stroke-dasharray="20,10"><animate attributeName="stroke-dashoffset" values="0;30" dur="1s" repeatCount="indefinite"/></path>`,
+                // 91-100: 究極のエフェクト
+                `<g><circle cx="300" cy="300" r="250" fill="none" stroke="url(#ultimate)" stroke-width="5" opacity="0.8"><animate attributeName="r" values="250;280;250" dur="2s" repeatCount="indefinite"/></circle><path d="M300,50 L350,200 L500,200 L380,290 L430,440 L300,340 L170,440 L220,290 L100,200 L250,200 Z" fill="gold" opacity="0.6"><animateTransform attributeName="transform" type="rotate" from="0 300 300" to="360 300 300" dur="10s" repeatCount="indefinite"/></path><defs><linearGradient id="ultimate" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:gold;stop-opacity:1"/><stop offset="50%" style="stop-color:cyan;stop-opacity:1"/><stop offset="100%" style="stop-color:magenta;stop-opacity:1"/></linearGradient></defs></g>`
+            ];
+            return effects[effectIndex] || effects[0];
+        }
+        
+        function generateSVGImage(name, color, powerLevel = 50) {
+            const effect = getEffectByPowerLevel(powerLevel);
+            // Power Levelに基づいてスケールを決定（0.7〜1.3の範囲）
+            const scale = 0.7 + (powerLevel / 100) * 0.6;
+            const svg = `
+                <svg width="600" height="600" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:${color};stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="600" height="600" fill="url(#grad1)"/>
+                    <g transform="scale(${scale}) translate(${300 * (1/scale - 1)}, ${300 * (1/scale - 1)})">
+                        ${effect}
+                    </g>
+                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" 
+                          font-family="Arial, sans-serif" font-size="40" fill="white" font-weight="bold">
+                        <animate attributeName="opacity" values="0.6;1;0.6" dur="3s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="white;#f0f0f0;white" dur="2s" repeatCount="indefinite"/>
+                        ${name}
+                    </text>
+                </svg>
+            `;
+            return 'data:image/svg+xml;base64,' + btoa(svg);
+        }
+        
+        function generateMetadataById(id) {
+            const seed = parseInt(id) || 0;
+            const adjective = getSeededElement(adjectives, seed, 1);
+            const noun = getSeededElement(nouns, seed, 2);
+            const color = getSeededElement(colors, seed, 3);
+            const powerLevel = Math.floor(seededRandom(seed + 4) * 100) + 1;
+            
+            const name = `${adjective} ${noun} #${id}`;
+            const description = `A rare ${color.toLowerCase()} ${noun.toLowerCase()} with ${adjective.toLowerCase()} powers. This unique NFT is part of the legendary collection.`;
+            const image = generateSVGImage(name, getSeededColor(seed), powerLevel);
+            
+            return {
+                name,
+                description,
+                image,
+                attributes: [
+                    {
+                        trait_type: "Bloodline",
+                        value: noun
+                    },
+                    {
+                        trait_type: "Ancient Force",
+                        value: adjective
+                    },
+                    {
+                        trait_type: "Elemental Affinity",
+                        value: color
+                    },
+                    {
+                        trait_type: "Arcane Potency",
+                        value: powerLevel
+                    }
+                ]
+            };
+        }
+        
+        function generateRandomMetadata() {
+            const adjective = getRandomElement(adjectives);
+            const noun = getRandomElement(nouns);
+            const color = getRandomElement(colors);
+            const number = Math.floor(Math.random() * 9999) + 1;
+            
+            const powerLevel = Math.floor(Math.random() * 100) + 1;
+            const name = `${adjective} ${noun} #${number}`;
+            const description = `A rare ${color.toLowerCase()} ${noun.toLowerCase()} with ${adjective.toLowerCase()} powers. This unique NFT is part of the legendary collection.`;
+            const image = generateSVGImage(name, generateRandomColor(), powerLevel);
+            
+            return {
+                name,
+                description,
+                image,
+                attributes: [
+                    {
+                        trait_type: "Bloodline",
+                        value: noun
+                    },
+                    {
+                        trait_type: "Ancient Force",
+                        value: adjective
+                    },
+                    {
+                        trait_type: "Elemental Affinity",
+                        value: color
+                    },
+                    {
+                        trait_type: "Arcane Potency",
+                        value: powerLevel
+                    }
+                ]
+            };
+        }
+        
+        function generateSingle() {
+            const metadata = generateRandomMetadata();
+            currentMetadata = [metadata];
+            displayMetadata(currentMetadata);
+        }
+        
+        function generateBatch(count) {
+            currentMetadata = Array.from({ length: count }, () => generateRandomMetadata());
+            displayMetadata(currentMetadata);
+        }
+        
+        function generateById() {
+            const idInput = document.getElementById('idInput');
+            const id = idInput.value;
+            if (!id) {
+                alert('Please enter an ID');
+                return;
+            }
+            const metadata = generateMetadataById(id);
+            currentMetadata = [metadata];
+            displayMetadata(currentMetadata);
+        }
+        
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+        
+        function displayMetadata(metadataArray) {
+            const display = document.getElementById('metadataDisplay');
+            display.innerHTML = '';
+            display.classList.add('show');
+            
+            metadataArray.forEach((metadata, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'metadata-item';
+                
+                const attributesHtml = metadata.attributes.map(attr => `
+                    <div class="attribute">
+                        <div class="attribute-type">${attr.trait_type}</div>
+                        <div class="attribute-value">${attr.value}</div>
+                    </div>
+                `).join('');
+                
+                const jsonString = JSON.stringify(metadata, null, 2);
+                
+                itemDiv.innerHTML = `
+                    <img src="${metadata.image}" alt="${metadata.name}" class="metadata-image">
+                    <div class="metadata-name">${metadata.name}</div>
+                    <div class="metadata-description">${metadata.description}</div>
+                    <div class="attributes">${attributesHtml}</div>
+                    <div class="json-display">
+                        <button class="copy-button" onclick="copyToClipboard(\`${jsonString.replace(/`/g, '\\`')}\`, this)">Copy JSON</button>
+                        <pre>${jsonString}</pre>
+                    </div>
+                `;
+                
+                display.appendChild(itemDiv);
+            });
+        }
+        
+        function downloadAll() {
+            if (currentMetadata.length === 0) {
+                alert('Please generate some metadata first!');
+                return;
+            }
+            
+            const dataStr = JSON.stringify(currentMetadata, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `nft-metadata-${Date.now()}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+        
+        // Generate initial metadata on load
+        generateSingle();
+    </script>
+</body>
+</html>
