@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Mint Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .status-box {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .status-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .status-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        .status-value {
+            color: #334155;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .mint-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            width: 100%;
+        }
+        
+        .mint-button:hover:not(:disabled) {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .mint-button:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .connect-button {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .connect-button:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .error-message {
+            background: #fee;
+            color: #c53030;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .preview-container {
+            margin: 30px 0;
+            display: none;
+        }
+        
+        .preview-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+        
+        .preview-info {
+            margin-top: 20px;
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .network-warning {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .price-info {
+            font-size: 1.3em;
+            color: #667eea;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mint Your NFT</h1>
+        
+        <div class="network-warning" id="networkWarning">
+            Please switch to Polygon network to mint
+        </div>
+        
+        <div class="status-box">
+            <div class="status-item">
+                <span class="status-label">Contract Address</span>
+                <span class="status-value" id="contractAddress">Not Deployed</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Total Minted</span>
+                <span class="status-value"><span id="totalSupply">-</span> / 10,000</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Your Wallet</span>
+                <span class="status-value" id="walletAddress">Not Connected</span>
+            </div>
+        </div>
+        
+        <div class="price-info">
+            Mint Price: 3 POL
+        </div>
+        
+        <div class="preview-container" id="previewContainer">
+            <h3>Next NFT Preview</h3>
+            <img id="previewImage" class="preview-image" src="" alt="NFT Preview">
+            <div class="preview-info" id="previewInfo"></div>
+        </div>
+        
+        <button id="connectButton" class="connect-button" onclick="connectWallet()">
+            Connect Wallet
+        </button>
+        
+        <button id="mintButton" class="mint-button" onclick="mintNFT()" style="display: none;" disabled>
+            Mint NFT (3 POL)
+        </button>
+        
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script>
+        // コントラクトアドレス（デプロイ後に設定）
+        const CONTRACT_ADDRESS = '0x0000000000000000000000000000000000000000'; // デプロイ後に更新してください
+        
+        // Polygon Mainnet Chain ID
+        const POLYGON_CHAIN_ID = '0x89'; // 137 in hex
+        
+        // コントラクトABI（必要な関数のみ）
+        const CONTRACT_ABI = [
+            "function mint() public payable",
+            "function totalSupply() public view returns (uint256)",
+            "function MINT_PRICE() public view returns (uint256)",
+            "function MAX_SUPPLY() public view returns (uint256)",
+            "function tokenURI(uint256 tokenId) public view returns (string)",
+            "function generateSVG(uint256 tokenId) public view returns (string)"
+        ];
+        
+        let provider;
+        let signer;
+        let contract;
+        let currentAccount;
+        
+        // NFT生成ロジック（index.htmlから流用）
+        const adjectives = ['Mystical', 'Legendary', 'Cosmic', 'Ancient', 'Ethereal', 'Radiant', 'Shadow', 'Crystal', 'Golden', 'Silver'];
+        const nouns = ['Dragon', 'Phoenix', 'Unicorn', 'Griffin', 'Sphinx', 'Kraken', 'Pegasus', 'Hydra', 'Minotaur', 'Chimera'];
+        const colors = ['Red', 'Blue', 'Green', 'Purple', 'Gold', 'Silver', 'Black', 'White', 'Rainbow', 'Crystal'];
+        
+        function seededRandom(seed) {
+            const x = Math.sin(seed) * 10000;
+            return x - Math.floor(x);
+        }
+        
+        function getSeededElement(array, seed, offset = 0) {
+            const index = Math.floor(seededRandom(seed + offset) * array.length);
+            return array[index];
+        }
+        
+        async function connectWallet() {
+            try {
+                if (!window.ethereum) {
+                    showError('Please install MetaMask to mint NFTs');
+                    return;
+                }
+                
+                // Request account access
+                const accounts = await window.ethereum.request({ 
+                    method: 'eth_requestAccounts' 
+                });
+                currentAccount = accounts[0];
+                
+                // Check network
+                const chainId = await window.ethereum.request({ 
+                    method: 'eth_chainId' 
+                });
+                
+                if (chainId !== POLYGON_CHAIN_ID) {
+                    document.getElementById('networkWarning').style.display = 'block';
+                    await switchToPolygon();
+                } else {
+                    document.getElementById('networkWarning').style.display = 'none';
+                }
+                
+                // Setup ethers
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = provider.getSigner();
+                
+                // Only create contract instance if address is set
+                if (CONTRACT_ADDRESS !== '0x0000000000000000000000000000000000000000') {
+                    contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                    document.getElementById('contractAddress').textContent = 
+                        CONTRACT_ADDRESS.slice(0, 6) + '...' + CONTRACT_ADDRESS.slice(-4);
+                }
+                
+                // Update UI
+                document.getElementById('walletAddress').textContent = 
+                    currentAccount.slice(0, 6) + '...' + currentAccount.slice(-4);
+                document.getElementById('connectButton').style.display = 'none';
+                document.getElementById('mintButton').style.display = 'block';
+                
+                // Load contract data
+                await updateContractInfo();
+                
+                // Listen for account changes
+                window.ethereum.on('accountsChanged', handleAccountsChanged);
+                window.ethereum.on('chainChanged', () => window.location.reload());
+                
+            } catch (error) {
+                console.error('Connection error:', error);
+                showError('Failed to connect wallet: ' + error.message);
+            }
+        }
+        
+        async function switchToPolygon() {
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: POLYGON_CHAIN_ID }],
+                });
+            } catch (switchError) {
+                // This error code indicates that the chain has not been added to MetaMask
+                if (switchError.code === 4902) {
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [{
+                                chainId: POLYGON_CHAIN_ID,
+                                chainName: 'Polygon Mainnet',
+                                nativeCurrency: {
+                                    name: 'MATIC',
+                                    symbol: 'MATIC',
+                                    decimals: 18
+                                },
+                                rpcUrls: ['https://polygon-rpc.com/'],
+                                blockExplorerUrls: ['https://polygonscan.com/']
+                            }],
+                        });
+                    } catch (addError) {
+                        showError('Failed to add Polygon network');
+                    }
+                }
+            }
+        }
+        
+        function handleAccountsChanged(accounts) {
+            if (accounts.length === 0) {
+                // User disconnected
+                window.location.reload();
+            } else if (accounts[0] !== currentAccount) {
+                // Account changed
+                window.location.reload();
+            }
+        }
+        
+        async function updateContractInfo() {
+            if (!contract) {
+                document.getElementById('mintButton').disabled = true;
+                document.getElementById('mintButton').textContent = 'Contract Not Deployed';
+                return;
+            }
+            
+            try {
+                const totalSupply = await contract.totalSupply();
+                const maxSupply = await contract.MAX_SUPPLY();
+                
+                document.getElementById('totalSupply').textContent = totalSupply.toString();
+                
+                if (totalSupply.gte(maxSupply)) {
+                    document.getElementById('mintButton').disabled = true;
+                    document.getElementById('mintButton').textContent = 'Sold Out';
+                } else {
+                    document.getElementById('mintButton').disabled = false;
+                    
+                    // Show preview of next NFT
+                    const nextTokenId = totalSupply.add(1).toNumber();
+                    showPreview(nextTokenId);
+                }
+            } catch (error) {
+                console.error('Error updating contract info:', error);
+            }
+        }
+        
+        function showPreview(tokenId) {
+            const seed = tokenId;
+            const adjective = getSeededElement(adjectives, seed, 1);
+            const noun = getSeededElement(nouns, seed, 2);
+            const color = getSeededElement(colors, seed, 3);
+            const powerLevel = Math.floor(seededRandom(seed + 4) * 100) + 1;
+            
+            const previewContainer = document.getElementById('previewContainer');
+            const previewImage = document.getElementById('previewImage');
+            const previewInfo = document.getElementById('previewInfo');
+            
+            // Generate preview using the same logic as index.html
+            const r = Math.floor(seededRandom(seed + 100) * 256);
+            const g = Math.floor(seededRandom(seed + 200) * 256);
+            const b = Math.floor(seededRandom(seed + 300) * 256);
+            
+            // Create simple preview SVG
+            const svg = `
+                <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:rgb(${r},${g},${b});stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="300" height="300" fill="url(#grad1)"/>
+                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" 
+                          font-family="Arial, sans-serif" font-size="20" fill="white" font-weight="bold">
+                        ${adjective} ${noun} #${tokenId}
+                    </text>
+                </svg>
+            `;
+            
+            previewImage.src = 'data:image/svg+xml;base64,' + btoa(svg);
+            previewInfo.innerHTML = `
+                <div><strong>Token ID:</strong> #${tokenId}</div>
+                <div><strong>Bloodline:</strong> ${noun}</div>
+                <div><strong>Ancient Force:</strong> ${adjective}</div>
+                <div><strong>Elemental Affinity:</strong> ${color}</div>
+                <div><strong>Arcane Potency:</strong> ${powerLevel}</div>
+            `;
+            
+            previewContainer.style.display = 'block';
+        }
+        
+        async function mintNFT() {
+            if (!contract) {
+                showError('Contract not deployed yet');
+                return;
+            }
+            
+            const mintButton = document.getElementById('mintButton');
+            const originalText = mintButton.innerHTML;
+            
+            try {
+                mintButton.disabled = true;
+                mintButton.innerHTML = 'Minting...<span class="loading"></span>';
+                
+                // Call mint function with 3 POL
+                const mintPrice = ethers.utils.parseEther('3');
+                const tx = await contract.mint({ value: mintPrice });
+                
+                mintButton.innerHTML = 'Confirming...<span class="loading"></span>';
+                
+                // Wait for transaction confirmation
+                const receipt = await tx.wait();
+                
+                // Show success message
+                const tokenId = await contract.totalSupply();
+                showSuccess(`Successfully minted NFT #${tokenId}! Transaction: ${tx.hash.slice(0, 10)}...`);
+                
+                // Update contract info
+                await updateContractInfo();
+                
+            } catch (error) {
+                console.error('Minting error:', error);
+                if (error.code === 'ACTION_REJECTED') {
+                    showError('Transaction cancelled');
+                } else if (error.message.includes('insufficient funds')) {
+                    showError('Insufficient POL balance');
+                } else {
+                    showError('Minting failed: ' + (error.reason || error.message));
+                }
+            } finally {
+                mintButton.disabled = false;
+                mintButton.innerHTML = originalText;
+            }
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+        
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 10000);
+        }
+        
+        // Check if already connected on page load
+        window.addEventListener('load', async () => {
+            if (window.ethereum && window.ethereum.selectedAddress) {
+                await connectWallet();
+            }
+        });
+    </script>
+</body>
+</html>

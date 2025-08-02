@@ -39,6 +39,14 @@
 - **Generate Batch**: 5個または10個を一括生成
 - **Generate by ID**: 特定のID（1-10000推奨）でNFTを生成
 - **Download All as JSON**: 生成したメタデータをダウンロード
+- **Mint NFT**: ミントページへ移動
+
+### ミントページ（mint.html）
+
+- MetaMask連携でPolygonネットワークに接続
+- 3 POLでNFTをミント（先着順で連番発行）
+- 次にミントされるNFTのプレビュー表示
+- 現在の供給量とウォレット接続状態を表示
 
 ### API（api.php）
 
@@ -87,6 +95,7 @@ GET api.php?id=5000  # ID 5000のNFTメタデータを取得
 ```
 metasample/
 ├── index.html              # メインUI（ブラウザで直接開ける）
+├── mint.html               # NFTミントページ（Web3対応）
 ├── api.php                 # JSON API（PHPサーバー必要）
 ├── NFTMetadataOnChain.sol  # Solidityスマートコントラクト
 └── README.md               # このファイル
@@ -106,8 +115,8 @@ metasample/
 ### コントラクトメソッド
 
 ```solidity
-// NFTをミント
-mint(uint256 tokenId)
+// NFTをミント（3 POL必要）
+mint() payable
 
 // 属性を個別に取得
 getBloodline(uint256 tokenId) returns (string)
@@ -120,12 +129,26 @@ generateSVG(uint256 tokenId) returns (string)
 
 // 完全なメタデータを取得（ERC721準拠）
 tokenURI(uint256 tokenId) returns (string)
+
+// 現在の総供給量を取得
+totalSupply() returns (uint256)
+
+// コントラクトの残高を引き出す（オーナーのみ）
+withdraw()
 ```
+
+### コントラクト仕様
+
+- **最大供給量**: 10,000個
+- **ミント価格**: 3 POL（Polygon）
+- **ミント方式**: 先着順で連番発行（ID: 1〜10,000）
+- **引き出し**: オーナーのみ可能
 
 ### デプロイ時の注意
 
 - OpenZeppelinの依存関係が必要
 - Solidity 0.8.19以上を推奨
+- Polygonネットワークでのデプロイを想定
 - ガスコストを考慮してエフェクトは簡略版を使用
 
 ## デモ

@@ -13,10 +13,41 @@ contract NFTMetadataOnChain is ERC721 {
     string[10] private ancientForces = ["Mystical", "Legendary", "Cosmic", "Ancient", "Ethereal", "Radiant", "Shadow", "Crystal", "Golden", "Silver"];
     string[10] private elementalAffinities = ["Red", "Blue", "Green", "Purple", "Gold", "Silver", "Black", "White", "Rainbow", "Crystal"];
     
-    constructor() ERC721("OnChainNFT", "OCNFT") {}
+    uint256 public constant MAX_SUPPLY = 10000;
+    uint256 public constant MINT_PRICE = 3 ether; // 3 POL on Polygon
+    uint256 private _currentTokenId = 0;
+    address private _owner;
     
-    function mint(uint256 tokenId) public {
-        _mint(msg.sender, tokenId);
+    modifier onlyOwner() {
+        require(msg.sender == _owner, "Only owner can call this function");
+        _;
+    }
+    
+    constructor() ERC721("OnChainNFT", "OCNFT") {
+        _owner = msg.sender;
+    }
+    
+    function mint() public payable {
+        require(_currentTokenId < MAX_SUPPLY, "Max supply reached");
+        require(msg.value >= MINT_PRICE, "Insufficient payment");
+        
+        _currentTokenId++;
+        _mint(msg.sender, _currentTokenId);
+        
+        // 余分な支払いがあった場合は返金
+        if (msg.value > MINT_PRICE) {
+            payable(msg.sender).transfer(msg.value - MINT_PRICE);
+        }
+    }
+    
+    function withdraw() public onlyOwner {
+        uint256 balance = address(this).balance;
+        require(balance > 0, "No funds to withdraw");
+        payable(_owner).transfer(balance);
+    }
+    
+    function totalSupply() public view returns (uint256) {
+        return _currentTokenId;
     }
     
     // シード付き疑似乱数生成
