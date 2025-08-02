@@ -1,17 +1,237 @@
-// ピクセルアートモンスターNFTジェネレーター（ストーリー版）
+// Pixel Monsters NFT Generator - Browser Version
+// This file combines synergies.js and generate.js for easier browser usage
 
-// ブラウザ環境の場合、synergyシステムはグローバル変数として読み込む
-let checkSynergies, calculateRarity, generateBaseStory;
-if (typeof require !== 'undefined') {
-    // Node.js環境
-    const synergies = require('./synergies');
-    checkSynergies = synergies.checkSynergies;
-    calculateRarity = synergies.calculateRarity;
-    generateBaseStory = synergies.generateBaseStory;
-} else {
-    // ブラウザ環境 - 実行時に関数を取得
-    // 関数は使用時に window から取得する
+// ===== SYNERGIES SYSTEM =====
+
+// Quad Synergy (Ultimate Combinations) - 0.01% chance
+const quadSynergies = [
+    {
+        combo: ['Dragon', 'Crown', 'Ragnarok', 'Meteor'],
+        title: 'Cosmic Sovereign',
+        story: 'The cosmic ruler who brings the end times. Its crown channels meteor storms that herald the final days.',
+        rarity: 'Mythic'
+    },
+    {
+        combo: ['Skeleton', 'Scythe', 'Shadow', 'Mind Blast'],
+        title: 'Soul Harvester',
+        story: 'The ultimate reaper of souls. Its psychic scythe cuts through both flesh and consciousness.',
+        rarity: 'Mythic'
+    },
+    {
+        combo: ['Vampire', 'Wine', 'Bloodmoon', 'Bats'],
+        title: 'Crimson Lord',
+        story: 'Under the blood moon, the crimson ruler commands legions of bats. The ancient vampire lord in its truest form.',
+        rarity: 'Mythic'
+    },
+    {
+        combo: ['Demon', 'Torch', 'Inferno', 'Lightning'],
+        title: 'Hellstorm Avatar',
+        story: 'The incarnation of hell\'s tempest. Lightning-wreathed flames announce its apocalyptic arrival.',
+        rarity: 'Mythic'
+    },
+    {
+        combo: ['Succubus', 'Magic Wand', 'Corruption', 'Brain Wash'],
+        title: 'Mind Empress',
+        story: 'The corrupted empress who enslaves minds. Her wand weaves thoughts into chains of eternal servitude.',
+        rarity: 'Mythic'
+    },
+    {
+        combo: ['Mummy', 'Sword', 'Void', 'Burning'],
+        title: 'Eternal Warrior',
+        story: 'An immortal ancient warrior wrapped in void flames. Time means nothing to this burning guardian.',
+        rarity: 'Mythic'
+    },
+    {
+        combo: ['Frankenstein', 'Poison', 'Venom', 'Seizure'],
+        title: 'Toxic Abomination',
+        story: 'An undying monster saturated with poison. Its body convulses eternally from the toxins it cannot expel.',
+        rarity: 'Mythic'
+    },
+    {
+        combo: ['Werewolf', 'Head', 'Abyss', 'Confusion'],
+        title: 'Lunatic Alpha',
+        story: 'The pack leader consumed by abyssal madness. It carries trophies of those who challenged its insanity.',
+        rarity: 'Mythic'
+    },
+    {
+        combo: ['Zombie', 'Arm', 'Decay', 'Poisoning'],
+        title: 'Rotting Collector',
+        story: 'A putrid corpse collector spreading toxic decay. Each arm in its collection tells a story of plague.',
+        rarity: 'Mythic'
+    },
+    {
+        combo: ['Goblin', 'Shield', 'Frost', 'Blizzard'],
+        title: 'Frozen Guardian',
+        story: 'The ice sprite defending eternal permafrost. Its shield channels blizzards that freeze time itself.',
+        rarity: 'Mythic'
+    }
+];
+
+// Trinity Synergies (3-element combinations) - 0.1% chance
+const trinitySynergies = [
+    // Fire Trinity
+    { combo: ['Dragon', 'Sword', 'Burning'], title: 'Primordial Flame Lord', story: 'The original fire drake wielding a blade forged in creation\'s flames.' },
+    { combo: ['Demon', 'Torch', 'Inferno'], title: 'Hell\'s Gatekeeper', story: 'Guardian of the infernal gates, its torch lights the path to damnation.' },
+    
+    // Death Trinity
+    { combo: ['Skeleton', 'Scythe', 'Shadow'], title: 'Death Incarnate', story: 'Death given form, harvesting souls in shadow\'s embrace.' },
+    { combo: ['Zombie', 'Head', 'Decay'], title: 'Undead Overlord', story: 'The first risen, commanding legions with severed heads as trophies.' },
+    
+    // Mind Trinity
+    { combo: ['Succubus', 'Wine', 'Brain Wash'], title: 'Mind Seductress', story: 'She who intoxicates minds with cursed wine and forbidden desires.' },
+    { combo: ['Vampire', 'Crown', 'Mind Blast'], title: 'Psychic Monarch', story: 'The vampire king whose crown amplifies psychic dominion.' },
+    { combo: ['Vampire', 'Wine', 'Bats'], title: 'Classic Nosferatu', story: 'The iconic vampire in its most traditional form - wine, blood, and winged servants.', autoLegendary: true },
+    
+    // Nature Trinity
+    { combo: ['Werewolf', 'Arm', 'Bloodmoon'], title: 'Lunar Beast', story: 'Under the blood moon, the beast collects arms of fallen hunters.' },
+    { combo: ['Mummy', 'Void', 'Ragnarok'], title: 'Ancient Apocalypse', story: 'The void-touched pharaoh who brings the end of ages.' },
+    
+    // Madness Trinity
+    { combo: ['Frankenstein', 'Lightning', 'Seizure'], title: 'Aberrant Creation', story: 'Lightning-born abomination wracked by eternal spasms.' },
+    { combo: ['Goblin', 'Corruption', 'Confusion'], title: 'Mad Trickster', story: 'A corrupted goblin spreading chaos through mind-bending pranks.' },
+    
+    // Poison Trinity (Species-agnostic)
+    { combo: ['Poison', 'Venom', 'Poisoning'], title: 'Toxic Trinity', story: 'The perfect convergence of all toxic forces.', speciesAgnostic: true },
+    
+    // Ice Trinity (Species-agnostic)
+    { combo: ['Shield', 'Frost', 'Blizzard'], title: 'Frozen Fortress', story: 'An impenetrable defense of eternal winter.', speciesAgnostic: true },
+    
+    // Cosmic Trinity (Species-agnostic)
+    { combo: ['Magic Wand', 'Abyss', 'Meteor'], title: 'Cosmic Sorcery', story: 'Deep space magic calling meteors from the abyss.', speciesAgnostic: true }
+];
+
+// Dual Synergies - 1% chance
+const dualSynergies = {
+    speciesEquipment: [
+        // Legendary tier
+        { combo: ['Vampire', 'Wine'], title: 'Blood Sommelier', story: 'A refined predator who has transcended mere survival. This vampire has cultivated an exquisite palate for the finest vintages - both wine and blood.', tier: 'Legendary' },
+        { combo: ['Skeleton', 'Scythe'], title: 'Death\'s Herald', story: 'The original harbinger of doom. This skeletal reaper has collected souls since the dawn of mortality itself.', tier: 'Legendary' },
+        { combo: ['Dragon', 'Crown'], title: 'The Fallen Monarch', story: 'Once ruled the skies with absolute authority. Now seeks to reclaim the throne stolen by lesser beings.', tier: 'Legendary' },
+        { combo: ['Demon', 'Torch'], title: 'Infernal Lightkeeper', story: 'Guardian of the eternal flames that bridge the mortal realm and the underworld. Its torch never extinguishes.', tier: 'Legendary' },
+        { combo: ['Werewolf', 'Head'], title: 'The Alpha\'s Trophy', story: 'This werewolf carries the severed head of its pack\'s former leader, a grim reminder of the brutal law of nature.', tier: 'Legendary' },
+        
+        // Epic tier
+        { combo: ['Frankenstein', 'Arm'], title: 'The Collector', story: 'An abomination that grafts new limbs onto itself, growing stronger with each defeated foe.', tier: 'Epic' },
+        { combo: ['Mummy', 'Magic Wand'], title: 'Pharaoh\'s Awakening', story: 'An ancient ruler risen from eternal slumber, wielding the wand of divine authority.', tier: 'Epic' },
+        { combo: ['Goblin', 'Sword'], title: 'Blade Master', story: 'A goblin warrior who mastered the way of the blade through centuries of combat.', tier: 'Epic' },
+        { combo: ['Succubus', 'Shield'], title: 'Temptress Guardian', story: 'A succubus who protects her victims from other demons, keeping them for herself.', tier: 'Epic' },
+        { combo: ['Zombie', 'Poison'], title: 'Patient Zero', story: 'The original infected. Its toxic blood spawned the great plague that consumed civilizations.', tier: 'Epic' }
+    ],
+    
+    curseRealm: [
+        { combo: ['Burning', 'Inferno'], title: 'Eternal Flame', story: 'Fire that burns without fuel, consuming reality itself.' },
+        { combo: ['Blizzard', 'Frost'], title: 'Absolute Zero', story: 'Where ice meets storm, nothing survives.' },
+        { combo: ['Poisoning', 'Venom'], title: 'Toxic Miasma', story: 'A poisonous fog that corrupts all it touches.' },
+        { combo: ['Mind Blast', 'Void'], title: 'Mental Collapse', story: 'The void between thoughts where sanity dies.' },
+        { combo: ['Lightning', 'Bloodmoon'], title: 'Crimson Thunder', story: 'Blood-red lightning that strikes with divine wrath.' },
+        { combo: ['Brain Wash', 'Corruption'], title: 'Mind Corruption', story: 'Thoughts twisted into weapons against their owner.' },
+        { combo: ['Meteor', 'Ragnarok'], title: 'Apocalypse Rain', story: 'The sky falls, bringing the end of all things.' },
+        { combo: ['Bats', 'Shadow'], title: 'Night Terror', story: 'Living shadows that feast on fear.' },
+        { combo: ['Confusion', 'Decay'], title: 'Madness Plague', story: 'A disease that rots both mind and body.' },
+        { combo: ['Seizure', 'Abyss'], title: 'Deep Tremor', story: 'Convulsions from staring too long into the infinite dark.' }
+    ]
+};
+
+// Check for synergies
+function checkSynergies(species, equipment, realm, curse) {
+    const elements = [species, equipment, realm, curse].filter(e => e);
+    
+    // Check Quad Synergy first (highest priority)
+    const quadMatch = quadSynergies.find(s => 
+        s.combo.every(el => elements.includes(el))
+    );
+    if (quadMatch) {
+        return { type: 'quad', ...quadMatch };
+    }
+    
+    // Check Trinity Synergies
+    const trinityMatch = trinitySynergies.find(s => {
+        if (s.speciesAgnostic) {
+            // For species-agnostic synergies, just check if all elements are present
+            return s.combo.every(el => elements.includes(el));
+        } else {
+            // For normal trinity, all combo elements must match
+            return s.combo.every(el => elements.includes(el));
+        }
+    });
+    if (trinityMatch) {
+        return { type: 'trinity', ...trinityMatch };
+    }
+    
+    // Check Dual Synergies
+    const dualMatches = [];
+    
+    // Check Species + Equipment
+    const speciesEquipMatch = dualSynergies.speciesEquipment.find(s =>
+        s.combo[0] === species && s.combo[1] === equipment
+    );
+    if (speciesEquipMatch) {
+        dualMatches.push({ type: 'dual', category: 'species-equipment', ...speciesEquipMatch });
+    }
+    
+    // Check Curse + Realm
+    const curseRealmMatch = dualSynergies.curseRealm.find(s =>
+        (s.combo[0] === curse && s.combo[1] === realm) ||
+        (s.combo[0] === realm && s.combo[1] === curse)
+    );
+    if (curseRealmMatch) {
+        dualMatches.push({ type: 'dual', category: 'curse-realm', ...curseRealmMatch });
+    }
+    
+    if (dualMatches.length > 0) {
+        // If multiple dual synergies, combine them
+        if (dualMatches.length > 1) {
+            return {
+                type: 'dual-combo',
+                matches: dualMatches,
+                title: dualMatches.map(m => m.title).join(' & '),
+                story: dualMatches.map(m => m.story).join(' ')
+            };
+        }
+        return dualMatches[0];
+    }
+    
+    return null;
 }
+
+// Calculate rarity based on synergies
+function calculateRarity(baseSeed, synergy) {
+    const baseRarity = (baseSeed % 100) + 1;
+    
+    if (synergy) {
+        if (synergy.rarity === 'Mythic') return 'Mythic';
+        if (synergy.autoLegendary) return 'Legendary';
+        
+        switch (synergy.type) {
+            case 'quad':
+                return 'Mythic';
+            case 'trinity':
+                if (baseRarity > 50) return 'Legendary';
+                return 'Epic';
+            case 'dual':
+            case 'dual-combo':
+                if (synergy.tier === 'Legendary' || baseRarity > 80) return 'Legendary';
+                if (synergy.tier === 'Epic' || baseRarity > 60) return 'Epic';
+                return 'Rare';
+            default:
+                break;
+        }
+    }
+    
+    // Base rarity calculation
+    if (baseRarity > 95) return 'Legendary';
+    if (baseRarity > 85) return 'Epic';
+    if (baseRarity > 70) return 'Rare';
+    if (baseRarity > 50) return 'Uncommon';
+    return 'Common';
+}
+
+// Generate story for non-synergy combinations
+function generateBaseStory(species, equipment, realm, curse) {
+    return `A ${realm.toLowerCase()}-touched ${species.toLowerCase()} wielding ${equipment.toLowerCase()}, cursed with ${curse.toLowerCase()}. A unique specimen from the Pixel Monsters collection.`;
+}
+
+// ===== GENERATOR SYSTEM =====
 
 const monsters = [
     { name: 'Werewolf', file: 'werewolf.svg' },
@@ -141,7 +361,6 @@ const effects = [
         </text>
     </g>` },
     { name: 'Bats', svg: `<g>
-        <!-- バサバサ飛ぶコウモリ1 -->
         <g>
             <animateTransform attributeName="transform" type="translate" 
                 values="2,2; 8,4; 15,2; 20,6; 18,12; 10,15; 3,10; 2,2" 
@@ -156,7 +375,6 @@ const effects = [
                 <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2s" repeatCount="indefinite"/>
             </g>
         </g>
-        <!-- バサバサ飛ぶコウモリ2 -->
         <g>
             <animateTransform attributeName="transform" type="translate" 
                 values="18,15; 12,12; 5,14; 2,8; 6,4; 14,6; 20,10; 18,15" 
@@ -171,7 +389,6 @@ const effects = [
                 <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" begin="1s" repeatCount="indefinite"/>
             </g>
         </g>
-        <!-- バサバサ飛ぶコウモリ3 -->
         <g>
             <animateTransform attributeName="transform" type="translate" 
                 values="10,8; 16,3; 20,8; 15,12; 8,10; 4,6; 8,2; 10,8" 
@@ -220,14 +437,13 @@ const effects = [
             <animate attributeName="opacity" values="0;0;0;0;0.5;0.5;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0" dur="3s" repeatCount="indefinite"/>
         </path>
     </g>` },
-{ name: 'Blizzard', svg: `<g>
-        <!-- ピクセルアート風の斜めに流れる吹雪 -->
+    { name: 'Blizzard', svg: `<g>
         ${Array.from({length: 25}, (_, i) => {
-            const startX = Math.floor(Math.random() * 40) - 10; // 左から始まる雪も含む
+            const startX = Math.floor(Math.random() * 40) - 10;
             const size = Math.random() > 0.7 ? 2 : 1;
             const delay = Math.random() * 2;
-            const duration = 0.75 + Math.random() * 0.5; // 半分の時間に
-            const speed = Math.random() > 0.5 ? 1.5 : 1; // 速度の変化
+            const duration = 0.75 + Math.random() * 0.5;
+            const speed = Math.random() > 0.5 ? 1.5 : 1;
             return `
             <rect x="${startX}" y="-${size}" width="${size}" height="${size}" fill="#FFFFFF">
                 <animateTransform 
@@ -244,14 +460,12 @@ const effects = [
                          repeatCount="indefinite"/>
             </rect>`;
         }).join('')}
-        <!-- 横風のエフェクト -->
         <rect x="0" y="0" width="24" height="24" fill="#B0E0E6" opacity="0">
             <animate attributeName="opacity" 
                      values="0;0.15;0.25;0.15;0" 
                      dur="1.5s" 
                      repeatCount="indefinite"/>
         </rect>
-        <!-- 強い吹雪の筋 -->
         ${Array.from({length: 3}, (_, i) => {
             const delay = i * 0.4;
             return `
@@ -273,7 +487,6 @@ const effects = [
                 </rect>
             </g>`;
         }).join('')}
-        <!-- 大きな雪片（斜めに流れる） -->
         ${Array.from({length: 5}, (_, i) => {
             const startX = Math.floor(Math.random() * 30) - 5;
             const delay = Math.random() * 1;
@@ -297,8 +510,6 @@ const effects = [
         }).join('')}
     </g>` },
     { name: 'Burning', svg: `<g>
-        <!-- ピクセルアート風の松明の炎（複数配置） -->
-        <!-- 左の炎 -->
         <g>
             <rect x="3" y="16" width="2" height="2" fill="#FFFF00">
                 <animate attributeName="fill" values="#FFFF00;#FFFAF0;#FFFF00" dur="0.6s" repeatCount="indefinite"/>
@@ -317,7 +528,6 @@ const effects = [
                 <animate attributeName="opacity" values="0.6;0.9;0.6" dur="1.4s" repeatCount="indefinite"/>
             </rect>
         </g>
-        <!-- 中央の炎 -->
         <g>
             <rect x="11" y="21" width="2" height="2" fill="#FFFF00">
                 <animate attributeName="fill" values="#FFFF00;#FFFAF0;#FFFF00" dur="0.5s" begin="0.2s" repeatCount="indefinite"/>
@@ -335,13 +545,11 @@ const effects = [
             <rect x="8" y="27" width="8" height="0" fill="#FF4500">
                 <animate attributeName="opacity" values="0.6;0.9;0.6" dur="1.3s" begin="0.2s" repeatCount="indefinite"/>
             </rect>
-            <!-- 揺らめく先端 -->
             <rect x="12" y="20" width="1" height="1" fill="#FFFF00">
                 <animate attributeName="x" values="12;11;12;13;12" dur="2s" begin="0.2s" repeatCount="indefinite"/>
                 <animate attributeName="opacity" values="0;1;0.8;1;0" dur="2s" begin="0.2s" repeatCount="indefinite"/>
             </rect>
         </g>
-        <!-- 右の炎 -->
         <g>
             <rect x="19" y="16" width="2" height="2" fill="#FFFF00">
                 <animate attributeName="fill" values="#FFFF00;#FFFAF0;#FFFF00" dur="0.7s" begin="0.4s" repeatCount="indefinite"/>
@@ -360,7 +568,6 @@ const effects = [
                 <animate attributeName="opacity" values="0.6;0.9;0.6" dur="1.5s" begin="0.4s" repeatCount="indefinite"/>
             </rect>
         </g>
-        <!-- 火の粉 -->
         <rect x="5" y="12" width="1" height="1" fill="#FFA500">
             <animate attributeName="y" values="18;12;8" dur="2s" repeatCount="indefinite"/>
             <animate attributeName="opacity" values="0;0.8;0" dur="2s" repeatCount="indefinite"/>
@@ -390,7 +597,7 @@ const effects = [
     </g>` }
 ];
 
-// 特殊なID用のイベントモンスター
+// Special legendary IDs
 const legendaryIds = {
     666: {
         override: { monster: 'Demon', item: 'Crown' },
@@ -428,19 +635,19 @@ const legendaryIds = {
     }
 };
 
-// シード付き疑似乱数生成器
+// Seeded random number generator
 function seededRandom(seed) {
     const x = Math.sin(seed) * 10000;
     return x - Math.floor(x);
 }
 
-// IDベースで配列から要素を選択
+// Get element from array based on seed
 function getSeededElement(array, seed, offset = 0) {
     const index = Math.floor(seededRandom(seed + offset) * array.length);
     return array[index];
 }
 
-// SVGファイルを読み込む関数（ブラウザ環境用）
+// Load SVG file (browser environment)
 async function loadSVG(path) {
     try {
         const response = await fetch(path);
@@ -452,16 +659,16 @@ async function loadSVG(path) {
     }
 }
 
-// メタデータを生成する関数
+// Generate metadata by ID
 async function generateMetadataById(id) {
     const seed = parseInt(id) || 0;
     
-    // レジェンダリーIDチェック
+    // Check for legendary ID
     const legendaryData = legendaryIds ? legendaryIds[seed] : null;
     
     let monster, item;
     
-    // レジェンダリーIDの場合、特定の組み合わせを強制することがある
+    // Override for legendary IDs
     if (legendaryData && legendaryData.override) {
         if (legendaryData.override.monster) {
             monster = monsters.find(m => m.name === legendaryData.override.monster);
@@ -482,25 +689,21 @@ async function generateMetadataById(id) {
     const colorScheme = getSeededElement(colorSchemes, seed, 3);
     const effect = getSeededElement(effects, seed, 4);
     
-    // Check for synergies using the new system
-    const checkSyn = checkSynergies || window.checkSynergies;
-    const calcRarity = calculateRarity || window.calculateRarity;
-    const genBaseStory = generateBaseStory || window.generateBaseStory;
-    
     // Transform equipment for synergy check if needed
     let equipmentName = item.name;
     if (item.synergyForm) {
         // Check if this combination would create a synergy with the transformed form
-        const transformedSynergy = checkSyn ? checkSyn(monster.name, item.synergyForm, colorScheme.name, effect.name) : null;
+        const transformedSynergy = checkSynergies(monster.name, item.synergyForm, colorScheme.name, effect.name);
         if (transformedSynergy) {
             equipmentName = item.synergyForm;
         }
     }
     
-    const synergy = checkSyn ? checkSyn(monster.name, equipmentName, colorScheme.name, effect.name) : null;
+    // Check for synergies
+    const synergy = checkSynergies(monster.name, equipmentName, colorScheme.name, effect.name);
     
-    // Calculate rarity based on synergies
-    let rarity = calcRarity ? calcRarity(seed, synergy) : 'Common';
+    // Calculate rarity
+    let rarity = calculateRarity(seed, synergy);
     
     // Override for legendary IDs
     if (legendaryData) {
@@ -518,11 +721,10 @@ async function generateMetadataById(id) {
         description = synergy.story;
     } else {
         name = `${colorScheme.name} ${monster.name} #${id}`;
-        description = genBaseStory ? genBaseStory(monster.name, item.name, colorScheme.name, effect.name) : 
-                      `A unique pixel art ${monster.name.toLowerCase()} with ${item.name.toLowerCase()} in ${colorScheme.name.toLowerCase()} color scheme. ${rarity} collectible from the Pixel Monsters collection.`;
+        description = generateBaseStory(monster.name, item.name, colorScheme.name, effect.name);
     }
     
-    // SVG画像を生成
+    // Generate SVG image
     const monsterSVG = await loadSVG(`assets/monsters/${monster.file}`);
     const itemSVG = await loadSVG(`assets/items/${item.file}`);
     const image = await generateCompositeImage(monsterSVG, itemSVG, colorScheme, effect, item);
@@ -541,10 +743,6 @@ async function generateMetadataById(id) {
                 trait_type: "Equipment",
                 value: item.name
             },
-            ...(equipmentName !== item.name ? [{
-                trait_type: "Transformed Equipment",
-                value: equipmentName
-            }] : []),
             {
                 trait_type: "Realm",
                 value: colorScheme.name
@@ -572,7 +770,7 @@ async function generateMetadataById(id) {
     };
 }
 
-// 複合SVG画像を生成
+// Generate composite SVG image
 async function generateCompositeImage(monsterSVG, itemSVG, colorScheme, effect, item) {
     const svg = `
         <svg width="240" height="240" xmlns="http://www.w3.org/2000/svg">
@@ -582,23 +780,23 @@ async function generateCompositeImage(monsterSVG, itemSVG, colorScheme, effect, 
                     <feComposite in2="SourceGraphic" operator="over"/>
                 </filter>
             </defs>
-            <!-- 背景 -->
+            <!-- Background -->
             <rect width="240" height="240" fill="${colorScheme.background}"/>
             
-            <!-- グリッドパターン -->
+            <!-- Grid pattern -->
             <g opacity="0.1">
                 ${Array.from({length: 10}, (_, i) => `<line x1="${i * 24}" y1="0" x2="${i * 24}" y2="240" stroke="#000" stroke-width="1"/>`).join('')}
                 ${Array.from({length: 10}, (_, i) => `<line x1="0" y1="${i * 24}" x2="240" y2="${i * 24}" stroke="#000" stroke-width="1"/>`).join('')}
             </g>
             
-            <!-- モンスター（カラーフィルター適用） -->
+            <!-- Monster with color filter -->
             <g transform="translate(12, 12) scale(9)">
                 <g style="filter: hue-rotate(${colorScheme.hueRotate}deg) saturate(${colorScheme.saturate || 1.5})">
                     ${monsterSVG.replace(/<svg[^>]*>|<\/svg>/g, '')}
                 </g>
             </g>
             
-            <!-- アイテム（モンスターの近くに配置） -->
+            <!-- Item positioned near monster -->
             <g transform="translate(${
                 item.name === 'Crown' ? '46' : 
                 item.name === 'Amulet' ? '48' : 
@@ -611,7 +809,7 @@ async function generateCompositeImage(monsterSVG, itemSVG, colorScheme, effect, 
                 ${itemSVG.replace(/<svg[^>]*>|<\/svg>/g, '')}
             </g>
             
-            <!-- エフェクト -->
+            <!-- Effect -->
             <g transform="scale(10)">
                 ${effect.svg}
             </g>
@@ -620,7 +818,8 @@ async function generateCompositeImage(monsterSVG, itemSVG, colorScheme, effect, 
     return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
 }
 
-// エクスポート（モジュール対応）
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { generateMetadataById };
-}
+// Make functions available globally for browser use
+window.generateMetadataById = generateMetadataById;
+window.checkSynergies = checkSynergies;
+window.calculateRarity = calculateRarity;
+window.generateBaseStory = generateBaseStory;

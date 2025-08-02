@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pixel Monsters NFT Generator</title>
+</head>
+<body>
+    <h1>Pixel Monsters NFT Generator</h1>
+    <button onclick="generateNFT(123)">Generate NFT #123</button>
+    <div id="result"></div>
+
+    <!-- 重要: synergies.jsを先に読み込む -->
+    <script src="synergies.js"></script>
+    <script src="generate.js"></script>
+    
+    <script>
+        async function generateNFT(id) {
+            try {
+                const metadata = await generateMetadataById(id);
+                document.getElementById('result').innerHTML = `
+                    <h2>${metadata.name}</h2>
+                    <p>${metadata.description}</p>
+                    <img src="${metadata.image}" alt="${metadata.name}" style="width: 240px; height: 240px;">
+                    <h3>Attributes:</h3>
+                    <ul>
+                        ${metadata.attributes.map(attr => 
+                            `<li><strong>${attr.trait_type}:</strong> ${attr.value}</li>`
+                        ).join('')}
+                    </ul>
+                `;
+            } catch (error) {
+                console.error('Error generating NFT:', error);
+                document.getElementById('result').innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
