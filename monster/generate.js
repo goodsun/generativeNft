@@ -1,4 +1,4 @@
-// ピクセルアートモンスターNFTジェネレーター
+// ピクセルアートモンスターNFTジェネレーター（ストーリー版）
 
 const monsters = [
     { name: 'Werewolf', file: 'werewolf.svg' },
@@ -21,7 +21,7 @@ const items = [
     { name: 'Torch', file: 'torch.svg' },
     { name: 'Wine', file: 'wine.svg' },
     { name: 'Scythe', file: 'scythe.svg' },
-    { name: 'Staff', file: 'staff.svg' },
+    { name: 'Magic Wand', file: 'staff.svg' },
     { name: 'Crown', file: 'crown.svg' },
     { name: 'Sword', file: 'sword.svg' },
     { name: 'Shield', file: 'shield.svg' },
@@ -29,7 +29,7 @@ const items = [
     { name: 'Torch', file: 'torch.svg' },
     { name: 'Wine', file: 'wine.svg' },
     { name: 'Scythe', file: 'scythe.svg' },
-    { name: 'Staff', file: 'staff.svg' },
+    { name: 'Magic Wand', file: 'staff.svg' },
     { name: 'Crown', file: 'crown.svg' },
     { name: 'Sword', file: 'sword.svg' },
     { name: 'Shield', file: 'shield.svg' },
@@ -37,21 +37,21 @@ const items = [
     { name: 'Torch', file: 'torch.svg' },
     { name: 'Wine', file: 'wine.svg' },
     { name: 'Scythe', file: 'scythe.svg' },
-    { name: 'Staff', file: 'staff.svg' },
+    { name: 'Magic Wand', file: 'staff.svg' },
     { name: 'Arm', file: 'arm.svg' },
     { name: 'Head', file: 'head.svg' }
 ];
 
 const colorSchemes = [
-    { name: 'Sunset', primary: '#FF6B6B', secondary: '#4ECDC4', background: '#FFE66D', hueRotate: 0 },
-    { name: 'Ocean', primary: '#0077BE', secondary: '#00A8E8', background: '#00F5FF', hueRotate: 200 },
-    { name: 'Forest', primary: '#2D5016', secondary: '#73A942', background: '#AAD576', hueRotate: 90 },
-    { name: 'Royal', primary: '#6B5B95', secondary: '#B565A7', background: '#D64545', hueRotate: 270 },
-    { name: 'Candy', primary: '#FF69B4', secondary: '#FFB6C1', background: '#FFC0CB', hueRotate: 330 },
-    { name: 'Night', primary: '#1B1B3A', secondary: '#693668', background: '#51355A', hueRotate: 240 },
-    { name: 'Fire', primary: '#FF4500', secondary: '#FF6347', background: '#FFA500', hueRotate: 15 },
-    { name: 'Ice', primary: '#4682B4', secondary: '#87CEEB', background: '#E0FFFF', hueRotate: 180 },
-    { name: 'Gold', primary: '#FFD700', secondary: '#FFA500', background: '#FFFFE0', hueRotate: 45 },
+    { name: 'Bloodmoon', primary: '#FF6B6B', secondary: '#4ECDC4', background: '#FFE66D', hueRotate: 0 },
+    { name: 'Abyss', primary: '#0077BE', secondary: '#00A8E8', background: '#00F5FF', hueRotate: 200 },
+    { name: 'Decay', primary: '#2D5016', secondary: '#73A942', background: '#AAD576', hueRotate: 90 },
+    { name: 'Corruption', primary: '#6B5B95', secondary: '#B565A7', background: '#D64545', hueRotate: 270 },
+    { name: 'Venom', primary: '#FF69B4', secondary: '#FFB6C1', background: '#FFC0CB', hueRotate: 330 },
+    { name: 'Void', primary: '#1B1B3A', secondary: '#693668', background: '#51355A', hueRotate: 240 },
+    { name: 'Inferno', primary: '#FF4500', secondary: '#FF6347', background: '#FFA500', hueRotate: 15 },
+    { name: 'Frost', primary: '#4682B4', secondary: '#87CEEB', background: '#E0FFFF', hueRotate: 180 },
+    { name: 'Ragnarok', primary: '#FFD700', secondary: '#FFA500', background: '#FFFFE0', hueRotate: 45 },
     { name: 'Shadow', primary: '#2F4F4F', secondary: '#696969', background: '#A9A9A9', hueRotate: 0, saturate: 0.3 }
 ];
 
@@ -223,7 +223,7 @@ const effects = [
             <animate attributeName="opacity" values="0;0;0;0;0.5;0.5;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0" dur="3s" repeatCount="indefinite"/>
         </path>
     </g>` },
-    { name: 'Blizzard', svg: `<g>
+{ name: 'Blizzard', svg: `<g>
         <!-- ピクセルアート風の斜めに流れる吹雪 -->
         ${Array.from({length: 25}, (_, i) => {
             const startX = Math.floor(Math.random() * 40) - 10; // 左から始まる雪も含む
@@ -299,7 +299,7 @@ const effects = [
             </g>`;
         }).join('')}
     </g>` },
-{ name: 'Burning', svg: `<g>
+    { name: 'Burning', svg: `<g>
         <!-- ピクセルアート風の松明の炎（複数配置） -->
         <!-- 左の炎 -->
         <g>
@@ -393,6 +393,113 @@ const effects = [
     </g>` }
 ];
 
+// 特別なコンボと名称
+const specialCombos = {
+    // 伝説級コンボ
+    'Vampire + Wine': {
+        title: 'Blood Sommelier',
+        story: 'A refined predator who has transcended mere survival. This vampire has cultivated an exquisite palate for the finest vintages - both wine and blood.'
+    },
+    'Skeleton + Scythe': {
+        title: 'Death\'s Herald',
+        story: 'The original harbinger of doom. This skeletal reaper has collected souls since the dawn of mortality itself.'
+    },
+    'Dragon + Crown': {
+        title: 'The Fallen Monarch',
+        story: 'Once ruled the skies with absolute authority. Now seeks to reclaim the throne stolen by lesser beings.'
+    },
+    'Demon + Torch': {
+        title: 'Infernal Lightkeeper',
+        story: 'Guardian of the eternal flames that bridge the mortal realm and the underworld. Its torch never extinguishes.'
+    },
+    'Werewolf + Head': {
+        title: 'The Alpha\'s Trophy',
+        story: 'This werewolf carries the severed head of its pack\'s former leader, a grim reminder of the brutal law of nature.'
+    },
+    
+    // エピック級コンボ
+    'Frankenstein + Arm': {
+        title: 'The Collector',
+        story: 'An abomination that grafts new limbs onto itself, growing stronger with each defeated foe.'
+    },
+    'Mummy + Magic Wand': {
+        title: 'Pharaoh\'s Awakening',
+        story: 'An ancient ruler risen from eternal slumber, wielding the wand of divine authority.'
+    },
+    'Goblin + Poison': {
+        title: 'Plague Alchemist',
+        story: 'A cunning goblin who has mastered the dark arts of toxicology, spreading chaos through chemical warfare.'
+    },
+    'Succubus + Shield': {
+        title: 'Temptress Guardian',
+        story: 'A succubus who protects her victims from other demons, keeping them for herself.'
+    },
+    'Zombie + Poison': {
+        title: 'Patient Zero',
+        story: 'The original infected. Its toxic blood spawned the great plague that consumed civilizations.'
+    },
+    
+    // レア級コンボ
+    'Vampire + Sword': {
+        title: 'Crimson Duelist',
+        story: 'A vampire noble who prefers the elegance of swordplay to crude feeding.'
+    },
+    'Dragon + Torch': {
+        title: 'Flame Ancient',
+        story: 'A dragon so old it remembers when fire was first stolen from the gods.'
+    },
+    'Demon + Crown': {
+        title: 'Hell\'s Pretender',
+        story: 'A demon who seeks to overthrow the current ruler of the underworld.'
+    },
+    'Werewolf + Torch': {
+        title: 'Moonlight Hunter',
+        story: 'Uses fire to drive prey into the darkness where it holds absolute advantage.'
+    },
+    'Skeleton + Crown': {
+        title: 'The Lich King',
+        story: 'A powerful necromancer who achieved immortality at the cost of flesh.'
+    }
+};
+
+// 特殊なID用のイベントモンスター
+const legendaryIds = {
+    666: {
+        override: { monster: 'Demon', item: 'Crown' },
+        title: 'The Beast Awakened',
+        story: 'The prophesied destroyer has risen. Its coming was foretold in ancient texts now burned to ash.'
+    },
+    1337: {
+        title: 'The Chosen One',
+        story: 'Marked by fate itself, this entity exists beyond the normal laws of nature.'
+    },
+    9999: {
+        title: 'The Final Guardian',
+        story: 'The last defender of a dying world. When it falls, so ends all hope.'
+    },
+    404: {
+        title: 'The Lost Soul',
+        story: 'A glitch in reality. This entity should not exist, yet here it stands.'
+    },
+    7777: {
+        title: 'Fortune\'s Avatar',
+        story: 'Blessed by cosmic luck, this being bends probability to its will.'
+    },
+    13: {
+        override: { item: 'Head' },
+        title: 'The Cursed',
+        story: 'Born on the darkest hour of the unluckiest day. Misfortune follows in its wake.'
+    },
+    1000: {
+        title: 'The Millennial',
+        story: 'Appears once every thousand years to judge if civilization deserves to continue.'
+    },
+    42: {
+        title: 'The Answer',
+        story: 'It knows the ultimate question. Reality trembles at its understanding.'
+    }
+};
+
 // シード付き疑似乱数生成器
 function seededRandom(seed) {
     const x = Math.sin(seed) * 10000;
@@ -421,21 +528,65 @@ async function loadSVG(path) {
 async function generateMetadataById(id) {
     const seed = parseInt(id) || 0;
     
-    const monster = getSeededElement(monsters, seed, 1);
-    const item = getSeededElement(items, seed, 2);
+    // レジェンダリーIDチェック
+    const legendaryData = legendaryIds[seed];
+    
+    let monster, item;
+    
+    // レジェンダリーIDの場合、特定の組み合わせを強制することがある
+    if (legendaryData && legendaryData.override) {
+        if (legendaryData.override.monster) {
+            monster = monsters.find(m => m.name === legendaryData.override.monster);
+        } else {
+            monster = getSeededElement(monsters, seed, 1);
+        }
+        
+        if (legendaryData.override.item) {
+            item = items.find(i => i.name === legendaryData.override.item);
+        } else {
+            item = getSeededElement(items, seed, 2);
+        }
+    } else {
+        monster = getSeededElement(monsters, seed, 1);
+        item = getSeededElement(items, seed, 2);
+    }
+    
     const colorScheme = getSeededElement(colorSchemes, seed, 3);
     const effect = getSeededElement(effects, seed, 4);
     
-    // レアリティ計算
+    // コンボチェック
+    const comboKey = `${monster.name} + ${item.name}`;
+    const specialCombo = specialCombos[comboKey];
+    
+    // レアリティ計算（コンボがある場合は自動的に高レアリティ）
     const rarityScore = (seed % 100) + 1;
     let rarity = 'Common';
-    if (rarityScore > 95) rarity = 'Legendary';
-    else if (rarityScore > 85) rarity = 'Epic';
-    else if (rarityScore > 70) rarity = 'Rare';
-    else if (rarityScore > 50) rarity = 'Uncommon';
+    if (legendaryData) {
+        rarity = 'Legendary';
+    } else if (specialCombo) {
+        if (rarityScore > 70) rarity = 'Legendary';
+        else if (rarityScore > 40) rarity = 'Epic';
+        else rarity = 'Rare';
+    } else {
+        if (rarityScore > 95) rarity = 'Legendary';
+        else if (rarityScore > 85) rarity = 'Epic';
+        else if (rarityScore > 70) rarity = 'Rare';
+        else if (rarityScore > 50) rarity = 'Uncommon';
+    }
     
-    const name = `${colorScheme.name} ${monster.name} #${id}`;
-    const description = `A unique pixel art ${monster.name.toLowerCase()} with ${item.name.toLowerCase()} in ${colorScheme.name.toLowerCase()} color scheme. ${rarity} collectible from the Pixel Monsters collection.`;
+    // 名前とストーリーの生成
+    let name, description;
+    
+    if (legendaryData && legendaryData.title) {
+        name = `${legendaryData.title} #${id}`;
+        description = legendaryData.story;
+    } else if (specialCombo) {
+        name = `${specialCombo.title} #${id}`;
+        description = specialCombo.story;
+    } else {
+        name = `${colorScheme.name} ${monster.name} #${id}`;
+        description = `A unique pixel art ${monster.name.toLowerCase()} with ${item.name.toLowerCase()} in ${colorScheme.name.toLowerCase()} color scheme. ${rarity} collectible from the Pixel Monsters collection.`;
+    }
     
     // SVG画像を生成
     const monsterSVG = await loadSVG(`assets/monsters/${monster.file}`);
@@ -467,7 +618,15 @@ async function generateMetadataById(id) {
             {
                 trait_type: "Rarity",
                 value: rarity
-            }
+            },
+            ...(specialCombo ? [{
+                trait_type: "Special",
+                value: specialCombo.title
+            }] : []),
+            ...(legendaryData ? [{
+                trait_type: "Legendary",
+                value: "True"
+            }] : [])
         ]
     };
 }
