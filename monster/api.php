@@ -6,7 +6,7 @@ header('Access-Control-Allow-Origin: *');
 $monsters = [
     ['name' => 'Werewolf', 'file' => 'werewolf.svg'],
     ['name' => 'Goblin', 'file' => 'goblin.svg'],
-    ['name' => 'Ghost', 'file' => 'ghost.svg'],
+    ['name' => 'Frankenstein', 'file' => 'frankenstein.svg'],
     ['name' => 'Demon', 'file' => 'demon.svg'],
     ['name' => 'Dragon', 'file' => 'dragon.svg'],
     ['name' => 'Zombie', 'file' => 'zombie.svg'],
