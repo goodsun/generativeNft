@@ -392,39 +392,148 @@ const effects = [
 
 // 特殊なID用のイベントモンスター
 const legendaryIds = {
+    // 1-1000
+    1: {
+        title: 'The Genesis',
+        story: 'The first of its kind, born from the primordial chaos. It has witnessed the birth of darkness itself.'
+    },
+    7: {
+        title: 'The Seventh Seal',
+        story: 'When the seventh seal breaks, the apocalypse begins. This creature guards the final barrier between worlds.'
+    },
+    13: {
+        override: { item: 'Amulet' },
+        title: 'The Cursed',
+        story: 'Born on the darkest hour of the unluckiest day. Misfortune follows in its wake like a hungry shadow.'
+    },
+    23: {
+        title: 'The Enigma',
+        story: 'Everywhere it goes, the number follows. Twenty-three deaths, twenty-three curses, twenty-three seconds until madness.'
+    },
+    42: {
+        title: 'The Answer',
+        story: 'It knows the ultimate question that reality dare not ask. Its knowledge is a burden that breaks minds.'
+    },
+    86: {
+        title: 'The Vanisher',
+        story: 'Those who cross its path are "eighty-sixed" from existence. No trace, no memory, no soul remains.'
+    },
+    100: {
+        title: 'The Centurion',
+        story: 'Leader of the first hundred fallen. It commands legions that exist between life and death.'
+    },
+    111: {
+        title: 'Trinity Gate',
+        story: 'Three ones, three dimensions, three seconds to live once you see its true form. The gateway walks.'
+    },
+    187: {
+        title: 'Death\'s Contract',
+        story: 'A walking murder statute. Its very presence is a death sentence waiting to be executed.'
+    },
+    217: {
+        title: 'The Shining',
+        story: 'From room 217 it emerged, carrying the madness of a thousand winters. REDRUM is its only word.'
+    },
+    333: {
+        title: 'The Half Beast',
+        story: 'Half the number, twice the hunger. What it lacks in completion, it takes from others\' souls.'
+    },
+    404: {
+        title: 'The Lost Soul',
+        story: 'A glitch in reality\'s code. It exists in the spaces between existence, forever searching for its missing data.'
+    },
+    555: {
+        title: 'The Pentacle',
+        story: 'Five points of the star, five ways to die, five seconds of agony stretched into eternity.'
+    },
+    616: {
+        title: 'The True Beast',
+        story: 'The original number before the scribes\' error. It claims to be the authentic evil, and perhaps it is.'
+    },
     666: {
         override: { monster: 'Demon', item: 'Crown' },
         title: 'The Beast Awakened',
         story: 'The prophesied destroyer has risen. Its coming was foretold in ancient texts now burned to ash.'
     },
+    777: {
+        title: 'Lucky Seven',
+        story: 'Blessed or cursed with infinite fortune. Its luck comes at the cost of everyone else\'s fate.'
+    },
+    911: {
+        title: 'The Final Call',
+        story: 'When all hope is lost, it answers. But its help comes with a price that makes death seem merciful.'
+    },
+    999: {
+        title: 'The Gatekeeper',
+        story: 'Standing at the threshold of the thousandth hell. Turn it upside down to see its true nature.'
+    },
+    
+    // 1001-2000
+    1000: {
+        title: 'The Millennial',
+        story: 'Appears once every thousand years to judge if civilization deserves to continue. It has never voted yes.'
+    },
+    1111: {
+        title: 'The Awakening',
+        story: 'When all four ones align, the sleeper wakes. Pray you\'re not conscious when it opens its eyes.'
+    },
     1337: {
         title: 'The Chosen One',
-        story: 'Marked by fate itself, this entity exists beyond the normal laws of nature.'
+        story: 'Elite among the damned, marked by the ancient digital prophets. It speaks in forgotten codes.'
     },
-    9999: {
-        title: 'The Final Guardian',
-        story: 'The last defender of a dying world. When it falls, so ends all hope.'
+    1347: {
+        title: 'The Black Death',
+        story: 'It carries the original plague in its breath. One third of all it touches simply cease.'
     },
-    404: {
-        title: 'The Lost Soul',
-        story: 'A glitch in reality. This entity should not exist, yet here it stands.'
+    1408: {
+        title: 'The Haunted Room',
+        story: 'It IS the room. Every nightmare that happened within those walls lives in its form.'
+    },
+    1492: {
+        title: 'The Discovery',
+        story: 'It "discovered" lands already inhabited, bringing apocalypse disguised as progress.'
+    },
+    1692: {
+        title: 'The Witch Hunter',
+        story: 'Born from the ashes of Salem\'s victims. It hunts those who hunt the innocent.'
+    },
+    1776: {
+        title: 'The Revolution',
+        story: 'Freedom written in blood, independence paid with souls. It collects the debt still owed.'
+    },
+    
+    // 2001-10000
+    2187: {
+        title: 'The Exponential Death',
+        story: 'Three to the seventh power. Each death it causes multiplies sevenfold into infinity.'
+    },
+    3141: {
+        title: 'Pi\'s Madness',
+        story: 'Irrational and infinite, it speaks in numbers that never end. To hear its full name is to go mad.'
+    },
+    4077: {
+        title: 'The Field Medic',
+        story: 'From the M*A*S*H unit that never was. It patches wounds with barbwire and heals pain with suffering.'
+    },
+    5150: {
+        title: 'The Insane',
+        story: 'Legally mad, cosmically aware. It sees truths that shatter minds and speaks realities that shouldn\'t exist.'
+    },
+    6174: {
+        title: 'Kaprekar\'s Curse',
+        story: 'Trapped in an mathematical loop of horror. All paths lead back to 6174, and there is no escape.'
     },
     7777: {
         title: 'Fortune\'s Avatar',
-        story: 'Blessed by cosmic luck, this being bends probability to its will.'
+        story: 'Four sevens in succession, luck beyond measure. But fortune\'s wheel always turns to tragedy.'
     },
-    13: {
-        override: { item: 'Amulet' },
-        title: 'The Cursed',
-        story: 'Born on the darkest hour of the unluckiest day. Misfortune follows in its wake.'
+    8128: {
+        title: 'Perfect Despair',
+        story: 'A perfect number hiding perfect horror. Its mathematical beauty masks infinite suffering.'
     },
-    1000: {
-        title: 'The Millennial',
-        story: 'Appears once every thousand years to judge if civilization deserves to continue.'
-    },
-    42: {
-        title: 'The Answer',
-        story: 'It knows the ultimate question. Reality trembles at its understanding.'
+    9999: {
+        title: 'The Final Guardian',
+        story: 'The last defender before 10,000 hells are unleashed. When it falls, everything ends.'
     }
 };
 
