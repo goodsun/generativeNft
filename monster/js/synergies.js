@@ -1,4 +1,4 @@
-// Synergy System for Pixel Monsters NFT
+// Synergy System for The Mythical Cursed-Nightmare
 
 // Quad Synergy (Ultimate Combinations) - 0.01% chance
 const quadSynergies = [
@@ -225,7 +225,7 @@ function calculateRarity(baseSeed, synergy) {
 
 // Generate story for non-synergy combinations
 function generateBaseStory(species, equipment, realm, curse) {
-    return `A ${realm.toLowerCase()}-touched ${species.toLowerCase()} wielding ${equipment.toLowerCase()}, cursed with ${curse.toLowerCase()}. A unique specimen from the Pixel Monsters collection.`;
+    return `A ${realm.toLowerCase()}-touched ${species.toLowerCase()} wielding ${equipment.toLowerCase()}, cursed with ${curse.toLowerCase()}. Essay #${Math.floor(Math.random() * 10000)} from the cursed collection.`;
 }
 
 // Export for both Node.js and browser

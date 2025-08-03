@@ -1,0 +1,97 @@
+{
+  "attributes": {
+    "slot1": {
+      "name": "Species",
+      "directory": "monsters",
+      "items": [
+        { "name": "Werewolf", "file": "werewolf.svg" },
+        { "name": "Goblin", "file": "goblin.svg" },
+        { "name": "Frankenstein", "file": "frankenstein.svg" },
+        { "name": "Demon", "file": "demon.svg" },
+        { "name": "Dragon", "file": "dragon.svg" },
+        { "name": "Zombie", "file": "zombie.svg" },
+        { "name": "Vampire", "file": "vampire.svg" },
+        { "name": "Mummy", "file": "mummy.svg" },
+        { "name": "Succubus", "file": "succubus.svg" },
+        { "name": "Skeleton", "file": "skeleton.svg" }
+      ]
+    },
+    "slot2": {
+      "name": "Equipment",
+      "directory": "items",
+      "items": [
+        { "name": "Crown", "file": "crown.svg" },
+        { "name": "Sword", "file": "sword.svg" },
+        { "name": "Shield", "file": "shield.svg" },
+        { "name": "Poison", "file": "poison.svg" },
+        { "name": "Torch", "file": "torch.svg" },
+        { "name": "Wine", "file": "wine.svg" },
+        { "name": "Scythe", "file": "scythe.svg" },
+        { "name": "Magic Wand", "file": "staff.svg" },
+        { "name": "Shoulder Armor", "file": "shoulder.svg", "synergyForm": "Arm" },
+        { "name": "Amulet", "file": "amulet.svg", "synergyForm": "Head" }
+      ]
+    },
+    "slot3": {
+      "name": "Realm",
+      "directory": "bg",
+      "isBackground": true,
+      "items": [
+        { "name": "Bloodmoon", "primary": "#FF6B6B", "secondary": "#4ECDC4", "background": "#FFE66D", "hueRotate": 0 },
+        { "name": "Abyss", "primary": "#0077BE", "secondary": "#00A8E8", "background": "#00F5FF", "hueRotate": 200 },
+        { "name": "Decay", "primary": "#2D5016", "secondary": "#73A942", "background": "#AAD576", "hueRotate": 90 },
+        { "name": "Corruption", "primary": "#6B5B95", "secondary": "#B565A7", "background": "#D64545", "hueRotate": 270 },
+        { "name": "Venom", "primary": "#FF69B4", "secondary": "#FFB6C1", "background": "#FFC0CB", "hueRotate": 330 },
+        { "name": "Void", "primary": "#1B1B3A", "secondary": "#693668", "background": "#51355A", "hueRotate": 240 },
+        { "name": "Frost", "primary": "#4682B4", "secondary": "#87CEEB", "background": "#E0FFFF", "hueRotate": 180 },
+        { "name": "Inferno", "primary": "#FF4500", "secondary": "#FF6347", "background": "#FFA500", "hueRotate": 15 },
+        { "name": "Ragnarok", "primary": "#FFD700", "secondary": "#FFA500", "background": "#FFFFE0", "hueRotate": 45 },
+        { "name": "Shadow", "primary": "#2F4F4F", "secondary": "#696969", "background": "#A9A9A9", "hueRotate": 0, "saturate": 0.3 }
+      ]
+    },
+    "slot4": {
+      "name": "Curse",
+      "directory": "effect",
+      "isEffect": true,
+      "items": [
+        { "name": "Seizure" },
+        { "name": "Mind Blast" },
+        { "name": "Confusion" },
+        { "name": "Meteor" },
+        { "name": "Bats" },
+        { "name": "Poisoning" },
+        { "name": "Lightning" },
+        { "name": "Blizzard" },
+        { "name": "Burning" },
+        { "name": "Brain Wash" }
+      ]
+    }
+  },
+  "metadata": {
+    "projectName": "The Mythical Cursed-Nightmare",
+    "description": "Essays on Generative Tragedy",
+    "nameFormat": "{projectName} #{id}",
+    "descriptionFormat": "A {slot1} wielding {slot2} in the {slot3} realm, cursed by {slot4}.",
+    "dynamicDescription": {
+      "enabled": true,
+      "baseFormat": "{title}: {story}",
+      "defaultStory": "A mysterious creature from the cursed dimension."
+    }
+  },
+  "textTemplates": {
+    "synergy": {
+      "quad": "🌟 QUAD SYNERGY: {title} - {story}",
+      "trinity": "✨ TRINITY SYNERGY: {title} - {story}",
+      "dual": "💫 DUAL SYNERGY: {title} - {story}"
+    },
+    "rarity": {
+      "Legendary": "⚡ LEGENDARY: {description}",
+      "Epic": "💎 EPIC: {description}",
+      "Rare": "🔷 RARE: {description}",
+      "Common": "{description}"
+    },
+    "specialIds": {
+      "format": "🎭 {title}: {story}"
+    }
+  }
+}

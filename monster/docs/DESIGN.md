@@ -1,8 +1,10 @@
-# Pixel Monsters NFT Collection Design Document
+# The Mythical Cursed-Nightmare: Essays on Generative Tragedy
+## Design Document
 
 ## 概要
-Pixel Monsters NFTは、ダークファンタジーをテーマにしたピクセルアートNFTコレクションです。
-各NFTは4つの要素の組み合わせによって生成され、特定の組み合わせには特別なストーリーと称号が付与されます。
+"The Mythical Cursed-Nightmare: Essays on Generative Tragedy"は、フレデリック・ブルックスの名著『The Mythical Man-Month』へのオマージュとして生まれたダークファンタジーNFTコレクションです。
+
+各NFTは、アルゴリズムによって生成される10,000編の悲劇的エッセイとして存在します。4つの要素（Species、Equipment、Realm、Curse）の組み合わせが、それぞれ独自の悲劇を紡ぎ出します。
 
 ## 構成要素
 
@@ -212,13 +214,89 @@ Pixel Monsters NFTは、ダークファンタジーをテーマにしたピク�
 - **8128** - "Perfect Despair" - 完全数（古代ギリシャの神秘数）
 - **9999** - "The Final Guardian" - 最後の守護者、終末の番人
 
+## 通常NFTの名前生成システム
+
+### 概要
+シナジーやレジェンダリーIDに該当しないNFTにも、4要素に基づいた個性的な名前とストーリーを付与します。
+
+### Equipment と Curse の強さ比較
+
+#### Equipment Power Level
+- **Crown**: 9 (王の称号は最強)
+- **Scythe**: 8 (死神のイメージ)
+- **Magic Wand**: 7 (魔法使いの証)
+- **Sword**: 6 (戦士のアイデンティティ)
+- **Shield**: 5 (守護者)
+- **Poison**: 4 (状態異常系)
+- **Torch**: 3 (道具系)
+- **Amulet**: 2 (装飾品)
+- **Wine**: 2 (嗜好品)
+- **Shoulder Armor**: 1 (補助装備)
+
+#### Curse Power Level
+- **Mind Blast**: 9 (精神を破壊)
+- **Brain Wash**: 8 (完全支配)
+- **Lightning**: 7 (破壊的)
+- **Burning**: 6 (継続的苦痛)
+- **Blizzard**: 5 (環境変化)
+- **Meteor**: 5 (宇宙的)
+- **Poisoning**: 4 (状態異常)
+- **Confusion**: 3 (軽度の混乱)
+- **Seizure**: 2 (物理的症状)
+- **Bats**: 1 (単なる追従)
+
+### 名前生成ルール
+1. Equipment Power ≥ Curse Power の場合：Equipment の称号を使用
+2. Equipment Power < Curse Power の場合：Curse の形容詞を使用
+3. フォーマット：`{選ばれた形容詞/称号} {Monster} on {Realm} #{ID}`
+
+### 例
+- Crown(9) + Bats(1) + Skeleton → **"King Skeleton on Shadow #123"**
+- Shield(5) + Mind Blast(9) + Goblin → **"Psycho Goblin on Frost #456"**
+- Torch(3) + Confusion(3) + Vampire → **"Flame Vampire on Bloodmoon #789"** (同値は装備優先)
+
+### Equipment 称号一覧
+各装備には複数の称号があり、NFTのIDをシード値として決定的に選択されます：
+
+| Equipment | 称号 | 日本語訳 |
+|-----------|------|----------|
+| **Crown** | King / Lord / Monarch / Sovereign | 王 / 領主 / 君主 / 統治者 |
+| **Scythe** | Reaper / Harvester / Death / Grim | 死神 / 収穫者 / 死 / 無慈悲な |
+| **Magic Wand** | Sorcerer / Wizard / Mage / Mystic | 魔術師 / 魔法使い / 魔導士 / 神秘家 |
+| **Sword** | Blade / Warrior / Knight / Slayer | 剣士 / 戦士 / 騎士 / 殺戮者 |
+| **Shield** | Guardian / Defender / Protector / Sentinel | 守護者 / 防衛者 / 保護者 / 番人 |
+| **Poison** | Toxic / Venomous / Plague / Blight | 毒性の / 有毒な / 疫病の / 枯死の |
+| **Torch** | Burning / Flame / Pyre / Ember | 燃える / 炎の / 火葬の / 燃えさしの |
+| **Amulet** | Cursed / Enchanted / Blessed / Charmed | 呪われた / 魔法がかった / 祝福された / 魅了された |
+| **Wine** | Drunk / Intoxicated / Wasted / Tipsy | 酔った / 酩酊した / 泥酔した / ほろ酔いの |
+| **Shoulder Armor** | Armored / Plated / Protected / Shielded | 装甲の / 鎧の / 防護された / 遮蔽された |
+| **Arm** (変身時) | Armed / Grasping / Reaching / Clawed | 武装した / 掴む / 手を伸ばす / 爪のある |
+| **Head** (変身時) | Headed / Skulled / Minded / Brained | 頭の / 頭蓋の / 心ある / 脳みその |
+
+### Curse 形容詞一覧
+Curseの形容詞も同様にIDによって選択されます：
+
+| Curse | 形容詞 | 日本語訳 |
+|-------|--------|----------|
+| **Mind Blast** | Psycho / Mad / Demented / Insane | 精神異常の / 狂った / 発狂した / 正気でない |
+| **Brain Wash** | Hypnotized / Controlled / Enslaved / Dominated | 催眠状態の / 操られた / 奴隷化された / 支配された |
+| **Lightning** | Electric / Shocked / Thunderous / Voltaic | 電気の / 感電した / 雷鳴の / 電圧の |
+| **Burning** | Ablaze / Scorched / Ignited / Flaming | 燃え盛る / 焦げた / 発火した / 炎上する |
+| **Blizzard** | Frozen / Icy / Frostbitten / Glacial | 凍った / 氷の / 凍傷の / 氷河の |
+| **Meteor** | Cosmic / Stellar / Celestial / Astral | 宇宙の / 恒星の / 天体の / 星界の |
+| **Poisoning** | Poisoned / Infected / Diseased / Contaminated | 毒された / 感染した / 病気の / 汚染された |
+| **Confusion** | Confused / Lost / Bewildered / Dazed | 混乱した / 迷った / 当惑した / ぼんやりした |
+| **Seizure** | Twitching / Convulsing / Spasmic / Shaking | 痙攣する / ひきつける / けいれん性の / 震える |
+| **Bats** | Swarmed / Winged / Nocturnal / Flying | 群がる / 翼のある / 夜行性の / 飛ぶ |
+
 ## 実装優先度
 
 ### Phase 1 (実装済み)
 - [x] 基本的な4要素の組み合わせ生成
 - [x] Species + Equipment のSpecial Combos
-- [x] Legendary IDs
+- [x] Legendary IDs (30個)
 - [x] 基本レアリティシステム
+- [x] 通常NFTの動的名前生成システム
 
 ### Phase 2 (提案)
 - [ ] Curse + Realm のSynergy実装
@@ -263,4 +341,8 @@ function calculateRarity(species, equipment, realm, curse, tokenId) {
 ```
 
 ## まとめ
-このシステムにより、単純なランダム生成を超えた、深いストーリー性と収集価値を持つNFTコレクションを実現します。プレイヤーは特定の組み合わせを狙って収集し、コミュニティ内で取引することで、エコシステムが活性化されます。
+"The Mythical Cursed-Nightmare"は、単なるNFTコレクションではなく、10,000編のデジタル悲劇文学です。
+
+ブルックスが「銀の弾丸はない」と説いたように、このコレクションでは「すべての呪いに万能の対抗策はない」という真理を探求します。各エッセイ（NFT）は、アルゴリズムが生成する独自の悲劇として、永遠にブロックチェーンに刻まれます。
+
+コレクターは単なるデジタルアートではなく、生成的悲劇（Generative Tragedy）という新しい文学形式の一部を所有することになります。

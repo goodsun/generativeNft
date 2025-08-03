@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240">
+	<defs>
+		<filter id="pixelate">
+			<feFlood x="0" y="0" width="1" height="1" flood-color="#E0FFFF"/>
+			<feComposite in2="SourceGraphic" operator="over"/>
+		</filter>
+	</defs>
+
+	<!-- 最初の2秒間だけ透明 -->
+	<g id="wrapper" opacity="0">
+		<animate attributeName="opacity" from="0" to="1" begin="2s" dur="1s" fill="freeze"/>
+
+		<g transform="scale(10)">
+			<g>
+				<g>
+					<animateTransform attributeName="transform" type="translate" values="2,2; 8,4; 15,2; 20,6; 18,12; 10,15; 3,10; 2,2" dur="5s" repeatCount="indefinite"/>
+					<g>
+						<rect x="2" y="1" width="4" height="1" fill="#000000"/>
+						<rect x="0" y="2" width="8" height="1" fill="#000000">
+							<animate attributeName="width" values="8;4;8;4;8" dur="0.3s" repeatCount="indefinite"/>
+							<animate attributeName="x" values="0;2;0;2;0" dur="0.3s" repeatCount="indefinite"/>
+						</rect>
+						<rect x="3" y="2" width="2" height="1" fill="#8B008B"/>
+						<animate attributeName="opacity" values="0.4;0.9;0.4" dur="2s" repeatCount="indefinite"/>
+					</g>
+				</g>
+				<g>
+					<animateTransform attributeName="transform" type="translate" values="18,15; 12,12; 5,14; 2,8; 6,4; 14,6; 20,10; 18,15" dur="4s" begin="1s" repeatCount="indefinite"/>
+					<g>
+						<rect x="2" y="1" width="4" height="1" fill="#000000"/>
+						<rect x="0" y="2" width="8" height="1" fill="#000000">
+							<animate attributeName="width" values="8;4;8;4;8" dur="0.3s" repeatCount="indefinite"/>
+							<animate attributeName="x" values="0;2;0;2;0" dur="0.3s" repeatCount="indefinite"/>
+						</rect>
+						<rect x="3" y="2" width="2" height="1" fill="#4B0082"/>
+						<animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" begin="1s" repeatCount="indefinite"/>
+					</g>
+				</g>
+				<g>
+					<animateTransform attributeName="transform" type="translate" values="10,8; 16,3; 20,8; 15,12; 8,10; 4,6; 8,2; 10,8" dur="3.5s" begin="2s" repeatCount="indefinite"/>
+					<g>
+						<rect x="2" y="1" width="4" height="1" fill="#000000"/>
+						<rect x="0" y="2" width="8" height="1" fill="#000000">
+							<animate attributeName="width" values="8;4;8;4;8" dur="0.3s" repeatCount="indefinite"/>
+							<animate attributeName="x" values="0;2;0;2;0" dur="0.3s" repeatCount="indefinite"/>
+						</rect>
+						<rect x="3" y="2" width="2" height="1" fill="#2F4F4F"/>
+						<animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="2s" repeatCount="indefinite"/>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>
+

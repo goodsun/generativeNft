@@ -1,0 +1,782 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240">
+            <defs>
+                <filter id="pixelate">
+                    <feFlood x="0" y="0" width="1" height="1" flood-color="#51355A"/>
+                    <feComposite in2="SourceGraphic" operator="over"/>
+                </filter>
+            </defs>
+            <!-- エフェクト -->
+            <g transform="scale(10)">
+                <g>
+        
+                    <text x="0" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        F
+                        <animate attributeName="y" values="24;-2" dur="1.081717667454883s" begin="0.22425784181870978s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8653741339639064s" begin="0.22425784181870978s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.081717667454883s" begin="0.22425784181870978s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 0 12;0 0 12" dur="0.2s" begin="0.22425784181870978s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="0" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        C
+                        <animate attributeName="y" values="24;-2" dur="1.4930172029403408s" begin="1.1902856844381962s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1944137623522726s" begin="1.1902856844381962s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4930172029403408s" begin="1.1902856844381962s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 0 12;0 0 12" dur="0.2s" begin="1.1902856844381962s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="0" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        B
+                        <animate attributeName="y" values="24;-2" dur="1.4661915186259438s" begin="0.8339730075790359s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.172953214900755s" begin="0.8339730075790359s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4661915186259438s" begin="0.8339730075790359s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 0 12;0 0 12" dur="0.2s" begin="0.8339730075790359s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="0" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        C
+                        <animate attributeName="y" values="24;-2" dur="0.8963222436597228s" begin="1.2255533989709444s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7170577949277783s" begin="1.2255533989709444s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.8963222436597228s" begin="1.2255533989709444s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 0 12;0 0 12" dur="0.2s" begin="1.2255533989709444s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="0" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        Y
+                        <animate attributeName="y" values="24;-2" dur="1.0179058037861415s" begin="0.2798483512607932s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8143246430289133s" begin="0.2798483512607932s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.0179058037861415s" begin="0.2798483512607932s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 0 12;0 0 12" dur="0.2s" begin="0.2798483512607932s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="0" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        X
+                        <animate attributeName="y" values="24;-2" dur="1.4913215679785257s" begin="0.8179713575824004s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1930572543828206s" begin="0.8179713575824004s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4913215679785257s" begin="0.8179713575824004s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 0 12;0 0 12" dur="0.2s" begin="0.8179713575824004s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="0" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        A
+                        <animate attributeName="y" values="24;-2" dur="1.2966190464562757s" begin="1.0635865216530112s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0372952371650206s" begin="1.0635865216530112s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2966190464562757s" begin="1.0635865216530112s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 0 12;0 0 12" dur="0.2s" begin="1.0635865216530112s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="0" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        A
+                        <animate attributeName="y" values="24;-2" dur="1.3633492460742596s" begin="0.7181989309256245s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0906793968594077s" begin="0.7181989309256245s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.3633492460742596s" begin="0.7181989309256245s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 0 12;0 0 12" dur="0.2s" begin="0.7181989309256245s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="2" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        B
+                        <animate attributeName="y" values="24;-2" dur="0.923834469062346s" begin="1.8278690752846145s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7390675752498769s" begin="1.8278690752846145s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.923834469062346s" begin="1.8278690752846145s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 2 12;0 2 12" dur="0.2s" begin="1.8278690752846145s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="2" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        F
+                        <animate attributeName="y" values="24;-2" dur="1.4716535257181957s" begin="1.6115899524169062s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1773228205745567s" begin="1.6115899524169062s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4716535257181957s" begin="1.6115899524169062s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 2 12;0 2 12" dur="0.2s" begin="1.6115899524169062s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="2" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        1
+                        <animate attributeName="y" values="24;-2" dur="1.2539734647602527s" begin="1.6614566241731255s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0031787718082021s" begin="1.6614566241731255s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2539734647602527s" begin="1.6614566241731255s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 2 12;180 2 12" dur="0.2s" begin="1.6614566241731255s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="2" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        E
+                        <animate attributeName="y" values="24;-2" dur="1.3452713394687947s" begin="1.8604714556163855s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0762170715750359s" begin="1.8604714556163855s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.3452713394687947s" begin="1.8604714556163855s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 2 12;0 2 12" dur="0.2s" begin="1.8604714556163855s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="2" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        A
+                        <animate attributeName="y" values="24;-2" dur="0.8437922882246606s" begin="1.9145694457921474s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.6750338305797285s" begin="1.9145694457921474s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.8437922882246606s" begin="1.9145694457921474s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 2 12;0 2 12" dur="0.2s" begin="1.9145694457921474s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="2" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        E
+                        <animate attributeName="y" values="24;-2" dur="1.3676367259309994s" begin="1.116586553233972s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0941093807447995s" begin="1.116586553233972s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.3676367259309994s" begin="1.116586553233972s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 2 12;0 2 12" dur="0.2s" begin="1.116586553233972s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="2" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        7
+                        <animate attributeName="y" values="24;-2" dur="0.9563154051280233s" begin="0.9114699224441596s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7650523241024186s" begin="0.9114699224441596s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.9563154051280233s" begin="0.9114699224441596s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 2 12;180 2 12" dur="0.2s" begin="0.9114699224441596s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="2" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        8
+                        <animate attributeName="y" values="24;-2" dur="0.9402742616637485s" begin="0.1301235590853551s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7522194093309988s" begin="0.1301235590853551s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.9402742616637485s" begin="0.1301235590853551s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 2 12;0 2 12" dur="0.2s" begin="0.1301235590853551s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="4" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        C
+                        <animate attributeName="y" values="24;-2" dur="0.8480598496689322s" begin="0.6630337719938113s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.6784478797351459s" begin="0.6630337719938113s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.8480598496689322s" begin="0.6630337719938113s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 4 12;180 4 12" dur="0.2s" begin="0.6630337719938113s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="4" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        C
+                        <animate attributeName="y" values="24;-2" dur="0.9726621326342199s" begin="1.5826917246166725s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.778129706107376s" begin="1.5826917246166725s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.9726621326342199s" begin="1.5826917246166725s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 4 12;0 4 12" dur="0.2s" begin="1.5826917246166725s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="4" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        F
+                        <animate attributeName="y" values="24;-2" dur="1.4000295965618816s" begin="0.4618643465633683s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1200236772495054s" begin="0.4618643465633683s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4000295965618816s" begin="0.4618643465633683s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 4 12;180 4 12" dur="0.2s" begin="0.4618643465633683s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="4" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        E
+                        <animate attributeName="y" values="24;-2" dur="1.2588221643033592s" begin="1.3477899596025824s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0070577314426874s" begin="1.3477899596025824s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2588221643033592s" begin="1.3477899596025824s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 4 12;0 4 12" dur="0.2s" begin="1.3477899596025824s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="4" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        1
+                        <animate attributeName="y" values="24;-2" dur="1.3605215686859844s" begin="1.8428199589439096s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0884172549487876s" begin="1.8428199589439096s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.3605215686859844s" begin="1.8428199589439096s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 4 12;0 4 12" dur="0.2s" begin="1.8428199589439096s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="4" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        A
+                        <animate attributeName="y" values="24;-2" dur="1.088400070440491s" begin="1.3668656070611669s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8707200563523929s" begin="1.3668656070611669s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.088400070440491s" begin="1.3668656070611669s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 4 12;0 4 12" dur="0.2s" begin="1.3668656070611669s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="4" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        Y
+                        <animate attributeName="y" values="24;-2" dur="1.1391767260601493s" begin="0.8376475777542116s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.9113413808481194s" begin="0.8376475777542116s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.1391767260601493s" begin="0.8376475777542116s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 4 12;0 4 12" dur="0.2s" begin="0.8376475777542116s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="4" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        1
+                        <animate attributeName="y" values="24;-2" dur="0.8246917451744737s" begin="0.6028176624013983s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.6597533961395791s" begin="0.6028176624013983s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.8246917451744737s" begin="0.6028176624013983s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 4 12;0 4 12" dur="0.2s" begin="0.6028176624013983s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="6" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        C
+                        <animate attributeName="y" values="24;-2" dur="1.3632165849316549s" begin="1.9822711903321961s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.090573267945324s" begin="1.9822711903321961s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.3632165849316549s" begin="1.9822711903321961s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 6 12;0 6 12" dur="0.2s" begin="1.9822711903321961s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="6" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        A
+                        <animate attributeName="y" values="24;-2" dur="1.107902510394584s" begin="1.9280802274297921s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8863220083156673s" begin="1.9280802274297921s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.107902510394584s" begin="1.9280802274297921s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 6 12;0 6 12" dur="0.2s" begin="1.9280802274297921s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="6" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        B
+                        <animate attributeName="y" values="24;-2" dur="1.1995312277452101s" begin="0.3075157871765444s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.9596249821961682s" begin="0.3075157871765444s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.1995312277452101s" begin="0.3075157871765444s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 6 12;180 6 12" dur="0.2s" begin="0.3075157871765444s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="6" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        8
+                        <animate attributeName="y" values="24;-2" dur="1.2809522680891428s" begin="0.023099730624006165s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0247618144713142s" begin="0.023099730624006165s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2809522680891428s" begin="0.023099730624006165s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 6 12;0 6 12" dur="0.2s" begin="0.023099730624006165s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="6" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        9
+                        <animate attributeName="y" values="24;-2" dur="0.8011162573822227s" begin="0.7779615241900535s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.6408930059057782s" begin="0.7779615241900535s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.8011162573822227s" begin="0.7779615241900535s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 6 12;0 6 12" dur="0.2s" begin="0.7779615241900535s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="6" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        X
+                        <animate attributeName="y" values="24;-2" dur="0.8658900324402254s" begin="0.6845562422271145s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.6927120259521804s" begin="0.6845562422271145s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.8658900324402254s" begin="0.6845562422271145s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 6 12;0 6 12" dur="0.2s" begin="0.6845562422271145s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="6" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        0
+                        <animate attributeName="y" values="24;-2" dur="1.3566883556130476s" begin="1.2074873089163307s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0853506844904381s" begin="1.2074873089163307s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.3566883556130476s" begin="1.2074873089163307s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 6 12;0 6 12" dur="0.2s" begin="1.2074873089163307s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="6" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        X
+                        <animate attributeName="y" values="24;-2" dur="0.9457350872162112s" begin="0.4535640454942953s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.756588069772969s" begin="0.4535640454942953s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.9457350872162112s" begin="0.4535640454942953s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 6 12;0 6 12" dur="0.2s" begin="0.4535640454942953s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="8" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        X
+                        <animate attributeName="y" values="24;-2" dur="1.3428448925661356s" begin="0.6349699678617866s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0742759140529086s" begin="0.6349699678617866s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.3428448925661356s" begin="0.6349699678617866s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 8 12;0 8 12" dur="0.2s" begin="0.6349699678617866s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="8" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        X
+                        <animate attributeName="y" values="24;-2" dur="0.9633716784250017s" begin="0.39284909568250237s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7706973427400015s" begin="0.39284909568250237s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.9633716784250017s" begin="0.39284909568250237s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 8 12;0 8 12" dur="0.2s" begin="0.39284909568250237s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="8" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        1
+                        <animate attributeName="y" values="24;-2" dur="1.3100262741577202s" begin="1.1923224174901108s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0480210193261763s" begin="1.1923224174901108s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.3100262741577202s" begin="1.1923224174901108s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 8 12;0 8 12" dur="0.2s" begin="1.1923224174901108s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="8" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        F
+                        <animate attributeName="y" values="24;-2" dur="1.4926831400995764s" begin="1.92287997565304s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.194146512079661s" begin="1.92287997565304s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4926831400995764s" begin="1.92287997565304s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 8 12;0 8 12" dur="0.2s" begin="1.92287997565304s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="8" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        Y
+                        <animate attributeName="y" values="24;-2" dur="1.106215763198374s" begin="1.634960865041264s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8849726105586992s" begin="1.634960865041264s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.106215763198374s" begin="1.634960865041264s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 8 12;0 8 12" dur="0.2s" begin="1.634960865041264s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="8" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        X
+                        <animate attributeName="y" values="24;-2" dur="1.1833761205411912s" begin="0.9885332253488506s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.9467008964329531s" begin="0.9885332253488506s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.1833761205411912s" begin="0.9885332253488506s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 8 12;180 8 12" dur="0.2s" begin="0.9885332253488506s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="8" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        X
+                        <animate attributeName="y" values="24;-2" dur="1.2602073409532757s" begin="1.361163125277685s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0081658727626206s" begin="1.361163125277685s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2602073409532757s" begin="1.361163125277685s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 8 12;0 8 12" dur="0.2s" begin="1.361163125277685s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="8" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        9
+                        <animate attributeName="y" values="24;-2" dur="0.8104605938519448s" begin="1.3790029584520171s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.6483684750815559s" begin="1.3790029584520171s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.8104605938519448s" begin="1.3790029584520171s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 8 12;0 8 12" dur="0.2s" begin="1.3790029584520171s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="10" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        Y
+                        <animate attributeName="y" values="24;-2" dur="0.8203552676347301s" begin="1.7458082607177645s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.6562842141077841s" begin="1.7458082607177645s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.8203552676347301s" begin="1.7458082607177645s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 10 12;0 10 12" dur="0.2s" begin="1.7458082607177645s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="10" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        X
+                        <animate attributeName="y" values="24;-2" dur="1.2724256204776383s" begin="0.5648476299564826s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0179404963821106s" begin="0.5648476299564826s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2724256204776383s" begin="0.5648476299564826s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 10 12;180 10 12" dur="0.2s" begin="0.5648476299564826s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="10" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        7
+                        <animate attributeName="y" values="24;-2" dur="1.441538528277199s" begin="1.7987046040609658s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1532308226217594s" begin="1.7987046040609658s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.441538528277199s" begin="1.7987046040609658s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 10 12;0 10 12" dur="0.2s" begin="1.7987046040609658s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="10" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        F
+                        <animate attributeName="y" values="24;-2" dur="1.2120848175357755s" begin="1.2437625712359204s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.9696678540286204s" begin="1.2437625712359204s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2120848175357755s" begin="1.2437625712359204s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 10 12;0 10 12" dur="0.2s" begin="1.2437625712359204s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="10" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        9
+                        <animate attributeName="y" values="24;-2" dur="1.1027380493702403s" begin="1.1079293972545883s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8821904394961924s" begin="1.1079293972545883s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.1027380493702403s" begin="1.1079293972545883s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 10 12;180 10 12" dur="0.2s" begin="1.1079293972545883s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="10" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        Z
+                        <animate attributeName="y" values="24;-2" dur="0.986284508124627s" begin="0.5046346112144964s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7890276064997016s" begin="0.5046346112144964s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.986284508124627s" begin="0.5046346112144964s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 10 12;0 10 12" dur="0.2s" begin="0.5046346112144964s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="10" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        Z
+                        <animate attributeName="y" values="24;-2" dur="1.2091023966599597s" begin="0.8402238904702528s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.9672819173279678s" begin="0.8402238904702528s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2091023966599597s" begin="0.8402238904702528s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 10 12;0 10 12" dur="0.2s" begin="0.8402238904702528s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="10" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        D
+                        <animate attributeName="y" values="24;-2" dur="1.052004505027217s" begin="1.908827749720661s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8416036040217737s" begin="1.908827749720661s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.052004505027217s" begin="1.908827749720661s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 10 12;0 10 12" dur="0.2s" begin="1.908827749720661s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="12" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        1
+                        <animate attributeName="y" values="24;-2" dur="0.935102092030794s" begin="1.2050111053148866s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7480816736246352s" begin="1.2050111053148866s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.935102092030794s" begin="1.2050111053148866s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 12 12;0 12 12" dur="0.2s" begin="1.2050111053148866s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="12" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        7
+                        <animate attributeName="y" values="24;-2" dur="1.2587750399885491s" begin="0.6213902010583845s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0070200319908393s" begin="0.6213902010583845s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2587750399885491s" begin="0.6213902010583845s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 12 12;0 12 12" dur="0.2s" begin="0.6213902010583845s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="12" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        0
+                        <animate attributeName="y" values="24;-2" dur="1.0670201730791278s" begin="1.5143022129398263s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8536161384633023s" begin="1.5143022129398263s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.0670201730791278s" begin="1.5143022129398263s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 12 12;0 12 12" dur="0.2s" begin="1.5143022129398263s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="12" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        F
+                        <animate attributeName="y" values="24;-2" dur="0.923923949019397s" begin="0.07010355097184728s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7391391592155176s" begin="0.07010355097184728s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.923923949019397s" begin="0.07010355097184728s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 12 12;0 12 12" dur="0.2s" begin="0.07010355097184728s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="12" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        D
+                        <animate attributeName="y" values="24;-2" dur="1.2381761134208225s" begin="0.17564387548572236s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.990540890736658s" begin="0.17564387548572236s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2381761134208225s" begin="0.17564387548572236s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 12 12;0 12 12" dur="0.2s" begin="0.17564387548572236s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="12" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        C
+                        <animate attributeName="y" values="24;-2" dur="1.0517222435774516s" begin="1.6374675899359883s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8413777948619613s" begin="1.6374675899359883s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.0517222435774516s" begin="1.6374675899359883s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 12 12;0 12 12" dur="0.2s" begin="1.6374675899359883s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="12" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        0
+                        <animate attributeName="y" values="24;-2" dur="0.8009273323628445s" begin="1.3171153263858988s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.6407418658902757s" begin="1.3171153263858988s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.8009273323628445s" begin="1.3171153263858988s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 12 12;180 12 12" dur="0.2s" begin="1.3171153263858988s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="12" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        8
+                        <animate attributeName="y" values="24;-2" dur="1.2897825184024239s" begin="0.5533108980510126s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0318260147219391s" begin="0.5533108980510126s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2897825184024239s" begin="0.5533108980510126s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 12 12;0 12 12" dur="0.2s" begin="0.5533108980510126s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="14" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        9
+                        <animate attributeName="y" values="24;-2" dur="1.2197319991310498s" begin="1.9663265721411065s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.9757855993048399s" begin="1.9663265721411065s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2197319991310498s" begin="1.9663265721411065s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 14 12;0 14 12" dur="0.2s" begin="1.9663265721411065s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="14" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        Y
+                        <animate attributeName="y" values="24;-2" dur="1.170700451498412s" begin="0.6569832338007868s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.9365603611987297s" begin="0.6569832338007868s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.170700451498412s" begin="0.6569832338007868s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 14 12;0 14 12" dur="0.2s" begin="0.6569832338007868s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="14" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        A
+                        <animate attributeName="y" values="24;-2" dur="1.117693412688342s" begin="0.21379310591150236s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8941547301506736s" begin="0.21379310591150236s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.117693412688342s" begin="0.21379310591150236s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 14 12;0 14 12" dur="0.2s" begin="0.21379310591150236s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="14" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        9
+                        <animate attributeName="y" values="24;-2" dur="1.4715524730557537s" begin="0.7966511132762442s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1772419784446029s" begin="0.7966511132762442s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4715524730557537s" begin="0.7966511132762442s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 14 12;0 14 12" dur="0.2s" begin="0.7966511132762442s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="14" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        8
+                        <animate attributeName="y" values="24;-2" dur="0.814691320351789s" begin="0.5563047575677067s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.6517530562814313s" begin="0.5563047575677067s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.814691320351789s" begin="0.5563047575677067s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 14 12;0 14 12" dur="0.2s" begin="0.5563047575677067s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="14" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        B
+                        <animate attributeName="y" values="24;-2" dur="0.8681371439406649s" begin="1.973925255008682s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.6945097151525319s" begin="1.973925255008682s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.8681371439406649s" begin="1.973925255008682s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 14 12;0 14 12" dur="0.2s" begin="1.973925255008682s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="14" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        Y
+                        <animate attributeName="y" values="24;-2" dur="0.9651937236657826s" begin="0.3375788111021685s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7721549789326261s" begin="0.3375788111021685s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.9651937236657826s" begin="0.3375788111021685s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 14 12;0 14 12" dur="0.2s" begin="0.3375788111021685s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="14" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        0
+                        <animate attributeName="y" values="24;-2" dur="0.92090651904116s" begin="1.1212742137551241s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7367252152329281s" begin="1.1212742137551241s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.92090651904116s" begin="1.1212742137551241s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 14 12;0 14 12" dur="0.2s" begin="1.1212742137551241s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="16" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        7
+                        <animate attributeName="y" values="24;-2" dur="1.4917668881227044s" begin="1.3983621997009368s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1934135104981636s" begin="1.3983621997009368s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4917668881227044s" begin="1.3983621997009368s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 16 12;0 16 12" dur="0.2s" begin="1.3983621997009368s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="16" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        E
+                        <animate attributeName="y" values="24;-2" dur="1.3060115310893716s" begin="0.9149147751380213s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0448092248714973s" begin="0.9149147751380213s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.3060115310893716s" begin="0.9149147751380213s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 16 12;0 16 12" dur="0.2s" begin="0.9149147751380213s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="16" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        Y
+                        <animate attributeName="y" values="24;-2" dur="1.4969387277492365s" begin="1.0604292133788378s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1975509821993893s" begin="1.0604292133788378s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4969387277492365s" begin="1.0604292133788378s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 16 12;0 16 12" dur="0.2s" begin="1.0604292133788378s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="16" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        1
+                        <animate attributeName="y" values="24;-2" dur="0.8384094869941097s" begin="1.210436044377929s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.6707275895952878s" begin="1.210436044377929s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.8384094869941097s" begin="1.210436044377929s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 16 12;0 16 12" dur="0.2s" begin="1.210436044377929s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="16" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        C
+                        <animate attributeName="y" values="24;-2" dur="1.0969324878882265s" begin="1.6705716959655197s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8775459903105812s" begin="1.6705716959655197s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.0969324878882265s" begin="1.6705716959655197s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 16 12;0 16 12" dur="0.2s" begin="1.6705716959655197s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="16" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        C
+                        <animate attributeName="y" values="24;-2" dur="1.140601101031217s" begin="0.24873623718450122s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.9124808808249736s" begin="0.24873623718450122s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.140601101031217s" begin="0.24873623718450122s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 16 12;0 16 12" dur="0.2s" begin="0.24873623718450122s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="16" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        X
+                        <animate attributeName="y" values="24;-2" dur="1.3926886004857444s" begin="0.34549234031456044s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1141508803885956s" begin="0.34549234031456044s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.3926886004857444s" begin="0.34549234031456044s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 16 12;0 16 12" dur="0.2s" begin="0.34549234031456044s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="16" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        C
+                        <animate attributeName="y" values="24;-2" dur="1.1493527508927608s" begin="1.8506833907553413s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.9194822007142087s" begin="1.8506833907553413s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.1493527508927608s" begin="1.8506833907553413s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 16 12;0 16 12" dur="0.2s" begin="1.8506833907553413s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="18" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        X
+                        <animate attributeName="y" values="24;-2" dur="1.4200070610240092s" begin="1.794624619838925s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1360056488192074s" begin="1.794624619838925s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4200070610240092s" begin="1.794624619838925s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 18 12;0 18 12" dur="0.2s" begin="1.794624619838925s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="18" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        1
+                        <animate attributeName="y" values="24;-2" dur="1.275104862179565s" begin="1.3843288780029086s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0200838897436522s" begin="1.3843288780029086s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.275104862179565s" begin="1.3843288780029086s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 18 12;0 18 12" dur="0.2s" begin="1.3843288780029086s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="18" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        0
+                        <animate attributeName="y" values="24;-2" dur="1.0002151465721143s" begin="0.880953552820313s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8001721172576914s" begin="0.880953552820313s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.0002151465721143s" begin="0.880953552820313s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 18 12;0 18 12" dur="0.2s" begin="0.880953552820313s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="18" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        A
+                        <animate attributeName="y" values="24;-2" dur="1.2083351411154095s" begin="1.8323928607315385s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.9666681128923277s" begin="1.8323928607315385s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2083351411154095s" begin="1.8323928607315385s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 18 12;0 18 12" dur="0.2s" begin="1.8323928607315385s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="18" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        0
+                        <animate attributeName="y" values="24;-2" dur="1.4379974438957193s" begin="0.590715466363074s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1503979551165755s" begin="0.590715466363074s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4379974438957193s" begin="0.590715466363074s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 18 12;0 18 12" dur="0.2s" begin="0.590715466363074s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="18" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        C
+                        <animate attributeName="y" values="24;-2" dur="0.9872473955741929s" begin="0.10465870328384685s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7897979164593544s" begin="0.10465870328384685s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.9872473955741929s" begin="0.10465870328384685s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 18 12;0 18 12" dur="0.2s" begin="0.10465870328384685s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="18" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        Z
+                        <animate attributeName="y" values="24;-2" dur="0.821443251672103s" begin="1.1838337817855273s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.6571546013376824s" begin="1.1838337817855273s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.821443251672103s" begin="1.1838337817855273s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 18 12;180 18 12" dur="0.2s" begin="1.1838337817855273s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="18" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        1
+                        <animate attributeName="y" values="24;-2" dur="1.4287988385922934s" begin="0.8008180558160638s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1430390708738347s" begin="0.8008180558160638s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4287988385922934s" begin="0.8008180558160638s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 18 12;180 18 12" dur="0.2s" begin="0.8008180558160638s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="20" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        E
+                        <animate attributeName="y" values="24;-2" dur="0.9641977053133238s" begin="0.5512043657151218s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7713581642506591s" begin="0.5512043657151218s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.9641977053133238s" begin="0.5512043657151218s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 20 12;0 20 12" dur="0.2s" begin="0.5512043657151218s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="20" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        D
+                        <animate attributeName="y" values="24;-2" dur="1.3912969036558809s" begin="0.9520413611532197s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1130375229247047s" begin="0.9520413611532197s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.3912969036558809s" begin="0.9520413611532197s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 20 12;0 20 12" dur="0.2s" begin="0.9520413611532197s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="20" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        D
+                        <animate attributeName="y" values="24;-2" dur="1.0495164467835687s" begin="0.9382580998674397s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.839613157426855s" begin="0.9382580998674397s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.0495164467835687s" begin="0.9382580998674397s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 20 12;0 20 12" dur="0.2s" begin="0.9382580998674397s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="20" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        F
+                        <animate attributeName="y" values="24;-2" dur="1.4253997193382557s" begin="0.5401052436390046s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1403197754706047s" begin="0.5401052436390046s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4253997193382557s" begin="0.5401052436390046s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 20 12;180 20 12" dur="0.2s" begin="0.5401052436390046s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="20" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        8
+                        <animate attributeName="y" values="24;-2" dur="1.0899250340162143s" begin="0.5779134885792507s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8719400272129715s" begin="0.5779134885792507s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.0899250340162143s" begin="0.5779134885792507s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 20 12;0 20 12" dur="0.2s" begin="0.5779134885792507s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="20" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        C
+                        <animate attributeName="y" values="24;-2" dur="1.0630038194309692s" begin="0.7193775853338964s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.8504030555447755s" begin="0.7193775853338964s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.0630038194309692s" begin="0.7193775853338964s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 20 12;0 20 12" dur="0.2s" begin="0.7193775853338964s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="20" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        A
+                        <animate attributeName="y" values="24;-2" dur="1.4067618452782726s" begin="0.8454438993366731s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.125409476222618s" begin="0.8454438993366731s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4067618452782726s" begin="0.8454438993366731s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 20 12;0 20 12" dur="0.2s" begin="0.8454438993366731s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="20" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        8
+                        <animate attributeName="y" values="24;-2" dur="1.432900357155207s" begin="0.16851865337699445s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1463202857241657s" begin="0.16851865337699445s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.432900357155207s" begin="0.16851865337699445s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 20 12;0 20 12" dur="0.2s" begin="0.16851865337699445s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="22" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        7
+                        <animate attributeName="y" values="24;-2" dur="1.3085713284207716s" begin="0.6281019845508429s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0468570627366174s" begin="0.6281019845508429s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.3085713284207716s" begin="0.6281019845508429s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 22 12;0 22 12" dur="0.2s" begin="0.6281019845508429s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="22" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        D
+                        <animate attributeName="y" values="24;-2" dur="1.4062646945318238s" begin="0.762186303174506s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.125011755625459s" begin="0.762186303174506s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4062646945318238s" begin="0.762186303174506s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 22 12;0 22 12" dur="0.2s" begin="0.762186303174506s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="22" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        0
+                        <animate attributeName="y" values="24;-2" dur="0.912018583672406s" begin="0.5865559168475547s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7296148669379248s" begin="0.5865559168475547s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.912018583672406s" begin="0.5865559168475547s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 22 12;0 22 12" dur="0.2s" begin="0.5865559168475547s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="22" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        7
+                        <animate attributeName="y" values="24;-2" dur="0.9635452992076154s" begin="0.21166517051927336s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.7708362393660924s" begin="0.21166517051927336s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.9635452992076154s" begin="0.21166517051927336s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 22 12;180 22 12" dur="0.2s" begin="0.21166517051927336s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="22" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        7
+                        <animate attributeName="y" values="24;-2" dur="1.1351346092887065s" begin="1.0924794980670498s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.9081076874309653s" begin="1.0924794980670498s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.1351346092887065s" begin="1.0924794980670498s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 22 12;0 22 12" dur="0.2s" begin="1.0924794980670498s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="22" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        A
+                        <animate attributeName="y" values="24;-2" dur="0.8038006988468154s" begin="0.8642879172190103s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="0.6430405590774524s" begin="0.8642879172190103s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="0.8038006988468154s" begin="0.8642879172190103s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 22 12;0 22 12" dur="0.2s" begin="0.8642879172190103s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="22" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        B
+                        <animate attributeName="y" values="24;-2" dur="1.2549459093936277s" begin="0.313067412341856s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.0039567275149022s" begin="0.313067412341856s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.2549459093936277s" begin="0.313067412341856s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 22 12;0 22 12" dur="0.2s" begin="0.313067412341856s" repeatCount="indefinite"/>
+                    </text>
+                
+                    <text x="22" y="24" font-size="1.8" fill="transparent" font-family="monospace">
+                        B
+                        <animate attributeName="y" values="24;-2" dur="1.4877284241672295s" begin="1.1282101667815185s" repeatCount="indefinite"/>
+                        <animate attributeName="fill" values="transparent;#003300;#00FF00;#7CFC00;#00FF00;#32CD32;#003300;transparent" dur="1.1901827393337836s" begin="1.1282101667815185s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.3;1;1;0.3;0" dur="1.4877284241672295s" begin="1.1282101667815185s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="rotate" values="0 22 12;0 22 12" dur="0.2s" begin="1.1282101667815185s" repeatCount="indefinite"/>
+                    </text>
+                
+    </g>
+            </g>
+        </svg>

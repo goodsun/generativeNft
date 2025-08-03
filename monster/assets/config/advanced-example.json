@@ -1,0 +1,91 @@
+{
+  "comment": "Advanced configuration example with all features",
+  "attributes": {
+    "slot1": {
+      "name": "Character",
+      "directory": "characters",
+      "weight": 40,
+      "items": [
+        { 
+          "name": "Hero", 
+          "file": "hero.svg",
+          "rarity": 10,
+          "traits": {
+            "strength": 8,
+            "wisdom": 6
+          }
+        },
+        { 
+          "name": "Wizard", 
+          "file": "wizard.svg",
+          "rarity": 20,
+          "traits": {
+            "strength": 3,
+            "wisdom": 10
+          }
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "projectName": "Fantasy Quest",
+    "nameFormat": "{projectName} #{id}",
+    "descriptionFormat": "A {slot1} wielding {slot2} in the {slot3} realm, blessed with {slot4}.",
+    "dynamicDescription": {
+      "enabled": true,
+      "conditions": [
+        {
+          "if": {"slot1": "Hero", "slot2": "Sword"},
+          "description": "A valiant hero mastering the legendary blade."
+        },
+        {
+          "if": {"slot1": "Wizard", "slot4": "Lightning"},
+          "description": "A storm wizard channeling the power of thunder."
+        }
+      ],
+      "defaultFormat": "A {rarity} {slot1} on an epic adventure."
+    }
+  },
+  "generation": {
+    "totalSupply": 10000,
+    "seed": "random",
+    "distribution": {
+      "type": "weighted",
+      "rarityWeights": {
+        "Common": 60,
+        "Rare": 25,
+        "Epic": 12,
+        "Legendary": 3
+      }
+    }
+  },
+  "output": {
+    "imageSize": 240,
+    "imageFormat": "svg",
+    "metadataStandard": "opensea",
+    "customAttributes": [
+      {
+        "trait_type": "Generation",
+        "value": "Genesis"
+      },
+      {
+        "trait_type": "Season",
+        "value": "1"
+      }
+    ]
+  },
+  "localization": {
+    "enabled": true,
+    "defaultLanguage": "en",
+    "languages": {
+      "en": {
+        "projectName": "Fantasy Quest",
+        "description": "Epic adventures await"
+      },
+      "ja": {
+        "projectName": "ファンタジークエスト",
+        "description": "壮大な冒険が待っている"
+      }
+    }
+  }
+}

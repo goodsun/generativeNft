@@ -1,0 +1,40 @@
+{
+  "comment": "This is a template for creating new NFT projects. Copy this file and modify for your project.",
+  "attributes": {
+    "slot1": {
+      "name": "Character Type",
+      "directory": "characters",
+      "items": [
+        { "name": "Example Character", "file": "example.svg" }
+      ]
+    },
+    "slot2": {
+      "name": "Accessory",
+      "directory": "accessories",
+      "items": [
+        { "name": "Example Item", "file": "example.svg" }
+      ]
+    },
+    "slot3": {
+      "name": "Background Theme",
+      "directory": "backgrounds",
+      "isBackground": true,
+      "items": [
+        { "name": "Example Theme", "primary": "#FF0000", "secondary": "#00FF00", "background": "#0000FF", "hueRotate": 0 }
+      ]
+    },
+    "slot4": {
+      "name": "Special Effect",
+      "directory": "effects",
+      "isEffect": true,
+      "items": [
+        { "name": "Example Effect" }
+      ]
+    }
+  },
+  "metadata": {
+    "projectName": "Your Project Name",
+    "description": "Your project description",
+    "totalSupply": 10000
+  }
+}

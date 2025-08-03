@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240">
+            <defs>
+                <filter id="pixelate">
+                    <feFlood x="0" y="0" width="1" height="1" flood-color="#FFE66D"/>
+                    <feComposite in2="SourceGraphic" operator="over"/>
+                </filter>
+            </defs>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <!-- エフェクト -->
+            <g transform="scale(10)">
+                <g>
+        <text x="24" y="-4" font-size="6" fill="red">★
+            <animateTransform attributeName="transform" type="translate" values="0,0; -28,28" dur="1.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;1;1;0" dur="1.5s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="yellow;white;orange;yellow" dur="1.5s" repeatCount="indefinite"/>
+        </text>
+        <text x="20" y="-2" font-size="4" fill="orange">★
+            <animateTransform attributeName="transform" type="translate" values="0,0; -24,26" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.8;0.8;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+        </text>
+        <text x="28" y="2" font-size="5" fill="red">★
+            <animateTransform attributeName="transform" type="translate" values="0,0; -32,30" dur="1.5s" begin="0.6s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.9;0.9;0" dur="1.5s" begin="0.6s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="yellow;white;yellow" dur="1.5s" begin="0.6s" repeatCount="indefinite"/>
+        </text>
+        <text x="26" y="-6" font-size="3" fill="white">★
+            <animateTransform attributeName="transform" type="translate" values="0,0; -30,32" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.6;0.6;0" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
+        </text>
+        <text x="22" y="4" font-size="4" fill="orange">★
+            <animateTransform attributeName="transform" type="translate" values="0,0; -26,24" dur="1.5s" begin="1.2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.7;0.7;0" dur="1.5s" begin="1.2s" repeatCount="indefinite"/>
+        </text>
+    </g>
+            </g>
+        </svg>

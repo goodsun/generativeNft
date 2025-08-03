@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>The Dark Narrative - The Mythical Cursed-Nightmare</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.svg">
+    
+    <!-- Apple Touch Icon (180x180 for iOS) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.svg" />
+    
+    <!-- PWA対応 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#6B46C1">
+    <meta name="description" content="The Dark Narrative - Chronicles of the Cursed Realm. Discover the dark narrative behind the Mythical Cursed-Nightmare collection.">
+    
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+      .language-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+      }
+      
+      .lang-tab {
+        background: rgba(107, 70, 193, 0.2);
+        border: 1px solid rgba(107, 70, 193, 0.3);
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+        color: #C084FC;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      
+      .lang-tab:hover {
+        background: rgba(107, 70, 193, 0.3);
+        transform: translateY(-2px);
+      }
+      
+      .lang-tab.active {
+        background: linear-gradient(45deg, #6B46C1, #9333EA);
+        color: white;
+        border-color: transparent;
+      }
+      
+      .lang-flag {
+        font-size: 18px;
+      }
+      
+      .story-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px 0;
+      }
+      
+      .chapter {
+        margin-bottom: 60px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.8s ease forwards;
+      }
+      
+      .chapter:nth-child(1) { animation-delay: 0.2s; }
+      .chapter:nth-child(2) { animation-delay: 0.4s; }
+      .chapter:nth-child(3) { animation-delay: 0.6s; }
+      .chapter:nth-child(4) { animation-delay: 0.8s; }
+      
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .chapter-title {
+        color: #C084FC;
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+        padding-left: 30px;
+      }
+      
+      .chapter-title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 2px;
+        background: linear-gradient(to right, #C084FC, transparent);
+      }
+      
+      .story-text {
+        color: #E9D5FF;
+        line-height: 1.8;
+        font-size: 1.1em;
+        text-align: justify;
+        margin-bottom: 20px;
+      }
+      
+      .highlight {
+        color: #FFD700;
+        font-weight: bold;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      }
+      
+      .legendary-text {
+        color: #EF4444;
+        font-weight: bold;
+        text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+      }
+      
+      .divider {
+        text-align: center;
+        margin: 40px 0;
+        color: #6B46C1;
+        font-size: 24px;
+      }
+      
+      .lore-box {
+        background: rgba(107, 70, 193, 0.1);
+        border: 1px solid rgba(107, 70, 193, 0.3);
+        border-radius: 15px;
+        padding: 25px;
+        margin: 30px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .lore-box::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(147, 51, 234, 0.1) 0%, transparent 70%);
+        animation: pulse 4s ease-in-out infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+      }
+      
+      .lore-title {
+        color: #A78BFA;
+        font-size: 1.3em;
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+      
+      .quote {
+        font-style: italic;
+        color: #C084FC;
+        border-left: 3px solid #6B46C1;
+        padding-left: 20px;
+        margin: 30px 0;
+        font-size: 1.2em;
+      }
+      
+      .quote-author {
+        text-align: right;
+        color: #9CA3AF;
+        font-size: 0.9em;
+        margin-top: 10px;
+      }
+      
+      @media (max-width: 768px) {
+        .story-content {
+          padding: 20px 0;
+        }
+        
+        .chapter-title {
+          font-size: 1.5em;
+        }
+        
+        .story-text {
+          font-size: 1em;
+          text-align: left;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>The Dark Narrative</h1>
+      <p style="font-size: 20px; color: #ddd; margin-top: 8px; text-align: center; font-weight: 500;">
+        Chronicles of the Cursed Realm
+      </p>
+      <p style="font-size: 14px; color: #666; margin-top: 15px; text-align: center;">
+        Discover the dark narrative behind the collection
+      </p>
+      
+      <div class="button-group">
+        <button onclick="window.location.href='index.html'">← Back to Home</button>
+        <button onclick="window.location.href='essays.html'" class="nav-button">View Essays</button>
+      </div>
+      
+      <div class="language-tabs">
+        <div class="lang-tab active" onclick="switchLanguage('en')">
+          <span class="lang-flag">🇺🇸</span> English
+        </div>
+        <div class="lang-tab" onclick="switchLanguage('ja')">
+          <span class="lang-flag">🇯🇵</span> 日本語
+        </div>
+        <div class="lang-tab" onclick="switchLanguage('zh')">
+          <span class="lang-flag">🇨🇳</span> 中文
+        </div>
+        <div class="lang-tab" onclick="switchLanguage('ko')">
+          <span class="lang-flag">🇰🇷</span> 한국어
+        </div>
+        <div class="lang-tab" onclick="switchLanguage('fr')">
+          <span class="lang-flag">🇫🇷</span> Français
+        </div>
+        <div class="lang-tab" onclick="switchLanguage('de')">
+          <span class="lang-flag">🇩🇪</span> Deutsch
+        </div>
+      </div>
+      
+      <!-- Prologue -->
+      <div id="prologue" style="
+        background: rgba(50, 0, 0, 0.3);
+        padding: 30px;
+        margin: 30px 0;
+        font-style: italic;
+        color: #e9d5ff;
+        text-align: center;
+        line-height: 1.8;
+        font-size: 1.1rem;
+      ">
+        <div id="prologueText" style="white-space: pre-line;">Ten souls were cursed in ages past.
+Ten nightmares bound to ever last.
+
+Not living. Not dead.
+Waiting.
+
+They hunger still for mortal breath,
+For warmth of life, for peace of death.
+But neither shall they ever know—
+Only endless dark below.
+
+Each bears a tale of tragedy told,
+Each carries sins from days of old.
+
+Listen, if you dare.
+But know this well—
+
+Those who hear their whispered call
+May join their number, after all.</div>
+      </div>
+      
+      <div class="story-content">
+        <div class="chapter">
+          <h2 class="chapter-title">The Abyss Awakens</h2>
+          <p class="story-text">
+            In the depths of the digital void, where code and consciousness intertwine, 
+            there exists a realm known as the <span class="highlight">Cursed Dimension</span>. 
+            It is here that the mythical creatures of our nightmares were born—not from 
+            flesh and blood, but from corrupted data streams and broken algorithms.
+          </p>
+          <p class="story-text">
+            Each creature carries within it a fragment of the <span class="legendary-text">Original Curse</span>, 
+            a malevolent force that transforms ordinary beings into legendary monstrosities. 
+            The curse manifests differently in each host, creating unique combinations of 
+            horror and power that defy natural law.
+          </p>
+        </div>
+        
+        <div class="divider">✦ ✦ ✦</div>
+        
+        <div class="chapter">
+          <h2 class="chapter-title">The Four Pillars of Corruption</h2>
+          <div class="lore-box">
+            <h3 class="lore-title">The Elemental Curses</h3>
+            <p class="story-text">
+              <strong>Bloodmoon:</strong> The crimson tide that transforms the gentle into savage beasts<br>
+              <strong>Abyss:</strong> The void that consumes light and births eternal darkness<br>
+              <strong>Decay:</strong> The inevitable entropy that turns life into undeath<br>
+              <strong>Storm:</strong> The chaotic force that shatters reality's boundaries
+            </p>
+          </div>
+          <p class="story-text">
+            These four pillars support the architecture of nightmare itself. When creatures 
+            are touched by multiple curses, they achieve <span class="highlight">Synergy</span>—a 
+            state of being that transcends their original form and grants them powers beyond 
+            mortal comprehension.
+          </p>
+        </div>
+        
+        <div class="divider">✦ ✦ ✦</div>
+        
+        <div class="chapter">
+          <h2 class="chapter-title">The Legendary Ones</h2>
+          <p class="story-text">
+            Among the ten thousand cursed beings, some carry special significance. The 
+            <span class="legendary-text">Legendary IDs</span> are not random—they are 
+            markers of destiny, coordinates in the vast tapestry of digital horror.
+          </p>
+          
+          <div class="quote">
+            "ID 666 marks The Beast, the first to embrace the darkness willingly. 
+            ID 1337 represents The Chosen, selected by the code itself to bear 
+            witness to the digital apocalypse."
+            <div class="quote-author">— From the Corrupted Codex</div>
+          </div>
+          
+          <p class="story-text">
+            Each legendary creature serves as an anchor point in the narrative, their 
+            stories interweaving to form a complex mythology of digital damnation and 
+            redemption denied.
+          </p>
+        </div>
+        
+        <div class="divider">✦ ✦ ✦</div>
+        
+        <div class="chapter">
+          <h2 class="chapter-title">The Eternal Collection</h2>
+          <p class="story-text">
+            This collection is more than mere images and metadata—it is a 
+            <span class="highlight">living chronicle</span> of the Cursed Dimension's 
+            inhabitants. Each NFT serves as a window into their tormented existence, 
+            a fragment of their corrupted souls preserved in the blockchain's 
+            immutable ledger.
+          </p>
+          
+          <div class="lore-box">
+            <h3 class="lore-title">The Collector's Burden</h3>
+            <p class="story-text">
+              Those who possess these cursed artifacts become part of the narrative 
+              themselves. The act of collection creates a bond between the digital 
+              realm and our own, slowly eroding the barriers that keep the nightmares 
+              at bay.
+            </p>
+          </div>
+          
+          <p class="story-text">
+            As the collection grows, so does the power of the curse. Each new holder 
+            adds their essence to the collective nightmare, feeding the very darkness 
+            they seek to possess. In the end, one must ask: who truly owns whom?
+          </p>
+        </div>
+      </div>
+      
+      <footer style="text-align: center; margin-top: 40px; padding-top: 20px; color: #C084FC; font-size: 14px;">
+        © 2025 The Mythical Cursed-Nightmare
+      </footer>
+    </div>
+
+    <script>
+      // Add some interactive effects
+      document.addEventListener('DOMContentLoaded', () => {
+        // Animate text on scroll
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.chapter').forEach(chapter => {
+          observer.observe(chapter);
+        });
+      });
+    </script>
+    
+    <script src="js/translations.js"></script>
+    <script>
+      let currentLang = localStorage.getItem('selectedLanguage') || 'en';
+      
+      // Switch language function
+      function switchLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('selectedLanguage', lang);
+        
+        // Update active tab
+        document.querySelectorAll('.lang-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        event.target.closest('.lang-tab').classList.add('active');
+        
+        // Update content
+        updateContent();
+      }
+      
+      // Update all content based on selected language
+      function updateContent() {
+        const t = translations[currentLang];
+        
+        // Update main titles
+        document.querySelector('h1').textContent = t.title;
+        document.querySelector('.container > p:nth-of-type(1)').textContent = t.subtitle;
+        document.querySelector('.container > p:nth-of-type(2)').textContent = t.description;
+        
+        // Update buttons
+        document.querySelector('button[onclick*="index.html"]').textContent = t.backButton;
+        document.querySelector('button[onclick*="essays.html"]').textContent = t.viewEssays;
+        
+        // Update prologue
+        if (t.prologue) {
+          document.getElementById('prologueText').textContent = t.prologue;
+        }
+        
+        // Update chapters
+        const chapters = document.querySelectorAll('.chapter');
+        
+        // Chapter 1: The Abyss Awakens
+        chapters[0].querySelector('.chapter-title').textContent = t.chapters.abyss.title;
+        const abyssTexts = chapters[0].querySelectorAll('.story-text');
+        t.chapters.abyss.content.forEach((content, i) => {
+          if (abyssTexts[i]) abyssTexts[i].innerHTML = content;
+        });
+        
+        // Chapter 2: The Four Pillars
+        chapters[1].querySelector('.chapter-title').textContent = t.chapters.pillars.title;
+        chapters[1].querySelector('.lore-title').textContent = t.chapters.pillars.loreTitle;
+        chapters[1].querySelector('.lore-box .story-text').innerHTML = t.chapters.pillars.loreContent;
+        chapters[1].querySelectorAll('.story-text')[1].innerHTML = t.chapters.pillars.content;
+        
+        // Chapter 3: The Legendary Ones
+        chapters[2].querySelector('.chapter-title').textContent = t.chapters.legendary.title;
+        chapters[2].querySelectorAll('.story-text')[0].innerHTML = t.chapters.legendary.content;
+        chapters[2].querySelector('.quote').innerHTML = t.chapters.legendary.quote + 
+          '<div class="quote-author">' + t.chapters.legendary.quoteAuthor + '</div>';
+        chapters[2].querySelectorAll('.story-text')[1].innerHTML = t.chapters.legendary.contentAfter;
+        
+        // Chapter 4: The Eternal Collection
+        chapters[3].querySelector('.chapter-title').textContent = t.chapters.collection.title;
+        chapters[3].querySelectorAll('.story-text')[0].innerHTML = t.chapters.collection.content;
+        chapters[3].querySelector('.lore-title').textContent = t.chapters.collection.loreTitle;
+        chapters[3].querySelector('.lore-box .story-text').innerHTML = t.chapters.collection.loreContent;
+        chapters[3].querySelectorAll('.story-text')[2].innerHTML = t.chapters.collection.contentAfter;
+      }
+      
+      // Initialize on page load
+      document.addEventListener('DOMContentLoaded', () => {
+        // Set active language tab
+        document.querySelectorAll('.lang-tab').forEach(tab => {
+          if (tab.onclick.toString().includes(currentLang)) {
+            tab.classList.add('active');
+          } else {
+            tab.classList.remove('active');
+          }
+        });
+        
+        // Update content to saved language
+        updateContent();
+      });
+    </script>
+  </body>
+</html>

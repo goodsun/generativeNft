@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240">
+	<defs>
+		<filter id="pixelate">
+			<feFlood x="0" y="0" width="1" height="1" flood-color="#FFE66D"/>
+			<feComposite in2="SourceGraphic" operator="over"/>
+		</filter>
+	</defs>
+<!-- エフェクト -->
+	<g transform="scale(10)">
+		<rect x="0" y="0" width="24" height="24" fill="url(#rainbow)">
+			<animate attributeName="opacity" values="0.1;0.3;0.1" dur="4s" repeatCount="indefinite"/>
+		</rect>
+		<defs>
+			<linearGradient id="rainbow">
+				<stop offset="0%" stop-color="red">
+					<animate attributeName="stop-color" values="red;yellow;green;cyan;blue;magenta;red" dur="6s" repeatCount="indefinite"/>
+				</stop>
+				<stop offset="50%" stop-color="green">
+					<animate attributeName="stop-color" values="green;cyan;blue;magenta;red;yellow;green" dur="6s" repeatCount="indefinite"/>
+				</stop>
+				<stop offset="100%" stop-color="blue">
+					<animate attributeName="stop-color" values="blue;magenta;red;yellow;green;cyan;blue" dur="6s" repeatCount="indefinite"/>
+				</stop>
+			</linearGradient>
+		</defs>
+	</g>
+</svg>
