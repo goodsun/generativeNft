@@ -461,27 +461,9 @@
                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
                 Hear the Chronicler's Tale →
             </a>
-            
-            <!-- Mint Link (hidden until watchword is used) -->
-            <a href="mint.html" id="mintLink" style="
-                display: none;
-                padding: 0.8rem 2rem;
-                background: linear-gradient(45deg, #ff4d4d, #ffd700);
-                border-radius: 50px;
-                color: #fff;
-                text-decoration: none;
-                font-size: 1rem;
-                text-transform: uppercase;
-                letter-spacing: 0.1em;
-                transition: all 0.3s;
-                animation: glow 2s ease-in-out infinite;
-            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 30px rgba(255, 77, 77, 0.5)'" 
-               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                🔥 Summon Nightmare →
-            </a>
         </div>
 
-        <!-- Wallet signup -->
+        <!-- Summon Button -->
         <div class="signup-container">
             <div class="signup-overlay">
                 <div>
@@ -492,18 +474,26 @@
                     </p>
                 </div>
             </div>
-            <form class="signup-form" id="signupForm">
-                <input 
-                    type="text" 
-                    class="email-input" 
-                    placeholder="Enter your wallet address (0x...)"
-                    pattern="^0x[a-fA-F0-9]{40}$"
-                    title="Please enter a valid Ethereum address"
-                    required
-                    id="walletInput"
-                >
-                <button type="submit" class="notify-btn">Something happens?</button>
-            </form>
+            <div style="text-align: center;">
+                <a href="summon.html" class="notify-btn" style="
+                    display: inline-block;
+                    text-decoration: none;
+                    padding: 1rem 2.5rem;
+                    background: linear-gradient(45deg, #9b4dff, #ff4d4d);
+                    border: none;
+                    border-radius: 50px;
+                    color: #fff;
+                    font-size: 1.1rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    transition: all 0.3s;
+                    cursor: pointer;
+                    font-weight: bold;
+                " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 40px rgba(155, 77, 255, 0.5)'" 
+                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    Something happens?
+                </a>
+            </div>
             <div style="margin-top: 1.5rem; text-align: center;">
                 <p style="color: #b792ff; font-size: 0.9rem; margin-bottom: 0.5rem;">
                     ⚠️ MetaMask wallet required • Connected to Base
@@ -574,6 +564,135 @@
                 
                 // Super secret encrypted password (definitely not 'password123' wink wink)
                 const secretWord = customDecrypt('116-112-118-109-99-112-118-111-101');
+                
+                // Handle incorrect watchword
+                if (watchword && watchword !== secretWord) {
+                    console.log(`%c❌ Wrong watchword: "${watchword}"`, 'color: #ff4d4d; font-size: 16px; font-weight: bold;');
+                    
+                    // Create a modal for wrong watchword
+                    const modal = document.createElement('div');
+                    modal.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: rgba(0, 0, 0, 0.95);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        z-index: 99999;
+                        animation: fadeIn 0.3s;
+                    `;
+                    
+                    const modalContent = document.createElement('div');
+                    modalContent.style.cssText = `
+                        background: linear-gradient(180deg, #2a0a1a 0%, #0a0a0a 100%);
+                        border: 2px solid #ff4d4d;
+                        border-radius: 20px;
+                        padding: 40px;
+                        text-align: center;
+                        max-width: 500px;
+                        box-shadow: 0 0 50px rgba(255, 77, 77, 0.5);
+                    `;
+                    
+                    modalContent.innerHTML = `
+                        <h2 style="color: #ff4d4d; font-size: 2em; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 77, 77, 0.8);">
+                            🚫 ACCESS DENIED 🚫
+                        </h2>
+                        <p style="color: #e9d5ff; font-size: 1.2em; margin-bottom: 15px; line-height: 1.6;">
+                            Wrong incantation. The ancient seal remains locked.
+                        </p>
+                        <p style="color: #b792ff; font-size: 1.1em; margin-bottom: 20px; font-style: italic;">
+                            "${watchword}" is not the watchword...
+                        </p>
+                        <p style="color: #ff9999; font-size: 0.9em; margin-bottom: 30px;">
+                            The spirits mock your feeble attempt.
+                        </p>
+                        <button id="closeModalBtn" style="
+                            background: linear-gradient(45deg, #ff4d4d, #9b4dff);
+                            color: white;
+                            border: none;
+                            padding: 15px 30px;
+                            font-size: 1.1em;
+                            border-radius: 50px;
+                            cursor: pointer;
+                            font-weight: bold;
+                            transition: all 0.3s;
+                        ">Try Again</button>
+                    `;
+                    
+                    modal.appendChild(modalContent);
+                    document.body.appendChild(modal);
+                    
+                    // Close button handler - redirect to clean URL and speak
+                    document.getElementById('closeModalBtn').onclick = async () => {
+                        // Speak the denial message on button click
+                        if ('speechSynthesis' in window) {
+                            window.speechSynthesis.cancel();
+                            const msg = new SpeechSynthesisUtterance();
+                            msg.text = `Access denied. "${watchword}" is not the watchword. You are not worthy. The seal remains unbroken. Try again, foolish mortal.`;
+                            msg.lang = 'en-US';
+                            msg.rate = 0.9;
+                            msg.pitch = 0.5;
+                            msg.volume = 1.0;
+                            
+                            // Voice initialization (same as correct watchword)
+                            const initializeVoices = () => {
+                                return new Promise((resolve) => {
+                                    let voices = window.speechSynthesis.getVoices();
+                                    
+                                    if (voices.length > 0) {
+                                        resolve(voices);
+                                    } else {
+                                        window.speechSynthesis.onvoiceschanged = () => {
+                                            voices = window.speechSynthesis.getVoices();
+                                            resolve(voices);
+                                        };
+                                        
+                                        const dummy = new SpeechSynthesisUtterance('');
+                                        window.speechSynthesis.speak(dummy);
+                                        window.speechSynthesis.cancel();
+                                        
+                                        setTimeout(() => {
+                                            voices = window.speechSynthesis.getVoices();
+                                            if (voices.length > 0) {
+                                                resolve(voices);
+                                            }
+                                        }, 100);
+                                    }
+                                });
+                            };
+                            
+                            const voices = await initializeVoices();
+                            const spookyVoice = voices.find(v => 
+                                v.name.toLowerCase().includes('zarvox') ||
+                                v.name.toLowerCase().includes('whisper') ||
+                                v.name.toLowerCase().includes('bad')
+                            ) || voices.find(v => v.lang === 'en-US');
+                            
+                            if (spookyVoice) {
+                                msg.voice = spookyVoice;
+                            }
+                            
+                            window.speechSynthesis.speak(msg);
+                        }
+                        
+                        // Redirect after speech starts
+                        setTimeout(() => {
+                            window.location.href = window.location.pathname;
+                        }, 2000);
+                    };
+                    
+                    // Click outside to close
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) {
+                            window.location.href = window.location.pathname;
+                        }
+                    });
+                    
+                    return false; // Don't process further
+                }
                 
                 if (watchword === secretWord) {
                     hasValidWatchword = true;
@@ -651,7 +770,6 @@
                         
                         // ボタンクリックで音声を再生（speechkitの方法を参考に）
                         if ('speechSynthesis' in window) {
-                            console.log('%c🔊 Speech Synthesis available', 'color: #9b4dff; font-size: 12px;');
                             // 既存の音声をキャンセル
                             window.speechSynthesis.cancel();
                             
@@ -695,62 +813,17 @@
                             
                             // 音声を初期化して取得
                             const voices = await initializeVoices();
-                            console.log('%c✅ Voices initialized!', 'color: #4dff4d; font-size: 14px;');
-                            
-                            // デバッグ: 利用可能な全音声をリスト
-                            console.log('%c📢 All available voices: ' + voices.length + ' voices found', 'color: #ff4d4d; font-size: 14px; font-weight: bold;');
-                            
-                            // 全ての音声を表示（言語でグループ化）
-                            const englishVoices = voices.filter(v => v.lang.startsWith('en'));
-                            const japaneseVoices = voices.filter(v => v.lang.startsWith('ja'));
-                            
-                            console.log('%c   English voices (' + englishVoices.length + '):', 'color: #9b4dff; font-weight: bold;');
-                            englishVoices.forEach(v => {
-                                if (v.name.toLowerCase().includes('boing')) {
-                                    console.log(`%c      ⭐ ${v.name} (${v.lang})`, 'color: #4dff4d; font-weight: bold;');
-                                } else {
-                                    console.log(`      ${v.name} (${v.lang})`);
-                                }
-                            });
-                            
-                            // 特殊音声を探す
-                            const specialVoices = voices.filter(v => 
-                                v.name.toLowerCase().includes('boing') ||
-                                v.name.toLowerCase().includes('bells') ||
-                                v.name.toLowerCase().includes('zarvox') ||
-                                v.name.toLowerCase().includes('grandpa') ||
-                                v.name.toLowerCase().includes('bad news') ||
-                                v.name.toLowerCase().includes('bubbles') ||
-                                v.name.toLowerCase().includes('whisper')
-                            );
-                            
-                            if (specialVoices.length > 0) {
-                                console.log('%c   Special voices found:', 'color: #4dff4d; font-weight: bold;');
-                                specialVoices.forEach(v => {
-                                    console.log(`      🎭 ${v.name} (${v.lang})`);
-                                });
-                            }
                             
                             // Boing voiceを最優先で探す（妻推奨）
                             let selectedVoice = voices.find(v => 
                                 v.name.toLowerCase().includes('boing')
                             );
                             
-                            // デバッグ用
-                            if (selectedVoice) {
-                                console.log('%c✅ Found Boing! 🤖', 'color: #4dff4d; font-size: 16px; font-weight: bold;');
-                            } else {
-                                console.log('%c❌ Boing not found, looking for alternatives...', 'color: #ff4d4d; font-size: 12px;');
-                            }
-                            
                             // なければBahh（羊）
                             if (!selectedVoice) {
                                 selectedVoice = voices.find(v => 
                                     v.name.toLowerCase().includes('bahh')
                                 );
-                                if (selectedVoice) {
-                                    console.log('%c✅ Found Bahh as alternative! 🐑', 'color: #9b4dff; font-size: 14px;');
-                                }
                             }
                             
                             // なければGrandpa voice（macOSの場合）
@@ -780,7 +853,6 @@
                             
                             if (selectedVoice) {
                                 msg.voice = selectedVoice;
-                                console.log('%c🎭 Final voice selected: ' + selectedVoice.name + ' (' + selectedVoice.lang + ')', 'color: #9b4dff; font-size: 14px; font-weight: bold;');
                             }
                             
                             // 音声を再生
@@ -796,11 +868,7 @@
                             overlay.style.display = 'none';
                         }
                         
-                        // Mintリンクを表示
-                        const mintLink = document.getElementById('mintLink');
-                        if (mintLink) {
-                            mintLink.style.display = 'inline-block';
-                        }
+                        // Removed mint link display - now using direct summon button
                         
                         
                         // スタイル付きコンソール出力
@@ -937,26 +1005,7 @@
             }
         }
 
-        // Wallet signup
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const wallet = document.getElementById('walletInput').value;
-            
-            // ここで実際のウォレット登録処理を実装
-            console.log('Wallet submitted:', wallet);
-            
-            // 成功メッセージ表示
-            const btn = e.target.querySelector('.notify-btn');
-            const originalText = btn.textContent;
-            btn.textContent = 'The tragedy begins...';
-            btn.style.background = 'linear-gradient(45deg, #4dff4d, #4d9fff)';
-            
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = 'linear-gradient(45deg, #9b4dff, #ff4d4d)';
-                document.getElementById('walletInput').value = '';
-            }, 3000);
-        });
+        // Removed wallet signup form handler - now using direct link to summon page
 
         // モンスター画像の切り替え
         function rotateMonsterImages() {

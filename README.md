@@ -41,7 +41,7 @@
 - **Download All as JSON**: 生成したメタデータをダウンロード
 - **Mint NFT**: ミントページへ移動
 
-### ミントページ（mint.html）
+### ミントページ（summon.html）
 
 - MetaMask連携でPolygonネットワークに接続
 - 3 POLでNFTをミント（先着順で連番発行）
@@ -95,7 +95,7 @@ GET api.php?id=5000  # ID 5000のNFTメタデータを取得
 ```
 metasample/
 ├── index.html              # メインUI（ブラウザで直接開ける）
-├── mint.html               # NFTミントページ（Web3対応）
+├── summon.html             # NFTミントページ（Web3対応）
 ├── api.php                 # JSON API（PHPサーバー必要）
 ├── NFTMetadataOnChain.sol  # Solidityスマートコントラクト
 └── README.md               # このファイル
