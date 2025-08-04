@@ -876,6 +876,259 @@
             }, 3000);
         }
 
+        // Current selected language (default to browser language)
+        let currentLanguage = localStorage.getItem('selectedLanguage') || navigator.language.substring(0, 2);
+        
+        // Multi-language mobile instructions
+        function showMobileInstructions() {
+            const translations = {
+                en: {
+                    title: "📱 Mobile Users",
+                    message: "To mint NFTs on mobile, you need to use MetaMask Browser",
+                    steps: [
+                        "Tap 'Connect MetaMask' button",
+                        "MetaMask app will open",
+                        "Go to Browser tab",
+                        "Paste URL and connect"
+                    ]
+                },
+                ja: {
+                    title: "📱 モバイルユーザーの方へ",
+                    message: "モバイルでNFTをミントするには、MetaMaskブラウザが必要です",
+                    steps: [
+                        "「Connect MetaMask」ボタンをタップ",
+                        "MetaMaskアプリが開きます",
+                        "ブラウザタブに移動",
+                        "URLを貼り付けて接続"
+                    ]
+                },
+                zh: {
+                    title: "📱 移动用户",
+                    message: "在移动设备上铸造NFT需要使用MetaMask浏览器",
+                    steps: [
+                        "点击「Connect MetaMask」按钮",
+                        "MetaMask应用将打开",
+                        "转到浏览器标签",
+                        "粘贴URL并连接"
+                    ]
+                },
+                ko: {
+                    title: "📱 모바일 사용자",
+                    message: "모바일에서 NFT를 민팅하려면 MetaMask 브라우저가 필요합니다",
+                    steps: [
+                        "「Connect MetaMask」버튼 탭",
+                        "MetaMask 앱이 열립니다",
+                        "브라우저 탭으로 이동",
+                        "URL을 붙여넣고 연결"
+                    ]
+                },
+                es: {
+                    title: "📱 Usuarios Móviles",
+                    message: "Para mintear NFTs en móvil, necesitas usar el navegador MetaMask",
+                    steps: [
+                        "Toca el botón 'Connect MetaMask'",
+                        "Se abrirá la app MetaMask",
+                        "Ve a la pestaña Navegador",
+                        "Pega la URL y conecta"
+                    ]
+                }
+            };
+            
+            // Use selected language or default to English
+            const t = translations[currentLanguage] || translations.en;
+            
+            // Create info banner with language selector
+            const banner = document.createElement('div');
+            banner.id = 'mobileBanner';
+            banner.style.cssText = `
+                background: linear-gradient(135deg, rgba(155, 77, 255, 0.1), rgba(255, 77, 77, 0.1));
+                border: 2px solid #9b4dff;
+                border-radius: 15px;
+                padding: 20px;
+                margin: 20px auto;
+                max-width: 600px;
+                text-align: center;
+            `;
+            
+            // Language tabs
+            const langTabs = `
+                <div style="display: flex; justify-content: center; gap: 5px; margin-bottom: 15px; flex-wrap: wrap;">
+                    <button onclick="switchMobileLanguage('en')" class="lang-btn" data-lang="en" style="
+                        background: ${currentLanguage === 'en' ? 'linear-gradient(45deg, #6B46C1, #9333EA)' : 'rgba(107, 70, 193, 0.2)'};
+                        border: 1px solid rgba(107, 70, 193, 0.3);
+                        padding: 5px 10px;
+                        border-radius: 15px;
+                        cursor: pointer;
+                        color: ${currentLanguage === 'en' ? 'white' : '#C084FC'};
+                        font-size: 12px;
+                    ">🇺🇸 EN</button>
+                    <button onclick="switchMobileLanguage('ja')" class="lang-btn" data-lang="ja" style="
+                        background: ${currentLanguage === 'ja' ? 'linear-gradient(45deg, #6B46C1, #9333EA)' : 'rgba(107, 70, 193, 0.2)'};
+                        border: 1px solid rgba(107, 70, 193, 0.3);
+                        padding: 5px 10px;
+                        border-radius: 15px;
+                        cursor: pointer;
+                        color: ${currentLanguage === 'ja' ? 'white' : '#C084FC'};
+                        font-size: 12px;
+                    ">🇯🇵 JP</button>
+                    <button onclick="switchMobileLanguage('zh')" class="lang-btn" data-lang="zh" style="
+                        background: ${currentLanguage === 'zh' ? 'linear-gradient(45deg, #6B46C1, #9333EA)' : 'rgba(107, 70, 193, 0.2)'};
+                        border: 1px solid rgba(107, 70, 193, 0.3);
+                        padding: 5px 10px;
+                        border-radius: 15px;
+                        cursor: pointer;
+                        color: ${currentLanguage === 'zh' ? 'white' : '#C084FC'};
+                        font-size: 12px;
+                    ">🇨🇳 CN</button>
+                    <button onclick="switchMobileLanguage('ko')" class="lang-btn" data-lang="ko" style="
+                        background: ${currentLanguage === 'ko' ? 'linear-gradient(45deg, #6B46C1, #9333EA)' : 'rgba(107, 70, 193, 0.2)'};
+                        border: 1px solid rgba(107, 70, 193, 0.3);
+                        padding: 5px 10px;
+                        border-radius: 15px;
+                        cursor: pointer;
+                        color: ${currentLanguage === 'ko' ? 'white' : '#C084FC'};
+                        font-size: 12px;
+                    ">🇰🇷 KR</button>
+                    <button onclick="switchMobileLanguage('es')" class="lang-btn" data-lang="es" style="
+                        background: ${currentLanguage === 'es' ? 'linear-gradient(45deg, #6B46C1, #9333EA)' : 'rgba(107, 70, 193, 0.2)'};
+                        border: 1px solid rgba(107, 70, 193, 0.3);
+                        padding: 5px 10px;
+                        border-radius: 15px;
+                        cursor: pointer;
+                        color: ${currentLanguage === 'es' ? 'white' : '#C084FC'};
+                        font-size: 12px;
+                    ">🇪🇸 ES</button>
+                </div>
+            `;
+            
+            banner.innerHTML = `
+                ${langTabs}
+                <h3 style="color: #ff4d4d; margin-bottom: 10px;">${t.title}</h3>
+                <p style="color: #e9d5ff; margin-bottom: 15px;">${t.message}</p>
+                <ol style="text-align: left; color: #b792ff; line-height: 1.8; display: inline-block;">
+                    ${t.steps.map(step => `<li>${step}</li>`).join('')}
+                </ol>
+            `;
+            
+            // Insert after wallet section
+            const walletSection = document.querySelector('.wallet-section');
+            walletSection.parentNode.insertBefore(banner, walletSection.nextSibling);
+        }
+        
+        // Switch language function
+        window.switchMobileLanguage = function(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('selectedLanguage', lang);
+            
+            // Remove old banner
+            const oldBanner = document.getElementById('mobileBanner');
+            if (oldBanner) {
+                oldBanner.remove();
+            }
+            
+            // Show new banner with updated language
+            showMobileInstructions();
+        }
+        
+        // Show success modal with multi-language support
+        function showMobileSuccessModal(callback) {
+            
+            const translations = {
+                en: {
+                    title: "✅ URL Copied!",
+                    opening: "Opening MetaMask...",
+                    instruction: "In MetaMask app:",
+                    steps: ["1. Go to Browser tab", "2. Paste the URL", "3. Press Go"],
+                    button: "Open MetaMask Now"
+                },
+                ja: {
+                    title: "✅ URLをコピーしました！",
+                    opening: "MetaMaskを開いています...",
+                    instruction: "MetaMaskアプリで：",
+                    steps: ["1. ブラウザタブへ", "2. URLを貼り付け", "3. Goを押す"],
+                    button: "今すぐMetaMaskを開く"
+                },
+                zh: {
+                    title: "✅ URL已复制！",
+                    opening: "正在打开MetaMask...",
+                    instruction: "在MetaMask应用中：",
+                    steps: ["1. 转到浏览器标签", "2. 粘贴URL", "3. 按Go"],
+                    button: "立即打开MetaMask"
+                },
+                ko: {
+                    title: "✅ URL 복사됨!",
+                    opening: "MetaMask 열기...",
+                    instruction: "MetaMask 앱에서:",
+                    steps: ["1. 브라우저 탭으로", "2. URL 붙여넣기", "3. Go 누르기"],
+                    button: "지금 MetaMask 열기"
+                },
+                es: {
+                    title: "✅ ¡URL Copiada!",
+                    opening: "Abriendo MetaMask...",
+                    instruction: "En la app MetaMask:",
+                    steps: ["1. Ve a la pestaña Navegador", "2. Pega la URL", "3. Presiona Go"],
+                    button: "Abrir MetaMask Ahora"
+                }
+            };
+            
+            const t = translations[currentLanguage] || translations.en;
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.95);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 99999;
+                animation: fadeIn 0.3s;
+            `;
+            
+            const content = document.createElement('div');
+            content.style.cssText = `
+                background: linear-gradient(180deg, #1a0a2a 0%, #0a0a0a 100%);
+                border: 2px solid #9b4dff;
+                border-radius: 20px;
+                padding: 30px;
+                text-align: center;
+                max-width: 400px;
+                box-shadow: 0 0 50px rgba(155, 77, 255, 0.5);
+            `;
+            
+            content.innerHTML = `
+                <h2 style="color: #4dff4d; margin-bottom: 15px;">${t.title}</h2>
+                <p style="color: #ffd700; font-size: 1.1em; margin-bottom: 20px;">${t.opening}</p>
+                <div style="background: rgba(155, 77, 255, 0.2); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="color: #e9d5ff; margin-bottom: 10px; font-weight: bold;">${t.instruction}</p>
+                    ${t.steps.map(step => `<p style="color: #b792ff; margin: 5px 0;">${step}</p>`).join('')}
+                </div>
+                <button id="openMetaMaskBtn" style="
+                    background: linear-gradient(45deg, #f6851b, #e2761b);
+                    color: white;
+                    border: none;
+                    padding: 15px 30px;
+                    font-size: 1.1em;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    width: 100%;
+                ">${t.button}</button>
+            `;
+            
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+            
+            // Add event listener to button
+            document.getElementById('openMetaMaskBtn').onclick = function() {
+                modal.remove();
+                callback();
+            };
+        }
+        
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
@@ -886,19 +1139,21 @@
             const isMetaMaskBrowser = typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
             
             if (isMobile && !isMetaMaskBrowser) {
+                // Show mobile instructions
+                showMobileInstructions();
+                
                 // Override connect button for mobile
                 const originalConnect = window.connectWallet;
                 window.connectWallet = function() {
                     // Copy URL to clipboard
                     const currentUrl = window.location.href;
                     navigator.clipboard.writeText(currentUrl).then(() => {
-                        // Try to open MetaMask app
-                        const deepLink = 'metamask://dapp/' + currentUrl.replace(/^https?:\/\//, '');
-                        window.location.href = deepLink;
-                        
-                        // Show message
-                        showTransactionStatus('pending', 
-                            'URL copied! Opening MetaMask... Paste the URL in MetaMask browser.');
+                        // Show success message before redirecting
+                        showMobileSuccessModal(() => {
+                            // Try to open MetaMask app after user understands
+                            const deepLink = 'metamask://dapp/' + currentUrl.replace(/^https?:\/\//, '');
+                            window.location.href = deepLink;
+                        });
                     });
                 };
             }
