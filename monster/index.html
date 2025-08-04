@@ -565,11 +565,11 @@
                 // Super secret encrypted password (definitely not 'password123' wink wink)
                 const secretWord = customDecrypt('116-112-118-109-99-112-118-111-101');
                 
-                // Handle incorrect watchword
+                // Handle incorrect watchword - use same modal but different behavior
                 if (watchword && watchword !== secretWord) {
                     console.log(`%c❌ Wrong watchword: "${watchword}"`, 'color: #ff4d4d; font-size: 16px; font-weight: bold;');
                     
-                    // Create a modal for wrong watchword
+                    // Use the same WARNING modal as correct watchword
                     const modal = document.createElement('div');
                     modal.style.cssText = `
                         position: fixed;
@@ -587,57 +587,67 @@
                     
                     const modalContent = document.createElement('div');
                     modalContent.style.cssText = `
-                        background: linear-gradient(180deg, #2a0a1a 0%, #0a0a0a 100%);
-                        border: 2px solid #ff4d4d;
+                        background: linear-gradient(180deg, #1a0a2a 0%, #0a0a0a 100%);
+                        border: 2px solid #9b4dff;
                         border-radius: 20px;
                         padding: 40px;
                         text-align: center;
                         max-width: 500px;
-                        box-shadow: 0 0 50px rgba(255, 77, 77, 0.5);
+                        box-shadow: 0 0 50px rgba(155, 77, 255, 0.5);
                     `;
                     
                     modalContent.innerHTML = `
                         <h2 style="color: #ff4d4d; font-size: 2em; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 77, 77, 0.8);">
-                            🚫 ACCESS DENIED 🚫
+                            ⚠️ WARNING ⚠️
                         </h2>
                         <p style="color: #e9d5ff; font-size: 1.2em; margin-bottom: 15px; line-height: 1.6;">
-                            Wrong incantation. The ancient seal remains locked.
+                            You are about to break the ancient seal...
                         </p>
-                        <p style="color: #b792ff; font-size: 1.1em; margin-bottom: 20px; font-style: italic;">
-                            "${watchword}" is not the watchword...
+                        <p style="color: #b792ff; font-size: 1.1em; margin-bottom: 30px; font-style: italic;">
+                            There is no turning back once the curse is unleashed.
                         </p>
-                        <p style="color: #ff9999; font-size: 0.9em; margin-bottom: 30px;">
-                            The spirits mock your feeble attempt.
-                        </p>
-                        <button id="closeModalBtn" style="
-                            background: linear-gradient(45deg, #ff4d4d, #9b4dff);
-                            color: white;
-                            border: none;
-                            padding: 15px 30px;
-                            font-size: 1.1em;
-                            border-radius: 50px;
-                            cursor: pointer;
-                            font-weight: bold;
-                            transition: all 0.3s;
-                        ">Try Again</button>
+                        <div style="display: flex; gap: 20px; justify-content: center;">
+                            <button id="proceedBtn" style="
+                                background: linear-gradient(45deg, #9b4dff, #ff4d4d);
+                                color: white;
+                                border: none;
+                                padding: 15px 30px;
+                                font-size: 1.1em;
+                                border-radius: 50px;
+                                cursor: pointer;
+                                font-weight: bold;
+                                transition: all 0.3s;
+                            ">Break the Seal</button>
+                            <button id="cancelBtn" style="
+                                background: transparent;
+                                color: #4dff4d;
+                                border: 2px solid #4dff4d;
+                                padding: 15px 30px;
+                                font-size: 1.1em;
+                                border-radius: 50px;
+                                cursor: pointer;
+                                transition: all 0.3s;
+                            ">Turn Back</button>
+                        </div>
                     `;
                     
                     modal.appendChild(modalContent);
                     document.body.appendChild(modal);
                     
-                    // Close button handler - redirect to clean URL and speak
-                    document.getElementById('closeModalBtn').onclick = async () => {
-                        // Speak the denial message on button click
+                    // Break the Seal button - play wrong watchword speech
+                    document.getElementById('proceedBtn').onclick = async () => {
+                        console.log('%c🔴 Break the Seal clicked (wrong watchword)!', 'color: #ff4d4d; font-size: 16px; font-weight: bold;');
+                        
                         if ('speechSynthesis' in window) {
                             window.speechSynthesis.cancel();
                             const msg = new SpeechSynthesisUtterance();
-                            msg.text = `Access denied. "${watchword}" is not the watchword. You are not worthy. The seal remains unbroken. Try again, foolish mortal.`;
+                            // Different message for wrong watchword
+                            msg.text = `Access denied. "${watchword}" is not the watchword. The seal remains unbroken. You are not worthy, foolish mortal.`;
                             msg.lang = 'en-US';
                             msg.rate = 0.9;
                             msg.pitch = 0.5;
                             msg.volume = 1.0;
                             
-                            // Voice initialization (same as correct watchword)
                             const initializeVoices = () => {
                                 return new Promise((resolve) => {
                                     let voices = window.speechSynthesis.getVoices();
@@ -665,28 +675,66 @@
                             };
                             
                             const voices = await initializeVoices();
-                            const spookyVoice = voices.find(v => 
-                                v.name.toLowerCase().includes('zarvox') ||
-                                v.name.toLowerCase().includes('whisper') ||
-                                v.name.toLowerCase().includes('bad')
-                            ) || voices.find(v => v.lang === 'en-US');
+                            let selectedVoice = voices.find(v => 
+                                v.name.toLowerCase().includes('boing')
+                            );
                             
-                            if (spookyVoice) {
-                                msg.voice = spookyVoice;
+                            if (!selectedVoice) {
+                                selectedVoice = voices.find(v => 
+                                    v.name.toLowerCase().includes('bahh')
+                                );
+                            }
+                            
+                            if (!selectedVoice) {
+                                selectedVoice = voices.find(v => 
+                                    v.name.toLowerCase().includes('grandpa') ||
+                                    v.name === 'Grandpa (English (United States))'
+                                );
+                            }
+                            
+                            if (!selectedVoice) {
+                                selectedVoice = voices.find(v => 
+                                    v.lang.includes('en') && 
+                                    (v.name.toLowerCase().includes('bells') ||
+                                     v.name.toLowerCase().includes('zarvox') ||
+                                     v.name.toLowerCase().includes('whisper') ||
+                                     v.name.toLowerCase().includes('bad') ||
+                                     v.name.toLowerCase().includes('bubbles'))
+                                );
+                            }
+                            
+                            if (!selectedVoice) {
+                                selectedVoice = voices.find(v => v.lang === 'en-US') || voices.find(v => v.lang.startsWith('en'));
+                            }
+                            
+                            if (selectedVoice) {
+                                msg.voice = selectedVoice;
                             }
                             
                             window.speechSynthesis.speak(msg);
                         }
                         
-                        // Redirect after speech starts
-                        setTimeout(() => {
-                            window.location.href = window.location.pathname;
-                        }, 2000);
+                        // Close modal but don't unlock anything
+                        modal.remove();
+                        
+                        // Don't remove Coming Soon overlay
+                        // Don't show mint link
+                        
+                        console.log('%c💀 The seal remains unbroken. Wrong watchword!', 'color: #ff4d4d; font-size: 18px; font-weight: bold;');
+                    };
+                    
+                    // Turn Back button
+                    document.getElementById('cancelBtn').onclick = () => {
+                        modal.remove();
+                        console.log('%cWise choice... But the watchword was still wrong.', 'color: #4dff4d; font-size: 16px;');
+                        window.location.href = window.location.pathname;
                     };
                     
                     // Click outside to close
                     modal.addEventListener('click', (e) => {
                         if (e.target === modal) {
+                            modal.remove();
+                            console.log('%cThe watchword was wrong anyway...', 'color: #ff4d4d; font-size: 16px;');
                             window.location.href = window.location.pathname;
                         }
                     });
