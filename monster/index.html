@@ -144,6 +144,15 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+        
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+            }
+        }
 
         .tagline {
             font-size: 1.2rem;
@@ -447,9 +456,28 @@
                 text-transform: uppercase;
                 letter-spacing: 0.1em;
                 transition: all 0.3s;
+                margin-right: 1rem;
             " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 30px rgba(155, 77, 255, 0.5)'" 
                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
                 Hear the Chronicler's Tale →
+            </a>
+            
+            <!-- Mint Link (hidden until watchword is used) -->
+            <a href="mint.html" id="mintLink" style="
+                display: none;
+                padding: 0.8rem 2rem;
+                background: linear-gradient(45deg, #ff4d4d, #ffd700);
+                border-radius: 50px;
+                color: #fff;
+                text-decoration: none;
+                font-size: 1rem;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                transition: all 0.3s;
+                animation: glow 2s ease-in-out infinite;
+            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 30px rgba(255, 77, 77, 0.5)'" 
+               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                🔥 Summon Nightmare →
             </a>
         </div>
 
@@ -766,6 +794,12 @@
                         const overlay = document.querySelector('.signup-overlay');
                         if (overlay) {
                             overlay.style.display = 'none';
+                        }
+                        
+                        // Mintリンクを表示
+                        const mintLink = document.getElementById('mintLink');
+                        if (mintLink) {
+                            mintLink.style.display = 'inline-block';
                         }
                         
                         
