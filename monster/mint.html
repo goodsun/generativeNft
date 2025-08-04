@@ -881,6 +881,28 @@
             createParticles();
             rotatePreviewImages();
             
+            // Check if mobile and not in MetaMask browser
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isMetaMaskBrowser = typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+            
+            if (isMobile && !isMetaMaskBrowser) {
+                // Override connect button for mobile
+                const originalConnect = window.connectWallet;
+                window.connectWallet = function() {
+                    // Copy URL to clipboard
+                    const currentUrl = window.location.href;
+                    navigator.clipboard.writeText(currentUrl).then(() => {
+                        // Try to open MetaMask app
+                        const deepLink = 'metamask://dapp/' + currentUrl.replace(/^https?:\/\//, '');
+                        window.location.href = deepLink;
+                        
+                        // Show message
+                        showTransactionStatus('pending', 
+                            'URL copied! Opening MetaMask... Paste the URL in MetaMask browser.');
+                    });
+                };
+            }
+            
             // Check if wallet is already connected
             if (window.ethereum && window.ethereum.selectedAddress) {
                 connectWallet();

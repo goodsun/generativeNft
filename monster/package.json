@@ -1,0 +1,18 @@
+{
+  "name": "mythical-cursed-nightmare",
+  "version": "1.0.0",
+  "description": "The Mythical Cursed-Nightmare NFT Collection",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@metamask/sdk": "^0.20.0",
+    "ethers": "^6.9.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
