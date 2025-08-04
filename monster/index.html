@@ -388,7 +388,7 @@
                 opacity: 0;
             }
             to {
-                opacity: 0.7;
+                opacity: 0.8;
             }
         }
 
@@ -575,6 +575,8 @@
         // URLパラメータチェック（隠し機能）
         let watchwordChecked = false;
         let hasValidWatchword = false;
+        // LocalStorageから試行回数を取得、なければ10から開始
+        let attemptCount = parseInt(localStorage.getItem('attemptCount') || '10');
         
         function checkWatchword() {
             // 一度だけチェック
@@ -595,9 +597,17 @@
                 // Super secret encrypted password (definitely not 'password123' wink wink)
                 const secretWord = customDecrypt('116-112-118-109-99-112-118-111-101');
                 
-                // Handle incorrect watchword - use same modal but different behavior
+                // Check for reset phrase - from Robert Johnson's crossroads legend
+                const resetPhrase = 'crossroads';
+                const isResetPhrase = watchword && watchword.toLowerCase() === resetPhrase.toLowerCase();
+                
+                // Handle incorrect watchword (including reset phrase)
                 if (watchword && watchword !== secretWord) {
-                    console.log(`%c❌ Wrong watchword: "${watchword}"`, 'color: #ff4d4d; font-size: 16px; font-weight: bold;');
+                    // Don't decrease count for reset phrase
+                    if (!isResetPhrase) {
+                        attemptCount--; // 試行回数を減らす
+                        console.log(`%c❌ Wrong watchword: "${watchword}" (${attemptCount} attempts remaining)`, 'color: #ff4d4d; font-size: 16px; font-weight: bold;');
+                    }
                     
                     // Use the same WARNING modal as correct watchword
                     const modal = document.createElement('div');
@@ -664,15 +674,255 @@
                     modal.appendChild(modalContent);
                     document.body.appendChild(modal);
                     
-                    // Break the Seal button - play wrong watchword speech and show re-entry modal
+                    // Break the Seal button - check if it's reset phrase
                     document.getElementById('proceedBtn').onclick = async () => {
+                        // Check if this is the reset phrase
+                        if (isResetPhrase) {
+                            console.log('%c🔥 Crossroads deal initiated!', 'color: #ff4d4d; font-size: 20px; font-weight: bold;');
+                            
+                            // Reset attempts
+                            localStorage.removeItem('attemptCount');
+                            attemptCount = 10;
+                            
+                            // Play voice message with Boing voice
+                            if ('speechSynthesis' in window) {
+                                window.speechSynthesis.cancel();
+                                const msg = new SpeechSynthesisUtterance();
+                                msg.text = 'OK Robert. Your soul is mine now. In exchange, I grant you one more chance. Use it wisely.';
+                                msg.lang = 'en-US';
+                                msg.rate = 1.0;  // Standard speed
+                                msg.pitch = 1.0;  // Standard pitch
+                                msg.volume = 1.0;
+                                
+                                const initializeVoices = () => {
+                                    return new Promise((resolve) => {
+                                        let voices = window.speechSynthesis.getVoices();
+                                        
+                                        if (voices.length > 0) {
+                                            resolve(voices);
+                                        } else {
+                                            window.speechSynthesis.onvoiceschanged = () => {
+                                                voices = window.speechSynthesis.getVoices();
+                                                resolve(voices);
+                                            };
+                                            
+                                            const dummy = new SpeechSynthesisUtterance('');
+                                            window.speechSynthesis.speak(dummy);
+                                            window.speechSynthesis.cancel();
+                                            
+                                            setTimeout(() => {
+                                                voices = window.speechSynthesis.getVoices();
+                                                if (voices.length > 0) {
+                                                    resolve(voices);
+                                                }
+                                            }, 100);
+                                        }
+                                    });
+                                };
+                                
+                                const voices = await initializeVoices();
+                                
+                                // Prioritize Boing voice
+                                let selectedVoice = voices.find(v => 
+                                    v.name.toLowerCase().includes('boing')
+                                );
+                                
+                                // Fallback voices if Boing not available
+                                if (!selectedVoice) {
+                                    selectedVoice = voices.find(v => 
+                                        v.name.toLowerCase().includes('bahh')
+                                    );
+                                }
+                                
+                                if (!selectedVoice) {
+                                    selectedVoice = voices.find(v => 
+                                        v.name.toLowerCase().includes('grandpa')
+                                    );
+                                }
+                                
+                                if (!selectedVoice) {
+                                    selectedVoice = voices.find(v => v.lang === 'en-US') || voices.find(v => v.lang.startsWith('en'));
+                                }
+                                
+                                if (selectedVoice) {
+                                    msg.voice = selectedVoice;
+                                }
+                                
+                                window.speechSynthesis.speak(msg);
+                            }
+                            
+                            // Close current modal
+                            modal.remove();
+                            
+                            // Show soul contract modal
+                            setTimeout(() => {
+                                const contractModal = document.createElement('div');
+                                contractModal.style.cssText = `
+                                    position: fixed;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    z-index: 99999;
+                                    animation: fadeIn 0.5s ease-out;
+                                `;
+                                
+                                // Add semi-transparent background
+                                const modalBg = document.createElement('div');
+                                modalBg.style.cssText = `
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    background: rgba(0, 0, 0, 0.7);
+                                `;
+                                
+                                const contractContent = document.createElement('div');
+                                contractContent.style.cssText = `
+                                    background: linear-gradient(180deg, #2a0a3a 0%, #0a0a0a 100%);
+                                    border: 2px solid #9b4dff;
+                                    border-radius: 20px;
+                                    padding: 40px;
+                                    text-align: center;
+                                    max-width: 400px;
+                                    box-shadow: 0 0 50px rgba(155, 77, 255, 0.5);
+                                    animation: modalSlideIn 0.5s ease-out;
+                                    position: relative;
+                                    z-index: 10;
+                                `;
+                                
+                                contractContent.innerHTML = `
+                                    <h2 style="color: #9b4dff; font-size: 1.8em; margin-bottom: 20px; text-shadow: 0 0 20px rgba(155, 77, 255, 0.8);">
+                                        Soul Contract
+                                    </h2>
+                                    <p style="color: #e9d5ff; font-size: 1.1em; margin-bottom: 25px; line-height: 1.6;">
+                                        OK Robert.<br>
+                                        Your soul is mine now.<br>
+                                        In exchange, I grant you one more chance.<br>
+                                        Use it wisely.
+                                    </p>
+                                    <p style="color: #999; font-size: 0.9em; margin-bottom: 25px; font-style: italic;">
+                                        Attempts reset to 10
+                                    </p>
+                                    <input type="text" id="contractInput" placeholder="Enter the watchword" style="
+                                        width: 100%;
+                                        padding: 12px 20px;
+                                        font-size: 1rem;
+                                        background: rgba(255, 255, 255, 0.1);
+                                        border: 2px solid #9b4dff;
+                                        border-radius: 50px;
+                                        color: #fff;
+                                        margin-bottom: 20px;
+                                        transition: all 0.3s;
+                                        outline: none;
+                                    ">
+                                    <div style="display: flex; gap: 15px; justify-content: center;">
+                                        <button id="contractTryBtn" style="
+                                            background: linear-gradient(45deg, #9b4dff, #ff4d4d);
+                                            color: white;
+                                            border: none;
+                                            padding: 12px 25px;
+                                            font-size: 1em;
+                                            border-radius: 50px;
+                                            cursor: pointer;
+                                            font-weight: bold;
+                                            transition: all 0.3s;
+                                        ">Try Again</button>
+                                        <button id="contractCancelBtn" style="
+                                            background: transparent;
+                                            color: #999;
+                                            border: 2px solid #666;
+                                            padding: 12px 25px;
+                                            font-size: 1em;
+                                            border-radius: 50px;
+                                            cursor: pointer;
+                                            transition: all 0.3s;
+                                        ">Cancel</button>
+                                    </div>
+                                `;
+                                
+                                // Add background "10" text
+                                const bgText = document.createElement('div');
+                                bgText.style.cssText = `
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%);
+                                    font-family: Impact, Arial Black, sans-serif;
+                                    font-size: 250px;
+                                    font-weight: 900;
+                                    color: #9b4dff;
+                                    opacity: 0.8;
+                                    user-select: none;
+                                    pointer-events: none;
+                                    z-index: 5;
+                                    animation: fadeInText 0.8s ease-out;
+                                `;
+                                bgText.textContent = '10';
+                                
+                                contractModal.appendChild(modalBg);
+                                contractModal.appendChild(bgText);
+                                contractModal.appendChild(contractContent);
+                                document.body.appendChild(contractModal);
+                                
+                                // Focus on input
+                                document.getElementById('contractInput').focus();
+                                
+                                // Handle enter key
+                                document.getElementById('contractInput').addEventListener('keypress', (e) => {
+                                    if (e.key === 'Enter') {
+                                        document.getElementById('contractTryBtn').click();
+                                    }
+                                });
+                                
+                                // Try Again button
+                                document.getElementById('contractTryBtn').onclick = () => {
+                                    const newWatchword = document.getElementById('contractInput').value;
+                                    if (newWatchword) {
+                                        // Store the reset attempt count
+                                        localStorage.setItem('attemptCount', '10');
+                                        // Redirect with new watchword
+                                        window.location.href = `${window.location.pathname}?watchword=${encodeURIComponent(newWatchword)}`;
+                                    }
+                                };
+                                
+                                // Cancel button
+                                document.getElementById('contractCancelBtn').onclick = () => {
+                                    contractModal.remove();
+                                    window.location.href = window.location.pathname;
+                                };
+                                
+                                // Click outside to close
+                                contractModal.addEventListener('click', (e) => {
+                                    if (e.target === contractModal || e.target === modalBg) {
+                                        contractModal.remove();
+                                        window.location.href = window.location.pathname;
+                                    }
+                                });
+                            }, 500); // Show after 500ms delay
+                            
+                            return; // Don't show re-entry modal
+                        }
+                        
+                        // Normal wrong watchword handling
                         console.log('%c🔴 Break the Seal clicked (wrong watchword)!', 'color: #ff4d4d; font-size: 16px; font-weight: bold;');
                         
                         if ('speechSynthesis' in window) {
                             window.speechSynthesis.cancel();
                             const msg = new SpeechSynthesisUtterance();
-                            // Different message for wrong watchword
-                            msg.text = `Access denied. "${watchword}" is not the watchword. The seal remains unbroken. You are not worthy, foolish mortal.`;
+                            // Different message for wrong watchword (without "Access denied")
+                            let messageText = `"${watchword}" is not the watchword. The seal remains unbroken. You are not worthy, foolish mortal.`;
+                            
+                            // Add remaining attempts warning for 3 or fewer attempts
+                            if (attemptCount <= 3 && attemptCount > 0) {
+                                messageText += ` You have ${attemptCount} ${attemptCount === 1 ? 'chance' : 'chances'} left.`;
+                            }
+                            
+                            msg.text = messageText;
                             msg.lang = 'en-US';
                             msg.rate = 0.9;
                             msg.pitch = 0.5;
@@ -749,6 +999,152 @@
                         
                         // Show re-entry modal after a short delay
                         setTimeout(() => {
+                            // Check if attempts are exhausted
+                            if (attemptCount <= 0) {
+                                // Show game over modal
+                                const gameOverModal = document.createElement('div');
+                                gameOverModal.style.cssText = `
+                                    position: fixed;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    background: rgba(0, 0, 0, 0.9);
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    z-index: 99999;
+                                    animation: fadeIn 0.5s ease-out;
+                                `;
+                                
+                                const gameOverContent = document.createElement('div');
+                                gameOverContent.style.cssText = `
+                                    background: linear-gradient(180deg, #000000 0%, #1a0000 100%);
+                                    border: 2px solid #8b0000;
+                                    border-radius: 20px;
+                                    padding: 40px;
+                                    text-align: center;
+                                    max-width: 400px;
+                                    box-shadow: 0 0 50px rgba(139, 0, 0, 0.8);
+                                    animation: modalSlideIn 0.5s ease-out;
+                                `;
+                                
+                                gameOverContent.innerHTML = `
+                                    <h2 style="color: #8b0000; font-size: 2em; margin-bottom: 20px; text-shadow: 0 0 20px rgba(139, 0, 0, 0.8);">
+                                        LOCKED OUT
+                                    </h2>
+                                    <p style="color: #ff4d4d; font-size: 1.2em; margin-bottom: 25px; line-height: 1.6;">
+                                        You have exhausted all attempts.<br>
+                                        The seal remains forever closed to you.
+                                    </p>
+                                    <p style="color: #666; font-size: 0.9em; font-style: italic;">
+                                        Your soul has been marked as unworthy.
+                                    </p>
+                                    <button id="acceptFateBtn" style="
+                                        background: #8b0000;
+                                        color: white;
+                                        border: none;
+                                        padding: 12px 30px;
+                                        font-size: 1em;
+                                        border-radius: 50px;
+                                        cursor: pointer;
+                                        font-weight: bold;
+                                        transition: all 0.3s;
+                                        margin-top: 20px;
+                                    ">Accept Your Fate</button>
+                                `;
+                                
+                                gameOverModal.appendChild(gameOverContent);
+                                document.body.appendChild(gameOverModal);
+                                
+                                // Read the locked out message
+                                if ('speechSynthesis' in window) {
+                                    window.speechSynthesis.cancel();
+                                    const msg = new SpeechSynthesisUtterance();
+                                    msg.text = 'Locked out. You have exhausted all attempts. The seal remains forever closed to you. Your soul has been marked as unworthy.';
+                                    msg.lang = 'en-US';
+                                    msg.rate = 0.8;
+                                    msg.pitch = 0.4;
+                                    msg.volume = 1.0;
+                                    
+                                    // Initialize voices
+                                    const initializeVoices = () => {
+                                        return new Promise((resolve) => {
+                                            let voices = window.speechSynthesis.getVoices();
+                                            
+                                            if (voices.length > 0) {
+                                                resolve(voices);
+                                            } else {
+                                                window.speechSynthesis.onvoiceschanged = () => {
+                                                    voices = window.speechSynthesis.getVoices();
+                                                    resolve(voices);
+                                                };
+                                                
+                                                const dummy = new SpeechSynthesisUtterance('');
+                                                window.speechSynthesis.speak(dummy);
+                                                window.speechSynthesis.cancel();
+                                                
+                                                setTimeout(() => {
+                                                    voices = window.speechSynthesis.getVoices();
+                                                    if (voices.length > 0) {
+                                                        resolve(voices);
+                                                    }
+                                                }, 100);
+                                            }
+                                        });
+                                    };
+                                    
+                                    initializeVoices().then(voices => {
+                                        // Try to find special voice
+                                        let selectedVoice = voices.find(v => 
+                                            v.name.toLowerCase().includes('boing')
+                                        );
+                                        
+                                        if (!selectedVoice) {
+                                            selectedVoice = voices.find(v => 
+                                                v.name.toLowerCase().includes('bahh')
+                                            );
+                                        }
+                                        
+                                        if (!selectedVoice) {
+                                            selectedVoice = voices.find(v => 
+                                                v.name.toLowerCase().includes('grandpa') ||
+                                                v.name === 'Grandpa (English (United States))'
+                                            );
+                                        }
+                                        
+                                        if (!selectedVoice) {
+                                            selectedVoice = voices.find(v => 
+                                                v.lang.includes('en') && 
+                                                (v.name.toLowerCase().includes('bells') ||
+                                                 v.name.toLowerCase().includes('zarvox') ||
+                                                 v.name.toLowerCase().includes('whisper') ||
+                                                 v.name.toLowerCase().includes('bad') ||
+                                                 v.name.toLowerCase().includes('bubbles'))
+                                            );
+                                        }
+                                        
+                                        if (!selectedVoice) {
+                                            selectedVoice = voices.find(v => v.lang === 'en-US') || voices.find(v => v.lang.startsWith('en'));
+                                        }
+                                        
+                                        if (selectedVoice) {
+                                            msg.voice = selectedVoice;
+                                        }
+                                        
+                                        window.speechSynthesis.speak(msg);
+                                    });
+                                }
+                                
+                                // Accept Fate button
+                                document.getElementById('acceptFateBtn').onclick = () => {
+                                    localStorage.removeItem('attemptCount');
+                                    window.location.href = window.location.pathname;
+                                };
+                                
+                                return; // Don't show the retry modal
+                            }
+                            
                             const reentryModal = document.createElement('div');
                             reentryModal.style.cssText = `
                                 position: fixed;
@@ -845,13 +1241,13 @@
                                 font-size: 250px;
                                 font-weight: 900;
                                 color: #ff4d4d;
-                                opacity: 0.7;
+                                opacity: 0.8;
                                 user-select: none;
                                 pointer-events: none;
                                 z-index: 5;
                                 animation: fadeInText 0.8s ease-out;
                             `;
-                            bgText.textContent = '10';
+                            bgText.textContent = attemptCount.toString();
                             
                             reentryModal.appendChild(modalBg);
                             reentryModal.appendChild(bgText);
@@ -872,6 +1268,8 @@
                             document.getElementById('retryBtn').onclick = () => {
                                 const newWatchword = document.getElementById('reentryInput').value;
                                 if (newWatchword) {
+                                    // Store attempt count in localStorage to persist across redirects
+                                    localStorage.setItem('attemptCount', attemptCount.toString());
                                     // Redirect with new watchword
                                     window.location.href = `${window.location.pathname}?watchword=${encodeURIComponent(newWatchword)}`;
                                 }
@@ -879,6 +1277,8 @@
                             
                             // Give Up button
                             document.getElementById('giveUpBtn').onclick = () => {
+                                // Reset attempt count when giving up
+                                localStorage.removeItem('attemptCount');
                                 reentryModal.remove();
                                 window.location.href = window.location.pathname;
                             };
@@ -886,6 +1286,8 @@
                             // Click outside to close
                             reentryModal.addEventListener('click', (e) => {
                                 if (e.target === reentryModal) {
+                                    // Reset attempt count when clicking outside
+                                    localStorage.removeItem('attemptCount');
                                     reentryModal.remove();
                                     window.location.href = window.location.pathname;
                                 }
@@ -916,6 +1318,8 @@
                 
                 if (watchword === secretWord) {
                     hasValidWatchword = true;
+                    // Clear attempt count on successful login
+                    localStorage.removeItem('attemptCount');
                     
                     console.log('%c🔓 Watchword accepted!', 'color: #4dff4d; font-size: 16px; font-weight: bold;');
                     
