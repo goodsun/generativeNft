@@ -36,8 +36,8 @@ contract SimpleNightmare is ERC721, ERC721Enumerable, Ownable {
         price = _price;
     }
     
-    function setBaseURI(string memory _baseURI) public onlyOwner {
-        baseURI = _baseURI;
+    function setBaseURI(string memory newBaseURI) public onlyOwner {
+        baseURI = newBaseURI;
     }
     
     function withdraw() public onlyOwner {
