@@ -11,7 +11,9 @@ contract SimpleNightmare is ERC721, ERC721Enumerable, Ownable {
     uint256 public price = 0.005 ether;
     string private baseURI = "ipfs://YOUR_CID/";
     
-    constructor() ERC721("Simple Nightmare", "SNIGHTMARE") Ownable(msg.sender) {}
+    constructor() ERC721("Simple Nightmare", "SNIGHTMARE") Ownable(msg.sender) {
+        // Constructor body can be empty, initialization happens in parent constructors
+    }
     
     function mint(uint256 quantity) public payable {
         require(nextTokenId + quantity - 1 <= MAX_SUPPLY, "Exceeds max supply");
