@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SVG Image Layer Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .svg-box {
+            border: 1px solid #444;
+            padding: 10px;
+            background: #2a2a2a;
+            border-radius: 8px;
+        }
+        .svg-box h3 {
+            margin: 0 0 10px 0;
+            color: #ff6b6b;
+        }
+        .svg-display {
+            background: #000;
+            padding: 10px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 240px;
+        }
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+        select {
+            width: 100%;
+            padding: 5px;
+            margin: 10px 0;
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .controls label {
+            display: block;
+        }
+        .composed {
+            grid-column: span 2;
+            border: 2px solid #ff6b6b;
+        }
+        .copy-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+        .copy-section h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        .base64-output {
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 4px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        .copy-button {
+            background: #ff6b6b;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .copy-button:hover {
+            background: #ff5252;
+        }
+        .copy-button:active {
+            background: #ff4141;
+        }
+        .copy-success {
+            color: #4caf50;
+            margin-left: 10px;
+            display: none;
+        }
+        .error {
+            color: #ff4444;
+            padding: 10px;
+            background: #330000;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>SVG Image Layer Test (Arweave + Local Assets)</h1>
+    
+    <h2>Select Layers:</h2>
+    <div class="controls">
+        <label>
+            Background (Arweave):
+            <select id="bg-select"></select>
+        </label>
+        <label>
+            Monster (Local):
+            <select id="monster-select"></select>
+        </label>
+        <label>
+            Item (Local):
+            <select id="item-select"></select>
+        </label>
+        <label>
+            Effect (Arweave):
+            <select id="effect-select"></select>
+        </label>
+    </div>
+    
+    <div class="container">
+        <div class="svg-box">
+            <h3>Background Layer</h3>
+            <div id="bg-display" class="svg-display"></div>
+        </div>
+        
+        <div class="svg-box">
+            <h3>Monster Layer</h3>
+            <div id="monster-display" class="svg-display"></div>
+        </div>
+        
+        <div class="svg-box">
+            <h3>Item Layer</h3>
+            <div id="item-display" class="svg-display"></div>
+        </div>
+        
+        <div class="svg-box">
+            <h3>Effect Layer</h3>
+            <div id="effect-display" class="svg-display"></div>
+        </div>
+        
+        <div class="svg-box composed">
+            <h3>Composed SVG (All 4 Layers with &lt;image&gt;)</h3>
+            <div id="composed-display" class="svg-display"></div>
+        </div>
+    </div>
+    
+    <div class="copy-section">
+        <h3>Composed SVG Base64</h3>
+        <div id="base64-output" class="base64-output">Select layers to generate base64</div>
+        <button id="copy-button" class="copy-button" onclick="copyBase64()">Copy to Clipboard</button>
+        <span id="copy-success" class="copy-success">✓ Copied!</span>
+    </div>
+    
+    <div id="error-display"></div>
+
+    <script>
+        // Load JSON data
+        let backgroundData = {};
+        let monsterData = {};
+        let itemData = {};
+        let effectData = {};
+        
+        async function fetchAndConvertToBase64(url) {
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                // Convert SVG text to base64
+                const base64 = btoa(unescape(encodeURIComponent(text)));
+                return `data:image/svg+xml;base64,${base64}`;
+            } catch (error) {
+                console.error('Failed to fetch and convert:', url, error);
+                return url; // Fallback to original URL
+            }
+        }
+        
+        async function loadData() {
+            try {
+                // Load all data
+                const [bgResponse, monsterResponse, itemResponse, effectResponse] = await Promise.all([
+                    fetch('./background.json'),
+                    fetch('./monster.json'),
+                    fetch('./item.json'),
+                    fetch('./effect.json')
+                ]);
+                
+                backgroundData = await bgResponse.json();
+                monsterData = await monsterResponse.json();
+                itemData = await itemResponse.json();
+                effectData = await effectResponse.json();
+                
+                // Populate selects
+                populateSelect('bg-select', backgroundData);
+                populateSelect('monster-select', monsterData);
+                populateSelect('item-select', itemData);
+                populateSelect('effect-select', effectData);
+                
+                // Initial display
+                updateDisplay();
+                
+            } catch (error) {
+                showError('Failed to load data: ' + error.message);
+                console.error(error);
+            }
+        }
+        
+        function populateSelect(selectId, data) {
+            const select = document.getElementById(selectId);
+            select.innerHTML = '<option value="">None</option>';
+            
+            Object.keys(data).forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = key;
+                select.appendChild(option);
+            });
+        }
+        
+        async function updateDisplay() {
+            const bgKey = document.getElementById('bg-select').value;
+            const monsterKey = document.getElementById('monster-select').value;
+            const itemKey = document.getElementById('item-select').value;
+            const effectKey = document.getElementById('effect-select').value;
+            
+            // Display individual layers
+            if (bgKey && backgroundData[bgKey]) {
+                await displaySingleLayer('bg-display', backgroundData[bgKey], 'Background');
+            } else {
+                document.getElementById('bg-display').innerHTML = '<p>No background selected</p>';
+            }
+            
+            if (monsterKey && monsterData[monsterKey]) {
+                await displaySingleLayer('monster-display', monsterData[monsterKey], 'Monster');
+            } else {
+                document.getElementById('monster-display').innerHTML = '<p>No monster selected</p>';
+            }
+            
+            if (itemKey && itemData[itemKey]) {
+                await displaySingleLayer('item-display', itemData[itemKey], 'Item');
+            } else {
+                document.getElementById('item-display').innerHTML = '<p>No item selected</p>';
+            }
+            
+            if (effectKey && effectData[effectKey]) {
+                await displaySingleLayer('effect-display', effectData[effectKey], 'Effect');
+            } else {
+                document.getElementById('effect-display').innerHTML = '<p>No effect selected</p>';
+            }
+            
+            // Display composed SVG
+            await displayComposed(bgKey, monsterKey, itemKey, effectKey);
+        }
+        
+        async function displaySingleLayer(elementId, url, label) {
+            const base64Url = await fetchAndConvertToBase64(url);
+            const svg = `
+                <svg viewBox="0 0 24 24" width="240" height="240" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="24" height="24" fill="#111" />
+                    <image href="${base64Url}" x="0" y="0" width="24" height="24" />
+                </svg>
+            `;
+            document.getElementById(elementId).innerHTML = svg;
+        }
+        
+        async function displayComposed(bgKey, monsterKey, itemKey, effectKey) {
+            let layers = '';
+            
+            // Add layers in order: background, monster, item, effect
+            if (bgKey && backgroundData[bgKey]) {
+                // Background and effects stay as external URLs
+                layers += `<image href="${backgroundData[bgKey]}" x="0" y="0" width="24" height="24" />`;
+            }
+            
+            if (monsterKey && monsterData[monsterKey]) {
+                // Monster gets converted to base64
+                const base64Url = await fetchAndConvertToBase64(monsterData[monsterKey]);
+                layers += `<image href="${base64Url}" x="0" y="0" width="24" height="24" />`;
+            }
+            
+            if (itemKey && itemData[itemKey]) {
+                // Item gets converted to base64
+                const base64Url = await fetchAndConvertToBase64(itemData[itemKey]);
+                layers += `<image href="${base64Url}" x="0" y="0" width="24" height="24" />`;
+            }
+            
+            if (effectKey && effectData[effectKey]) {
+                // Background and effects stay as external URLs
+                layers += `<image href="${effectData[effectKey]}" x="0" y="0" width="24" height="24" />`;
+            }
+            
+            if (layers) {
+                const svg = `<svg viewBox="0 0 24 24" width="240" height="240" xmlns="http://www.w3.org/2000/svg">${layers}</svg>`;
+                document.getElementById('composed-display').innerHTML = svg;
+                
+                // Generate base64 of the composed SVG
+                const base64 = btoa(unescape(encodeURIComponent(svg)));
+                const dataUri = `data:image/svg+xml;base64,${base64}`;
+                document.getElementById('base64-output').textContent = dataUri;
+            } else {
+                document.getElementById('composed-display').innerHTML = '<p>Select layers to compose</p>';
+                document.getElementById('base64-output').textContent = 'Select layers to generate base64';
+            }
+        }
+        
+        function showError(message) {
+            document.getElementById('error-display').innerHTML = `<div class="error">${message}</div>`;
+        }
+        
+        function copyBase64() {
+            const base64Text = document.getElementById('base64-output').textContent;
+            if (base64Text && base64Text !== 'Select layers to generate base64') {
+                navigator.clipboard.writeText(base64Text).then(() => {
+                    const successMsg = document.getElementById('copy-success');
+                    successMsg.style.display = 'inline';
+                    setTimeout(() => {
+                        successMsg.style.display = 'none';
+                    }, 2000);
+                }).catch(err => {
+                    showError('Failed to copy: ' + err.message);
+                });
+            }
+        }
+        
+        // Event listeners
+        document.getElementById('bg-select').addEventListener('change', () => updateDisplay());
+        document.getElementById('monster-select').addEventListener('change', () => updateDisplay());
+        document.getElementById('item-select').addEventListener('change', () => updateDisplay());
+        document.getElementById('effect-select').addEventListener('change', () => updateDisplay());
+        
+        // Load data on page load
+        loadData();
+    </script>
+</body>
+</html>

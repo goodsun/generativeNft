@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+/**
+ * @title TragedyPoisoning
+ * @notice Individual SVG contract for Poisoning effect
+ */
+contract TragedyPoisoning {
+    function getSVG() external pure returns (string memory) {
+        return string(abi.encodePacked(
+            '<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"pixelate\"><feFlood x=\"0\" y=\"0\" width=\"1\" height=\"1\" flood-color=\"#FFFFE0\"/><feComposite in2=\"SourceGraphic\" operator=\"over\"/></filter></defs><g><g><circle xmlns=\"http://www.w3.org/2000/svg\" cx=\"0.6\" cy=\"2\" r=\"2\" fill=\"none\" stroke=\"#32CD32\" stroke-width=\"0.1\"><animate attributeName=\"cy\" values=\"20;-2\" dur=\"4s\" repeatCount=\"indefinite\"/><animate attributeName=\"opacity\" values=\"0;0.7;0\" dur=\"4s\" repeatCount=\"indefinite\"/><animate attributeName=\"stroke\" values=\"#32CD32;#7CFC00;#00FF00\" dur=\"4s\" repeatCount=\"indefinite\"/><animate attributeName=\"fill\" values=\"none;#32CD3220;none\" dur=\"4s\" repeatCount=\"indefinite\"/></circle><circle cx=\"1.8\" cy=\"2\" r=\"1.5\" fill=\"none\" stroke=\"#9400D3\" stroke-width=\"0.1\"><animate attribu',
+            'teName=\"cy\" values=\"20;-2\" dur=\"3s\" begin=\"1s\" repeatCount=\"indefinite\"/><animate attributeName=\"opacity\" values=\"0;0.7;0\" dur=\"3s\" begin=\"1s\" repeatCount=\"indefinite\"/><animate attributeName=\"stroke\" values=\"#9400D3;#FF00FF;#8B008B\" dur=\"3s\" begin=\"1s\" repeatCount=\"indefinite\"/></circle><circle cx=\"1.2\" cy=\"2\" r=\"1\" fill=\"none\" stroke=\"#00FF00\" stroke-width=\"0.1\"><animate attributeName=\"cy\" values=\"20;-2\" dur=\"3.5s\" begin=\"0.5s\" repeatCount=\"indefinite\"/><animate attributeName=\"opacity\" values=\"0;0.8;0\" dur=\"3.5s\" begin=\"0.5s\" repeatCount=\"indefinite\"/><animate attributeName=\"stroke\" values=\"#00FF00;#ADFF2F;#7CFC00\" dur=\"3.5s\" begin=\"0.5s\" repeatCount=\"indefinite\"/></circle></g></g></svg>'
+        ));
+    }
+}

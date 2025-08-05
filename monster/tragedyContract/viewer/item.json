@@ -1,0 +1,14 @@
+{
+  "amulet": "./assets/items/amulet.svg",
+  "arm": "./assets/items/arm.svg",
+  "crown": "./assets/items/crown.svg",
+  "head": "./assets/items/head.svg",
+  "poison": "./assets/items/poison.svg",
+  "scythe": "./assets/items/scythe.svg",
+  "shield": "./assets/items/shield.svg",
+  "shoulder": "./assets/items/shoulder.svg",
+  "staff": "./assets/items/staff.svg",
+  "sword": "./assets/items/sword.svg",
+  "torch": "./assets/items/torch.svg",
+  "wine": "./assets/items/wine.svg"
+}

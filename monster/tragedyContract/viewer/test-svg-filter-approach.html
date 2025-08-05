@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SVG Filter Approach Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .test-box {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        h3 {
+            color: #ff6b6b;
+            margin: 0 0 10px 0;
+        }
+        svg {
+            border: 1px solid #444;
+            background: #000;
+        }
+        .code {
+            background: #333;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 11px;
+            text-align: left;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>SVG Filter Approaches Comparison</h1>
+
+    <h2>Approach 1: CSS Filter on image element</h2>
+    <div class="container">
+        <div class="test-box">
+            <h3>Without Filter</h3>
+            <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <image href="./assets/monsters/werewolf.svg" x="0" y="0" width="24" height="24"/>
+            </svg>
+        </div>
+        <div class="test-box">
+            <h3>With CSS Filter</h3>
+            <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <image href="./assets/monsters/werewolf.svg" x="0" y="0" width="24" height="24" style="filter: hue-rotate(90deg) saturate(200%) brightness(120%)"/>
+            </svg>
+            <div class="code">style="filter: hue-rotate(90deg) saturate(200%) brightness(120%)"</div>
+        </div>
+    </div>
+
+    <h2>Approach 2: SVG Filter Definition</h2>
+    <div class="container">
+        <div class="test-box">
+            <h3>Venom Filter (SVG)</h3>
+            <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="venomFilter">
+                        <feColorMatrix type="matrix" values="
+                            0.8 0.2 0   0   0.1
+                            0.2 1.5 0.2 0   0
+                            0   0.3 0.7 0   0
+                            0   0   0   1   0"/>
+                        <feComponentTransfer>
+                            <feFuncR type="linear" slope="1.05"/>
+                            <feFuncG type="linear" slope="1.05"/>
+                            <feFuncB type="linear" slope="1.05"/>
+                        </feComponentTransfer>
+                    </filter>
+                </defs>
+                <image href="./assets/monsters/werewolf.svg" x="0" y="0" width="24" height="24" filter="url(#venomFilter)"/>
+            </svg>
+            <div class="code">Using SVG filter definition with feColorMatrix</div>
+        </div>
+        <div class="test-box">
+            <h3>Bloodmoon Filter (SVG)</h3>
+            <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="bloodmoonFilter">
+                        <feColorMatrix type="matrix" values="
+                            1.5 0.5 0.5 0 0
+                            0.3 1.0 0.3 0 0
+                            0.1 0.1 0.8 0 0
+                            0   0   0   1 0"/>
+                        <feComponentTransfer>
+                            <feFuncR type="linear" slope="1.2"/>
+                            <feFuncG type="linear" slope="1.1"/>
+                            <feFuncB type="linear" slope="1.1"/>
+                        </feComponentTransfer>
+                    </filter>
+                </defs>
+                <image href="./assets/monsters/werewolf.svg" x="0" y="0" width="24" height="24" filter="url(#bloodmoonFilter)"/>
+            </svg>
+            <div class="code">Using SVG filter definition with feColorMatrix</div>
+        </div>
+    </div>
+
+    <h2>Approach 3: Wrapper with CSS Filter</h2>
+    <div class="container">
+        <div class="test-box">
+            <h3>Filter on SVG element</h3>
+            <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="filter: hue-rotate(200deg) saturate(150%)">
+                <image href="./assets/monsters/werewolf.svg" x="0" y="0" width="24" height="24"/>
+            </svg>
+            <div class="code">Filter applied to entire SVG element</div>
+        </div>
+        <div class="test-box">
+            <h3>Filter on Group</h3>
+            <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <g style="filter: hue-rotate(300deg) saturate(180%) brightness(95%)">
+                    <image href="./assets/monsters/werewolf.svg" x="0" y="0" width="24" height="24"/>
+                </g>
+            </svg>
+            <div class="code">Filter applied to &lt;g&gt; wrapper</div>
+        </div>
+    </div>
+
+    <h2>Test with Inline Base64</h2>
+    <div class="container">
+        <div class="test-box">
+            <h3>CSS Filter on Base64</h3>
+            <div id="base64-css-test"></div>
+        </div>
+        <div class="test-box">
+            <h3>SVG Filter on Base64</h3>
+            <div id="base64-svg-test"></div>
+        </div>
+    </div>
+
+    <script>
+        // Test with base64 encoded image
+        async function testBase64Filters() {
+            try {
+                const response = await fetch('./assets/monsters/werewolf.svg');
+                const svgText = await response.text();
+                const base64 = btoa(unescape(encodeURIComponent(svgText)));
+                const dataUri = `data:image/svg+xml;base64,${base64}`;
+                
+                // CSS Filter approach
+                document.getElementById('base64-css-test').innerHTML = `
+                    <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <image href="${dataUri}" x="0" y="0" width="24" height="24" style="filter: hue-rotate(45deg) saturate(250%) brightness(110%)"/>
+                    </svg>
+                    <div class="code">Base64 with CSS filter</div>
+                `;
+                
+                // SVG Filter approach
+                document.getElementById('base64-svg-test').innerHTML = `
+                    <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="customFilter">
+                                <feColorMatrix type="hueRotate" values="90"/>
+                                <feColorMatrix type="saturate" values="2"/>
+                                <feComponentTransfer>
+                                    <feFuncR type="linear" slope="1.2"/>
+                                    <feFuncG type="linear" slope="1.2"/>
+                                    <feFuncB type="linear" slope="1.2"/>
+                                </feComponentTransfer>
+                            </filter>
+                        </defs>
+                        <image href="${dataUri}" x="0" y="0" width="24" height="24" filter="url(#customFilter)"/>
+                    </svg>
+                    <div class="code">Base64 with SVG filter</div>
+                `;
+            } catch (error) {
+                console.error('Error loading base64:', error);
+            }
+        }
+        
+        // Run on load
+        testBase64Filters();
+        
+        // Log for debugging
+        console.log('SVG Filter test page loaded');
+        console.log('Browser:', navigator.userAgent);
+    </script>
+</body>
+</html>

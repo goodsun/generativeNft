@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arweave SVG with SVG Filters</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .svg-box {
+            border: 1px solid #444;
+            padding: 10px;
+            background: #2a2a2a;
+            border-radius: 8px;
+        }
+        .svg-box h3 {
+            margin: 0 0 10px 0;
+            color: #ff6b6b;
+        }
+        .svg-display {
+            background: #000;
+            padding: 10px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 240px;
+        }
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+        select {
+            width: 100%;
+            padding: 5px;
+            margin: 10px 0;
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .controls label {
+            display: block;
+        }
+        .composed {
+            grid-column: span 2;
+            border: 2px solid #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <h1>Arweave SVG with SVG Filters (Working Version)</h1>
+    
+    <h2>Select Layers:</h2>
+    <div class="controls">
+        <label>
+            Background:
+            <select id="bg-select">
+                <option value="">None</option>
+                <option value="Bloodmoon">Bloodmoon</option>
+                <option value="Abyss">Abyss</option>
+                <option value="Decay">Decay</option>
+                <option value="Corruption">Corruption</option>
+                <option value="Venom">Venom</option>
+                <option value="Void">Void</option>
+                <option value="Inferno">Inferno</option>
+                <option value="Frost">Frost</option>
+                <option value="Ragnarok">Ragnarok</option>
+                <option value="Shadow">Shadow</option>
+            </select>
+        </label>
+        <label>
+            Monster:
+            <select id="monster-select">
+                <option value="">None</option>
+                <option value="werewolf">Werewolf</option>
+                <option value="goblin">Goblin</option>
+                <option value="frankenstein">Frankenstein</option>
+                <option value="demon">Demon</option>
+                <option value="dragon">Dragon</option>
+                <option value="zombie">Zombie</option>
+                <option value="vampire">Vampire</option>
+                <option value="mummy">Mummy</option>
+                <option value="succubus">Succubus</option>
+                <option value="skeleton">Skeleton</option>
+            </select>
+        </label>
+        <label>
+            Item:
+            <select id="item-select">
+                <option value="">None</option>
+                <option value="crown">Crown</option>
+                <option value="sword">Sword</option>
+                <option value="shield">Shield</option>
+                <option value="poison">Poison</option>
+                <option value="torch">Torch</option>
+                <option value="wine">Wine</option>
+                <option value="scythe">Scythe</option>
+                <option value="staff">Staff</option>
+                <option value="shoulder">Shoulder</option>
+                <option value="amulet">Amulet</option>
+            </select>
+        </label>
+        <label>
+            Effect:
+            <select id="effect-select">
+                <option value="">None</option>
+            </select>
+        </label>
+    </div>
+    
+    <div class="container">
+        <div class="svg-box">
+            <h3>Original Monster</h3>
+            <div id="monster-display" class="svg-display"></div>
+        </div>
+        
+        <div class="svg-box">
+            <h3>Filtered Monster</h3>
+            <div id="monster-filtered" class="svg-display"></div>
+        </div>
+        
+        <div class="svg-box composed">
+            <h3>Composed NFT</h3>
+            <div id="composed-display" class="svg-display"></div>
+        </div>
+    </div>
+
+    <script>
+        // Data storage
+        let backgroundData = {};
+        let monsterData = {};
+        let itemData = {};
+        let effectData = {};
+        
+        async function loadData() {
+            try {
+                // Load JSON data
+                const [bgResponse, monsterResponse, itemResponse, effectResponse] = await Promise.all([
+                    fetch('./background.json'),
+                    fetch('./monster.json'),
+                    fetch('./item.json'),
+                    fetch('./effect.json')
+                ]);
+                
+                backgroundData = await bgResponse.json();
+                monsterData = await monsterResponse.json();
+                itemData = await itemResponse.json();
+                effectData = await effectResponse.json();
+                
+                // Populate selects with actual data
+                populateSelect('bg-select', backgroundData);
+                populateSelect('monster-select', monsterData);
+                populateSelect('item-select', itemData);
+                populateSelect('effect-select', effectData);
+                
+                // Initial display
+                updateDisplay();
+                
+            } catch (error) {
+                console.error('Failed to load data:', error);
+            }
+        }
+        
+        function populateSelect(selectId, data) {
+            const select = document.getElementById(selectId);
+            const currentValue = select.value;
+            select.innerHTML = '<option value="">None</option>';
+            
+            Object.keys(data).forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = key;
+                select.appendChild(option);
+            });
+            
+            // Restore previous selection if it exists
+            if (currentValue && data[currentValue]) {
+                select.value = currentValue;
+            }
+        }
+        
+        async function fetchAndConvertToBase64(url) {
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                const base64 = btoa(unescape(encodeURIComponent(text)));
+                return `data:image/svg+xml;base64,${base64}`;
+            } catch (error) {
+                console.error('Failed to fetch and convert:', url, error);
+                return url;
+            }
+        }
+        
+        async function updateDisplay() {
+            const bgKey = document.getElementById('bg-select').value;
+            const monsterKey = document.getElementById('monster-select').value;
+            const itemKey = document.getElementById('item-select').value;
+            const effectKey = document.getElementById('effect-select').value;
+            
+            // Show original monster
+            if (monsterKey && monsterData[monsterKey]) {
+                const base64Url = await fetchAndConvertToBase64(monsterData[monsterKey]);
+                const monsterSvg = `
+                    <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <image href="${base64Url}" x="0" y="0" width="24" height="24"/>
+                    </svg>
+                `;
+                document.getElementById('monster-display').innerHTML = monsterSvg;
+                
+                // Show filtered monster
+                if (bgKey) {
+                    const filteredSvg = await createFilteredSvg(monsterKey, bgKey);
+                    document.getElementById('monster-filtered').innerHTML = filteredSvg;
+                } else {
+                    document.getElementById('monster-filtered').innerHTML = '<p>Select background for filter</p>';
+                }
+            } else {
+                document.getElementById('monster-display').innerHTML = '<p>Select a monster</p>';
+                document.getElementById('monster-filtered').innerHTML = '<p>Select a monster</p>';
+            }
+            
+            // Composed display
+            await displayComposed(bgKey, monsterKey, itemKey, effectKey);
+        }
+        
+        async function createFilteredSvg(monsterKey, bgKey) {
+            const base64Url = await fetchAndConvertToBase64(monsterData[monsterKey]);
+            let filterDef = '';
+            let filterId = `filter-${bgKey}`;
+            
+            // Define filters based on background
+            switch(bgKey) {
+                case 'Bloodmoon':
+                    filterDef = `
+                        <filter id="${filterId}">
+                            <feColorMatrix type="matrix" values="
+                                1.5 0.5 0.5 0 0
+                                0.3 1.0 0.3 0 0
+                                0.1 0.1 0.8 0 0
+                                0   0   0   1 0"/>
+                            <feComponentTransfer>
+                                <feFuncR type="linear" slope="1.2"/>
+                                <feFuncG type="linear" slope="1.1"/>
+                                <feFuncB type="linear" slope="1.1"/>
+                            </feComponentTransfer>
+                        </filter>
+                    `;
+                    break;
+                case 'Venom':
+                    filterDef = `
+                        <filter id="${filterId}">
+                            <feColorMatrix type="matrix" values="
+                                0.8 0.2 0   0   0.1
+                                0.2 1.5 0.2 0   0
+                                0   0.3 0.7 0   0
+                                0   0   0   1   0"/>
+                            <feComponentTransfer>
+                                <feFuncR type="linear" slope="1.05"/>
+                                <feFuncG type="linear" slope="1.05"/>
+                                <feFuncB type="linear" slope="1.05"/>
+                            </feComponentTransfer>
+                        </filter>
+                    `;
+                    break;
+                case 'Frost':
+                    filterDef = `
+                        <filter id="${filterId}">
+                            <feColorMatrix type="matrix" values="
+                                0.8 0   0.2 0 0
+                                0   0.9 0.1 0 0
+                                0.2 0.1 1.3 0 0
+                                0   0   0   1 0"/>
+                            <feComponentTransfer>
+                                <feFuncR type="linear" slope="1.15"/>
+                                <feFuncG type="linear" slope="1.15"/>
+                                <feFuncB type="linear" slope="1.15"/>
+                            </feComponentTransfer>
+                        </filter>
+                    `;
+                    break;
+                case 'Abyss':
+                    filterDef = `
+                        <filter id="${filterId}">
+                            <feColorMatrix type="matrix" values="
+                                0.5 0   0.5 0 0
+                                0   0.7 0.3 0 0
+                                0.2 0   1.0 0 0
+                                0   0   0   1 0"/>
+                            <feComponentTransfer>
+                                <feFuncR type="linear" slope="0.7"/>
+                                <feFuncG type="linear" slope="0.7"/>
+                                <feFuncB type="linear" slope="0.7"/>
+                            </feComponentTransfer>
+                        </filter>
+                    `;
+                    break;
+                case 'Void':
+                    filterDef = `
+                        <filter id="${filterId}">
+                            <feColorMatrix type="saturate" values="0.1"/>
+                            <feComponentTransfer>
+                                <feFuncR type="linear" slope="0.8"/>
+                                <feFuncG type="linear" slope="0.8"/>
+                                <feFuncB type="linear" slope="0.8"/>
+                            </feComponentTransfer>
+                            <feColorMatrix type="matrix" values="
+                                1.5 0   0   0 0
+                                0   1.5 0   0 0
+                                0   0   1.5 0 0
+                                0   0   0   1 0"/>
+                        </filter>
+                    `;
+                    break;
+                default:
+                    filterDef = `<filter id="${filterId}"></filter>`;
+            }
+            
+            return `
+                <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        ${filterDef}
+                    </defs>
+                    <image href="${base64Url}" x="0" y="0" width="24" height="24" filter="url(#${filterId})"/>
+                </svg>
+            `;
+        }
+        
+        async function displayComposed(bgKey, monsterKey, itemKey, effectKey) {
+            if (!bgKey && !monsterKey && !itemKey && !effectKey) {
+                document.getElementById('composed-display').innerHTML = '<p>Select layers to compose</p>';
+                return;
+            }
+            
+            let svg = '<svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">';
+            
+            // Add filter definition if background is selected
+            if (bgKey) {
+                let filterId = `filter-composed-${bgKey}`;
+                switch(bgKey) {
+                    case 'Bloodmoon':
+                        svg += `
+                            <defs>
+                                <filter id="${filterId}">
+                                    <feColorMatrix type="matrix" values="
+                                        1.5 0.5 0.5 0 0
+                                        0.3 1.0 0.3 0 0
+                                        0.1 0.1 0.8 0 0
+                                        0   0   0   1 0"/>
+                                    <feComponentTransfer>
+                                        <feFuncR type="linear" slope="1.2"/>
+                                        <feFuncG type="linear" slope="1.1"/>
+                                        <feFuncB type="linear" slope="1.1"/>
+                                    </feComponentTransfer>
+                                </filter>
+                            </defs>
+                        `;
+                        break;
+                    case 'Venom':
+                        svg += `
+                            <defs>
+                                <filter id="${filterId}">
+                                    <feColorMatrix type="matrix" values="
+                                        0.8 0.2 0   0   0.1
+                                        0.2 1.5 0.2 0   0
+                                        0   0.3 0.7 0   0
+                                        0   0   0   1   0"/>
+                                    <feComponentTransfer>
+                                        <feFuncR type="linear" slope="1.05"/>
+                                        <feFuncG type="linear" slope="1.05"/>
+                                        <feFuncB type="linear" slope="1.05"/>
+                                    </feComponentTransfer>
+                                </filter>
+                            </defs>
+                        `;
+                        break;
+                    case 'Frost':
+                        svg += `
+                            <defs>
+                                <filter id="${filterId}">
+                                    <feColorMatrix type="matrix" values="
+                                        0.8 0   0.2 0 0
+                                        0   0.9 0.1 0 0
+                                        0.2 0.1 1.3 0 0
+                                        0   0   0   1 0"/>
+                                    <feComponentTransfer>
+                                        <feFuncR type="linear" slope="1.15"/>
+                                        <feFuncG type="linear" slope="1.15"/>
+                                        <feFuncB type="linear" slope="1.15"/>
+                                    </feComponentTransfer>
+                                </filter>
+                            </defs>
+                        `;
+                        break;
+                    case 'Abyss':
+                        svg += `
+                            <defs>
+                                <filter id="${filterId}">
+                                    <feColorMatrix type="matrix" values="
+                                        0.5 0   0.5 0 0
+                                        0   0.7 0.3 0 0
+                                        0.2 0   1.0 0 0
+                                        0   0   0   1 0"/>
+                                    <feComponentTransfer>
+                                        <feFuncR type="linear" slope="0.7"/>
+                                        <feFuncG type="linear" slope="0.7"/>
+                                        <feFuncB type="linear" slope="0.7"/>
+                                    </feComponentTransfer>
+                                </filter>
+                            </defs>
+                        `;
+                        break;
+                    case 'Corruption':
+                        svg += `
+                            <defs>
+                                <filter id="${filterId}">
+                                    <feColorMatrix type="matrix" values="
+                                        1.2 0.3 0.5 0 0
+                                        0.5 0.8 0.5 0 0
+                                        0.3 0.2 1.3 0 0
+                                        0   0   0   1 0"/>
+                                    <feComponentTransfer>
+                                        <feFuncR type="linear" slope="0.95"/>
+                                        <feFuncG type="linear" slope="0.95"/>
+                                        <feFuncB type="linear" slope="0.95"/>
+                                    </feComponentTransfer>
+                                </filter>
+                            </defs>
+                        `;
+                        break;
+                    case 'Decay':
+                        svg += `
+                            <defs>
+                                <filter id="${filterId}">
+                                    <feColorMatrix type="matrix" values="
+                                        1.0 0.2 0   0 0
+                                        0.2 1.0 0.2 0 0
+                                        0   0.2 0.8 0 0
+                                        0   0   0   1 0"/>
+                                    <feComponentTransfer>
+                                        <feFuncR type="linear" slope="0.9"/>
+                                        <feFuncG type="linear" slope="0.9"/>
+                                        <feFuncB type="linear" slope="0.9"/>
+                                    </feComponentTransfer>
+                                </filter>
+                            </defs>
+                        `;
+                        break;
+                    case 'Void':
+                        svg += `
+                            <defs>
+                                <filter id="${filterId}">
+                                    <feColorMatrix type="saturate" values="0.1"/>
+                                    <feComponentTransfer>
+                                        <feFuncR type="linear" slope="0.8"/>
+                                        <feFuncG type="linear" slope="0.8"/>
+                                        <feFuncB type="linear" slope="0.8"/>
+                                    </feComponentTransfer>
+                                    <feColorMatrix type="matrix" values="
+                                        1.5 0   0   0 0
+                                        0   1.5 0   0 0
+                                        0   0   1.5 0 0
+                                        0   0   0   1 0"/>
+                                </filter>
+                            </defs>
+                        `;
+                        break;
+                    case 'Inferno':
+                        svg += `
+                            <defs>
+                                <filter id="${filterId}">
+                                    <feColorMatrix type="matrix" values="
+                                        1.5 0.3 0   0 0
+                                        0.5 1.2 0   0 0
+                                        0.2 0.1 0.8 0 0
+                                        0   0   0   1 0"/>
+                                    <feComponentTransfer>
+                                        <feFuncR type="linear" slope="1.2"/>
+                                        <feFuncG type="linear" slope="1.2"/>
+                                        <feFuncB type="linear" slope="1.2"/>
+                                    </feComponentTransfer>
+                                </filter>
+                            </defs>
+                        `;
+                        break;
+                    case 'Ragnarok':
+                        svg += `
+                            <defs>
+                                <filter id="${filterId}">
+                                    <feColorMatrix type="matrix" values="
+                                        1.3 0.3 0   0 0
+                                        0.3 0.9 0   0 0
+                                        0.1 0   0.8 0 0
+                                        0   0   0   1 0"/>
+                                    <feComponentTransfer>
+                                        <feFuncR type="linear" slope="0.85"/>
+                                        <feFuncG type="linear" slope="0.85"/>
+                                        <feFuncB type="linear" slope="0.85"/>
+                                    </feComponentTransfer>
+                                </filter>
+                            </defs>
+                        `;
+                        break;
+                    case 'Shadow':
+                        svg += `
+                            <defs>
+                                <filter id="${filterId}">
+                                    <feColorMatrix type="matrix" values="
+                                        0.5 0   0   0 0
+                                        0   0.5 0   0 0
+                                        0   0   0.5 0 0
+                                        0   0   0   1 0"/>
+                                    <feComponentTransfer>
+                                        <feFuncR type="linear" slope="0.6"/>
+                                        <feFuncG type="linear" slope="0.6"/>
+                                        <feFuncB type="linear" slope="0.6"/>
+                                    </feComponentTransfer>
+                                </filter>
+                            </defs>
+                        `;
+                        break;
+                    default:
+                        svg += '<defs></defs>';
+                }
+            }
+            
+            // Background layer - no filter, using actual Arweave URL
+            if (bgKey && backgroundData[bgKey]) {
+                svg += `<image href="${backgroundData[bgKey]}" x="0" y="0" width="24" height="24"/>`;
+            }
+            
+            // Monster layer with filter - ONLY monster gets filtered
+            if (monsterKey && monsterData[monsterKey]) {
+                const monsterBase64 = await fetchAndConvertToBase64(monsterData[monsterKey]);
+                if (bgKey) {
+                    svg += `<image href="${monsterBase64}" x="0" y="0" width="24" height="24" filter="url(#filter-composed-${bgKey})"/>`;
+                } else {
+                    svg += `<image href="${monsterBase64}" x="0" y="0" width="24" height="24"/>`;
+                }
+            }
+            
+            // Item layer - NO filter
+            if (itemKey && itemData[itemKey]) {
+                const itemBase64 = await fetchAndConvertToBase64(itemData[itemKey]);
+                svg += `<image href="${itemBase64}" x="0" y="0" width="24" height="24"/>`;
+            }
+            
+            // Effect layer - NO filter, using actual Arweave URL
+            if (effectKey && effectData[effectKey]) {
+                svg += `<image href="${effectData[effectKey]}" x="0" y="0" width="24" height="24"/>`;
+            }
+            
+            svg += '</svg>';
+            document.getElementById('composed-display').innerHTML = svg;
+        }
+        
+        // Event listeners
+        document.getElementById('bg-select').addEventListener('change', updateDisplay);
+        document.getElementById('monster-select').addEventListener('change', updateDisplay);
+        document.getElementById('item-select').addEventListener('change', updateDisplay);
+        document.getElementById('effect-select').addEventListener('change', updateDisplay);
+        
+        // Load data on page load
+        loadData();
+    </script>
+</body>
+</html>

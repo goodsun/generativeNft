@@ -1,0 +1,66 @@
+{
+  "deployer": "0xCf20a6EcBBedB403DB466D669229d9Ee379C433f",
+  "timestamp": "2025-08-05T12:51:51.932Z",
+  "network": "bonsoleil",
+  "contracts": {
+    "svgs": {
+      "monsters": {
+        "Werewolf": "0x230Be2CFca0Ccb45438808162a606563DfbCF01e",
+        "Goblin": "0x2b4E0932D2CD0906D45edF5E31529bA6989F05a5",
+        "Frankenstein": "0x254684E0821126a268c2b9498A8Ca5165816d956",
+        "Demon": "0xFb48Ff0af544229ca70Daa49a8fC8531AdCD0E4B",
+        "Dragon": "0x70CCeb47BD47e94016A71A2c4205593c87592260",
+        "Zombie": "0x7C7B1Bcb696E2302567877595026d0566393901A",
+        "Vampire": "0x6DA35E4Ca3dDD6F0Ac40f176e38c316Bb2594472",
+        "Mummy": "0x6725dA98841b5EdE2eF5cabf23d20C630893537d",
+        "Succubus": "0x4D87Ae78b9D7c51476DC32829951dDC2c43c2ac6",
+        "Skeleton": "0x60076E85F450722f955753ecfA7657627715b611"
+      },
+      "backgrounds": {
+        "Bloodmoon": "0xADD046858B9E773b7a6284591aA81eaBfE7f0881",
+        "Abyss": "0x88EBC030b6fD83A504C3abB55457a16a65dA4e32",
+        "Decay": "0xc442aae5f855AE668831b421A0e991D430f9c7dd",
+        "Corruption": "0x9266A3087eC348AA7723938F734f005d36164fCd",
+        "Venom": "0xbD6C3706f4Da34483311E9Ce5DDf7f18D032bA69",
+        "Void": "0x74d9F7BbFD5Fd87E85003a318506498eA4C4e809",
+        "Inferno": "0xb776a160Aa5062f25e05f471c02083818797a648",
+        "Frost": "0xB49f3d611db58688b54bb4F7a02797571Ac8fAc3",
+        "Ragnarok": "0xcB193C0B1826388142c35d5F56bEF5a592504d69",
+        "Shadow": "0x0e2A6373B8759A3236756B904a275e82e5da1528"
+      },
+      "items": {
+        "Crown": "0x932Cd3A8c64E7F78E7f3c1E41A812636bEFfa0B6",
+        "Sword": "0x306c8Cb7C199f8861bAFC607504B6A61e2226aF6",
+        "Shield": "0x5cbd8bE0E43Af4E52d234bBe32B325cD3b5D5b73",
+        "Poison": "0x447aBC6ce12f6e952E5b3D2d97b2762492F8843a",
+        "Torch": "0xA4B9b813d36754596a1Ad8b4881DAA159B883C74",
+        "Wine": "0xa64CB1AFA3ab69E781795218589dEe03317ea50B",
+        "Scythe": "0x6152B45C00E9A8b4E4FE557dB78aEf994a79C627",
+        "Staff": "0x8517a48177706bbc4B28d1F7928B1788F0C15f5C",
+        "Shoulder": "0x599DCA0455Ae435Bda6d7D0Bbc7475Ce89A7191E",
+        "Amulet": "0xC50aa0928e6639f8145E94Ab42523f00fAd5C87e"
+      },
+      "effects": {
+        "Seizure": "0xCE0E301893061456f937F636ec25c2a48B85C69C",
+        "Mindblast": "0xCEe0c75E268a1B11a8485034ba7d158661255E0c",
+        "Confusion": "0xCd642e6b16C2f560C4c7D9AC69bC1f29F05D2D3e",
+        "Meteor": "0x4bC78e7b0a9FfD638D769145b227618830452596",
+        "Bats": "0xd29cf9819aC45FEae95DcAe30851075C3626357f",
+        "Poisoning": "0xefD24c62aB138F588369FC1D4D616454c17ff757",
+        "Lightning": "0x5996Fb3cDcA1A86d7ca49EE0a08aEC0cAB897238",
+        "Blizzard": "0x0E152ED68Ff0d1CB1D65eF919d0087Df0Ef8d8c8",
+        "Burning": "0x761325264086CbdA7753670D18b19d53f9794D57",
+        "Brainwash": "0x688bA8FA871921986C3bFc0cAfE4B9F3F72Fa386"
+      }
+    },
+    "banks": {
+      "monsterBank": "0x1141F0bD87b1499CDb876847702bfcA8Fd5E4eb2",
+      "backgroundBank": "0x04e23D26D682Dc1c491b530A2216B8Cf3f3F477F",
+      "itemBank": "0xc9F9518B3aa53a6d04aD41037Ab6f0569Da34d2a",
+      "effectBank": "0x53CD6CF2977e19bB6fE98c3682eCd900C5e63dd9"
+    },
+    "composer": "0xb86aED91700F89457547ddC018dE3BeAd55E4C13",
+    "metadataBank": "0x57e19CFe93A6c334ADA29281Cf2afDa603F92cc3",
+    "nft": "0xe8625819C56A4a4d2F01985561c13a1323eCB773"
+  }
+}

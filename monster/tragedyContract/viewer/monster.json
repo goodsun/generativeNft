@@ -1,0 +1,13 @@
+{
+  "demon": "./assets/monsters/demon.svg",
+  "dragon": "./assets/monsters/dragon.svg",
+  "frankenstein": "./assets/monsters/frankenstein.svg",
+  "goblin": "./assets/monsters/goblin.svg",
+  "mummy": "./assets/monsters/mummy.svg",
+  "question": "./assets/monsters/question.svg",
+  "skeleton": "./assets/monsters/skeleton.svg",
+  "succubus": "./assets/monsters/succubus.svg",
+  "vampire": "./assets/monsters/vampire.svg",
+  "werewolf": "./assets/monsters/werewolf.svg",
+  "zombie": "./assets/monsters/zombie.svg"
+}

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SVG Image Layer Test with Color Filters</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .svg-box {
+            border: 1px solid #444;
+            padding: 10px;
+            background: #2a2a2a;
+            border-radius: 8px;
+        }
+        .svg-box h3 {
+            margin: 0 0 10px 0;
+            color: #ff6b6b;
+        }
+        .svg-display {
+            background: #000;
+            padding: 10px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 240px;
+        }
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+        select {
+            width: 100%;
+            padding: 5px;
+            margin: 10px 0;
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .controls label {
+            display: block;
+        }
+        .composed {
+            grid-column: span 2;
+            border: 2px solid #ff6b6b;
+        }
+        .filter-info {
+            margin-top: 20px;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+        .filter-info h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        .filter-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .filter-item {
+            padding: 10px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .filter-item strong {
+            color: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <h1>SVG Image Layer Test with Color Filters</h1>
+    
+    <h2>Select Layers:</h2>
+    <div class="controls">
+        <label>
+            Background (Arweave):
+            <select id="bg-select"></select>
+        </label>
+        <label>
+            Monster (Local):
+            <select id="monster-select"></select>
+        </label>
+        <label>
+            Item (Local):
+            <select id="item-select"></select>
+        </label>
+        <label>
+            Effect (Arweave):
+            <select id="effect-select"></select>
+        </label>
+    </div>
+    
+    <div class="container">
+        <div class="svg-box">
+            <h3>Original Monster</h3>
+            <div id="monster-original" class="svg-display"></div>
+        </div>
+        
+        <div class="svg-box">
+            <h3>Monster with Background Filter</h3>
+            <div id="monster-filtered" class="svg-display"></div>
+        </div>
+        
+        <div class="svg-box composed">
+            <h3>Composed SVG (All Layers with Filters)</h3>
+            <div id="composed-display" class="svg-display"></div>
+        </div>
+    </div>
+    
+    <div class="filter-info">
+        <h3>Background Theme Filters</h3>
+        <div class="filter-list">
+            <div class="filter-item">
+                <strong>Bloodmoon:</strong> Red tint + increased contrast
+            </div>
+            <div class="filter-item">
+                <strong>Abyss:</strong> Dark purple tint + reduced brightness
+            </div>
+            <div class="filter-item">
+                <strong>Decay:</strong> Green/yellow tint + sepia effect
+            </div>
+            <div class="filter-item">
+                <strong>Corruption:</strong> Purple/magenta tint + saturation
+            </div>
+            <div class="filter-item">
+                <strong>Venom:</strong> Bright green tint + high contrast
+            </div>
+            <div class="filter-item">
+                <strong>Void:</strong> Desaturated + high contrast
+            </div>
+            <div class="filter-item">
+                <strong>Inferno:</strong> Orange/red tint + brightness
+            </div>
+            <div class="filter-item">
+                <strong>Frost:</strong> Blue tint + brightness
+            </div>
+            <div class="filter-item">
+                <strong>Ragnarok:</strong> Dark red/orange + contrast
+            </div>
+            <div class="filter-item">
+                <strong>Shadow:</strong> Dark + low contrast
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter definitions for each background theme
+        const backgroundFilters = {
+            Bloodmoon: {
+                hueRotate: 0,
+                saturate: 150,
+                brightness: 110,
+                contrast: 120,
+                sepia: 30,
+                colorMatrix: 'matrix'
+            },
+            Abyss: {
+                hueRotate: 260,
+                saturate: 120,
+                brightness: 70,
+                contrast: 110,
+                sepia: 0
+            },
+            Decay: {
+                hueRotate: 50,
+                saturate: 80,
+                brightness: 90,
+                contrast: 100,
+                sepia: 40
+            },
+            Corruption: {
+                hueRotate: 300,
+                saturate: 180,
+                brightness: 95,
+                contrast: 115,
+                sepia: 0
+            },
+            Venom: {
+                hueRotate: 90,
+                saturate: 200,
+                brightness: 105,
+                contrast: 130,
+                sepia: 0
+            },
+            Void: {
+                hueRotate: 0,
+                saturate: 10,
+                brightness: 80,
+                contrast: 150,
+                sepia: 0
+            },
+            Inferno: {
+                hueRotate: 15,
+                saturate: 170,
+                brightness: 120,
+                contrast: 110,
+                sepia: 20
+            },
+            Frost: {
+                hueRotate: 200,
+                saturate: 110,
+                brightness: 115,
+                contrast: 105,
+                sepia: 0
+            },
+            Ragnarok: {
+                hueRotate: 20,
+                saturate: 140,
+                brightness: 85,
+                contrast: 125,
+                sepia: 15
+            },
+            Shadow: {
+                hueRotate: 0,
+                saturate: 50,
+                brightness: 60,
+                contrast: 90,
+                sepia: 0
+            }
+        };
+
+        // Color matrix filters for more complex color transformations
+        const colorMatrices = {
+            Bloodmoon: `
+                1.5 0.5 0.5 0 0
+                0.3 1.0 0.3 0 0
+                0.1 0.1 0.8 0 0
+                0 0 0 1 0
+            `,
+            Corruption: `
+                1.2 0.3 0.5 0 0
+                0.5 0.8 0.5 0 0
+                0.3 0.2 1.3 0 0
+                0 0 0 1 0
+            `,
+            Venom: `
+                0.8 0.2 0 0 0.1
+                0.2 1.5 0.2 0 0
+                0 0.3 0.7 0 0
+                0 0 0 1 0
+            `
+        };
+
+        // Load JSON data
+        let backgroundData = {};
+        let monsterData = {};
+        let itemData = {};
+        let effectData = {};
+        
+        async function fetchAndConvertToBase64(url) {
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                const base64 = btoa(unescape(encodeURIComponent(text)));
+                return `data:image/svg+xml;base64,${base64}`;
+            } catch (error) {
+                console.error('Failed to fetch and convert:', url, error);
+                return url;
+            }
+        }
+        
+        async function loadData() {
+            try {
+                const [bgResponse, monsterResponse, itemResponse, effectResponse] = await Promise.all([
+                    fetch('./background.json'),
+                    fetch('./monster.json'),
+                    fetch('./item.json'),
+                    fetch('./effect.json')
+                ]);
+                
+                backgroundData = await bgResponse.json();
+                monsterData = await monsterResponse.json();
+                itemData = await itemResponse.json();
+                effectData = await effectResponse.json();
+                
+                populateSelect('bg-select', backgroundData);
+                populateSelect('monster-select', monsterData);
+                populateSelect('item-select', itemData);
+                populateSelect('effect-select', effectData);
+                
+                updateDisplay();
+                
+            } catch (error) {
+                console.error('Failed to load data:', error);
+            }
+        }
+        
+        function populateSelect(selectId, data) {
+            const select = document.getElementById(selectId);
+            select.innerHTML = '<option value="">None</option>';
+            
+            Object.keys(data).forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = key;
+                select.appendChild(option);
+            });
+        }
+        
+        function createFilterDefinition(backgroundKey) {
+            const filter = backgroundFilters[backgroundKey];
+            if (!filter) return '';
+            
+            let filterString = `hue-rotate(${filter.hueRotate}deg) saturate(${filter.saturate}%) brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
+            if (filter.sepia > 0) {
+                filterString += ` sepia(${filter.sepia}%)`;
+            }
+            
+            return filterString;
+        }
+        
+        function createSVGFilter(backgroundKey) {
+            const filter = backgroundFilters[backgroundKey];
+            if (!filter) return '';
+            
+            let filterDef = `<defs>`;
+            
+            // Create a unique filter ID
+            const filterId = `filter-${backgroundKey}`;
+            
+            filterDef += `<filter id="${filterId}">`;
+            
+            // Add color matrix if defined
+            if (colorMatrices[backgroundKey]) {
+                filterDef += `<feColorMatrix type="matrix" values="${colorMatrices[backgroundKey]}" />`;
+            }
+            
+            // Add other filters
+            filterDef += `
+                <feComponentTransfer>
+                    <feFuncR type="linear" slope="${filter.brightness / 100}" />
+                    <feFuncG type="linear" slope="${filter.brightness / 100}" />
+                    <feFuncB type="linear" slope="${filter.brightness / 100}" />
+                </feComponentTransfer>
+            `;
+            
+            filterDef += `</filter></defs>`;
+            
+            return { filterDef, filterId };
+        }
+        
+        async function updateDisplay() {
+            const bgKey = document.getElementById('bg-select').value;
+            const monsterKey = document.getElementById('monster-select').value;
+            const itemKey = document.getElementById('item-select').value;
+            const effectKey = document.getElementById('effect-select').value;
+            
+            // Display original monster
+            if (monsterKey && monsterData[monsterKey]) {
+                const base64Url = await fetchAndConvertToBase64(monsterData[monsterKey]);
+                const svg = `
+                    <svg viewBox="0 0 24 24" width="240" height="240" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="24" height="24" fill="#111" />
+                        <image href="${base64Url}" x="0" y="0" width="24" height="24" />
+                    </svg>
+                `;
+                document.getElementById('monster-original').innerHTML = svg;
+                
+                // Display filtered monster
+                if (bgKey) {
+                    const filterStyle = createFilterDefinition(bgKey);
+                    const filteredSvg = `
+                        <svg viewBox="0 0 24 24" width="240" height="240" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="24" height="24" fill="#111" />
+                            <image href="${base64Url}" x="0" y="0" width="24" height="24" style="filter: ${filterStyle}" />
+                        </svg>
+                    `;
+                    document.getElementById('monster-filtered').innerHTML = filteredSvg;
+                } else {
+                    document.getElementById('monster-filtered').innerHTML = '<p>Select a background for filter</p>';
+                }
+            } else {
+                document.getElementById('monster-original').innerHTML = '<p>No monster selected</p>';
+                document.getElementById('monster-filtered').innerHTML = '<p>No monster selected</p>';
+            }
+            
+            // Display composed SVG
+            await displayComposed(bgKey, monsterKey, itemKey, effectKey);
+        }
+        
+        async function displayComposed(bgKey, monsterKey, itemKey, effectKey) {
+            let layers = '';
+            const filterStyle = bgKey ? createFilterDefinition(bgKey) : '';
+            
+            // Add layers in order
+            if (bgKey && backgroundData[bgKey]) {
+                layers += `<image href="${backgroundData[bgKey]}" x="0" y="0" width="24" height="24" />`;
+            }
+            
+            if (monsterKey && monsterData[monsterKey]) {
+                const base64Url = await fetchAndConvertToBase64(monsterData[monsterKey]);
+                // Apply filter only if a background is selected
+                if (filterStyle) {
+                    layers += `<image href="${base64Url}" x="0" y="0" width="24" height="24" style="filter: ${filterStyle}" />`;
+                } else {
+                    layers += `<image href="${base64Url}" x="0" y="0" width="24" height="24" />`;
+                }
+            }
+            
+            if (itemKey && itemData[itemKey]) {
+                const base64Url = await fetchAndConvertToBase64(itemData[itemKey]);
+                // Items can also have subtle filter effects
+                if (filterStyle) {
+                    const itemFilter = filterStyle.replace(/(\d+)%/g, (match, num) => Math.round(parseInt(num) * 0.5) + '%');
+                    layers += `<image href="${base64Url}" x="0" y="0" width="24" height="24" style="filter: ${itemFilter}" />`;
+                } else {
+                    layers += `<image href="${base64Url}" x="0" y="0" width="24" height="24" />`;
+                }
+            }
+            
+            if (effectKey && effectData[effectKey]) {
+                layers += `<image href="${effectData[effectKey]}" x="0" y="0" width="24" height="24" />`;
+            }
+            
+            if (layers) {
+                const svg = `<svg viewBox="0 0 24 24" width="240" height="240" xmlns="http://www.w3.org/2000/svg">${layers}</svg>`;
+                document.getElementById('composed-display').innerHTML = svg;
+                
+                // Debug: log the filter being applied
+                console.log('Background:', bgKey, 'Filter:', filterStyle);
+            } else {
+                document.getElementById('composed-display').innerHTML = '<p>Select layers to compose</p>';
+            }
+        }
+        
+        // Event listeners
+        document.getElementById('bg-select').addEventListener('change', () => updateDisplay());
+        document.getElementById('monster-select').addEventListener('change', () => updateDisplay());
+        document.getElementById('item-select').addEventListener('change', () => updateDisplay());
+        document.getElementById('effect-select').addEventListener('change', () => updateDisplay());
+        
+        // Load data on page load
+        loadData();
+    </script>
+</body>
+</html>

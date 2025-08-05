@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+/**
+ * @title TragedyMindblast
+ * @notice Individual SVG contract for Mindblast effect
+ */
+contract TragedyMindblast {
+    function getSVG() external pure returns (string memory) {
+        return string(abi.encodePacked(
+            '<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"pixelate\"><feFlood x=\"0\" y=\"0\" width=\"1\" height=\"1\" flood-color=\"#51355A\"/><feComposite in2=\"SourceGraphic\" operator=\"over\"/></filter></defs><g><g><circle cx=\"1.2\" cy=\"1.2\" r=\"10\" fill=\"none\" stroke=\"cyan\" stroke-width=\"0.2\"><animate attributeName=\"r\" values=\"8;12;8\" dur=\"3s\" repeatCount=\"indefinite\"/><animate attributeName=\"opacity\" values=\"0.8;0.2;0.8\" dur=\"3s\" repeatCount=\"indefinite\"/><animate attributeName=\"stroke\" values=\"cyan;magenta;yellow;cyan\" dur=\"4s\" repeatCount=\"indefinite\"/></circle><circle cx=\"1.2\" cy=\"1.2\" r=\"8\" fill=\"none\" stroke=\"magenta\" stroke-width=\"0.2\"><animate attributeName=\"r\" values=\"6;10;6\" dur=\"2.5s\" repeatCount=\"indefinite\"/><animate attributeName=\"opacity\" values=\"0.6;0.1;0.6\" dur=\"2',
+            '.5s\" repeatCount=\"indefinite\"/></circle><circle cx=\"1.2\" cy=\"1.2\" r=\"6\" fill=\"none\" stroke=\"yellow\" stroke-width=\"0.2\"><animate attributeName=\"r\" values=\"4;8;4\" dur=\"2s\" repeatCount=\"indefinite\"/><animate attributeName=\"opacity\" values=\"0.4;0.1;0.4\" dur=\"2s\" repeatCount=\"indefinite\"/></circle></g></g></svg>'
+        ));
+    }
+}

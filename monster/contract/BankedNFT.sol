@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import "github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "./RoyaltyStandard.sol";
-import "./MetadataBank.sol";
+import "./bank/MetadataBank.sol";
 
 /**
  * @title BankedNFT
@@ -73,8 +73,8 @@ contract BankedNFT is ERC721Enumerable, RoyaltyStandard {
     // ============ Constructor ============
     /**
      * @notice Deploys the NFT contract with specified parameters
-     * @param name The name of the NFT collection
-     * @param symbol The symbol of the NFT collection
+     * @param nameParam The name of the NFT collection
+     * @param symbolParam The symbol of the NFT collection
      * @param _maxSupply Maximum number of NFTs that can be minted
      * @param _mintFee The fee required to mint an NFT (in wei)
      * @param _royaltyRate The royalty rate in basis points (e.g., 250 = 2.5%)
@@ -130,7 +130,7 @@ contract BankedNFT is ERC721Enumerable, RoyaltyStandard {
      * @param to The address that will receive the NFT
      * @return tokenId The ID of the newly minted NFT
      */
-    function airdrop(address to) external onlyOwner returns (uint256) {
+    function airdrop(address to) public onlyOwner returns (uint256) {
         if (totalMinted >= maxSupply) revert MaxSupplyReached();
         if (address(metadataBank) == address(0)) revert MetadataBankNotSet();
 
