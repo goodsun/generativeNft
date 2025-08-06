@@ -394,10 +394,47 @@
     </div>
     
     <script>
-        // Contract addresses - V5 deployment
-        const BANKED_NFT_ADDRESS = "0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796";
-        const METADATA_BANK_ADDRESS = "0xbFD4e357e0552Dd26b1A4877a5DB8DDC2E4198C4";
-        const COMPOSER_ADDRESS = "0x4036C601b705d68cA91281fdD1D665236ABbFde7";
+        // Default addresses - will be overridden by deployment.json if available
+        let BANKED_NFT_ADDRESS = "0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796";
+        let METADATA_BANK_ADDRESS = "0xbFD4e357e0552Dd26b1A4877a5DB8DDC2E4198C4";
+        let COMPOSER_ADDRESS = "0x4036C601b705d68cA91281fdD1D665236ABbFde7";
+        
+        // Load deployment configuration
+        async function loadDeployment() {
+            try {
+                console.log("Loading deployment.json...");
+                const response = await fetch("deployment.json");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const deployment = await response.json();
+                console.log("Loaded deployment:", deployment);
+                
+                // Update addresses from deployment.json
+                if (deployment.contracts) {
+                    BANKED_NFT_ADDRESS = deployment.contracts.bankedNFT || BANKED_NFT_ADDRESS;
+                    METADATA_BANK_ADDRESS = deployment.contracts.metadataV5 || METADATA_BANK_ADDRESS;
+                    COMPOSER_ADDRESS = deployment.contracts.composerV5 || COMPOSER_ADDRESS;
+                    
+                    console.log("Updated addresses from deployment:", {
+                        bankedNFT: BANKED_NFT_ADDRESS,
+                        metadataBank: METADATA_BANK_ADDRESS,
+                        composer: COMPOSER_ADDRESS
+                    });
+                    
+                    // Update UI with new addresses
+                    const addressElements = document.querySelectorAll('.network-info p span');
+                    if (addressElements.length >= 3) {
+                        addressElements[0].textContent = BANKED_NFT_ADDRESS;
+                        addressElements[1].textContent = METADATA_BANK_ADDRESS;
+                        addressElements[2].textContent = COMPOSER_ADDRESS;
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to load deployment.json:", error);
+                console.log("Using default addresses");
+            }
+        }
         
         // ABIs
         const BANKED_NFT_ABI = [
@@ -419,8 +456,12 @@
         
         async function init() {
             try {
+                // Load deployment configuration first
+                await loadDeployment();
+                
                 // Connect to network
-                provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/polygon_amoy");
+                const RPC_URL = "https://dev2.bon-soleil.com/rpc";
+                provider = new ethers.providers.JsonRpcProvider(RPC_URL);
                 
                 // Initialize contracts
                 bankedNft = new ethers.Contract(BANKED_NFT_ADDRESS, BANKED_NFT_ABI, provider);

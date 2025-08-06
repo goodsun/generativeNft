@@ -236,10 +236,40 @@
         const RPC_URL = "https://dev2.bon-soleil.com/rpc";
         const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
         
-        const COMPOSERS = {
+        // Default addresses - will be overridden by deployment.json if available
+        let COMPOSERS = {
             original: "0x4036C601b705d68cA91281fdD1D665236ABbFde7",
             fixed: "0x9D034498fe3E8F40eA2Fe7C4CbA1C3269c47Df6f"
         };
+        
+        let DEPLOYMENT = null;
+        
+        // Load deployment configuration
+        async function loadDeployment() {
+            try {
+                console.log("Loading deployment.json...");
+                const response = await fetch("deployment.json");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                DEPLOYMENT = await response.json();
+                console.log("Loaded deployment:", DEPLOYMENT);
+                
+                // Update COMPOSERS with address from deployment.json
+                if (DEPLOYMENT.contracts && DEPLOYMENT.contracts.composerV5) {
+                    COMPOSERS.original = DEPLOYMENT.contracts.composerV5;
+                    COMPOSERS.fixed = DEPLOYMENT.contracts.composerV5; // Use same address for both
+                    console.log("Updated COMPOSERS with deployment address:", COMPOSERS);
+                    
+                    // Update UI with new addresses
+                    document.querySelector('.address:first-of-type').textContent = COMPOSERS.original;
+                    document.querySelector('.address:last-of-type').textContent = COMPOSERS.fixed;
+                }
+            } catch (error) {
+                console.error("Failed to load deployment.json:", error);
+                console.log("Using default addresses");
+            }
+        }
         
         const COMPOSER_ABI = [
             "function composeSVG(uint8 species, uint8 background, uint8 item, uint8 effect) view returns (string)",
@@ -328,6 +358,9 @@
         
         // Initialize
         window.addEventListener('load', async () => {
+            // Load deployment configuration first
+            await loadDeployment();
+            
             await checkComposers();
         });
     </script>

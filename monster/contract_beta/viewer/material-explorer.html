@@ -121,8 +121,8 @@
         const RPC_URL = "https://dev2.bon-soleil.com/rpc";
         const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
         
-        // V5 Split deployment addresses
-        const BANKS = {
+        // Default addresses - will be overridden by deployment.json if available
+        let BANKS = {
             monster: {
                 v3: "0x41717f85854D631F7cb856D634fBf396beb68C93",
                 bank1: "0xe4fc503255De4F536BBC43Fe339843F88E2e1E66",
@@ -138,6 +138,89 @@
             },
             effect: {
                 main: "0xA1D8e09E0F6559e992e2882555F60bE67F4e73a9"
+            }
+        };
+        
+        // Load deployment configuration
+        async function loadDeployment() {
+            try {
+                console.log("Loading deployment.json...");
+                const response = await fetch("deployment.json");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const deployment = await response.json();
+                console.log("Loaded deployment:", deployment);
+                
+                // Update BANKS with addresses from deployment.json
+                if (deployment.contracts) {
+                    BANKS = {
+                        monster: {
+                            v3: deployment.contracts.monsterBankV3 || BANKS.monster.v3,
+                            bank1: deployment.contracts.monsterBank1 || BANKS.monster.bank1,
+                            bank2: deployment.contracts.monsterBank2 || BANKS.monster.bank2
+                        },
+                        item: {
+                            v3: deployment.contracts.itemBankV3 || BANKS.item.v3,
+                            bank1: deployment.contracts.itemBank1 || BANKS.item.bank1,
+                            bank2: deployment.contracts.itemBank2 || BANKS.item.bank2
+                        },
+                        background: {
+                            main: deployment.contracts.backgroundBank || BANKS.background.main
+                        },
+                        effect: {
+                            main: deployment.contracts.effectBank || BANKS.effect.main
+                        }
+                    };
+                    
+                    console.log("Updated BANKS with deployment addresses:", BANKS);
+                    
+                    // Update UI with new addresses
+                    updateContractInfo();
+                }
+            } catch (error) {
+                console.error("Failed to load deployment.json:", error);
+                console.log("Using default addresses");
+            }
+        }
+        
+        // Update contract info display
+        function updateContractInfo() {
+            const monsterInfo = document.querySelector('#materials-tab .bank-info:nth-child(1)');
+            const itemInfo = document.querySelector('#materials-tab .bank-info:nth-child(2)');
+            const backgroundInfo = document.querySelector('#materials-tab .bank-info:nth-child(3)');
+            const effectInfo = document.querySelector('#materials-tab .bank-info:nth-child(4)');
+            
+            if (monsterInfo) {
+                monsterInfo.innerHTML = `
+                    <h3>Monster Bank V3</h3>
+                    <div>Address: ${BANKS.monster.v3}</div>
+                    <div>Bank1: ${BANKS.monster.bank1}</div>
+                    <div>Bank2: ${BANKS.monster.bank2}</div>
+                `;
+            }
+            
+            if (itemInfo) {
+                itemInfo.innerHTML = `
+                    <h3>Item Bank V3</h3>
+                    <div>Address: ${BANKS.item.v3}</div>
+                    <div>Bank1: ${BANKS.item.bank1}</div>
+                    <div>Bank2: ${BANKS.item.bank2}</div>
+                `;
+            }
+            
+            if (backgroundInfo) {
+                backgroundInfo.innerHTML = `
+                    <h3>Background Bank</h3>
+                    <div>Address: ${BANKS.background.main}</div>
+                `;
+            }
+            
+            if (effectInfo) {
+                effectInfo.innerHTML = `
+                    <h3>Effect Bank</h3>
+                    <div>Address: ${BANKS.effect.main}</div>
+                `;
             }
         };
         
@@ -279,6 +362,9 @@
         // Initialize
         window.addEventListener('load', async () => {
             try {
+                // Load deployment configuration first
+                await loadDeployment();
+                
                 updateStatus('Loading materials from banks...');
                 await loadMaterials();
             } catch (error) {

@@ -808,36 +808,53 @@
 
           // Try to load deployment info
           try {
-            // Look for BankedNFT deployment file
-            const files = [
-              "deployment-banked-bonsoleil-1754448863092.json",
-              "deployment-banked-nft.json",
-              "deployment-bonsoleil.json",
-            ];
-            let deployment = null;
-
-            for (const file of files) {
-              try {
-                const response = await fetch("../" + file);
-                if (response.ok) {
-                  deployment = await response.json();
-                  if (
-                    deployment.contracts.bankedNft ||
-                    deployment.contracts.tragedyBankedNft
-                  ) {
-                    BANKED_NFT_ADDRESS =
-                      deployment.contracts.bankedNft ||
-                      deployment.contracts.tragedyBankedNft;
-                    METADATA_BANK_ADDRESS =
-                      deployment.contracts.metadataBank ||
-                      deployment.contracts.tragedyMetadata;
-                    console.log("Loaded deployment from", file);
-                    break;
-                  }
+            // Try to load deployment.json first (standard location)
+            try {
+              const response = await fetch("deployment.json");
+              if (response.ok) {
+                const deployment = await response.json();
+                if (deployment.contracts) {
+                  BANKED_NFT_ADDRESS = deployment.contracts.bankedNFT || deployment.contracts.bankedNft;
+                  METADATA_BANK_ADDRESS = deployment.contracts.metadataV5 || deployment.contracts.metadataBank;
+                  console.log("Loaded deployment from deployment.json");
                 }
-              } catch (e) {
-                console.log("Failed to load", file, e);
-                continue;
+              }
+            } catch (e) {
+              console.log("Failed to load deployment.json, trying other files...");
+            }
+
+            // If deployment.json didn't work, try other files
+            if (!BANKED_NFT_ADDRESS) {
+              const files = [
+                "deployment-banked-bonsoleil-1754448863092.json",
+                "deployment-banked-nft.json",
+                "deployment-bonsoleil.json",
+              ];
+              let deployment = null;
+
+              for (const file of files) {
+                try {
+                  const response = await fetch("../" + file);
+                  if (response.ok) {
+                    deployment = await response.json();
+                    if (
+                      deployment.contracts.bankedNft ||
+                      deployment.contracts.tragedyBankedNft
+                    ) {
+                      BANKED_NFT_ADDRESS =
+                        deployment.contracts.bankedNft ||
+                        deployment.contracts.tragedyBankedNft;
+                      METADATA_BANK_ADDRESS =
+                        deployment.contracts.metadataBank ||
+                        deployment.contracts.tragedyMetadata;
+                      console.log("Loaded deployment from", file);
+                      break;
+                    }
+                  }
+                } catch (e) {
+                  console.log("Failed to load", file, e);
+                  continue;
+                }
               }
             }
 
