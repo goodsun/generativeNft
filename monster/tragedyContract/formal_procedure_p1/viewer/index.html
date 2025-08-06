@@ -575,7 +575,7 @@
           <button class="tab active" onclick="switchTab('viewer')">
             ️ NFT Viewer
           </button>
-          <button class="tab" onclick="switchTab('minting')">🎨 Minting</button>
+          <button class="tab" onclick="switchTab('minting')">Minting</button>
           <button class="tab" onclick="switchTab('metadata')">
             Metadata Explorer
           </button>
@@ -585,7 +585,7 @@
           <button class="tab" onclick="switchTab('materials')">
             Material Explorer
           </button>
-          <button class="tab" onclick="switchTab('admin')">⚙️ Admin</button>
+          <button class="tab" onclick="switchTab('admin')">Admin</button>
         </div>
       </div>
 
@@ -652,6 +652,26 @@
               <h4>Minting Information</h4>
               <div class="info-grid">
                 <div class="info-item">
+                  <h4>Collection Name</h4>
+                  <p id="collection-name">Loading...</p>
+                </div>
+                <div class="info-item">
+                  <h4>Symbol</h4>
+                  <p id="collection-symbol">Loading...</p>
+                </div>
+                <div class="info-item">
+                  <h4>Total Supply</h4>
+                  <p id="mint-total-supply">Loading...</p>
+                </div>
+                <div class="info-item">
+                  <h4>Max Supply</h4>
+                  <p id="mint-max-supply">Loading...</p>
+                </div>
+                <div class="info-item">
+                  <h4>Remaining</h4>
+                  <p id="mint-remaining">Loading...</p>
+                </div>
+                <div class="info-item">
                   <h4>Mint Fee</h4>
                   <p id="mint-fee">Loading...</p>
                 </div>
@@ -662,6 +682,14 @@
                 <div class="info-item">
                   <h4>Can Mint</h4>
                   <p id="can-mint">Loading...</p>
+                </div>
+                <div class="info-item">
+                  <h4>Royalty Rate</h4>
+                  <p id="royalty-rate">Loading...</p>
+                </div>
+                <div class="info-item">
+                  <h4>Owner</h4>
+                  <p id="contract-owner">Loading...</p>
                 </div>
               </div>
             </div>
@@ -776,6 +804,13 @@
       <!-- Material Explorer Section -->
       <div id="materials-section" class="content-section">
         <h2>Material Explorer</h2>
+        <div class="deployment-info">
+          <h3>📋 Contract Information</h3>
+          <p>MonsterBank: <span id="material-monster-bank">Not loaded</span></p>
+          <p>ItemBank: <span id="material-item-bank">Not loaded</span></p>
+          <p>BackgroundBank: <span id="material-background-bank">Not loaded</span></p>
+          <p>EffectBank: <span id="material-effect-bank">Not loaded</span></p>
+        </div>
         <div class="status" id="materials-status">
           <span class="loading">Loading materials...</span>
         </div>
@@ -785,6 +820,14 @@
       <!-- Composer Explorer Section -->
       <div id="composer-section" class="content-section">
         <h2>Composer Explorer</h2>
+        <div class="deployment-info">
+          <h3>📋 Contract Information</h3>
+          <p>ComposerV5: <span id="composer-address-info">Not loaded</span></p>
+          <p>MonsterBank: <span id="composer-monster-bank">Not loaded</span></p>
+          <p>ItemBank: <span id="composer-item-bank">Not loaded</span></p>
+          <p>BackgroundBank: <span id="composer-background-bank">Not loaded</span></p>
+          <p>EffectBank: <span id="composer-effect-bank">Not loaded</span></p>
+        </div>
         <div class="admin-section">
           <h3>Test Composition</h3>
           <div class="function-group">
@@ -912,13 +955,15 @@
 
             <div class="function-group">
               <h4>Set MetadataBank</h4>
+              <p style="color: #888; font-size: 12px; margin-bottom: 10px">
+                Current: <span id="current-metadata-bank" style="color: #4caf50; font-family: monospace">Loading...</span>
+              </p>
               <div class="input-group">
                 <label>Bank Address:</label>
                 <input
                   type="text"
                   id="bank-address"
                   placeholder="0x..."
-                  value="0x32fB3362690D2233e56D2d058C4943b7cAa7e80e"
                 />
               </div>
               <button onclick="setMetadataBank()">Set MetadataBank</button>
@@ -981,6 +1026,14 @@
       let METADATA_BANK_ADDRESS = null;
       let COMPOSER_ADDRESS = null;
 
+      // Helper function to update contract display
+      function updateContractDisplay(elementId, address) {
+        const element = document.getElementById(elementId);
+        if (element && address) {
+          element.innerHTML = `<span style="color: #4caf50; font-family: monospace">${address}</span>`;
+        }
+      }
+      
       // Load deployment data
       async function loadDeployment() {
         try {
@@ -998,6 +1051,19 @@
           COMPOSER_ADDRESS = DEPLOYMENT.contracts.composerV5;
           console.log("Loaded deployment:", DEPLOYMENT);
           console.log("MetadataV5 address:", METADATA_BANK_ADDRESS);
+          
+          // Update Material Explorer contract info
+          updateContractDisplay("material-monster-bank", DEPLOYMENT.contracts.monsterBankV3);
+          updateContractDisplay("material-item-bank", DEPLOYMENT.contracts.itemBankV3);
+          updateContractDisplay("material-background-bank", DEPLOYMENT.contracts.backgroundBank);
+          updateContractDisplay("material-effect-bank", DEPLOYMENT.contracts.effectBank);
+          
+          // Update Composer Explorer contract info
+          updateContractDisplay("composer-address-info", DEPLOYMENT.contracts.composerV5);
+          updateContractDisplay("composer-monster-bank", DEPLOYMENT.contracts.monsterBankV3);
+          updateContractDisplay("composer-item-bank", DEPLOYMENT.contracts.itemBankV3);
+          updateContractDisplay("composer-background-bank", DEPLOYMENT.contracts.backgroundBank);
+          updateContractDisplay("composer-effect-bank", DEPLOYMENT.contracts.effectBank);
         } catch (error) {
           console.error("Failed to load deployment.json:", error);
           // Fallback to hardcoded values
@@ -1017,6 +1083,17 @@
           METADATA_BANK_ADDRESS = DEPLOYMENT.contracts.metadataV5;
           COMPOSER_ADDRESS = DEPLOYMENT.contracts.composerV5;
           console.log("Fallback deployment loaded:", DEPLOYMENT);
+          
+          // Update contract displays with fallback values
+          updateContractDisplay("material-monster-bank", DEPLOYMENT.contracts.monsterBankV3);
+          updateContractDisplay("material-item-bank", DEPLOYMENT.contracts.itemBankV3);
+          updateContractDisplay("material-background-bank", DEPLOYMENT.contracts.backgroundBank);
+          updateContractDisplay("material-effect-bank", DEPLOYMENT.contracts.effectBank);
+          updateContractDisplay("composer-address-info", DEPLOYMENT.contracts.composerV5);
+          updateContractDisplay("composer-monster-bank", DEPLOYMENT.contracts.monsterBankV3);
+          updateContractDisplay("composer-item-bank", DEPLOYMENT.contracts.itemBankV3);
+          updateContractDisplay("composer-background-bank", DEPLOYMENT.contracts.backgroundBank);
+          updateContractDisplay("composer-effect-bank", DEPLOYMENT.contracts.effectBank);
         }
       }
 
@@ -1473,10 +1550,40 @@
 
       async function loadMintingInfo() {
         try {
-          const mintFee = await bankedNft.mintFee();
-          const balance = await provider.getBalance(currentAccount);
-          const canMint = await bankedNft.canMint();
+          // Get all contract information
+          const [
+            name,
+            symbol,
+            totalSupply,
+            maxSupply,
+            remainingSupply,
+            mintFee,
+            canMint,
+            royaltyRate,
+            owner,
+            metadataBank
+          ] = await Promise.all([
+            bankedNft.name(),
+            bankedNft.symbol(),
+            bankedNft.totalSupply(),
+            bankedNft.maxSupply(),
+            bankedNft.remainingSupply(),
+            bankedNft.mintFee(),
+            bankedNft.canMint(),
+            bankedNft.royaltyRate(),
+            bankedNft.owner(),
+            bankedNft.metadataBank()
+          ]);
 
+          // Get user balance
+          const balance = await provider.getBalance(currentAccount);
+
+          // Update all display elements
+          document.getElementById("collection-name").textContent = name;
+          document.getElementById("collection-symbol").textContent = symbol;
+          document.getElementById("mint-total-supply").textContent = totalSupply.toString();
+          document.getElementById("mint-max-supply").textContent = maxSupply.toString();
+          document.getElementById("mint-remaining").textContent = remainingSupply.toString();
           document.getElementById("mint-fee").textContent =
             ethers.utils.formatEther(mintFee) + " ETH";
           document.getElementById("user-balance").textContent =
@@ -1484,11 +1591,21 @@
           document.getElementById("can-mint").textContent = canMint
             ? "Yes ✅"
             : "No ❌";
+          document.getElementById("royalty-rate").textContent = 
+            (royaltyRate.toNumber() / 100) + "%";
+          document.getElementById("contract-owner").textContent = 
+            owner.slice(0, 6) + "..." + owner.slice(-4);
 
           // Update contract balance for admin
           const contractBalance = await provider.getBalance(BANKED_NFT_ADDRESS);
           document.getElementById("contract-balance").textContent =
             ethers.utils.formatEther(contractBalance) + " ETH";
+          
+          // Update current MetadataBank display
+          const currentMetadataBankElement = document.getElementById("current-metadata-bank");
+          if (currentMetadataBankElement) {
+            currentMetadataBankElement.textContent = metadataBank;
+          }
         } catch (error) {
           console.error("Error loading minting info:", error);
         }
