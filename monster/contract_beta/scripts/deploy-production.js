@@ -21,10 +21,10 @@ async function main() {
 
   // Deploy Monster Bank V3 (combines the two banks)
   console.log("\n3. Deploying MonsterBankV3...");
-  const MonsterBankV3 = await hre.ethers.getContractFactory("ArweaveMonsterBankV3");
-  const monsterBankV3 = await MonsterBankV3.deploy(monsterBank1.address, monsterBank2.address);
-  await monsterBankV3.deployed();
-  console.log("MonsterBankV3 deployed to:", monsterBankV3.address);
+  const MonsterBank = await hre.ethers.getContractFactory("ArweaveMonsterBank");
+  const monsterBank = await MonsterBank.deploy(monsterBank1.address, monsterBank2.address);
+  await monsterBank.deployed();
+  console.log("MonsterBank deployed to:", monsterBank.address);
 
   // Deploy individual Item Banks
   console.log("\n4. Deploying ItemBank1...");
@@ -41,10 +41,10 @@ async function main() {
 
   // Deploy Item Bank V3 Fixed
   console.log("\n6. Deploying ItemBankV3Fixed...");
-  const ItemBankV3Fixed = await hre.ethers.getContractFactory("ArweaveItemBankV3Fixed");
-  const itemBankV3 = await ItemBankV3Fixed.deploy(itemBank1.address, itemBank2.address);
-  await itemBankV3.deployed();
-  console.log("ItemBankV3Fixed deployed to:", itemBankV3.address);
+  const ItemBank = await hre.ethers.getContractFactory("ArweaveItemBank");
+  const itemBank = await ItemBank.deploy(itemBank1.address, itemBank2.address);
+  await itemBank.deployed();
+  console.log("ItemBank deployed to:", itemBank.address);
 
   // Deploy Background Bank
   console.log("\n7. Deploying BackgroundBank...");
@@ -62,22 +62,22 @@ async function main() {
 
   // Deploy Composer V5
   console.log("\n9. Deploying ComposerV5...");
-  const ComposerV5 = await hre.ethers.getContractFactory("ArweaveTragedyComposerV5");
-  const composerV5 = await ComposerV5.deploy(
-    monsterBankV3.address,
+  const Composer = await hre.ethers.getContractFactory("ArweaveTragedyComposer");
+  const composer = await Composer.deploy(
+    monsterBank.address,
     backgroundBank.address,
-    itemBankV3.address,
+    itemBank.address,
     effectBank.address
   );
-  await composerV5.deployed();
-  console.log("ComposerV5 deployed to:", composerV5.address);
+  await composer.deployed();
+  console.log("Composer deployed to:", composer.address);
 
   // Deploy Metadata V5
   console.log("\n10. Deploying MetadataV5...");
-  const MetadataV5 = await hre.ethers.getContractFactory("TragedyMetadataV5");
-  const metadataV5 = await MetadataV5.deploy(composerV5.address);
-  await metadataV5.deployed();
-  console.log("MetadataV5 deployed to:", metadataV5.address);
+  const Metadata = await hre.ethers.getContractFactory("TragedyMetadata");
+  const metadata = await Metadata.deploy(composer.address);
+  await metadata.deployed();
+  console.log("Metadata deployed to:", metadata.address);
 
   // Deploy BankedNFT
   console.log("\n11. Deploying BankedNFT...");
@@ -91,7 +91,7 @@ async function main() {
   
   // Set the metadata bank
   console.log("Setting metadata bank...");
-  const setMetadataTx = await bankedNFT.setMetadataBank(metadataV5.address);
+  const setMetadataTx = await bankedNFT.setMetadataBank(metadata.address);
   await setMetadataTx.wait();
   console.log("Metadata bank set successfully!");
 
@@ -102,10 +102,10 @@ async function main() {
     note: "V5 production deployment with individual banks",
     contracts: {
       bankedNFT: bankedNFT.address,
-      metadataV5: metadataV5.address,
-      composerV5: composerV5.address,
-      monsterBankV3: monsterBankV3.address,
-      itemBankV3: itemBankV3.address,
+      metadata: metadata.address,
+      composer: composer.address,
+      monsterBank: monsterBank.address,
+      itemBank: itemBank.address,
       backgroundBank: backgroundBank.address,
       effectBank: effectBank.address,
       // Individual banks for reference
@@ -127,24 +127,24 @@ async function main() {
   console.log("Deployment saved to:", deploymentPath);
   console.log("\nContract addresses:");
   console.log("- BankedNFT:", bankedNFT.address);
-  console.log("- MetadataV5:", metadataV5.address);
-  console.log("- ComposerV5:", composerV5.address);
-  console.log("- MonsterBankV3:", monsterBankV3.address);
-  console.log("- ItemBankV3:", itemBankV3.address);
+  console.log("- Metadata:", metadata.address);
+  console.log("- Composer:", composer.address);
+  console.log("- MonsterBank:", monsterBank.address);
+  console.log("- ItemBank:", itemBank.address);
   console.log("- BackgroundBank:", backgroundBank.address);
   console.log("- EffectBank:", effectBank.address);
 
   // Verify deployment
   console.log("\n=== VERIFYING DEPLOYMENT ===");
   try {
-    const testMetadata = await metadataV5.getMetadata(0);
+    const testMetadata = await metadata.getMetadata(0);
     console.log("✓ Metadata generation works!");
     
-    const metadataCount = await metadataV5.getMetadataCount();
+    const metadataCount = await metadata.getMetadataCount();
     console.log("✓ Metadata count:", metadataCount.toString());
     
-    const composerAddress = await metadataV5.composer();
-    console.log("✓ Composer link verified:", composerAddress === composerV5.address);
+    const composerAddress = await metadata.composer();
+    console.log("✓ Composer link verified:", composerAddress === composer.address);
   } catch (error) {
     console.error("✗ Verification failed:", error.message);
   }

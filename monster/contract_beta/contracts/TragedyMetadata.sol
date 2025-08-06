@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import "./libraries/Base64.sol";
 import "./libraries/NarrativeGenerator.sol";
-import "./ArweaveTragedyComposerV5.sol";
+import "./ArweaveTragedyComposer.sol";
 
 interface IArweaveTragedyComposer {
     function composeSVG(uint8 species, uint8 background, uint8 item, uint8 effect) external view returns (string memory);
@@ -18,7 +18,7 @@ interface IArweaveTragedyComposer {
  * @title TragedyMetadataV5
  * @notice Implements proper attribute names and adds Curse+Realm synergies
  */
-contract TragedyMetadataV5 {
+contract TragedyMetadata {
     IArweaveTragedyComposer public composer;
     
     struct SynergyResult {

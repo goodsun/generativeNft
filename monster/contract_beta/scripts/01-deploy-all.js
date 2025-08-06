@@ -75,8 +75,8 @@ async function main() {
 
     // Step 6: Deploy Composer
     console.log("\n🎨 Step 6/6: Deploying Composer...");
-    const ArweaveTragedyComposerV2 = await ethers.getContractFactory("ArweaveTragedyComposerV2");
-    const composer = await ArweaveTragedyComposerV2.deploy(
+    const ArweaveTragedyComposer = await ethers.getContractFactory("ArweaveTragedyComposer");
+    const composer = await ArweaveTragedyComposer.deploy(
       monsterBank.address,
       itemBank.address,
       backgroundBank.address,

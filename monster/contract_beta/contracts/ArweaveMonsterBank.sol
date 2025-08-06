@@ -6,7 +6,7 @@ interface IMonsterBank {
     function getMonsterName(uint8 monsterId) external pure returns (string memory);
 }
 
-contract ArweaveMonsterBankV3 {
+contract ArweaveMonsterBank {
     IMonsterBank public bank1;
     IMonsterBank public bank2;
     

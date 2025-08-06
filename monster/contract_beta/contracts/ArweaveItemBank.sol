@@ -6,7 +6,7 @@ interface IItemBank {
     function getItemName(uint8 itemId) external pure returns (string memory);
 }
 
-contract ArweaveItemBankV3Fixed {
+contract ArweaveItemBank {
     IItemBank public bank1;
     IItemBank public bank2;
     

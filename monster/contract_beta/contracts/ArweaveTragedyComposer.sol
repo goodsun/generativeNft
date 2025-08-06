@@ -2,9 +2,9 @@
 pragma solidity ^0.8.20;
 
 import "./libraries/Base64.sol";
-import "./ArweaveMonsterBankV3.sol";
+import "./ArweaveMonsterBank.sol";
 import "./ArweaveBackgroundBank.sol";
-import "./ArweaveItemBankV3Fixed.sol";
+import "./ArweaveItemBank.sol";
 import "./ArweaveEffectBank.sol";
 
 interface IArweaveMonsterBank {
@@ -32,7 +32,7 @@ interface IArweaveEffectBank {
  * @notice Composes SVGs with synergy-based item transformations
  * @dev Transforms Amulet(9)->Head(10) and Shoulder(8)->Arm(11) during synergies
  */
-contract ArweaveTragedyComposerV5 {
+contract ArweaveTragedyComposer {
     IArweaveMonsterBank public monsterBank;
     IArweaveBackgroundBank public backgroundBank;
     IArweaveItemBank public itemBank;

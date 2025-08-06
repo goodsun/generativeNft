@@ -10,7 +10,7 @@ interface IMetadataBank {
  * @title MetadataBankV5
  * @notice Proxy contract that delegates metadata generation to TragedyMetadataV3
  */
-contract MetadataBankV5 is IMetadataBank {
+contract MetadataBank is IMetadataBank {
     address public immutable metadataContract;
     
     constructor(address _metadataContract) {
