@@ -77,10 +77,18 @@ contract TragedyMetadataV5 {
         // Get title and description
         string memory title;
         string memory description;
+        string memory displayItemName = itemName;
         
         if (synergy.found) {
             title = synergy.title;
             description = synergy.description;
+            
+            // Swap item names during synergy
+            if (item == 9) { // Amulet -> Head
+                displayItemName = "Head";
+            } else if (item == 8) { // Shoulder -> Arm
+                displayItemName = "Arm";
+            }
         } else {
             // Generate narrative title and description
             title = NarrativeGenerator.generateTitle(monsterName, backgroundName, itemName, tokenId);
@@ -102,7 +110,7 @@ contract TragedyMetadataV5 {
         json = string(abi.encodePacked(
             json,
             '{"trait_type":"Species","value":"', monsterName, '"},',
-            '{"trait_type":"Equipment","value":"', itemName, '"},',
+            '{"trait_type":"Equipment","value":"', displayItemName, '"},',
             '{"trait_type":"Realm","value":"', backgroundName, '"},',
             '{"trait_type":"Curse","value":"', effectName, '"},'
         ));
@@ -160,7 +168,18 @@ contract TragedyMetadataV5 {
             return SynergyResult(true, "Crimson Lord", "Under the blood moon, the crimson ruler commands legions of bats. The ancient vampire lord in its truest form.", 3);
         }
         
-        // Check Curse + Realm Synergies (NEW!)
+        // Check important Dual Synergies (Equipment transformation synergies)
+        if (keccak256(bytes(monster)) == keccak256(bytes("Werewolf")) &&
+            keccak256(bytes(item)) == keccak256(bytes("Amulet"))) {
+            return SynergyResult(true, "The Alpha's Trophy", "What appears to be a simple amulet is revealed as the severed head of the previous pack leader.", 1);
+        }
+        
+        if (keccak256(bytes(monster)) == keccak256(bytes("Frankenstein")) &&
+            keccak256(bytes(item)) == keccak256(bytes("Shoulder"))) {
+            return SynergyResult(true, "The Collector", "The shoulder armor is actually a collection of harvested arms, still twitching with unnatural life.", 1);
+        }
+        
+        // Check Curse + Realm Synergies
         if (keccak256(bytes(effect)) == keccak256(bytes("Burning")) && 
             keccak256(bytes(background)) == keccak256(bytes("Inferno"))) {
             return SynergyResult(true, "Eternal Flame", "Fire that burns without fuel, consuming reality itself.", 1);

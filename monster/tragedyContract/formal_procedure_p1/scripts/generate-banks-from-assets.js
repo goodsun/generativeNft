@@ -15,7 +15,7 @@ const monsterMapping = [
     'skeleton'     // 9
 ];
 
-// Item mapping (0-9)
+// Item mapping (0-11)
 const itemMapping = [
     'crown',       // 0
     'sword',       // 1
@@ -26,7 +26,9 @@ const itemMapping = [
     'scythe',      // 6
     'staff',       // 7
     'shoulder',    // 8
-    'amulet'       // 9
+    'amulet',      // 9
+    'head',        // 10 - hidden item
+    'arm'          // 11 - hidden item
 ];
 
 // Monster names for the contract
@@ -54,7 +56,9 @@ const itemNames = [
     'Scythe',
     'Staff',
     'Shoulder',
-    'Amulet'
+    'Amulet',
+    'Head',        // 10 - hidden item
+    'Arm'          // 11 - hidden item
 ];
 
 function readSVG(filePath) {
@@ -148,11 +152,13 @@ contract ArweaveItemBank {
         if (itemId == 7) return '${itemSVGs[7]}';
         if (itemId == 8) return '${itemSVGs[8]}';
         if (itemId == 9) return '${itemSVGs[9]}';
+        if (itemId == 10) return '${itemSVGs[10]}';
+        if (itemId == 11) return '${itemSVGs[11]}';
         revert("Invalid item ID");
     }
     
     function getItemName(uint8 itemId) public pure returns (string memory) {
-        string[10] memory names = [
+        string[12] memory names = [
             "${itemNames[0]}",
             "${itemNames[1]}",
             "${itemNames[2]}",
@@ -162,10 +168,12 @@ contract ArweaveItemBank {
             "${itemNames[6]}",
             "${itemNames[7]}",
             "${itemNames[8]}",
-            "${itemNames[9]}"
+            "${itemNames[9]}",
+            "${itemNames[10]}",
+            "${itemNames[11]}"
         ];
         
-        require(itemId < 10, "Invalid item ID");
+        require(itemId < 12, "Invalid item ID");
         return names[itemId];
     }
 }`;
