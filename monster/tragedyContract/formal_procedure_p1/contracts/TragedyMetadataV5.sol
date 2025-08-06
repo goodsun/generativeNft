@@ -29,6 +29,7 @@ contract TragedyMetadataV5 {
         bool found;
         string title;
         string description;
+        uint8 synergyType; // 0=none, 1=dual, 2=trinity, 3=quad
     }
     
     constructor(address _composer) {
@@ -106,17 +107,26 @@ contract TragedyMetadataV5 {
             '{"trait_type":"Curse","value":"', effectName, '"},'
         ));
         
+        // Calculate rarity
+        string memory rarity = calculateRarity(species, item, background, effect, tokenId, synergy.synergyType);
+        
         // Add synergy attribute if found
         if (synergy.found) {
             json = string(abi.encodePacked(
                 json,
-                '{"trait_type":"Synergy","value":"', synergy.title, '"},'
+                ',{"trait_type":"Synergy","value":"', synergy.title, '"}'
             ));
         }
         
+        // Add rarity attribute
         json = string(abi.encodePacked(
             json,
-            '{"trait_type":"Hue Rotation","value":', toString(hue), '},',
+            ',{"trait_type":"Rarity","value":"', rarity, '"}'
+        ));
+        
+        json = string(abi.encodePacked(
+            json,
+            ',{"trait_type":"Hue Rotation","value":', toString(hue), '},',
             '{"trait_type":"Saturation","value":', toString(sat), '},',
             '{"trait_type":"Brightness","value":', toString(bright), '}'
         ));
@@ -140,79 +150,79 @@ contract TragedyMetadataV5 {
             keccak256(bytes(item)) == keccak256(bytes("Crown")) &&
             keccak256(bytes(background)) == keccak256(bytes("Ragnarok")) &&
             keccak256(bytes(effect)) == keccak256(bytes("Meteor"))) {
-            return SynergyResult(true, "Cosmic Sovereign", "The cosmic ruler who brings the end times. Its crown channels meteor storms that herald the final days.");
+            return SynergyResult(true, "Cosmic Sovereign", "The cosmic ruler who brings the end times. Its crown channels meteor storms that herald the final days.", 3);
         }
         
         if (keccak256(bytes(monster)) == keccak256(bytes("Vampire")) &&
             keccak256(bytes(item)) == keccak256(bytes("Wine")) &&
             keccak256(bytes(background)) == keccak256(bytes("Bloodmoon")) &&
             keccak256(bytes(effect)) == keccak256(bytes("Bats"))) {
-            return SynergyResult(true, "Crimson Lord", "Under the blood moon, the crimson ruler commands legions of bats. The ancient vampire lord in its truest form.");
+            return SynergyResult(true, "Crimson Lord", "Under the blood moon, the crimson ruler commands legions of bats. The ancient vampire lord in its truest form.", 3);
         }
         
         // Check Curse + Realm Synergies (NEW!)
         if (keccak256(bytes(effect)) == keccak256(bytes("Burning")) && 
             keccak256(bytes(background)) == keccak256(bytes("Inferno"))) {
-            return SynergyResult(true, "Eternal Flame", "Fire that burns without fuel, consuming reality itself.");
+            return SynergyResult(true, "Eternal Flame", "Fire that burns without fuel, consuming reality itself.", 1);
         }
         
         if (keccak256(bytes(effect)) == keccak256(bytes("Blizzard")) && 
             keccak256(bytes(background)) == keccak256(bytes("Frost"))) {
-            return SynergyResult(true, "Absolute Zero", "Where ice meets storm, nothing survives.");
+            return SynergyResult(true, "Absolute Zero", "Where ice meets storm, nothing survives.", 1);
         }
         
         if (keccak256(bytes(effect)) == keccak256(bytes("Poisoning")) && 
             keccak256(bytes(background)) == keccak256(bytes("Venom"))) {
-            return SynergyResult(true, "Toxic Miasma", "A poisonous fog that corrupts all it touches.");
+            return SynergyResult(true, "Toxic Miasma", "A poisonous fog that corrupts all it touches.", 1);
         }
         
         if (keccak256(bytes(effect)) == keccak256(bytes("Mindblast")) && 
             keccak256(bytes(background)) == keccak256(bytes("Void"))) {
-            return SynergyResult(true, "Mental Collapse", "The void between thoughts where sanity dies.");
+            return SynergyResult(true, "Mental Collapse", "The void between thoughts where sanity dies.", 1);
         }
         
         if (keccak256(bytes(effect)) == keccak256(bytes("Lightning")) && 
             keccak256(bytes(background)) == keccak256(bytes("Bloodmoon"))) {
-            return SynergyResult(true, "Crimson Thunder", "Blood-red lightning that strikes with divine wrath.");
+            return SynergyResult(true, "Crimson Thunder", "Blood-red lightning that strikes with divine wrath.", 1);
         }
         
         if (keccak256(bytes(effect)) == keccak256(bytes("Brainwash")) && 
             keccak256(bytes(background)) == keccak256(bytes("Corruption"))) {
-            return SynergyResult(true, "Mind Corruption", "Thoughts twisted into weapons against their owner.");
+            return SynergyResult(true, "Mind Corruption", "Thoughts twisted into weapons against their owner.", 1);
         }
         
         if (keccak256(bytes(effect)) == keccak256(bytes("Meteor")) && 
             keccak256(bytes(background)) == keccak256(bytes("Ragnarok"))) {
-            return SynergyResult(true, "Apocalypse Rain", "The sky falls, bringing the end of all things.");
+            return SynergyResult(true, "Apocalypse Rain", "The sky falls, bringing the end of all things.", 1);
         }
         
         if (keccak256(bytes(effect)) == keccak256(bytes("Bats")) && 
             keccak256(bytes(background)) == keccak256(bytes("Shadow"))) {
-            return SynergyResult(true, "Night Terror", "Living shadows that feast on fear.");
+            return SynergyResult(true, "Night Terror", "Living shadows that feast on fear.", 1);
         }
         
         if (keccak256(bytes(effect)) == keccak256(bytes("Confusion")) && 
             keccak256(bytes(background)) == keccak256(bytes("Decay"))) {
-            return SynergyResult(true, "Madness Plague", "A disease that rots both mind and body.");
+            return SynergyResult(true, "Madness Plague", "A disease that rots both mind and body.", 1);
         }
         
         if (keccak256(bytes(effect)) == keccak256(bytes("Seizure")) && 
             keccak256(bytes(background)) == keccak256(bytes("Abyss"))) {
-            return SynergyResult(true, "Deep Tremor", "Convulsions from staring too long into the infinite dark.");
+            return SynergyResult(true, "Deep Tremor", "Convulsions from staring too long into the infinite dark.", 1);
         }
         
         // Check important Dual Synergies (Species + Equipment)
         if (keccak256(bytes(monster)) == keccak256(bytes("Vampire")) &&
             keccak256(bytes(item)) == keccak256(bytes("Wine"))) {
-            return SynergyResult(true, "Blood Sommelier", "A refined predator who has transcended mere survival. This vampire has cultivated an exquisite palate for the finest vintages.");
+            return SynergyResult(true, "Blood Sommelier", "A refined predator who has transcended mere survival. This vampire has cultivated an exquisite palate for the finest vintages.", 1);
         }
         
         if (keccak256(bytes(monster)) == keccak256(bytes("Skeleton")) &&
             keccak256(bytes(item)) == keccak256(bytes("Scythe"))) {
-            return SynergyResult(true, "Death's Herald", "The original harbinger of doom. This skeletal reaper has collected souls since the dawn of mortality itself.");
+            return SynergyResult(true, "Death's Herald", "The original harbinger of doom. This skeletal reaper has collected souls since the dawn of mortality itself.", 1);
         }
         
-        return SynergyResult(false, "", "");
+        return SynergyResult(false, "", "", 0);
     }
     
     function getNarrativeDescription(
@@ -309,5 +319,73 @@ contract TragedyMetadataV5 {
             value /= 10;
         }
         return string(buffer);
+    }
+    
+    function calculateRarity(
+        uint8 species,
+        uint8 item,
+        uint8 background,
+        uint8 effect,
+        uint256 tokenId,
+        uint8 synergyType
+    ) internal pure returns (string memory) {
+        // Check if it's a Legendary ID
+        if (isLegendaryId(tokenId)) {
+            return "Legendary";
+        }
+        
+        // Quad synergy always gets Mythic
+        if (synergyType == 3) {
+            return "Mythic";
+        }
+        
+        // Trinity synergy gets at least Epic
+        if (synergyType == 2) {
+            return "Epic";
+        }
+        
+        // Calculate base rarity level
+        uint8 baseLevel = getBaseRarityLevel(tokenId);
+        
+        // Dual synergy upgrades by 1 level
+        if (synergyType == 1) {
+            baseLevel = baseLevel + 1;
+            if (baseLevel > 4) baseLevel = 4; // Cap at Legendary
+        }
+        
+        return getRarityName(baseLevel);
+    }
+    
+    function isLegendaryId(uint256 tokenId) internal pure returns (bool) {
+        // 30 Legendary IDs from DESIGN.md
+        return tokenId == 1 || tokenId == 7 || tokenId == 13 || tokenId == 23 || 
+               tokenId == 42 || tokenId == 86 || tokenId == 100 || tokenId == 111 || 
+               tokenId == 187 || tokenId == 217 || tokenId == 333 || tokenId == 404 || 
+               tokenId == 555 || tokenId == 616 || tokenId == 666 || tokenId == 777 || 
+               tokenId == 911 || tokenId == 999 || tokenId == 1000 || tokenId == 1111 || 
+               tokenId == 1337 || tokenId == 1347 || tokenId == 1408 || tokenId == 1492 || 
+               tokenId == 1692 || tokenId == 1776 || tokenId == 2187 || tokenId == 3141 || 
+               tokenId == 4077 || tokenId == 5150 || tokenId == 6174 || tokenId == 7777 || 
+               tokenId == 8128 || tokenId == 9999;
+    }
+    
+    function getBaseRarityLevel(uint256 tokenId) internal pure returns (uint8) {
+        uint256 seed = uint256(keccak256(abi.encodePacked(tokenId)));
+        uint256 roll = seed % 100;
+        
+        if (roll < 40) return 0; // Common 40%
+        if (roll < 70) return 1; // Uncommon 30%
+        if (roll < 85) return 2; // Rare 15%
+        if (roll < 95) return 3; // Epic 10%
+        return 4; // Legendary 5%
+    }
+    
+    function getRarityName(uint8 level) internal pure returns (string memory) {
+        if (level == 0) return "Common";
+        if (level == 1) return "Uncommon";
+        if (level == 2) return "Rare";
+        if (level == 3) return "Epic";
+        if (level == 4) return "Legendary";
+        return "Mythic";
     }
 }
