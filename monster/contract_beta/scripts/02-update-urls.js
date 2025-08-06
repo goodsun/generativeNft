@@ -40,19 +40,10 @@ async function main() {
   console.log("  Updater:", deployer.address);
 
   // Read deployment file to get contract addresses
-  const deploymentFiles = fs.readdirSync('.')
-    .filter(f => f.startsWith(`deployment-${hre.network.name}-`))
-    .sort()
-    .reverse();
+  const deployment = require('../viewer/deployment.json');
 
-  if (deploymentFiles.length === 0) {
-    console.error("❌ No deployment file found. Run 01-deploy-all.js first!");
-    process.exit(1);
-  }
-
-  const deploymentFile = deploymentFiles[0];
-  console.log("📄 Using deployment file:", deploymentFile);
-  const deployment = JSON.parse(fs.readFileSync(deploymentFile, 'utf8'));
+  console.log("📄 Using deployment from viewer/deployment.json");
+  console.log("🌐 Network:", deployment.network);
 
   try {
     // Get contract instances
@@ -98,7 +89,7 @@ async function main() {
     // Test composition with real URLs
     console.log("\n🧪 Testing composition with real Arweave URLs...");
     const composer = await ethers.getContractAt(
-      "ArweaveTragedyComposerV2",
+      "ArweaveTragedyComposer",
       deployment.contracts.composer
     );
     

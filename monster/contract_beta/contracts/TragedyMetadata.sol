@@ -91,8 +91,6 @@ contract TragedyMetadata {
             description = getNarrativeDescription(monsterName, backgroundName, itemName, effectName);
         }
         
-        // Get filter params
-        (uint16 hue, uint16 sat, uint16 bright) = composer.filterParams(background);
         
         // Build metadata JSON with proper attribute names
         string memory json = string(abi.encodePacked(
@@ -128,12 +126,6 @@ contract TragedyMetadata {
             ',{"trait_type":"Rarity","value":"', rarity, '"}'
         ));
         
-        json = string(abi.encodePacked(
-            json,
-            ',{"trait_type":"Hue Rotation","value":', toString(hue), '},',
-            '{"trait_type":"Saturation","value":', toString(sat), '},',
-            '{"trait_type":"Brightness","value":', toString(bright), '}'
-        ));
         
         json = string(abi.encodePacked(json, ']}'));
         

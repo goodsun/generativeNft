@@ -35,18 +35,17 @@ contract ArweaveBackgroundBank {
     }
     
     function _initializeUrls() private {
-        // Initialize with placeholder Arweave URLs
-        // These should be replaced with actual Arweave transaction IDs after uploading
-        backgroundUrls[0] = "https://arweave.net/bloodmoon-placeholder";
-        backgroundUrls[1] = "https://arweave.net/abyss-placeholder";
-        backgroundUrls[2] = "https://arweave.net/decay-placeholder";
-        backgroundUrls[3] = "https://arweave.net/corruption-placeholder";
-        backgroundUrls[4] = "https://arweave.net/venom-placeholder";
-        backgroundUrls[5] = "https://arweave.net/void-placeholder";
-        backgroundUrls[6] = "https://arweave.net/inferno-placeholder";
-        backgroundUrls[7] = "https://arweave.net/frost-placeholder";
-        backgroundUrls[8] = "https://arweave.net/ragnarok-placeholder";
-        backgroundUrls[9] = "https://arweave.net/shadow-placeholder";
+        // Initialize with actual Arweave URLs
+        backgroundUrls[0] = "https://arweave.net/XeooYFmf_rvME-cLCDB-E-F1fOrdUiTSGOoz1q_lONI";
+        backgroundUrls[1] = "https://arweave.net/7f4Xexbjb24aOw2z4soba6zaAeYQSWkr1pYAKkZ5h7c";
+        backgroundUrls[2] = "https://arweave.net/NBKiR7O_jrBddYDNvdIMfW7t0sc5aIiXuy508WfwPh4";
+        backgroundUrls[3] = "https://arweave.net/xFCvtZudtVi8G1ZBSrv59928Xuf68bqtb5z2kDQx50Y";
+        backgroundUrls[4] = "https://arweave.net/fT6SUmXAD1DLbVzNkQuKTiN65l-TlPwI6CGXZiZzeIo";
+        backgroundUrls[5] = "https://arweave.net/ca3HmME0N1wayBzp03TU9hACYAriGsdd3jURVXhfXHw";
+        backgroundUrls[6] = "https://arweave.net/0iMntcJN_7P07V4T5euOk9uVEzhqvoC6vRIxAnCV48U";
+        backgroundUrls[7] = "https://arweave.net/bA-7-CU4rveHGA9usO6_TEVucSm1vk6t9-6CPB-0PSQ";
+        backgroundUrls[8] = "https://arweave.net/uNVu9Pori_7pEFJ1-WaNg_h3QT0ISdHQf0B_MAXZkgo";
+        backgroundUrls[9] = "https://arweave.net/-ZaY-UbqeGLe99zTv1SuFQi39frnTmTDn_g5noQ4bmI";
     }
     
     function getBackgroundUrl(uint8 id) external view returns (string memory) {

@@ -1,4 +1,4 @@
-# Tragedy NFT V5 - Contract Addresses
+# Tragedy NFT - Contract Addresses (Final Clean Version)
 
 ## Deployment Date: 2025-08-06
 ## Network: Bon-Soleil Testnet (Chain ID: 21201)
@@ -7,27 +7,27 @@
 
 | Contract | Address |
 |----------|---------|
-| **BankedNFT** | `0x96a960FA0c267dc9fa64f61C849d6D0e88801d34` |
-| **MetadataV5** | `0xd5a61216F7E97798bE5Dbc9Fd8D72C8Fd468b705` |
-| **ComposerV5** | `0x078b4d91BA92177c2a01d4A84aE78e24b603d10E` |
+| **BankedNFT** | `0x0F11e1B8857C44E279754a096281B0c3B364f6fE` |
+| **Metadata** | `0x5143f16dA9bE850da6c11cB50A7359A36e1D349b` |
+| **Composer** | `0x04DcC2cB2f77ce1DAf828469c6bD06A448f0BC32` |
 
-### Bank Contracts (V3 - Combined)
-
-| Contract | Address |
-|----------|---------|
-| **MonsterBankV3** | `0xc5dC1c5F923edA5eBe4765fE5A2E10Ae03D8b123` |
-| **ItemBankV3** | `0x7485194fCeB774f1eb5Dc12CF852ED0541FcfF22` |
-| **BackgroundBank** | `0xf368EB1eD47121B445F92E0Cc49a3F7Ceb96E64C` |
-| **EffectBank** | `0xFc0F05BfC0cd5e7e066b78879c32Efa518468dce` |
-
-### Individual Bank Contracts (Referenced by V3)
+### Bank Contracts (Combined)
 
 | Contract | Address |
 |----------|---------|
-| **MonsterBank1** | `0xc6E63bC65201BeBEa01a975e02f6c5C2B8f68cc9` |
-| **MonsterBank2** | `0xBfd8838C25608c7DF82DaC5B95be004a8a7D3114` |
-| **ItemBank1** | `0xC449009B332c68b6Bf688Dd15b39cA4B7521c3e1` |
-| **ItemBank2** | `0x76a5F990bCe8946b380DB5E0ae2CCD26d0472B01` |
+| **MonsterBank** | `0xCB0cAee7b79484F338BCd69e24c680A2C93d0571` |
+| **ItemBank** | `0xa5A704834c084cE513E61a6b861729e598A6A7D3` |
+| **BackgroundBank** | `0xA985DB7342431267d5a522B771f63775BAA8362a` |
+| **EffectBank** | `0x82B93B6C9d923c0D0D77BEbeF70e5F1318C915A9` |
+
+### Individual Bank Contracts (Referenced by Combined Banks)
+
+| Contract | Address |
+|----------|---------|
+| **MonsterBank1** | `0xdD2B2Cc7822cDb5bB11921173B42BdbC2d14a3d3` |
+| **MonsterBank2** | `0xA01850099813fd8eC6c26088B61A2cc7e0860ab8` |
+| **ItemBank1** | `0xE193Acd3a7FEbAE044883FfA6b86eab85E4A2dF0` |
+| **ItemBank2** | `0x2C5400420a3d4E6bB396bC7B3b993063811f7826` |
 
 ## Contract Parameters
 
@@ -37,6 +37,20 @@
 - **Max Supply**: 10,000
 - **Mint Fee**: 0.01 ETH
 - **Royalty Rate**: 2.5% (250 basis points)
+
+## Final Version Improvements
+- ✅ Removed V3/V5 version numbers from all contract names
+- ✅ Clean naming convention without technical version suffixes
+- ✅ Metadata no longer exposes technical filter parameters (Hue Rotation, Saturation, Brightness)
+- ✅ **Real Arweave URLs embedded in contracts by default** - No more placeholder URLs!
+- ✅ GitHubから取得後すぐに動作する（追加のURL更新不要）
+- ✅ Improved user experience with cleaner contract references
+
+## Ready-to-Use Features
+- **Backgrounds**: All 10 background effects with actual Arweave URLs
+- **Effects**: All 10 visual effects with actual Arweave URLs  
+- **No Setup Required**: Deploy and immediately functional
+- **Future-Proof**: Anyone cloning from GitHub gets working contracts
 
 ## How to Use in Remix
 

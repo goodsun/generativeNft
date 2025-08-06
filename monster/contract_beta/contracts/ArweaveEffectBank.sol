@@ -35,18 +35,17 @@ contract ArweaveEffectBank {
     }
     
     function _initializeUrls() private {
-        // Initialize with placeholder Arweave URLs
-        // These should be replaced with actual Arweave transaction IDs after uploading
-        effectUrls[0] = "https://arweave.net/seizure-placeholder";
-        effectUrls[1] = "https://arweave.net/mindblast-placeholder";
-        effectUrls[2] = "https://arweave.net/confusion-placeholder";
-        effectUrls[3] = "https://arweave.net/meteor-placeholder";
-        effectUrls[4] = "https://arweave.net/bats-placeholder";
-        effectUrls[5] = "https://arweave.net/poisoning-placeholder";
-        effectUrls[6] = "https://arweave.net/lightning-placeholder";
-        effectUrls[7] = "https://arweave.net/blizzard-placeholder";
-        effectUrls[8] = "https://arweave.net/burning-placeholder";
-        effectUrls[9] = "https://arweave.net/brainwash-placeholder";
+        // Initialize with actual Arweave URLs
+        effectUrls[0] = "https://arweave.net/8szL-F1P2dHg3XLlYA5EXf3BVzQGfeH_CF_B-MjuNE4";
+        effectUrls[1] = "https://arweave.net/DdiqAGyJ4XDW1EFdgKBXo6fStbW-Ks2Y3f3AM96A2A0";
+        effectUrls[2] = "https://arweave.net/1-QnPkLT5KI7eQD420wrB3m7n9hXj77rTpanb5773A0";
+        effectUrls[3] = "https://arweave.net/TdHsWKEvCIaKhgUcaGVpbs5bLE2V5metBywUhN81Ay4";
+        effectUrls[4] = "https://arweave.net/gj9yctWGFj2QhsNxLIFdtPLedkZxz460wVjdc3DwKko";
+        effectUrls[5] = "https://arweave.net/aIAfVjyQEPzqqn6OtABZzFJg2yYSUWdet3Zt0EAzPnQ";
+        effectUrls[6] = "https://arweave.net/23iGDqX0Uok653Hy3oo1o_Y-haNnzcHMW1LPmOi8IwI";
+        effectUrls[7] = "https://arweave.net/dQ5Y3zR80WV6KNnoh214zRk--xEdnMdKtDxI-YMGITM";
+        effectUrls[8] = "https://arweave.net/5dC56SGjfZd29Jb_NIlwcUBYtm0VrkE1q53EsN52ZTA";
+        effectUrls[9] = "https://arweave.net/M2iMAG1UD9QpqF9OkkUrK56LlLmjhFaeN0fqSyUxPvU";
     }
     
     function getEffectUrl(uint8 id) external view returns (string memory) {
