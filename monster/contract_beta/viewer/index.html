@@ -1196,12 +1196,8 @@
               }
             }
 
-            // Always use V5 addresses
-            BANKED_NFT_ADDRESS = "0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796";
-            METADATA_BANK_ADDRESS =
-              "0xbFD4e357e0552Dd26b1A4877a5DB8DDC2E4198C4";
-            COMPOSER_ADDRESS = "0x4036C601b705d68cA91281fdD1D665236ABbFde7";
-            console.log("Using V5 deployment addresses");
+            // Remove forced override - use deployment.json values
+            console.log("Using deployment addresses from files or loadDeployment");
           } catch (e) {
             console.error("Error loading deployment:", e);
             console.log("Using hardcoded BankedNFT address");
