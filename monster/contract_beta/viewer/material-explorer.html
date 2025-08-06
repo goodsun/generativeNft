@@ -67,11 +67,24 @@
             align-items: center;
             justify-content: center;
             border-radius: 5px;
+            overflow: hidden;
+            position: relative;
         }
         
         .svg-container svg {
             max-width: 96px;
             max-height: 96px;
+        }
+        
+        /* Hide overflow text in SVG */
+        .svg-container * {
+            word-break: break-all;
+            overflow-wrap: break-word;
+        }
+        
+        .svg-container text,
+        .svg-container tspan {
+            font-size: 8px !important;
         }
         
         .material-name {

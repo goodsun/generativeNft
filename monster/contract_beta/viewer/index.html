@@ -2574,10 +2574,7 @@
                                         <div style="font-size: 12px; font-weight: bold;">${name}</div>
                                         <div style="font-size: 10px; color: #888;">ID: ${i}</div>
                                         <div style="font-size: 10px; color: #ffaa00;">⚠ URL only</div>
-                                        <a href="${url}" target="_blank" style="font-size: 9px; color: #66b3ff; word-break: break-all; text-decoration: none;">${url.substring(
-                      0,
-                      30
-                    )}...</a>
+                                        <a href="${url}" target="_blank" style="font-size: 9px; color: #66b3ff; word-break: break-all; text-decoration: none; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${url}</a>
                                         ${
                                           isValidSvg
                                             ? '<div style="font-size: 9px; color: #999;">SVG URL (CORS blocked)</div>'
