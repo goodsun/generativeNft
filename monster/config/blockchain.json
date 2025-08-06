@@ -3,7 +3,7 @@
     "bonsoleil": {
       "name": "Bon-Soleil Testnet",
       "rpcUrl": "https://dev2.bon-soleil.com/rpc",
-      "chainId": 911,
+      "chainId": 21201,
       "contracts": {
         "metadataBank": {
           "address": "0x558c7489B997F0cFE8dA4aD0C492b9c4485ACb43",

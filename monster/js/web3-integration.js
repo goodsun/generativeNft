@@ -29,7 +29,7 @@ const BASE_TESTNET_CONFIG = {
 
 // Custom Testnet Configuration
 const CUSTOM_TESTNET_CONFIG = {
-    chainId: '0x38f', // 911 in hex
+    chainId: '0x52d1', // 21201 in hex
     chainName: 'Bon Soleil Testnet',
     rpcUrls: ['https://dev2.bon-soleil.com/rpc'],
     nativeCurrency: {
@@ -47,7 +47,7 @@ const CONTRACT_CONFIG = {
     addresses: {
         8453: '0x0000000000000000000000000000000000000000',  // Base Mainnet
         84532: '0x0000000000000000000000000000000000000000', // Base Sepolia
-        911: '0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796'  // Bon Soleil Testnet - BankedNFT Contract
+        21201: '0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796'  // Bon Soleil Testnet - BankedNFT Contract
     },
     abi: [
         // Minimal ERC721 ABI for minting
