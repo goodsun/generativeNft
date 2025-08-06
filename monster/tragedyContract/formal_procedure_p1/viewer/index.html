@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BankedNFT System with Metadata Explorer</title>
+    <title>Tragedy V5: The Mythical Cursed-Nightmare</title>
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
     <style>
         * {
@@ -540,8 +540,8 @@
     
     <div class="container">
         <header>
-            <h1>BankedNFT System</h1>
-            <p class="subtitle">Tragedy NFT with MetadataBank Architecture</p>
+            <h1>Tragedy: The Mythical Cursed-Nightmare</h1>
+            <p class="subtitle">V5 System with Synergy Transformations</p>
             <button class="preview-toggle" onclick="toggleFloatingPreview()" style="margin-top: 10px;">🖼️ Toggle Preview</button>
         </header>
         
@@ -781,7 +781,7 @@
         </div>
         
         <footer>
-            <p>BankedNFT System © 2025 - Modular NFT Architecture</p>
+            <p>Tragedy V5 System © 2025 - Generative Tragedy Literature</p>
         </footer>
     </div>
 
@@ -789,9 +789,10 @@
         // Configuration - UPDATE THESE WITH YOUR DEPLOYMENT
         const RPC_URL = "https://dev2.bon-soleil.com/rpc";
         
-        // Contract addresses - will be loaded from deployment file or hardcoded
-        let BANKED_NFT_ADDRESS = null;
-        let METADATA_BANK_ADDRESS = null;
+        // Contract addresses - V5 deployment
+        let BANKED_NFT_ADDRESS = "0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796";
+        let METADATA_BANK_ADDRESS = "0xbFD4e357e0552Dd26b1A4877a5DB8DDC2E4198C4";
+        let COMPOSER_ADDRESS = "0x4036C601b705d68cA91281fdD1D665236ABbFde7";
         
         // ABIs
         const BANKED_NFT_ABI = [
@@ -864,10 +865,11 @@
                             const response = await fetch('../' + file);
                             if (response.ok) {
                                 deployment = await response.json();
-                                if (deployment.contracts.bankedNft || deployment.contracts.tragedyBankedNft) {
-                                    BANKED_NFT_ADDRESS = deployment.contracts.bankedNft || deployment.contracts.tragedyBankedNft;
-                                    METADATA_BANK_ADDRESS = deployment.contracts.metadataBank || deployment.contracts.tragedyMetadata;
-                                    console.log('Loaded deployment from', file);
+                                if (deployment.contracts.bankedNFT) {
+                                    BANKED_NFT_ADDRESS = deployment.contracts.bankedNFT;
+                                    METADATA_BANK_ADDRESS = deployment.contracts.metadataV5;
+                                    COMPOSER_ADDRESS = deployment.contracts.composerV5;
+                                    console.log('Loaded V5 deployment from', file);
                                     break;
                                 }
                             }
@@ -877,11 +879,11 @@
                         }
                     }
                     
-                    if (!BANKED_NFT_ADDRESS) {
-                        // Fallback to hardcoded addresses
-                        BANKED_NFT_ADDRESS = "0x930Fc003DD8989E8d64b9Bba7673180C369178C5";
-                        console.log('Using hardcoded addresses');
-                    }
+                    // Always use V5 addresses
+                    BANKED_NFT_ADDRESS = "0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796";
+                    METADATA_BANK_ADDRESS = "0xbFD4e357e0552Dd26b1A4877a5DB8DDC2E4198C4";
+                    COMPOSER_ADDRESS = "0x4036C601b705d68cA91281fdD1D665236ABbFde7";
+                    console.log('Using V5 deployment addresses');
                 } catch (e) {
                     console.error('Error loading deployment:', e);
                     console.log('Using hardcoded BankedNFT address');
@@ -985,10 +987,11 @@
             const container = document.getElementById('nft-container');
             container.innerHTML = `
                 <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 30px; margin: 20px 0;">
-                    <h3 style="color: #ff6b6b; margin-bottom: 20px;">🚀 BankedNFT System Ready</h3>
+                    <h3 style="color: #ff6b6b; margin-bottom: 20px;">🚀 Tragedy V5 System Ready</h3>
                     <p style="margin-bottom: 15px;">The BankedNFT system is deployed and ready to use!</p>
                     <p style="color: #4caf50;">BankedNFT: ${BANKED_NFT_ADDRESS}</p>
-                    <p style="color: #4caf50;">MetadataBank: ${METADATA_BANK_ADDRESS || 'Loading...'}</p>
+                    <p style="color: #4caf50;">MetadataV5: ${METADATA_BANK_ADDRESS}</p>
+                    <p style="color: #4caf50;">ComposerV5: ${COMPOSER_ADDRESS}</p>
                 </div>
             `;
         }
