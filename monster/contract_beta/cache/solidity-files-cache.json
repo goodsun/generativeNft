@@ -1,8 +1,8 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/ArweaveBackgroundBank.sol": {
-      "lastModificationDate": 1754492386542,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/ArweaveBackgroundBank.sol": {
+      "lastModificationDate": 1754497343503,
       "contentHash": "ea58dd70e0587d44a51f71ca2af29aeb",
       "sourceName": "contracts/ArweaveBackgroundBank.sol",
       "solcConfig": {
@@ -38,8 +38,8 @@
         "ArweaveBackgroundBank"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/ArweaveTragedyComposerV5.sol": {
-      "lastModificationDate": 1754492386547,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/ArweaveTragedyComposerV5.sol": {
+      "lastModificationDate": 1754497343505,
       "contentHash": "b0d855004b2d067ad3f65f83e9ced262",
       "sourceName": "contracts/ArweaveTragedyComposerV5.sol",
       "solcConfig": {
@@ -85,8 +85,8 @@
         "IArweaveMonsterBank"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/libraries/Base64.sol": {
-      "lastModificationDate": 1754492386558,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/libraries/Base64.sol": {
+      "lastModificationDate": 1754497343507,
       "contentHash": "4d12d08b23d2c69e8916dc750a539053",
       "sourceName": "contracts/libraries/Base64.sol",
       "solcConfig": {
@@ -122,8 +122,8 @@
         "Base64"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/ArweaveMonsterBankV3.sol": {
-      "lastModificationDate": 1754492386545,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/ArweaveMonsterBankV3.sol": {
+      "lastModificationDate": 1754497343505,
       "contentHash": "bbefb0d088da34eefaaf17d5c934775c",
       "sourceName": "contracts/ArweaveMonsterBankV3.sol",
       "solcConfig": {
@@ -160,8 +160,8 @@
         "IMonsterBank"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/ArweaveItemBankV3Fixed.sol": {
-      "lastModificationDate": 1754492386544,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/ArweaveItemBankV3Fixed.sol": {
+      "lastModificationDate": 1754497343504,
       "contentHash": "c521b1b2b14d69d62784336f3a656b26",
       "sourceName": "contracts/ArweaveItemBankV3Fixed.sol",
       "solcConfig": {
@@ -198,8 +198,8 @@
         "IItemBank"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/ArweaveEffectBank.sol": {
-      "lastModificationDate": 1754492386543,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/ArweaveEffectBank.sol": {
+      "lastModificationDate": 1754497343503,
       "contentHash": "6966fc6c2930babf052092f52bb47ca8",
       "sourceName": "contracts/ArweaveEffectBank.sol",
       "solcConfig": {
@@ -235,8 +235,8 @@
         "ArweaveEffectBank"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/TragedyMetadataV5.sol": {
-      "lastModificationDate": 1754492386552,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/TragedyMetadataV5.sol": {
+      "lastModificationDate": 1754497343506,
       "contentHash": "417bc11fa1c3251b8f27b80da7f2ca00",
       "sourceName": "contracts/TragedyMetadataV5.sol",
       "solcConfig": {
@@ -277,8 +277,8 @@
         "TragedyMetadataV5"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/libraries/NarrativeGenerator.sol": {
-      "lastModificationDate": 1754492386559,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/libraries/NarrativeGenerator.sol": {
+      "lastModificationDate": 1754497343507,
       "contentHash": "f3f415c5b31c9aa7736954995772fdcd",
       "sourceName": "contracts/libraries/NarrativeGenerator.sol",
       "solcConfig": {
@@ -314,8 +314,8 @@
         "NarrativeGenerator"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/TragedyMythNFT.sol": {
-      "lastModificationDate": 1754492386553,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/TragedyMythNFT.sol": {
+      "lastModificationDate": 1754497343506,
       "contentHash": "0ad37746c454f5b8814ebdfe29339cea",
       "sourceName": "contracts/TragedyMythNFT.sol",
       "solcConfig": {
@@ -355,8 +355,8 @@
         "TragedyMythNFT"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
-      "lastModificationDate": 1754492625668,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
+      "lastModificationDate": 1754498921073,
       "contentHash": "522ec023bce510c30dfbf61584f5a190",
       "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
       "solcConfig": {
@@ -400,8 +400,8 @@
         "ERC721"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
-      "lastModificationDate": 1754492626218,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
+      "lastModificationDate": 1754498922247,
       "contentHash": "d3c790edc9ccf808a17c5a6cd13614fd",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
@@ -439,10 +439,49 @@
         "Ownable"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/utils/Context.sol": {
-      "lastModificationDate": 1754492624985,
-      "contentHash": "67bfbc07588eb8683b3fd8f6f909563e",
-      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol": {
+      "lastModificationDate": 1754498920647,
+      "contentHash": "0906d06dca25210d4696dcef6dad2909",
+      "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "viaIR": true,
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "ERC165"
+      ]
+    },
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/interfaces/draft-IERC6093.sol": {
+      "lastModificationDate": 1754498920001,
+      "contentHash": "5041977bbe908de2e6ed0270447f79ad",
+      "sourceName": "@openzeppelin/contracts/interfaces/draft-IERC6093.sol",
       "solcConfig": {
         "version": "0.8.20",
         "settings": {
@@ -470,14 +509,16 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.8.20"
+        ">=0.8.4"
       ],
       "artifacts": [
-        "Context"
+        "IERC1155Errors",
+        "IERC20Errors",
+        "IERC721Errors"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
-      "lastModificationDate": 1754492626362,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
+      "lastModificationDate": 1754498922387,
       "contentHash": "d8f70caf0e0c77dc908176ed44812fb7",
       "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
       "solcConfig": {
@@ -517,10 +558,10 @@
         "Strings"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol": {
-      "lastModificationDate": 1754492625392,
-      "contentHash": "0906d06dca25210d4696dcef6dad2909",
-      "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+      "lastModificationDate": 1754498919712,
+      "contentHash": "67bfbc07588eb8683b3fd8f6f909563e",
+      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
         "version": "0.8.20",
         "settings": {
@@ -546,18 +587,16 @@
           }
         }
       },
-      "imports": [
-        "./IERC165.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
         "^0.8.20"
       ],
       "artifacts": [
-        "ERC165"
+        "Context"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
-      "lastModificationDate": 1754492626082,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
+      "lastModificationDate": 1754498922054,
       "contentHash": "f62e11dbd302e17a5621a1438f4e054c",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
       "solcConfig": {
@@ -595,47 +634,8 @@
         "IERC721"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/interfaces/draft-IERC6093.sol": {
-      "lastModificationDate": 1754492625218,
-      "contentHash": "5041977bbe908de2e6ed0270447f79ad",
-      "sourceName": "@openzeppelin/contracts/interfaces/draft-IERC6093.sol",
-      "solcConfig": {
-        "version": "0.8.20",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.4"
-      ],
-      "artifacts": [
-        "IERC1155Errors",
-        "IERC20Errors",
-        "IERC721Errors"
-      ]
-    },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
-      "lastModificationDate": 1754492626094,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
+      "lastModificationDate": 1754498922094,
       "contentHash": "136c64eca25bcb8a68f43ac6605559f9",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
       "solcConfig": {
@@ -673,8 +673,8 @@
         "IERC721Metadata"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/token/ERC721/utils/ERC721Utils.sol": {
-      "lastModificationDate": 1754492625756,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/token/ERC721/utils/ERC721Utils.sol": {
+      "lastModificationDate": 1754498921324,
       "contentHash": "4cefad279a37c895b709bce2b901816e",
       "sourceName": "@openzeppelin/contracts/token/ERC721/utils/ERC721Utils.sol",
       "solcConfig": {
@@ -713,8 +713,45 @@
         "ERC721Utils"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/utils/math/Math.sol": {
-      "lastModificationDate": 1754492626146,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
+      "lastModificationDate": 1754498921873,
+      "contentHash": "7074c93b1ea0a122063f26ddd1db1032",
+      "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "viaIR": true,
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.16"
+      ],
+      "artifacts": [
+        "IERC165"
+      ]
+    },
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/utils/math/Math.sol": {
+      "lastModificationDate": 1754498922175,
       "contentHash": "5ec781e33d3a9ac91ffdc83d94420412",
       "sourceName": "@openzeppelin/contracts/utils/math/Math.sol",
       "solcConfig": {
@@ -753,8 +790,8 @@
         "Math"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/utils/math/SafeCast.sol": {
-      "lastModificationDate": 1754492626316,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/utils/math/SafeCast.sol": {
+      "lastModificationDate": 1754498922326,
       "contentHash": "2adca1150f58fc6f3d1f0a0f22ee7cca",
       "sourceName": "@openzeppelin/contracts/utils/math/SafeCast.sol",
       "solcConfig": {
@@ -790,8 +827,8 @@
         "SafeCast"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/utils/math/SignedMath.sol": {
-      "lastModificationDate": 1754492626330,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/utils/math/SignedMath.sol": {
+      "lastModificationDate": 1754498922350,
       "contentHash": "ae3528afb8bdb0a7dcfba5b115ee8074",
       "sourceName": "@openzeppelin/contracts/utils/math/SignedMath.sol",
       "solcConfig": {
@@ -829,8 +866,8 @@
         "SignedMath"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/utils/Panic.sol": {
-      "lastModificationDate": 1754492626254,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/utils/Panic.sol": {
+      "lastModificationDate": 1754498922286,
       "contentHash": "2133dc13536b4a6a98131e431fac59e1",
       "sourceName": "@openzeppelin/contracts/utils/Panic.sol",
       "solcConfig": {
@@ -866,45 +903,8 @@
         "Panic"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
-      "lastModificationDate": 1754492626006,
-      "contentHash": "7074c93b1ea0a122063f26ddd1db1032",
-      "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
-      "solcConfig": {
-        "version": "0.8.20",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.4.16"
-      ],
-      "artifacts": [
-        "IERC165"
-      ]
-    },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
-      "lastModificationDate": 1754492626101,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
+      "lastModificationDate": 1754498922101,
       "contentHash": "d61660a41ce200e99816e4734f7fd202",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
       "solcConfig": {
@@ -940,8 +940,8 @@
         "IERC721Receiver"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol": {
-      "lastModificationDate": 1754492625710,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol": {
+      "lastModificationDate": 1754498921207,
       "contentHash": "1e4b432e9069bd6f5935e071b74d180c",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
       "solcConfig": {
@@ -981,8 +981,8 @@
         "ERC721Enumerable"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol": {
-      "lastModificationDate": 1754492626091,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol": {
+      "lastModificationDate": 1754498922087,
       "contentHash": "09d80d577d5abfc679455e7b67c5b537",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
       "solcConfig": {
@@ -1020,8 +1020,8 @@
         "IERC721Enumerable"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/node_modules/@openzeppelin/contracts/interfaces/IERC2981.sol": {
-      "lastModificationDate": 1754492626043,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/node_modules/@openzeppelin/contracts/interfaces/IERC2981.sol": {
+      "lastModificationDate": 1754498921971,
       "contentHash": "901590b5e5c1683756629ed6308451ea",
       "sourceName": "@openzeppelin/contracts/interfaces/IERC2981.sol",
       "solcConfig": {
@@ -1059,8 +1059,8 @@
         "IERC2981"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/RoyaltyStandard.sol": {
-      "lastModificationDate": 1754492386550,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/RoyaltyStandard.sol": {
+      "lastModificationDate": 1754497343505,
       "contentHash": "de33800bb1b22c1d71a831d4baf7291f",
       "sourceName": "contracts/RoyaltyStandard.sol",
       "solcConfig": {
@@ -1098,8 +1098,8 @@
         "RoyaltyStandard"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/BankedNFT.sol": {
-      "lastModificationDate": 1754492386548,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/BankedNFT.sol": {
+      "lastModificationDate": 1754497343505,
       "contentHash": "e44138d645fa8d697b02b3f7495479cf",
       "sourceName": "contracts/BankedNFT.sol",
       "solcConfig": {
@@ -1139,8 +1139,8 @@
         "BankedNFT"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/bank/MetadataBank.sol": {
-      "lastModificationDate": 1754492386555,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/bank/MetadataBank.sol": {
+      "lastModificationDate": 1754497343506,
       "contentHash": "e3f4e3ebc398a0b79a966b83d0156113",
       "sourceName": "contracts/bank/MetadataBank.sol",
       "solcConfig": {
@@ -1176,8 +1176,8 @@
         "IMetadataBank"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/TragedyBankedNFT.sol": {
-      "lastModificationDate": 1754492386551,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/TragedyBankedNFT.sol": {
+      "lastModificationDate": 1754497343506,
       "contentHash": "35d99908d8332356830a09d03701b9f5",
       "sourceName": "contracts/TragedyBankedNFT.sol",
       "solcConfig": {
@@ -1215,8 +1215,8 @@
         "TragedyBankedNFT"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/bank/MetadataBankV5.sol": {
-      "lastModificationDate": 1754492386556,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/bank/MetadataBankV5.sol": {
+      "lastModificationDate": 1754497343506,
       "contentHash": "a144625ae4da00f6a4d8c30ae7fa6ffa",
       "sourceName": "contracts/bank/MetadataBankV5.sol",
       "solcConfig": {
@@ -1254,8 +1254,8 @@
         "MetadataBankV5"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/ArweaveItemBank.sol": {
-      "lastModificationDate": 1754492943962,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/ArweaveItemBank.sol": {
+      "lastModificationDate": 1754497343503,
       "contentHash": "e24c0b47ea43077528aedc3070c7c4c1",
       "sourceName": "contracts/ArweaveItemBank.sol",
       "solcConfig": {
@@ -1291,8 +1291,8 @@
         "ArweaveItemBank"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/ArweaveItemBank1.sol": {
-      "lastModificationDate": 1754492943963,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/ArweaveItemBank1.sol": {
+      "lastModificationDate": 1754497343503,
       "contentHash": "f65e36d66656b2ef3a8d0d85e4639d17",
       "sourceName": "contracts/ArweaveItemBank1.sol",
       "solcConfig": {
@@ -1328,8 +1328,8 @@
         "ArweaveItemBank1"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/ArweaveItemBank2.sol": {
-      "lastModificationDate": 1754492943964,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/ArweaveItemBank2.sol": {
+      "lastModificationDate": 1754497343504,
       "contentHash": "3e28ff622c25aa4b920c7037578fa1e1",
       "sourceName": "contracts/ArweaveItemBank2.sol",
       "solcConfig": {
@@ -1365,8 +1365,8 @@
         "ArweaveItemBank2"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/ArweaveItemBankV2.sol": {
-      "lastModificationDate": 1754492943966,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/ArweaveItemBankV2.sol": {
+      "lastModificationDate": 1754497343504,
       "contentHash": "d74f944c20cdcf37814bbfda92d803b4",
       "sourceName": "contracts/ArweaveItemBankV2.sol",
       "solcConfig": {
@@ -1402,8 +1402,8 @@
         "ArweaveItemBank"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/ArweaveItemBankV3.sol": {
-      "lastModificationDate": 1754492943967,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/ArweaveItemBankV3.sol": {
+      "lastModificationDate": 1754497343504,
       "contentHash": "45a1427322f968972c9023e6b20a0c6a",
       "sourceName": "contracts/ArweaveItemBankV3.sol",
       "solcConfig": {
@@ -1440,8 +1440,8 @@
         "IItemBank"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/ArweaveMonsterBank1.sol": {
-      "lastModificationDate": 1754492930241,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/ArweaveMonsterBank1.sol": {
+      "lastModificationDate": 1754497343505,
       "contentHash": "6c4500bd9100dee49e204057ebb10521",
       "sourceName": "contracts/ArweaveMonsterBank1.sol",
       "solcConfig": {
@@ -1477,8 +1477,8 @@
         "ArweaveMonsterBank1"
       ]
     },
-    "/Users/goodsun/Desktop/generativeNft/monster/tragedyContract/formal_procedure_p2/contracts/ArweaveMonsterBank2.sol": {
-      "lastModificationDate": 1754492934910,
+    "/Users/goodsun/Desktop/generativeNft/monster/contract_beta/contracts/ArweaveMonsterBank2.sol": {
+      "lastModificationDate": 1754497343505,
       "contentHash": "34222b50a01f09ebcb2429c5a844f09b",
       "sourceName": "contracts/ArweaveMonsterBank2.sol",
       "solcConfig": {
