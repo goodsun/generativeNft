@@ -24,6 +24,7 @@
     />
 
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -62,6 +63,7 @@
           Collection
         </button>
       </div>
+
 
       <div id="metadataDisplay" class="metadata-display"></div>
 
@@ -148,32 +150,164 @@
       </footer>
     </div>
 
-    <script src="js/synergies.js"></script>
-    <script src="js/name-generator.js"></script>
-    <script src="js/generate.js"></script>
     <script>
       let currentMetadata = [];
+      let provider;
+      let metadataBank;
+      let blockchainConfig = null;
+      
+      // Load blockchain configuration
+      async function loadBlockchainConfig() {
+        try {
+          const response = await fetch('config/blockchain.json');
+          if (response.ok) {
+            blockchainConfig = await response.json();
+            console.log('Blockchain configuration loaded');
+            return true;
+          }
+        } catch (error) {
+          console.log('Failed to load blockchain config, using defaults');
+        }
+        
+        // Fallback configuration - 正しいアドレスを使用
+        blockchainConfig = {
+          networks: {
+            bonsoleil: {
+              name: "Bon-Soleil Testnet",
+              rpcUrl: "https://dev2.bon-soleil.com/rpc",
+              contracts: {
+                metadataBank: {
+                  address: "0x558c7489B997F0cFE8dA4aD0C492b9c4485ACb43", // 正しいアドレス
+                  abi: [
+                    "function getMetadataCount() view returns (uint256)",
+                    "function getMetadata(uint256 index) view returns (string)",
+                    "function composer() view returns (address)",
+                    "function decodeTokenId(uint256 tokenId) view returns (uint8 species, uint8 background, uint8 item, uint8 effect)",
+                    "function generateMetadata(uint256 tokenId, uint8 species, uint8 background, uint8 item, uint8 effect) view returns (string)"
+                  ]
+                }
+              }
+            }
+          },
+          defaultNetwork: "bonsoleil"
+        };
+        return true;
+      }
+      
+      // Initialize blockchain connection
+      async function initBlockchain() {
+        try {
+          if (typeof ethers === 'undefined') {
+            alert('ethers.js library not loaded. Please check your internet connection.');
+            return false;
+          }
+          
+          // Load configuration first
+          await loadBlockchainConfig();
+          
+          const network = blockchainConfig.networks[blockchainConfig.defaultNetwork];
+          if (!network) {
+            console.error('Network configuration not found');
+            return false;
+          }
+          
+          provider = new ethers.providers.JsonRpcProvider(network.rpcUrl);
+          await provider.ready;
+          
+          const metadataBankConfig = network.contracts.metadataBank;
+          console.log('Using MetadataBank configuration:', metadataBankConfig);
+          
+          // 明示的にアドレスを確認
+          const contractAddress = metadataBankConfig.address;
+          console.log(`Creating contract instance with address: ${contractAddress}`);
+          
+          metadataBank = new ethers.Contract(contractAddress, metadataBankConfig.abi, provider);
+          
+          console.log(`Connected to ${network.name || 'Network'} at ${network.rpcUrl}`);
+          console.log(`MetadataBank address: ${contractAddress}`);
+          
+          // Test connection - but don't fail if getMetadataCount doesn't work
+          try {
+            const count = await metadataBank.getMetadataCount();
+            console.log('MetadataBank total metadata:', count.toString());
+          } catch (error) {
+            console.log('getMetadataCount not available, but contract may still work');
+          }
+          
+          return true;
+        } catch (error) {
+          console.error('Failed to connect to blockchain:', error);
+          return false;
+        }
+      }
+      
+      // Generate metadata from blockchain
+      async function generateMetadataFromBlockchain(id) {
+        try {
+          
+          // Get metadata from blockchain
+          const index = (id - 1) % 10000; // Convert ID to index (0-based)
+          let metadataUri = await metadataBank.getMetadata(index);
+          
+          // Check if the result is an address (proxy pattern)
+          if (metadataUri.startsWith('0x') && metadataUri.length === 42) {
+            console.log('MetadataBank returned an address, likely a proxy pattern:', metadataUri);
+            // Try using the returned address as a new metadata bank
+            const proxyMetadataBank = new ethers.Contract(
+              metadataUri, 
+              blockchainConfig.networks[blockchainConfig.defaultNetwork].contracts.metadataBank.abi, 
+              provider
+            );
+            
+            try {
+              metadataUri = await proxyMetadataBank.getMetadata(index);
+            } catch (proxyError) {
+              console.error('Failed to get metadata from proxy contract:', proxyError);
+              throw proxyError;
+            }
+          }
+          
+          // Decode the metadata
+          if (metadataUri.startsWith('data:application/json;base64,')) {
+            const base64Json = metadataUri.replace('data:application/json;base64,', '');
+            const jsonString = atob(base64Json);
+            const metadata = JSON.parse(jsonString);
+            
+            console.log('Fetched metadata from blockchain:', metadata);
+            return metadata;
+          } else if (metadataUri.startsWith('{')) {
+            // Plain JSON string
+            const metadata = JSON.parse(metadataUri);
+            console.log('Fetched metadata from blockchain:', metadata);
+            return metadata;
+          }
+          
+          throw new Error('Invalid metadata format: ' + metadataUri.substring(0, 50));
+        } catch (error) {
+          console.error('Error fetching from blockchain:', error);
+          alert('Error loading NFT data from blockchain. Please try again.');
+          throw error;
+        }
+      }
 
       // Generate single random NFT
       async function generateSingle() {
         const id = Math.floor(Math.random() * 10000) + 1;
-        const metadata = await generateMetadataById(id);
-        currentMetadata = [metadata];
-        displayMetadata(currentMetadata);
+        
+        if (!metadataBank) {
+          alert('Blockchain connection not available. Please refresh the page.');
+          return;
+        }
+        
+        try {
+          const metadata = await generateMetadataFromBlockchain(id);
+          currentMetadata = [metadata];
+          displayMetadata(currentMetadata);
+        } catch (error) {
+          console.error('Failed to generate NFT:', error);
+        }
       }
 
-      // Generate special combo
-      async function generateCombo() {
-        // List of IDs that are likely to have special combos
-        const comboSeeds = [
-          1, 234, 567, 890, 1234, 2345, 3456, 4567, 5678, 6789, 7890, 8901,
-          9012,
-        ];
-        const id = comboSeeds[Math.floor(Math.random() * comboSeeds.length)];
-        const metadata = await generateMetadataById(id);
-        currentMetadata = [metadata];
-        displayMetadata(currentMetadata);
-      }
 
       // Generate specific legendary ID
       async function generateSpecificId(id) {
@@ -190,10 +324,19 @@
           alert("Please enter a valid ID between 1 and 10000");
           return;
         }
+        
+        if (!metadataBank) {
+          alert('Blockchain connection not available. Please refresh the page.');
+          return;
+        }
 
-        const metadata = await generateMetadataById(id);
-        currentMetadata = [metadata];
-        displayMetadata(currentMetadata);
+        try {
+          const metadata = await generateMetadataFromBlockchain(id);
+          currentMetadata = [metadata];
+          displayMetadata(currentMetadata);
+        } catch (error) {
+          console.error('Failed to generate NFT:', error);
+        }
       }
 
       // Navigate to next ID
@@ -379,6 +522,15 @@
 
       // Handle URL parameters on load
       window.addEventListener("DOMContentLoaded", async () => {
+        // Initialize blockchain connection
+        const connected = await initBlockchain();
+        
+        if (!connected) {
+          document.getElementById("metadataDisplay").innerHTML = 
+            '<div style="text-align: center; padding: 40px; color: #ff6b6b;">Failed to connect to blockchain. Please refresh the page.</div>';
+          return;
+        }
+        
         const urlParams = new URLSearchParams(window.location.search);
         const idFromUrl = urlParams.get("id");
 

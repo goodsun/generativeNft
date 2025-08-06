@@ -1,0 +1,37 @@
+{
+  "networks": {
+    "bonsoleil": {
+      "name": "Bon-Soleil Testnet",
+      "rpcUrl": "https://dev2.bon-soleil.com/rpc",
+      "chainId": 911,
+      "contracts": {
+        "metadataBank": {
+          "address": "0x558c7489B997F0cFE8dA4aD0C492b9c4485ACb43",
+          "deploymentBlock": 0,
+          "abi": [
+            "function getMetadataCount() view returns (uint256)",
+            "function getMetadata(uint256 index) view returns (string)",
+            "function composer() view returns (address)",
+            "function decodeTokenId(uint256 tokenId) view returns (uint8 species, uint8 background, uint8 item, uint8 effect)",
+            "function generateMetadata(uint256 tokenId, uint8 species, uint8 background, uint8 item, uint8 effect) view returns (string)"
+          ]
+        },
+        "bankedNFT": {
+          "address": "0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796",
+          "deploymentBlock": 0
+        },
+        "composerV5": {
+          "address": "0x4036C601b705d68cA91281fdD1D665236ABbFde7",
+          "deploymentBlock": 0
+        }
+      }
+    }
+  },
+  "defaultNetwork": "bonsoleil",
+  "settings": {
+    "maxRetries": 3,
+    "timeout": 30000,
+    "cacheEnabled": true,
+    "cacheDuration": 300000
+  }
+}

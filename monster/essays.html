@@ -21,6 +21,7 @@
     <meta name="description" content="Essay Collection - Legendary Tales from the Cursed Realm. Explore the complete anthology of generated essays.">
     
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
     <style>
       .stories-grid {
         display: grid;
@@ -209,18 +210,130 @@
       </footer>
     </div>
 
-    <script src="js/synergies.js"></script>
-    <script src="js/name-generator.js"></script>
-    <script src="js/generate.js"></script>
     <script>
       let currentFilter = 'all';
       let loadedStories = [];
       let displayCount = 12;
+      let provider;
+      let metadataBank;
+      let blockchainConfig = null;
+      
+      // Load blockchain configuration
+      async function loadBlockchainConfig() {
+        try {
+          const response = await fetch('config/blockchain.json');
+          if (response.ok) {
+            blockchainConfig = await response.json();
+            console.log('Blockchain configuration loaded');
+            return true;
+          }
+        } catch (error) {
+          console.log('Failed to load blockchain config, using defaults');
+        }
+        
+        // Fallback configuration
+        blockchainConfig = {
+          networks: {
+            bonsoleil: {
+              name: "Bon-Soleil Testnet",
+              rpcUrl: "https://dev2.bon-soleil.com/rpc",
+              contracts: {
+                metadataBank: {
+                  address: "0x558c7489B997F0cFE8dA4aD0C492b9c4485ACb43",
+                  abi: [
+                    "function getMetadataCount() view returns (uint256)",
+                    "function getMetadata(uint256 index) view returns (string)"
+                  ]
+                }
+              }
+            }
+          },
+          defaultNetwork: "bonsoleil"
+        };
+        return true;
+      }
+      
+      // Initialize blockchain connection
+      async function initBlockchain() {
+        try {
+          if (typeof ethers === 'undefined') {
+            alert('ethers.js library not loaded. Please check your internet connection.');
+            return false;
+          }
+          
+          await loadBlockchainConfig();
+          
+          const network = blockchainConfig.networks[blockchainConfig.defaultNetwork];
+          if (!network) {
+            console.error('Network configuration not found');
+            return false;
+          }
+          
+          provider = new ethers.providers.JsonRpcProvider(network.rpcUrl);
+          await provider.ready;
+          
+          const metadataBankConfig = network.contracts.metadataBank;
+          metadataBank = new ethers.Contract(metadataBankConfig.address, metadataBankConfig.abi, provider);
+          
+          console.log(`Connected to ${network.name} at ${network.rpcUrl}`);
+          console.log(`MetadataBank address: ${metadataBankConfig.address}`);
+          
+          return true;
+        } catch (error) {
+          console.error('Failed to connect to blockchain:', error);
+          return false;
+        }
+      }
+      
+      // Generate metadata from blockchain
+      async function generateMetadataFromBlockchain(id) {
+        try {
+          const index = (id - 1) % 10000;
+          let metadataUri = await metadataBank.getMetadata(index);
+          
+          // Check if the result is an address (proxy pattern)
+          if (metadataUri.startsWith('0x') && metadataUri.length === 42) {
+            console.log('MetadataBank returned an address:', metadataUri);
+            const proxyMetadataBank = new ethers.Contract(
+              metadataUri, 
+              blockchainConfig.networks[blockchainConfig.defaultNetwork].contracts.metadataBank.abi, 
+              provider
+            );
+            
+            try {
+              metadataUri = await proxyMetadataBank.getMetadata(index);
+            } catch (proxyError) {
+              console.error('Failed to get metadata from proxy contract:', proxyError);
+              throw proxyError;
+            }
+          }
+          
+          // Decode the metadata
+          if (metadataUri.startsWith('data:application/json;base64,')) {
+            const base64Json = metadataUri.replace('data:application/json;base64,', '');
+            const jsonString = atob(base64Json);
+            const metadata = JSON.parse(jsonString);
+            return metadata;
+          } else if (metadataUri.startsWith('{')) {
+            return JSON.parse(metadataUri);
+          }
+          
+          throw new Error('Invalid metadata format');
+        } catch (error) {
+          console.error('Error fetching from blockchain:', error);
+          throw error;
+        }
+      }
       
       // Initialize with some random stories
       async function loadRandomStories() {
         const storiesGrid = document.getElementById('storiesGrid');
-        storiesGrid.innerHTML = '<p style="text-align: center; color: #C084FC;">Loading essays...</p>';
+        storiesGrid.innerHTML = '<p style="text-align: center; color: #C084FC;">Loading essays from blockchain...</p>';
+        
+        if (!metadataBank) {
+          storiesGrid.innerHTML = '<p style="text-align: center; color: #EF4444;">Blockchain connection not available. Please refresh the page.</p>';
+          return;
+        }
         
         loadedStories = [];
         const promises = [];
@@ -228,14 +341,14 @@
         // Generate 20 random essays
         for (let i = 0; i < 20; i++) {
           const randomId = Math.floor(Math.random() * 10000) + 1;
-          promises.push(generateMetadataById(randomId));
+          promises.push(generateMetadataFromBlockchain(randomId));
         }
         
         try {
           loadedStories = await Promise.all(promises);
           displayStories();
         } catch (error) {
-          storiesGrid.innerHTML = '<p style="text-align: center; color: #EF4444;">Failed to load essays. Please try again.</p>';
+          storiesGrid.innerHTML = '<p style="text-align: center; color: #EF4444;">Failed to load essays from blockchain. Please try again.</p>';
         }
       }
       
@@ -341,7 +454,16 @@
       }
       
       // Load stories on page load
-      window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener('DOMContentLoaded', async () => {
+        // Initialize blockchain connection
+        const connected = await initBlockchain();
+        
+        if (!connected) {
+          document.getElementById('storiesGrid').innerHTML = 
+            '<p style="text-align: center; color: #EF4444;">Failed to connect to blockchain. Please refresh the page.</p>';
+          return;
+        }
+        
         loadRandomStories();
       });
     </script>
