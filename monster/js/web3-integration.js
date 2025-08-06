@@ -50,15 +50,17 @@ const CONTRACT_CONFIG = {
         21201: '0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796'  // Bon Soleil Testnet - BankedNFT Contract
     },
     abi: [
-        // Minimal ERC721 ABI for minting
-        "function mint(address to, uint256 tokenId) public",
-        "function safeMint(address to) public payable",
+        // BankedNFT ABI for minting
+        "function mint() public payable returns (uint256)",
+        "function mintFee() view returns (uint256)",
         "function totalSupply() view returns (uint256)",
         "function balanceOf(address owner) view returns (uint256)",
         "function ownerOf(uint256 tokenId) view returns (address)",
         "function tokenURI(uint256 tokenId) view returns (string)",
-        "function price() view returns (uint256)",
         "function maxSupply() view returns (uint256)",
+        "function name() view returns (string)",
+        "function symbol() view returns (string)",
+        "event NFTMinted(address indexed to, uint256 indexed tokenId, address indexed creator, string metadataURI)",
         "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)"
     ]
 };
@@ -100,13 +102,31 @@ class Web3Integration {
             
             // Initialize contract with network-specific address
             const contractAddress = CONTRACT_CONFIG.addresses[currentChainIdDecimal];
+            console.log(`Attempting to initialize contract for chain ${currentChainIdDecimal}`);
+            console.log(`Contract address from config: ${contractAddress}`);
+            
             if (contractAddress && contractAddress !== '0x0000000000000000000000000000000000000000') {
-                this.contract = new ethers.Contract(
-                    contractAddress,
-                    CONTRACT_CONFIG.abi,
-                    this.signer
-                );
-                console.log(`Contract initialized on chain ${currentChainIdDecimal} at ${contractAddress}`);
+                try {
+                    this.contract = new ethers.Contract(
+                        contractAddress,
+                        CONTRACT_CONFIG.abi,
+                        this.signer
+                    );
+                    console.log(`Contract initialized successfully on chain ${currentChainIdDecimal} at ${contractAddress}`);
+                    
+                    // Test contract connection by calling a view function
+                    try {
+                        const totalSupply = await this.contract.totalSupply();
+                        console.log(`Contract test successful - totalSupply: ${totalSupply}`);
+                    } catch (testError) {
+                        console.warn('Contract test failed (totalSupply):', testError);
+                    }
+                } catch (initError) {
+                    console.error('Failed to initialize contract:', initError);
+                    this.contract = null;
+                }
+            } else {
+                console.warn('No valid contract address found for chain:', currentChainIdDecimal);
             }
             
             return this.currentAccount;
@@ -239,15 +259,22 @@ class Web3Integration {
     // Get NFT price from contract
     async getNFTPrice() {
         if (!this.contract) {
+            console.warn('getNFTPrice: Contract not initialized');
             throw new Error('Contract not initialized');
         }
         
         try {
-            const price = await this.contract.price();
-            return ethers.formatEther(price);
+            console.log('Calling mintFee() on contract:', this.contract.target || this.contract.address);
+            const mintFee = await this.contract.mintFee();
+            console.log('mintFee raw value:', mintFee.toString());
+            const formattedFee = ethers.formatEther(mintFee);
+            console.log('mintFee formatted:', formattedFee);
+            return formattedFee;
         } catch (error) {
             console.error('Failed to get NFT price:', error);
-            // Default price if contract doesn't have price function
+            console.error('Error details:', error.message);
+            // Default price if contract doesn't have mintFee function
+            console.log('Returning default price: 0.005 ETH');
             return '0.005'; // 0.005 ETH default
         }
     }
@@ -255,11 +282,22 @@ class Web3Integration {
     // Get total supply
     async getTotalSupply() {
         if (!this.contract) {
+            console.warn('getTotalSupply: Contract not initialized');
             throw new Error('Contract not initialized');
         }
         
-        const supply = await this.contract.totalSupply();
-        return supply.toString();
+        try {
+            console.log('Calling totalSupply() on contract:', this.contract.target || this.contract.address);
+            const supply = await this.contract.totalSupply();
+            console.log('totalSupply raw value:', supply);
+            const supplyString = supply.toString();
+            console.log('totalSupply formatted:', supplyString);
+            return supplyString;
+        } catch (error) {
+            console.error('Failed to get total supply:', error);
+            console.error('Error details:', error.message);
+            throw error;
+        }
     }
 
     // Get max supply
@@ -277,8 +315,46 @@ class Web3Integration {
         }
     }
 
+    // Get contract name
+    async getContractName() {
+        if (!this.contract) {
+            console.warn('getContractName: Contract not initialized');
+            throw new Error('Contract not initialized');
+        }
+        
+        try {
+            console.log('Calling name() on contract:', this.contract.target || this.contract.address);
+            const contractName = await this.contract.name();
+            console.log('Contract name:', contractName);
+            return contractName;
+        } catch (error) {
+            console.error('Failed to get contract name:', error);
+            console.error('Error details:', error.message);
+            return 'Unknown Collection';
+        }
+    }
+
+    // Get contract symbol
+    async getContractSymbol() {
+        if (!this.contract) {
+            console.warn('getContractSymbol: Contract not initialized');
+            throw new Error('Contract not initialized');
+        }
+        
+        try {
+            console.log('Calling symbol() on contract:', this.contract.target || this.contract.address);
+            const contractSymbol = await this.contract.symbol();
+            console.log('Contract symbol:', contractSymbol);
+            return contractSymbol;
+        } catch (error) {
+            console.error('Failed to get contract symbol:', error);
+            console.error('Error details:', error.message);
+            return 'UNKNOWN';
+        }
+    }
+
     // Mint NFT
-    async mintNFT(quantity = 1) {
+    async mintNFT() {
         if (!this.contract) {
             throw new Error('Contract not initialized');
         }
@@ -288,35 +364,38 @@ class Web3Integration {
         }
         
         try {
-            const price = await this.getNFTPrice();
-            const totalPrice = ethers.parseEther((parseFloat(price) * quantity).toString());
             
-            // Call safeMint function with payment
-            const tx = await this.contract.safeMint(this.currentAccount, {
-                value: totalPrice
+            // Get the mint fee from contract
+            const mintFee = await this.contract.mintFee();
+            
+            // Call mint function with payment
+            const tx = await this.contract.mint({ 
+                value: mintFee 
             });
             
             // Wait for transaction confirmation
             const receipt = await tx.wait();
             
-            // Extract token ID from Transfer event
-            const transferEvent = receipt.logs.find(
-                log => log.topics[0] === ethers.id('Transfer(address,address,uint256)')
-            );
+            // Extract token ID from NFTMinted event
+            const mintEvent = receipt.logs.find(log => {
+                try {
+                    const parsed = this.contract.interface.parseLog(log);
+                    return parsed.name === 'NFTMinted';
+                } catch {
+                    return false;
+                }
+            });
             
-            if (transferEvent) {
-                const tokenId = ethers.toBigInt(transferEvent.topics[3]).toString();
-                return {
-                    success: true,
-                    transactionHash: receipt.hash,
-                    tokenId: tokenId,
-                    blockNumber: receipt.blockNumber
-                };
+            let tokenId = null;
+            if (mintEvent) {
+                const parsed = this.contract.interface.parseLog(mintEvent);
+                tokenId = parsed.args.tokenId.toString();
             }
             
             return {
                 success: true,
                 transactionHash: receipt.hash,
+                tokenId: tokenId,
                 blockNumber: receipt.blockNumber
             };
         } catch (error) {

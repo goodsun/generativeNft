@@ -109,6 +109,19 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* Contract Name Title - same style as h1 */
+        .contract-name-title {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            background: linear-gradient(45deg, #9b4dff, #ff4d4d, #9b4dff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 3s ease infinite;
+            font-weight: bold;
+            margin: 0;
+        }
+
         .subtitle {
             color: #b792ff;
             font-size: 1.2rem;
@@ -520,6 +533,10 @@
             </div>
 
             <div class="mint-controls">
+                <div class="contract-name-display" style="text-align: center; margin-bottom: 1.5rem;">
+                    <div class="contract-name-title" id="contractName">Loading...</div>
+                </div>
+                
                 <div class="supply-info">
                     <div class="info-box">
                         <div class="info-label">Minted</div>
@@ -532,19 +549,8 @@
                 </div>
 
                 <div class="price-display">
-                    <div class="price-label">Price per NFT</div>
+                    <div class="price-label">Price</div>
                     <div class="price-value" id="priceDisplay">0.005 ETH</div>
-                </div>
-
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
-                    <span class="quantity-display" id="quantityDisplay">1</span>
-                    <button class="quantity-btn" onclick="increaseQuantity()">+</button>
-                </div>
-
-                <div style="margin-bottom: 1rem;">
-                    <span style="color: #b792ff;">Total: </span>
-                    <span style="color: #fff; font-size: 1.3rem; font-weight: bold;" id="totalPrice">0.005 ETH</span>
                 </div>
 
                 <button class="mint-btn" id="mintBtn" onclick="mintNFT()" disabled>
@@ -583,7 +589,6 @@
     <script src="js/web3-integration.js"></script>
     
     <script>
-        let currentQuantity = 1;
         let nftPrice = 0.005;
         let isConnected = false;
 
@@ -721,16 +726,33 @@
         // Update supply information
         async function updateSupplyInfo() {
             try {
+                // Get current chain ID
+                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                const chainIdDecimal = parseInt(chainId, 16);
+                
                 // Check if contract is deployed first
                 const contractAddress = window.web3Integration.getContractAddress();
-                if (!contractAddress || contractAddress === '0x0000000000000000000000000000000000000000') {
+                
+                // For Bon Soleil testnet, always try to fetch data
+                if (chainIdDecimal === 21201) {
+                    // Continue with fetching data even if contract address check fails
+                } else if (!contractAddress || contractAddress === '0x0000000000000000000000000000000000000000') {
                     // Set default values when contract is not deployed
+                    document.getElementById('contractName').textContent = 'Contract Not Deployed';
                     document.getElementById('totalSupply').textContent = '0';
                     document.getElementById('maxSupply').textContent = '10,000';
                     document.getElementById('priceDisplay').textContent = '0.005 ETH';
                     nftPrice = 0.005;
-                    updateTotalPrice();
                     return;
+                }
+                
+                // Get contract name first
+                try {
+                    const contractName = await window.web3Integration.getContractName();
+                    document.getElementById('contractName').textContent = contractName;
+                } catch (error) {
+                    console.error('Failed to get contract name:', error);
+                    document.getElementById('contractName').textContent = 'Unknown Collection';
                 }
                 
                 const totalSupply = await window.web3Integration.getTotalSupply();
@@ -742,42 +764,41 @@
                 // Get NFT price
                 nftPrice = await window.web3Integration.getNFTPrice();
                 document.getElementById('priceDisplay').textContent = `${nftPrice} ETH`;
-                updateTotalPrice();
             } catch (error) {
                 console.error('Failed to update supply info:', error);
-                // Set default values on error
-                document.getElementById('totalSupply').textContent = '0';
-                document.getElementById('maxSupply').textContent = '10,000';
-                document.getElementById('priceDisplay').textContent = '0.005 ETH';
-                nftPrice = 0.005;
-                updateTotalPrice();
+                
+                // Get current chain ID
+                try {
+                    const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                    const chainIdDecimal = parseInt(chainId, 16);
+                    
+                    // For Bon Soleil testnet, show more specific error
+                    if (chainIdDecimal === 21201) {
+                        console.log('Contract might not be initialized properly on Bon Soleil testnet');
+                        document.getElementById('contractName').textContent = 'Loading...';
+                        document.getElementById('totalSupply').textContent = 'Loading...';
+                        document.getElementById('maxSupply').textContent = '10,000';
+                        document.getElementById('priceDisplay').textContent = 'TBD';
+                        nftPrice = 0.005;
+                    } else {
+                        // Set default values on error for other networks
+                        document.getElementById('contractName').textContent = 'Unknown Collection';
+                        document.getElementById('totalSupply').textContent = '0';
+                        document.getElementById('maxSupply').textContent = '10,000';
+                        document.getElementById('priceDisplay').textContent = '0.005 ETH';
+                        nftPrice = 0.005;
+                    }
+                } catch {
+                    // Set default values on error
+                    document.getElementById('contractName').textContent = 'Unknown Collection';
+                    document.getElementById('totalSupply').textContent = '0';
+                    document.getElementById('maxSupply').textContent = '10,000';
+                    document.getElementById('priceDisplay').textContent = '0.005 ETH';
+                    nftPrice = 0.005;
+                }
             }
         }
 
-        // Quantity controls
-        function increaseQuantity() {
-            if (currentQuantity < 10) {
-                currentQuantity++;
-                updateQuantityDisplay();
-            }
-        }
-
-        function decreaseQuantity() {
-            if (currentQuantity > 1) {
-                currentQuantity--;
-                updateQuantityDisplay();
-            }
-        }
-
-        function updateQuantityDisplay() {
-            document.getElementById('quantityDisplay').textContent = currentQuantity;
-            updateTotalPrice();
-        }
-
-        function updateTotalPrice() {
-            const total = (nftPrice * currentQuantity).toFixed(4);
-            document.getElementById('totalPrice').textContent = `${total} ETH`;
-        }
 
         // Mint NFT
         async function mintNFT() {
@@ -803,7 +824,7 @@
             showTransactionStatus('pending', 'Summoning your nightmare... Please confirm the transaction in MetaMask.');
             
             try {
-                const result = await window.web3Integration.mintNFT(currentQuantity);
+                const result = await window.web3Integration.mintNFT();
                 
                 if (result.success) {
                     const txLink = `https://basescan.org/tx/${result.transactionHash}`;
@@ -824,7 +845,13 @@
                 } else if (error.message.includes('user rejected')) {
                     errorMessage += 'Transaction was cancelled.';
                 } else if (error.message.includes('Contract not initialized')) {
-                    showComingSoonModal();
+                    // On Bon Soleil testnet, show a different error message
+                    if (chainIdDecimal === 21201) {
+                        errorMessage = 'Contract initialization failed. Please refresh the page and try again.';
+                        showTransactionStatus('error', errorMessage);
+                    } else {
+                        showComingSoonModal();
+                    }
                     mintBtn.disabled = false;
                     mintBtn.textContent = 'SUMMON NIGHTMARE';
                     return;
