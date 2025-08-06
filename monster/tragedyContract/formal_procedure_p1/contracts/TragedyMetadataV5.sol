@@ -3,11 +3,23 @@ pragma solidity ^0.8.20;
 
 import "./libraries/Base64.sol";
 import "./libraries/NarrativeGenerator.sol";
-import "./ArweaveTragedyComposerV4.sol";
-import "./ArweaveMonsterBank.sol";
-import "./ArweaveBackgroundBank.sol";
-import "./ArweaveItemBank.sol";
-import "./ArweaveEffectBank.sol";
+import "./ArweaveTragedyComposerV5.sol";
+// Bank interfaces
+interface IMonsterBank {
+    function getMonsterName(uint8 id) external view returns (string memory);
+}
+
+interface IBackgroundBank {
+    function getBackgroundName(uint8 id) external view returns (string memory);
+}
+
+interface IItemBank {
+    function getItemName(uint8 id) external view returns (string memory);
+}
+
+interface IEffectBank {
+    function getEffectName(uint8 id) external view returns (string memory);
+}
 
 interface IArweaveTragedyComposer {
     function composeSVG(uint8 species, uint8 background, uint8 item, uint8 effect) external view returns (string memory);
@@ -66,10 +78,10 @@ contract TragedyMetadataV5 {
         string memory svg = composer.composeSVG(species, background, item, effect);
         
         // Get names from banks
-        string memory monsterName = ArweaveMonsterBank(address(composer.monsterBank())).getMonsterName(species);
-        string memory backgroundName = ArweaveBackgroundBank(address(composer.backgroundBank())).getBackgroundName(background);
-        string memory itemName = ArweaveItemBank(address(composer.itemBank())).getItemName(item);
-        string memory effectName = ArweaveEffectBank(address(composer.effectBank())).getEffectName(effect);
+        string memory monsterName = IMonsterBank(address(composer.monsterBank())).getMonsterName(species);
+        string memory backgroundName = IBackgroundBank(address(composer.backgroundBank())).getBackgroundName(background);
+        string memory itemName = IItemBank(address(composer.itemBank())).getItemName(item);
+        string memory effectName = IEffectBank(address(composer.effectBank())).getEffectName(effect);
         
         // Check for synergies
         SynergyResult memory synergy = checkSynergies(monsterName, backgroundName, itemName, effectName);
@@ -112,7 +124,7 @@ contract TragedyMetadataV5 {
             '{"trait_type":"Species","value":"', monsterName, '"},',
             '{"trait_type":"Equipment","value":"', displayItemName, '"},',
             '{"trait_type":"Realm","value":"', backgroundName, '"},',
-            '{"trait_type":"Curse","value":"', effectName, '"},'
+            '{"trait_type":"Curse","value":"', effectName, '"}'
         ));
         
         // Calculate rarity

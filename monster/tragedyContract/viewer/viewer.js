@@ -1,7 +1,7 @@
 // Tragedy NFT Viewer JavaScript
 
 // Contract configuration
-const NFT_ADDRESS = "0x79BA8659feF8A0792A3EDD0E27e885e72eFbc9B0";
+const NFT_ADDRESS = "0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796";
 const RPC_URL = "https://dev2.bon-soleil.com/rpc";
 
 // NFT ABI (minimal)

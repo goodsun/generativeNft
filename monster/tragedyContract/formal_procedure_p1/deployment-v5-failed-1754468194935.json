@@ -1,7 +1,0 @@
-{
-  "timestamp": "2025-08-06T08:16:34.921Z",
-  "network": "bonsoleil",
-  "deployer": "0xCf20a6EcBBedB403DB466D669229d9Ee379C433f",
-  "contracts": {},
-  "error": "HH701: There are multiple artifacts for contract \"ArweaveItemBank\", please use a fully qualified name.\n\nPlease replace ArweaveItemBank for one of these options wherever you are trying to read its artifact:\n\ncontracts/ArweaveItemBank.sol:ArweaveItemBank\ncontracts/ArweaveItemBankV2.sol:ArweaveItemBank\n"
-}

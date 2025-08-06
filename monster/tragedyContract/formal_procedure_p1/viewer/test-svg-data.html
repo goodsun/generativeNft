@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test SVG Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <style>
+        body {
+            font-family: monospace;
+            background: #0a0a0a;
+            color: #0f0;
+            padding: 20px;
+        }
+        pre {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .error { color: #f00; }
+        .success { color: #0f0; }
+        .warning { color: #ff0; }
+        button {
+            background: #333;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #444; }
+        .svg-preview {
+            background: white;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test SVG Data from Banks</h1>
+    <button onclick="testSVGData()">Test All SVG Data</button>
+    <button onclick="testIndividualBanks()">Test Banks One by One</button>
+    <pre id="output">Click a button to test...</pre>
+    <div id="svgPreview"></div>
+
+    <script>
+        const RPC_URL = "https://dev2.bon-soleil.com/rpc";
+        const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+        
+        // Contract addresses
+        const BANKS = {
+            monsterBank1: "0xe4fc503255De4F536BBC43Fe339843F88E2e1E66",
+            monsterBank2: "0xE7b23Cc85D6D9b24C4203F26A97DF7A80F9FA047",
+            monsterBankV3: "0x41717f85854D631F7cb856D634fBf396beb68C93",
+            itemBank1: "0x125F456DD6633E9E698FC084Ac669E08B133daaA",
+            itemBank2: "0x86F003F07704F2939FB5eD40e16f13521D6c930E",
+            itemBankV3: "0x2A76B76D2024bDf8018459cbf789A5B0bd277Fdc",
+            backgroundBank: "0x1103d4c6108705610B08c2FFA696e3589579931E",
+            effectBank: "0xA1D8e09E0F6559e992e2882555F60bE67F4e73a9"
+        };
+        
+        // Individual Bank ABIs
+        const BANK1_ABI = [
+            "function getMonsterSVG(uint8 id) view returns (string)",
+            "function getSVG(uint8 id) view returns (string)"
+        ];
+        
+        const BANKV3_ABI = [
+            "function getMonsterSVG(uint8 id) view returns (string)",
+            "function getItemSVG(uint8 id) view returns (string)",
+            "function getBackgroundSVG(uint8 id) view returns (string)",
+            "function getEffectSVG(uint8 id) view returns (string)"
+        ];
+        
+        function log(message, type = 'success') {
+            const output = document.getElementById('output');
+            const className = type === 'error' ? 'error' : type === 'warning' ? 'warning' : 'success';
+            output.innerHTML += `<span class="${className}">${message}</span>\n`;
+        }
+        
+        function showSVG(svg, title) {
+            const preview = document.getElementById('svgPreview');
+            const div = document.createElement('div');
+            div.innerHTML = `<h3>${title}</h3><div class="svg-preview">${svg}</div>`;
+            preview.appendChild(div);
+        }
+        
+        async function testSVGData() {
+            const output = document.getElementById('output');
+            output.innerHTML = 'Testing SVG data from all banks...\n\n';
+            document.getElementById('svgPreview').innerHTML = '';
+            
+            try {
+                // Test Monster Bank V3
+                log('=== Monster Bank V3 ===');
+                const monsterBankV3 = new ethers.Contract(BANKS.monsterBankV3, BANKV3_ABI, provider);
+                try {
+                    const svg = await monsterBankV3.getMonsterSVG(0);
+                    log(`✅ Monster 0 SVG length: ${svg.length}`);
+                    log(`Preview: ${svg.substring(0, 100)}...`);
+                    if (svg.length > 0) {
+                        showSVG(svg, 'Monster 0 (Werewolf)');
+                    }
+                } catch (e) {
+                    log(`❌ Monster SVG error: ${e.message}`, 'error');
+                }
+                
+                // Test Item Bank V3
+                log('\n=== Item Bank V3 ===');
+                const itemBankV3 = new ethers.Contract(BANKS.itemBankV3, BANKV3_ABI, provider);
+                try {
+                    const svg = await itemBankV3.getItemSVG(0);
+                    log(`✅ Item 0 SVG length: ${svg.length}`);
+                    log(`Preview: ${svg.substring(0, 100)}...`);
+                    if (svg.length > 0) {
+                        showSVG(svg, 'Item 0 (Crown)');
+                    }
+                } catch (e) {
+                    log(`❌ Item SVG error: ${e.message}`, 'error');
+                }
+                
+                // Test Background Bank
+                log('\n=== Background Bank ===');
+                const bgBank = new ethers.Contract(BANKS.backgroundBank, BANKV3_ABI, provider);
+                try {
+                    const svg = await bgBank.getBackgroundSVG(0);
+                    log(`✅ Background 0 SVG length: ${svg.length}`);
+                    log(`Preview: ${svg.substring(0, 100)}...`);
+                    if (svg.length > 0) {
+                        showSVG(svg, 'Background 0 (Bloodmoon)');
+                    }
+                } catch (e) {
+                    log(`❌ Background SVG error: ${e.message}`, 'error');
+                }
+                
+                // Test Effect Bank
+                log('\n=== Effect Bank ===');
+                const effectBank = new ethers.Contract(BANKS.effectBank, BANKV3_ABI, provider);
+                try {
+                    const svg = await effectBank.getEffectSVG(0);
+                    log(`✅ Effect 0 SVG length: ${svg.length}`);
+                    log(`Preview: ${svg.substring(0, 100)}...`);
+                    if (svg.length > 0) {
+                        showSVG(svg, 'Effect 0 (Seizure)');
+                    }
+                } catch (e) {
+                    log(`❌ Effect SVG error: ${e.message}`, 'error');
+                }
+                
+            } catch (error) {
+                log(`Fatal error: ${error.message}`, 'error');
+                console.error(error);
+            }
+        }
+        
+        async function testIndividualBanks() {
+            const output = document.getElementById('output');
+            output.innerHTML = 'Testing individual banks (Bank1, Bank2)...\n\n';
+            
+            try {
+                // Test Monster Bank 1
+                log('=== Monster Bank 1 (0-4) ===');
+                const monsterBank1 = new ethers.Contract(BANKS.monsterBank1, BANK1_ABI, provider);
+                try {
+                    const svg = await monsterBank1.getSVG(0);
+                    log(`✅ Monster 0 from Bank1 - SVG length: ${svg.length}`);
+                } catch (e) {
+                    log(`❌ Bank1 error: ${e.message}`, 'error');
+                }
+                
+                // Test Item Bank 1
+                log('\n=== Item Bank 1 (0-5) ===');
+                const itemBank1 = new ethers.Contract(BANKS.itemBank1, BANK1_ABI, provider);
+                try {
+                    const svg = await itemBank1.getSVG(0);
+                    log(`✅ Item 0 from Bank1 - SVG length: ${svg.length}`);
+                } catch (e) {
+                    log(`❌ Bank1 error: ${e.message}`, 'error');
+                }
+                
+            } catch (error) {
+                log(`Fatal error: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html>

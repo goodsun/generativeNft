@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test New Metadata Contract</title>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <style>
+        body {
+            font-family: monospace;
+            background: #0a0a0a;
+            color: #0f0;
+            padding: 20px;
+        }
+        pre {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .error { color: #f00; }
+        .success { color: #0f0; }
+        .warning { color: #ff0; }
+        button {
+            background: #333;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #444; }
+    </style>
+</head>
+<body>
+    <h1>Test New Metadata Contract</h1>
+    <button onclick="testAll()">Test All Components</button>
+    <button onclick="testDecoding()">Test Token Decoding</button>
+    <button onclick="testComposer()">Test Composer Directly</button>
+    <button onclick="testBanks()">Test Banks Directly</button>
+    <pre id="output">Click a button to test...</pre>
+
+    <script>
+        const RPC_URL = "https://dev2.bon-soleil.com/rpc";
+        const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+        
+        // Contract addresses
+        const METADATA_FIXED = "0xcCDBF2cA080B210cf978757bBFD7F4f5db8fB201";
+        const COMPOSER_V5 = "0x4036C601b705d68cA91281fdD1D665236ABbFde7";
+        const MONSTER_BANK_V3 = "0x41717f85854D631F7cb856D634fBf396beb68C93";
+        const ITEM_BANK_V3 = "0x2A76B76D2024bDf8018459cbf789A5B0bd277Fdc";
+        const BACKGROUND_BANK = "0x1103d4c6108705610B08c2FFA696e3589579931E";
+        const EFFECT_BANK = "0xA1D8e09E0F6559e992e2882555F60bE67F4e73a9";
+        const NFT_ADDRESS = "0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796";
+        
+        // ABIs
+        const METADATA_ABI = [
+            "function getMetadata(uint256 index) view returns (string)",
+            "function getMetadataCount() view returns (uint256)",
+            "function decodeTokenId(uint256 tokenId) view returns (uint8 species, uint8 background, uint8 item, uint8 effect)",
+            "function generateMetadata(uint256 tokenId, uint8 species, uint8 background, uint8 item, uint8 effect) view returns (string)"
+        ];
+        
+        const COMPOSER_ABI = [
+            "function composeSVG(uint8 species, uint8 background, uint8 item, uint8 effect) view returns (string)",
+            "function filterParams(uint8 background, uint256 index) view returns (uint16)"
+        ];
+        
+        const BANK_ABI = [
+            "function getMonsterName(uint8 id) view returns (string)",
+            "function getMonsterSVG(uint8 id) view returns (string)",
+            "function getItemName(uint8 id) view returns (string)",
+            "function getItemSVG(uint8 id) view returns (string)",
+            "function getBackgroundName(uint8 id) view returns (string)",
+            "function getBackgroundSVG(uint8 id) view returns (string)",
+            "function getEffectName(uint8 id) view returns (string)",
+            "function getEffectSVG(uint8 id) view returns (string)"
+        ];
+        
+        const NFT_ABI = [
+            "function tokenURI(uint256 tokenId) view returns (string)",
+            "function metadataBank() view returns (address)"
+        ];
+        
+        function log(message, type = 'success') {
+            const output = document.getElementById('output');
+            const className = type === 'error' ? 'error' : type === 'warning' ? 'warning' : 'success';
+            output.innerHTML += `<span class="${className}">${message}</span>\n`;
+        }
+        
+        async function testAll() {
+            const output = document.getElementById('output');
+            output.innerHTML = 'Testing all components...\n\n';
+            
+            try {
+                const metadata = new ethers.Contract(METADATA_FIXED, METADATA_ABI, provider);
+                
+                // Test metadata count
+                log('=== Basic Functions ===');
+                const count = await metadata.getMetadataCount();
+                log(`Metadata count: ${count}`);
+                
+                // Test token decoding
+                log('\n=== Token Decoding ===');
+                const decoded = await metadata.decodeTokenId(1);
+                log(`Token 1 decoded: species=${decoded.species}, background=${decoded.background}, item=${decoded.item}, effect=${decoded.effect}`);
+                
+                // Test metadata generation step by step
+                log('\n=== Step-by-step Metadata Generation ===');
+                try {
+                    log('Calling generateMetadata(1, 0, 0, 0, 0)...');
+                    const metadataResult = await metadata.generateMetadata(1, 0, 0, 0, 0);
+                    log('✅ generateMetadata succeeded!');
+                    log(`Result: ${metadataResult.substring(0, 100)}...`);
+                } catch (e) {
+                    log(`❌ generateMetadata failed: ${e.message}`, 'error');
+                }
+                
+                // Test getMetadata
+                log('\n=== Testing getMetadata(0) ===');
+                try {
+                    const result = await metadata.getMetadata(0);
+                    log('✅ getMetadata succeeded!');
+                    log(`Result: ${result.substring(0, 100)}...`);
+                } catch (e) {
+                    log(`❌ getMetadata failed: ${e.message}`, 'error');
+                }
+                
+                // Test NFT tokenURI
+                log('\n=== Testing NFT tokenURI ===');
+                const nft = new ethers.Contract(NFT_ADDRESS, NFT_ABI, provider);
+                const metadataBankAddr = await nft.metadataBank();
+                log(`NFT's metadata bank: ${metadataBankAddr}`);
+                log(`Should be: ${METADATA_FIXED}`);
+                log(`Match: ${metadataBankAddr.toLowerCase() === METADATA_FIXED.toLowerCase()}`);
+                
+                if (metadataBankAddr.toLowerCase() === METADATA_FIXED.toLowerCase()) {
+                    try {
+                        const uri = await nft.tokenURI(1);
+                        log('✅ tokenURI(1) succeeded!');
+                    } catch (e) {
+                        log(`❌ tokenURI(1) failed: ${e.message}`, 'error');
+                    }
+                }
+                
+            } catch (error) {
+                log(`Fatal error: ${error.message}`, 'error');
+                console.error(error);
+            }
+        }
+        
+        async function testDecoding() {
+            const output = document.getElementById('output');
+            output.innerHTML = 'Testing token decoding...\n\n';
+            
+            try {
+                const metadata = new ethers.Contract(METADATA_FIXED, METADATA_ABI, provider);
+                
+                for (let i = 1; i <= 5; i++) {
+                    const decoded = await metadata.decodeTokenId(i);
+                    log(`Token ${i}: species=${decoded.species}, bg=${decoded.background}, item=${decoded.item}, effect=${decoded.effect}`);
+                }
+            } catch (error) {
+                log(`Error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testComposer() {
+            const output = document.getElementById('output');
+            output.innerHTML = 'Testing Composer directly...\n\n';
+            
+            try {
+                const composer = new ethers.Contract(COMPOSER_V5, COMPOSER_ABI, provider);
+                
+                log('Testing composeSVG(0, 0, 0, 0)...');
+                const svg = await composer.composeSVG(0, 0, 0, 0);
+                log(`✅ SVG length: ${svg.length} characters`);
+                
+                log('\nTesting filter params...');
+                for (let i = 0; i < 3; i++) {
+                    const param = await composer.filterParams(0, i);
+                    log(`filterParams(0, ${i}): ${param}`);
+                }
+            } catch (error) {
+                log(`Error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testBanks() {
+            const output = document.getElementById('output');
+            output.innerHTML = 'Testing Banks directly...\n\n';
+            
+            try {
+                // Test Monster Bank
+                log('=== Monster Bank V3 ===');
+                const monsterBank = new ethers.Contract(MONSTER_BANK_V3, BANK_ABI, provider);
+                const monsterName = await monsterBank.getMonsterName(0);
+                log(`Monster 0 name: ${monsterName}`);
+                
+                // Test Item Bank
+                log('\n=== Item Bank V3 ===');
+                const itemBank = new ethers.Contract(ITEM_BANK_V3, BANK_ABI, provider);
+                const itemName = await itemBank.getItemName(0);
+                log(`Item 0 name: ${itemName}`);
+                
+                // Test Background Bank
+                log('\n=== Background Bank ===');
+                const bgBank = new ethers.Contract(BACKGROUND_BANK, BANK_ABI, provider);
+                const bgName = await bgBank.getBackgroundName(0);
+                log(`Background 0 name: ${bgName}`);
+                
+                // Test Effect Bank
+                log('\n=== Effect Bank ===');
+                const effectBank = new ethers.Contract(EFFECT_BANK, BANK_ABI, provider);
+                const effectName = await effectBank.getEffectName(0);
+                log(`Effect 0 name: ${effectName}`);
+                
+            } catch (error) {
+                log(`Error: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html>

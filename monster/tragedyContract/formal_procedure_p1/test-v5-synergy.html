@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test V5 Synergy Transformations</title>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            padding: 20px;
+        }
+        .test-case {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .synergy { color: #ff9800; }
+        .success { color: #4caf50; }
+        .error { color: #f44336; }
+        h1 { color: #ff6b6b; }
+        h2 { color: #2196f3; }
+        .svg-display {
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>V5 Synergy Transformation Tests</h1>
+    
+    <div class="test-case">
+        <h2>Werewolf + Amulet → Head Transformation</h2>
+        <p>Token IDs that should show Head instead of Amulet:</p>
+        <div id="werewolf-amulet-test"></div>
+    </div>
+    
+    <div class="test-case">
+        <h2>Frankenstein + Shoulder → Arm Transformation</h2>
+        <p>Token IDs that should show Arm instead of Shoulder:</p>
+        <div id="frankenstein-shoulder-test"></div>
+    </div>
+    
+    <div class="test-case">
+        <h2>Curse + Realm Synergies</h2>
+        <p>Testing all 10 Curse+Realm combinations:</p>
+        <div id="curse-realm-test"></div>
+    </div>
+    
+    <div class="test-case">
+        <h2>Legendary IDs</h2>
+        <p>Testing some legendary token IDs:</p>
+        <div id="legendary-test"></div>
+    </div>
+    
+    <script>
+        const METADATA_BANK_ADDRESS = "0xbFD4e357e0552Dd26b1A4877a5DB8DDC2E4198C4";
+        
+        const METADATA_BANK_ABI = [
+            "function getMetadata(uint256 index) view returns (string)",
+            "function decodeTokenId(uint256 tokenId) view returns (uint8 species, uint8 background, uint8 item, uint8 effect)"
+        ];
+        
+        async function findTokensWithCombination(species, item, background, effect, limit = 5) {
+            const provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/polygon_amoy");
+            const metadataBank = new ethers.Contract(METADATA_BANK_ADDRESS, METADATA_BANK_ABI, provider);
+            
+            const found = [];
+            for (let tokenId = 1; tokenId <= 10000 && found.length < limit; tokenId++) {
+                try {
+                    const decoded = await metadataBank.decodeTokenId(tokenId);
+                    const matches = 
+                        (species === null || decoded.species == species) &&
+                        (item === null || decoded.item == item) &&
+                        (background === null || decoded.background == background) &&
+                        (effect === null || decoded.effect == effect);
+                    
+                    if (matches) {
+                        const metadataUri = await metadataBank.getMetadata(tokenId - 1);
+                        const metadata = JSON.parse(atob(metadataUri.split(',')[1]));
+                        found.push({ tokenId, metadata, decoded });
+                    }
+                } catch (e) {
+                    console.error(`Error checking token ${tokenId}:`, e);
+                }
+            }
+            return found;
+        }
+        
+        async function testWerewolfAmulet() {
+            const div = document.getElementById('werewolf-amulet-test');
+            div.innerHTML = 'Searching...';
+            
+            try {
+                const tokens = await findTokensWithCombination(0, 9, null, null); // Werewolf=0, Amulet=9
+                
+                let html = '';
+                for (const token of tokens) {
+                    const equipmentAttr = token.metadata.attributes.find(a => a.trait_type === 'Equipment');
+                    const synergyAttr = token.metadata.attributes.find(a => a.trait_type === 'Synergy');
+                    
+                    html += `
+                        <div>
+                            <p><strong>Token #${token.tokenId}</strong></p>
+                            <p>Equipment shown: <span class="${equipmentAttr.value === 'Head' ? 'success' : 'error'}">${equipmentAttr.value}</span></p>
+                            <p>Synergy: <span class="synergy">${synergyAttr ? synergyAttr.value : 'None'}</span></p>
+                            <div class="svg-display">${atob(token.metadata.image.split(',')[1])}</div>
+                        </div>
+                    `;
+                }
+                
+                div.innerHTML = html || 'No tokens found with Werewolf + Amulet';
+            } catch (e) {
+                div.innerHTML = `<span class="error">Error: ${e.message}</span>`;
+            }
+        }
+        
+        async function testFrankensteinShoulder() {
+            const div = document.getElementById('frankenstein-shoulder-test');
+            div.innerHTML = 'Searching...';
+            
+            try {
+                const tokens = await findTokensWithCombination(2, 8, null, null); // Frankenstein=2, Shoulder=8
+                
+                let html = '';
+                for (const token of tokens) {
+                    const equipmentAttr = token.metadata.attributes.find(a => a.trait_type === 'Equipment');
+                    const synergyAttr = token.metadata.attributes.find(a => a.trait_type === 'Synergy');
+                    
+                    html += `
+                        <div>
+                            <p><strong>Token #${token.tokenId}</strong></p>
+                            <p>Equipment shown: <span class="${equipmentAttr.value === 'Arm' ? 'success' : 'error'}">${equipmentAttr.value}</span></p>
+                            <p>Synergy: <span class="synergy">${synergyAttr ? synergyAttr.value : 'None'}</span></p>
+                            <div class="svg-display">${atob(token.metadata.image.split(',')[1])}</div>
+                        </div>
+                    `;
+                }
+                
+                div.innerHTML = html || 'No tokens found with Frankenstein + Shoulder';
+            } catch (e) {
+                div.innerHTML = `<span class="error">Error: ${e.message}</span>`;
+            }
+        }
+        
+        async function testCurseRealmSynergies() {
+            const div = document.getElementById('curse-realm-test');
+            div.innerHTML = 'Testing synergies...';
+            
+            const synergies = [
+                { effect: 'Burning', background: 'Inferno', name: 'Eternal Flame' },
+                { effect: 'Blizzard', background: 'Frost', name: 'Absolute Zero' },
+                { effect: 'Poisoning', background: 'Venom', name: 'Toxic Miasma' },
+                { effect: 'Mindblast', background: 'Void', name: 'Mental Collapse' },
+                { effect: 'Lightning', background: 'Bloodmoon', name: 'Crimson Thunder' }
+            ];
+            
+            const provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/polygon_amoy");
+            const metadataBank = new ethers.Contract(METADATA_BANK_ADDRESS, METADATA_BANK_ABI, provider);
+            
+            let html = '';
+            for (const synergy of synergies) {
+                // Find a token ID with this combination
+                let found = false;
+                for (let tokenId = 1; tokenId <= 1000 && !found; tokenId++) {
+                    try {
+                        const decoded = await metadataBank.decodeTokenId(tokenId);
+                        // Map effect and background names to IDs (simplified check)
+                        if (decoded.effect < 10 && decoded.background < 10) {
+                            const metadataUri = await metadataBank.getMetadata(tokenId - 1);
+                            const metadata = JSON.parse(atob(metadataUri.split(',')[1]));
+                            const synergyAttr = metadata.attributes.find(a => a.trait_type === 'Synergy');
+                            
+                            if (synergyAttr && synergyAttr.value === synergy.name) {
+                                html += `
+                                    <div>
+                                        <p><strong>${synergy.name}</strong> (${synergy.effect} + ${synergy.background})</p>
+                                        <p>Found in token #${tokenId}: <span class="success">✓</span></p>
+                                    </div>
+                                `;
+                                found = true;
+                            }
+                        }
+                    } catch (e) {
+                        // Continue searching
+                    }
+                }
+                
+                if (!found) {
+                    html += `
+                        <div>
+                            <p><strong>${synergy.name}</strong> (${synergy.effect} + ${synergy.background})</p>
+                            <p><span class="error">Not found in first 1000 tokens</span></p>
+                        </div>
+                    `;
+                }
+            }
+            
+            div.innerHTML = html;
+        }
+        
+        async function testLegendaryIds() {
+            const div = document.getElementById('legendary-test');
+            div.innerHTML = 'Testing legendary IDs...';
+            
+            const legendaryIds = [1, 7, 13, 42, 666, 1337, 9999];
+            
+            const provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/polygon_amoy");
+            const metadataBank = new ethers.Contract(METADATA_BANK_ADDRESS, METADATA_BANK_ABI, provider);
+            
+            let html = '';
+            for (const tokenId of legendaryIds) {
+                try {
+                    const metadataUri = await metadataBank.getMetadata(tokenId - 1);
+                    const metadata = JSON.parse(atob(metadataUri.split(',')[1]));
+                    const rarityAttr = metadata.attributes.find(a => a.trait_type === 'Rarity');
+                    
+                    html += `
+                        <div>
+                            <p><strong>Token #${tokenId}</strong></p>
+                            <p>Rarity: <span class="${rarityAttr && rarityAttr.value === 'Legendary' ? 'success' : 'error'}">${rarityAttr ? rarityAttr.value : 'Not found'}</span></p>
+                            <p>Name: ${metadata.name}</p>
+                        </div>
+                    `;
+                } catch (e) {
+                    html += `
+                        <div>
+                            <p><strong>Token #${tokenId}</strong></p>
+                            <p><span class="error">Error: ${e.message}</span></p>
+                        </div>
+                    `;
+                }
+            }
+            
+            div.innerHTML = html;
+        }
+        
+        // Run tests on load
+        window.addEventListener('load', async () => {
+            await testWerewolfAmulet();
+            await testFrankensteinShoulder();
+            await testCurseRealmSynergies();
+            await testLegendaryIds();
+        });
+    </script>
+</body>
+</html>

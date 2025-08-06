@@ -13,7 +13,7 @@ interface IArweaveMonsterBank {
 }
 
 interface IArweaveBackgroundBank {
-    function getBackgroundSVG(uint8 id) external view returns (string memory);
+    function getBackgroundUrl(uint8 id) external view returns (string memory);
     function getBackgroundName(uint8 id) external view returns (string memory);
 }
 
@@ -23,7 +23,7 @@ interface IArweaveItemBank {
 }
 
 interface IArweaveEffectBank {
-    function getEffectSVG(uint8 id) external view returns (string memory);
+    function getEffectUrl(uint8 id) external view returns (string memory);
     function getEffectName(uint8 id) external view returns (string memory);
 }
 
@@ -39,7 +39,7 @@ contract ArweaveTragedyComposerV5 {
     IArweaveEffectBank public effectBank;
     
     // Filter parameters for each background
-    mapping(uint8 => uint16[3]) public filterParams;
+    mapping(uint8 => uint16[3]) private _filterParams;
     
     constructor(
         address _monsterBank,
@@ -58,34 +58,34 @@ contract ArweaveTragedyComposerV5 {
     
     function _initializeFilterParams() private {
         // Bloodmoon - red tones
-        filterParams[0] = [uint16(0), uint16(120), uint16(100)];    // hue=0 (red), high saturation
+        _filterParams[0] = [uint16(0), uint16(120), uint16(100)];    // hue=0 (red), high saturation
         
         // Abyss - deep blue
-        filterParams[1] = [uint16(240), uint16(100), uint16(80)];   // hue=240 (blue), dark
+        _filterParams[1] = [uint16(240), uint16(100), uint16(80)];   // hue=240 (blue), dark
         
         // Decay - sickly green
-        filterParams[2] = [uint16(90), uint16(80), uint16(70)];     // hue=90 (yellow-green), desaturated
+        _filterParams[2] = [uint16(90), uint16(80), uint16(70)];     // hue=90 (yellow-green), desaturated
         
         // Corruption - purple
-        filterParams[3] = [uint16(270), uint16(100), uint16(90)];   // hue=270 (purple)
+        _filterParams[3] = [uint16(270), uint16(100), uint16(90)];   // hue=270 (purple)
         
         // Venom - pink-purple
-        filterParams[4] = [uint16(300), uint16(100), uint16(100)];  // hue=300 (magenta)
+        _filterParams[4] = [uint16(300), uint16(100), uint16(100)];  // hue=300 (magenta)
         
         // Void - dark purple
-        filterParams[5] = [uint16(260), uint16(60), uint16(50)];    // hue=260 (dark purple), very dark
+        _filterParams[5] = [uint16(260), uint16(60), uint16(50)];    // hue=260 (dark purple), very dark
         
         // Inferno - flame colors
-        filterParams[6] = [uint16(20), uint16(150), uint16(120)];   // hue=20 (orange), oversaturated
+        _filterParams[6] = [uint16(20), uint16(150), uint16(120)];   // hue=20 (orange), oversaturated
         
         // Frost - ice blue
-        filterParams[7] = [uint16(195), uint16(100), uint16(110)];  // hue=195 (cyan), bright
+        _filterParams[7] = [uint16(195), uint16(100), uint16(110)];  // hue=195 (cyan), bright
         
         // Ragnarok - golden
-        filterParams[8] = [uint16(45), uint16(120), uint16(110)];   // hue=45 (gold), bright
+        _filterParams[8] = [uint16(45), uint16(120), uint16(110)];   // hue=45 (gold), bright
         
         // Shadow - grayscale
-        filterParams[9] = [uint16(0), uint16(0), uint16(70)];       // no hue, desaturated, dark
+        _filterParams[9] = [uint16(0), uint16(0), uint16(70)];       // no hue, desaturated, dark
     }
     
     function composeSVG(
@@ -109,7 +109,7 @@ contract ArweaveTragedyComposerV5 {
         string memory svg = '<svg width="768" height="768" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">';
         
         // Add filter definition for monster color adjustment (only applied to monster)
-        uint16[3] memory params = filterParams[background];
+        uint16[3] memory params = _filterParams[background];
         uint16 hue = params[0];
         uint16 sat = params[1];
         uint16 bright = params[2];
@@ -124,11 +124,10 @@ contract ArweaveTragedyComposerV5 {
             '</filter></defs>'
         ));
         
-        // Layer 1: Background (from on-chain SVG)
-        string memory bgSvg = backgroundBank.getBackgroundSVG(background);
-        string memory bgDataUri = svgToBase64DataUri(bgSvg);
+        // Layer 1: Background (from Arweave URL)
+        string memory bgUrl = backgroundBank.getBackgroundUrl(background);
         svg = string(abi.encodePacked(svg,
-            '<image href="', bgDataUri, '" x="0" y="0" width="48" height="48"/>'
+            '<image href="', bgUrl, '" x="0" y="0" width="48" height="48"/>'
         ));
         
         // Layer 2: Monster with color filter (from on-chain SVG)
@@ -147,11 +146,10 @@ contract ArweaveTragedyComposerV5 {
             '" x="0" y="0" width="48" height="48"/>'
         ));
         
-        // Layer 4: Effect (from on-chain SVG) 
-        string memory effectSvg = effectBank.getEffectSVG(effect);
-        string memory effectDataUri = svgToBase64DataUri(effectSvg);
+        // Layer 4: Effect (from Arweave URL) 
+        string memory effectUrl = effectBank.getEffectUrl(effect);
         svg = string(abi.encodePacked(svg,
-            '<image href="', effectDataUri, '" x="0" y="0" width="48" height="48"/>'
+            '<image href="', effectUrl, '" x="0" y="0" width="48" height="48"/>'
         ));
         
         svg = string(abi.encodePacked(svg, '</svg>'));
@@ -177,6 +175,11 @@ contract ArweaveTragedyComposerV5 {
     function svgToBase64DataUri(string memory svg) public pure returns (string memory) {
         string memory base64 = Base64.encode(bytes(svg));
         return string(abi.encodePacked("data:image/svg+xml;base64,", base64));
+    }
+    
+    // Add getter that returns the full tuple as expected by IArweaveTragedyComposer
+    function filterParams(uint8 background) external view returns (uint16, uint16, uint16) {
+        return (_filterParams[background][0], _filterParams[background][1], _filterParams[background][2]);
     }
     
     function toString(uint256 value) internal pure returns (string memory) {

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetadataBank Status Checker</title>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <style>
+        body {
+            font-family: monospace;
+            background: #0a0a0a;
+            color: #0f0;
+            padding: 20px;
+        }
+        pre {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .error {
+            color: #f00;
+        }
+        .success {
+            color: #0f0;
+        }
+        button {
+            background: #333;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        button:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>MetadataBank Status Checker</h1>
+    <button onclick="checkStatus()">Check Status</button>
+    <button onclick="addSampleMetadata()">Add Sample Metadata</button>
+    <pre id="output">Click "Check Status" to begin...</pre>
+
+    <script>
+        const NFT_ADDRESS = "0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796";
+        const METADATA_BANK_ADDRESS = "0xbFD4e357e0552Dd26b1A4877a5DB8DDC2E4198C4";
+        const RPC_URL = "https://dev2.bon-soleil.com/rpc";
+        
+        const NFT_ABI = [
+            "function metadataBank() view returns (address)",
+            "function tokenURI(uint256 tokenId) view returns (string)",
+            "function totalSupply() view returns (uint256)",
+            "function setMetadataBank(address bankAddress)"
+        ];
+        
+        const METADATA_BANK_ABI = [
+            "function getMetadataCount() view returns (uint256)",
+            "function getMetadata(uint256 index) view returns (string)",
+            "function addMetadata(string memory metadataURI)",
+            "function owner() view returns (address)"
+        ];
+        
+        const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+        const nft = new ethers.Contract(NFT_ADDRESS, NFT_ABI, provider);
+        const metadataBank = new ethers.Contract(METADATA_BANK_ADDRESS, METADATA_BANK_ABI, provider);
+        
+        function log(message, isError = false) {
+            const output = document.getElementById('output');
+            const className = isError ? 'error' : 'success';
+            output.innerHTML += `<span class="${className}">${message}</span>\n`;
+        }
+        
+        async function checkStatus() {
+            const output = document.getElementById('output');
+            output.innerHTML = 'Checking status...\n\n';
+            
+            try {
+                // Check NFT's metadataBank setting
+                const nftMetadataBank = await nft.metadataBank();
+                log(`NFT's MetadataBank address: ${nftMetadataBank}`);
+                log(`Expected MetadataBank address: ${METADATA_BANK_ADDRESS}`);
+                log(`MetadataBank correctly set: ${nftMetadataBank.toLowerCase() === METADATA_BANK_ADDRESS.toLowerCase()}\n`);
+                
+                // Check metadata count
+                const metadataCount = await metadataBank.getMetadataCount();
+                log(`Metadata count in bank: ${metadataCount}`);
+                
+                // Check owner
+                const owner = await metadataBank.owner();
+                log(`MetadataBank owner: ${owner}\n`);
+                
+                // Try to get metadata for index 0 if available
+                if (metadataCount > 0) {
+                    try {
+                        const metadata = await metadataBank.getMetadata(0);
+                        log(`First metadata URI: ${metadata}\n`);
+                    } catch (error) {
+                        log(`Error getting metadata: ${error.message}\n`, true);
+                    }
+                }
+                
+                // Check total supply
+                const totalSupply = await nft.totalSupply();
+                log(`Total NFTs minted: ${totalSupply}`);
+                
+                // Try to call tokenURI for token 1
+                log('\nTrying to get tokenURI for token 1...');
+                try {
+                    const uri = await nft.tokenURI(1);
+                    log(`Token URI: ${uri}`);
+                } catch (error) {
+                    log(`Error: ${error.message}`, true);
+                    
+                    // Parse error details
+                    if (error.data) {
+                        log(`Error data: ${error.data}`, true);
+                    }
+                    if (error.reason) {
+                        log(`Error reason: ${error.reason}`, true);
+                    }
+                }
+                
+            } catch (error) {
+                log(`Fatal error: ${error.message}`, true);
+                console.error(error);
+            }
+        }
+        
+        async function addSampleMetadata() {
+            const output = document.getElementById('output');
+            output.innerHTML = 'Adding sample metadata...\n\n';
+            
+            try {
+                // Check if user has wallet
+                if (typeof window.ethereum === 'undefined') {
+                    log('Please install MetaMask to add metadata!', true);
+                    return;
+                }
+                
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const signer = new ethers.providers.Web3Provider(window.ethereum).getSigner();
+                const address = await signer.getAddress();
+                log(`Connected wallet: ${address}`);
+                
+                // Check if user is owner
+                const owner = await metadataBank.owner();
+                if (address.toLowerCase() !== owner.toLowerCase()) {
+                    log(`Error: You must be the owner (${owner}) to add metadata`, true);
+                    return;
+                }
+                
+                // Add sample metadata
+                const metadataBankWithSigner = metadataBank.connect(signer);
+                const sampleURI = `data:application/json;base64,${btoa(JSON.stringify({
+                    name: "Sample NFT",
+                    description: "This is a sample metadata for testing",
+                    image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2ZmMDAwMCIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiPkRFTU88L3RleHQ+PC9zdmc+"
+                }))}`;
+                
+                log('Sending transaction...');
+                const tx = await metadataBankWithSigner.addMetadata(sampleURI);
+                log(`Transaction sent: ${tx.hash}`);
+                
+                log('Waiting for confirmation...');
+                await tx.wait();
+                log('Metadata added successfully!');
+                
+                // Check new count
+                const newCount = await metadataBank.getMetadataCount();
+                log(`New metadata count: ${newCount}`);
+                
+            } catch (error) {
+                log(`Error: ${error.message}`, true);
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>
