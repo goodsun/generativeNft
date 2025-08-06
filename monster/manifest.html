@@ -229,11 +229,11 @@
       </div>
       
       <div class="language-tabs">
-        <div class="lang-tab active" onclick="switchLanguage('ja')">
-          <span class="lang-flag">🇯🇵</span> 日本語
-        </div>
-        <div class="lang-tab" onclick="switchLanguage('en')">
+        <div class="lang-tab active" onclick="switchLanguage('en')">
           <span class="lang-flag">🇺🇸</span> English
+        </div>
+        <div class="lang-tab" onclick="switchLanguage('ja')">
+          <span class="lang-flag">🇯🇵</span> 日本語
         </div>
         <div class="lang-tab" onclick="switchLanguage('zh')">
           <span class="lang-flag">🇨🇳</span> 中文
@@ -250,8 +250,8 @@
       </div>
       
       <div class="manifest-content" id="manifestContent">
-        <!-- Japanese Version (Default) -->
-        <div id="ja-content">
+        <!-- Japanese Version -->
+        <div id="ja-content" style="display: none;">
           <div class="section">
             <h2 class="section-title">NFTの終結と、再出発</h2>
             <p class="manifest-text">
@@ -334,8 +334,8 @@
           </div>
         </div>
         
-        <!-- English Version (Hidden by default) -->
-        <div id="en-content" style="display: none;">
+        <!-- English Version (Default) -->
+        <div id="en-content">
           <div class="section">
             <h2 class="section-title">The End and Rebirth of NFTs</h2>
             <p class="manifest-text">
@@ -786,7 +786,7 @@
     </div>
 
     <script>
-      let currentLang = 'ja';
+      let currentLang = 'en';
       
       // Switch language function
       function switchLanguage(lang) {
