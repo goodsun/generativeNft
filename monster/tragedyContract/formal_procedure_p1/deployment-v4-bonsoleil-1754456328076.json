@@ -1,0 +1,15 @@
+{
+  "network": "bonsoleil",
+  "deployer": "0xCf20a6EcBBedB403DB466D669229d9Ee379C433f",
+  "timestamp": "2025-08-06T04:58:48.076Z",
+  "contracts": {
+    "composerV4": "0x1B63Cb565c453a84a54e6ac5fe3ac5DD2e84a30e",
+    "metadataBankV4": "0x855390a85c641807f3243BA139A98b966Cd3BEd8",
+    "monsterBankMain": "0x359080b4Ec04b8C762C37D84794011Ed1Fb944C2",
+    "itemBankMain": "0x3ce380912909646c4EF9B7edE7Acfd93386ad5F8",
+    "backgroundBank": "0x6046CaAe3899Aea62A75584781F47BF1BD1700A3",
+    "effectBank": "0xC280F8Ef799011c2E47d667E68ea968f10894f35",
+    "tragedyBankedNft": "0x930Fc003DD8989E8d64b9Bba7673180C369178C5"
+  },
+  "notes": "Composer V4 - Color filters applied to monsters only, items retain original colors"
+}

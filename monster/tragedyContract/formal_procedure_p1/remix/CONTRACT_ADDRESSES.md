@@ -6,7 +6,8 @@
 - **Network**: Bon-Soleil Testnet
 - **Chain ID**: 21201
 - **RPC URL**: https://dev2.bon-soleil.com/rpc
-- **Deployed**: 2025-01-02
+- **Initial Deployment**: 2025-01-02
+- **BankedNFT Deployment**: 2025-08-06
 
 ### Contract Addresses
 
@@ -23,12 +24,18 @@
 | ArweaveBackgroundBank | `0xC2d0142F4748D3373BcA7BE31B1AD6bB676b66df` | Arweave background URL management |
 | ArweaveEffectBank | `0xBD3E0Cc596a35e6cECD4C95e41DFf572Af2eb4db` | Arweave effect URL management |
 
-#### Composition & NFT Contracts
+#### Composition & Metadata Contracts
 | Contract | Address | Description |
 |----------|---------|-------------|
 | ArweaveTragedyComposerV2 | `0x0c687b850B572845EF88903d78a804B3f46E611b` | SVG composition engine |
-| TragedyMetadata | `0x18b613006C7921d6a4b9272c3ECCF5057FD395f6` | Metadata generation |
-| TragedyMythNFT | `0xCd3272E5016Ac392c7dA55b7AeA2e0714571cA4F` | Main NFT contract (ERC721) |
+| TragedyMetadata | `0x18b613006C7921d6a4b9272c3ECCF5057FD395f6` | Legacy metadata generation |
+| TragedyMetadataV2 | `0x7537eBe80Ef1D4a57DbB22B6bE6B9C9a4dAff4b2` | MetadataBank implementation |
+
+#### NFT Contracts
+| Contract | Address | Description |
+|----------|---------|-------------|
+| TragedyMythNFT | `0xCd3272E5016Ac392c7dA55b7AeA2e0714571cA4F` | Legacy NFT contract (ERC721) |
+| TragedyBankedNFT | `0x930Fc003DD8989E8d64b9Bba7673180C369178C5` | BankedNFT implementation |
 
 ### Quick Access for Remix
 
@@ -40,6 +47,13 @@ To interact with these contracts in Remix:
 4. Make sure you're connected to Bon-Soleil testnet
 
 ### Current Status
-- Total NFTs Minted: 5
+- TragedyMythNFT: 5 NFTs minted
+- TragedyBankedNFT: 1 NFT minted (test mint)
 - All systems operational
 - Arweave URLs configured and working
+
+### BankedNFT System Details
+- **Max Supply**: 10,000
+- **Mint Fee**: 0.01 ETH
+- **Royalty Rate**: 5%
+- **Metadata Count**: 10,000 unique combinations

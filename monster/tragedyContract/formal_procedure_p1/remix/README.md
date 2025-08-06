@@ -2,6 +2,14 @@
 
 This directory contains interface files for interacting with the deployed Tragedy NFT contracts using Remix IDE.
 
+## Contract Systems
+
+### 1. Legacy System (TragedyMythNFT)
+The original implementation with fixed metadata generation.
+
+### 2. BankedNFT System (TragedyBankedNFT)
+The new modular implementation with MetadataBank architecture, enabling flexible metadata management and additional features like soul-bound tokens.
+
 ## Quick Start
 
 1. **Open Remix IDE**: https://remix.ethereum.org
@@ -26,11 +34,19 @@ This directory contains interface files for interacting with the deployed Traged
 
 ## Example Usage
 
-### Mint an NFT
+### Legacy System - Mint with specific parameters
 ```solidity
 // Using ITragedyMythNFT at 0xCd3272E5016Ac392c7dA55b7AeA2e0714571cA4F
 // Parameters: species, background, item, effect (all 0-9)
 mint(1, 4, 1, 1) // Goblin + Venom + Sword + Mindblast
+```
+
+### BankedNFT System - Mint with MetadataBank
+```solidity
+// Using ITragedyBankedNFT at 0x930Fc003DD8989E8d64b9Bba7673180C369178C5
+// Send 0.01 ETH with the transaction
+mint() // Mints regular NFT with metadata from bank
+mintSoulBound() // Mints non-transferable NFT
 ```
 
 ### View NFT Metadata
@@ -54,9 +70,21 @@ filterParams(4)
 
 ## Contract Hierarchy
 
+### Legacy System
 ```
 TragedyMythNFT (ERC721)
     └── TragedyMetadata
+            └── ArweaveTragedyComposerV2
+                    ├── ArweaveMonsterBank
+                    ├── ArweaveItemBank
+                    ├── ArweaveBackgroundBank
+                    └── ArweaveEffectBank
+```
+
+### BankedNFT System
+```
+TragedyBankedNFT (ERC721 + ERC2981)
+    └── TragedyMetadataV2 (IMetadataBank)
             └── ArweaveTragedyComposerV2
                     ├── ArweaveMonsterBank
                     ├── ArweaveItemBank
@@ -113,3 +141,32 @@ TragedyMythNFT (ERC721)
 7. Blizzard
 8. Burning
 9. Brainwash
+
+## BankedNFT Features
+
+### Owner Functions
+```solidity
+// Configure collection settings
+config("New Name", "NEW", 0.02 ether, 750) // name, symbol, mintFee, royalty(7.5%)
+
+// Set or update MetadataBank
+setMetadataBank(0x7537eBe80Ef1D4a57DbB22B6bE6B9C9a4dAff4b2)
+
+// Airdrop to specific address
+airdrop(0x...) // Owner can mint without payment
+
+// Withdraw contract balance
+withdraw()
+```
+
+### View Functions
+```solidity
+// Check minting status
+canMint() // returns true if supply not exhausted
+remainingSupply() // returns tokens left to mint
+isSoulBound(tokenId) // check if token is non-transferable
+```
+
+### Key Differences
+- **Legacy System**: Parameters chosen at mint time
+- **BankedNFT System**: Metadata assigned from bank pool, supports soul-bound tokens, includes royalties

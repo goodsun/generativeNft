@@ -418,131 +418,13 @@
             max-width: 100%;
             height: auto;
         }
-        
-        /* Floating preview styles */
-        .floating-preview {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 500px;
-            background: #0a0a0a;
-            border: 2px solid #ff6b6b;
-            border-radius: 8px;
-            padding: 20px;
-            z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
-            display: none;
-        }
-        
-        .floating-preview.active {
-            display: block;
-        }
-        
-        .floating-preview-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .floating-preview-title {
-            color: #ff6b6b;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        
-        .floating-preview-close {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 2px 8px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        
-        .floating-preview-close:hover {
-            background: #dc143c;
-        }
-        
-        .floating-preview-content {
-            background: #000;
-            border: 1px solid #333;
-            border-radius: 6px;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 450px;
-        }
-        
-        .floating-preview-content svg {
-            width: 100%;
-            height: auto;
-            max-width: 450px;
-            max-height: 450px;
-        }
-        
-        .floating-preview-info {
-            margin-top: 10px;
-            font-size: 12px;
-            color: #aaa;
-        }
-        
-        .floating-preview-info p {
-            margin: 2px 0;
-        }
-        
-        .preview-toggle {
-            background: #333;
-            color: #fff;
-            border: 1px solid #444;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        
-        .preview-toggle:hover {
-            background: #444;
-        }
-        
-        .preview-toggle.active {
-            background: #ff6b6b;
-            border-color: #ff6b6b;
-        }
     </style>
 </head>
 <body>
-    <!-- Floating Preview -->
-    <div id="floating-preview" class="floating-preview">
-        <div class="floating-preview-header">
-            <span class="floating-preview-title">NFT Preview</span>
-            <button class="floating-preview-close" onclick="closeFloatingPreview()">✕</button>
-        </div>
-        <div class="floating-preview-content" id="floating-preview-svg">
-            <p style="color: #666;">No preview available</p>
-        </div>
-        <div class="floating-preview-info" id="floating-preview-info">
-            <p><strong>Name:</strong> <span id="floating-preview-name">-</span></p>
-            <p><strong>Token ID:</strong> <span id="floating-preview-id">-</span></p>
-            <div id="floating-preview-description" style="display: none;">
-                <p><strong>Description:</strong></p>
-                <p id="floating-preview-desc-text" style="font-size: 12px; line-height: 1.4; color: #ccc; margin: 5px 0;">-</p>
-            </div>
-            <div id="floating-preview-attributes" style="display: none; margin-top: 10px;">
-                <p><strong>Attributes:</strong></p>
-                <div id="floating-preview-attrs" style="font-size: 12px;"></div>
-            </div>
-        </div>
-    </div>
-    
     <div class="container">
         <header>
             <h1>BankedNFT System</h1>
             <p class="subtitle">Tragedy NFT with MetadataBank Architecture</p>
-            <button class="preview-toggle" onclick="toggleFloatingPreview()" style="margin-top: 10px;">🖼️ Toggle Preview</button>
         </header>
         
         <div class="tab-container">
@@ -792,6 +674,7 @@
         // Contract addresses - will be loaded from deployment file or hardcoded
         let BANKED_NFT_ADDRESS = null;
         let METADATA_BANK_ADDRESS = null;
+        const FINAL_METADATA_BANK_ADDRESS = "0x32fB3362690D2233e56D2d058C4943b7cAa7e80e"; // Latest deployment
         
         // ABIs
         const BANKED_NFT_ABI = [
@@ -846,11 +729,6 @@
         async function init() {
             try {
                 console.log('Initializing BankedNFT viewer...');
-                console.log('ethers loaded:', typeof ethers !== 'undefined');
-                if (typeof ethers === 'undefined') {
-                    throw new Error('ethers.js library not loaded. Please check your internet connection.');
-                }
-                console.log('RPC URL:', RPC_URL);
                 showStatus('Initializing...', 'info', 'viewer');
                 
                 // Try to load deployment info
@@ -880,104 +758,45 @@
                     if (!BANKED_NFT_ADDRESS) {
                         // Fallback to hardcoded addresses
                         BANKED_NFT_ADDRESS = "0x930Fc003DD8989E8d64b9Bba7673180C369178C5";
+                        METADATA_BANK_ADDRESS = "0x7537eBe80Ef1D4a57DbB22B6bE6B9C9a4dAff4b2";
                         console.log('Using hardcoded addresses');
                     }
                 } catch (e) {
                     console.error('Error loading deployment:', e);
-                    console.log('Using hardcoded BankedNFT address');
-                    // Continue with hardcoded address instead of returning
+                    showDeploymentInstructions();
+                    return;
                 }
                 
                 // Connect to network
-                console.log('Connecting to network...');
-                try {
-                    provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-                    await provider.ready;
-                    console.log('Connected to network successfully');
-                    
-                    // Update network status immediately
-                    document.getElementById('network').innerHTML = `Network: <span style="color: #4caf50">Bon-Soleil Testnet</span>`;
-                } catch (networkError) {
-                    console.error('Network connection error:', networkError);
-                    document.getElementById('network').innerHTML = `Network: <span style="color: #ff6b6b">Connection Failed</span>`;
-                    throw networkError;
-                }
+                provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+                await provider.ready;
                 
                 // Initialize contracts
                 bankedNft = new ethers.Contract(BANKED_NFT_ADDRESS, BANKED_NFT_ABI, provider);
-                document.getElementById('nft-address').innerHTML = `BankedNFT Contract: <span style="color: #4caf50; font-family: monospace">${BANKED_NFT_ADDRESS}</span>`;
                 
-                // Get current MetadataBank from BankedNFT
-                try {
-                    METADATA_BANK_ADDRESS = await bankedNft.metadataBank();
-                    console.log('Current MetadataBank from contract:', METADATA_BANK_ADDRESS);
-                    document.getElementById('metadata-address').innerHTML = `MetadataBank: <span style="color: #4caf50; font-family: monospace">${METADATA_BANK_ADDRESS}</span>`;
-                    
+                if (METADATA_BANK_ADDRESS) {
                     metadataBank = new ethers.Contract(METADATA_BANK_ADDRESS, METADATA_BANK_ABI, provider);
                     const metadataCount = await metadataBank.getMetadataCount();
                     console.log('MetadataBank has', metadataCount.toString(), 'metadata entries');
-                } catch (error) {
-                    console.error('Error getting MetadataBank:', error);
-                    document.getElementById('metadata-address').innerHTML = `MetadataBank: <span style="color: #ff6b6b">Error loading</span>`;
                 }
                 
-                // Initialize final metadata bank for explorer (use current MetadataBank)
-                let finalCount = 0;
-                let composerAddr;
+                // Initialize final metadata bank for explorer
+                finalMetadataBank = new ethers.Contract(FINAL_METADATA_BANK_ADDRESS, METADATA_BANK_ABI, provider);
+                const finalCount = await finalMetadataBank.getMetadataCount();
+                const composerAddr = await finalMetadataBank.composer();
                 
-                if (METADATA_BANK_ADDRESS) {
-                    finalMetadataBank = metadataBank;
-                    try {
-                        finalCount = await finalMetadataBank.getMetadataCount();
-                        console.log('Metadata count:', finalCount.toString());
-                    } catch (e) {
-                        console.error('Error getting metadata count:', e);
-                    }
-                    
-                    try {
-                        composerAddr = await finalMetadataBank.composer();
-                    } catch (e) {
-                        console.log('MetadataBank does not have composer method');
-                    }
-                }
-                
-                // Update Metadata Explorer tab info if elements exist
-                const metadataBankElement = document.getElementById('metadata-bank-address');
-                if (metadataBankElement) {
-                    metadataBankElement.innerHTML = `MetadataBank: <span style="color: #4caf50; font-family: monospace">${METADATA_BANK_ADDRESS || 'Not set'}</span>`;
-                }
-                
-                const metadataCountElement = document.getElementById('metadata-count');
-                if (metadataCountElement && METADATA_BANK_ADDRESS && finalCount > 0) {
-                    metadataCountElement.innerHTML = `Total Metadata Entries: <span style="color: #4caf50">${finalCount}</span>`;
-                }
-                
-                const composerElement = document.getElementById('metadata-composer');
-                if (composerElement && typeof composerAddr !== 'undefined') {
-                    composerElement.innerHTML = `Composer Address: <span style="color: #4caf50; font-family: monospace">${composerAddr}</span>`;
-                }
+                document.getElementById('metadata-bank-address').innerHTML = `MetadataBank: <span style="color: #4caf50; font-family: monospace">${FINAL_METADATA_BANK_ADDRESS}</span>`;
+                document.getElementById('metadata-count').innerHTML = `Total Metadata Entries: <span style="color: #4caf50">${finalCount}</span>`;
+                document.getElementById('metadata-composer').innerHTML = `Composer Address: <span style="color: #4caf50; font-family: monospace">${composerAddr}</span>`;
                 
                 // Load contract info
-                try {
-                    await loadContractInfo();
-                } catch (error) {
-                    console.error('Error loading contract info:', error);
-                    // Continue with initialization even if contract info fails
-                }
+                await loadContractInfo();
                 
                 showStatus('Connected successfully!', 'success', 'viewer');
                 
             } catch (error) {
                 console.error('Initialization error:', error);
                 showStatus('Failed to connect: ' + error.message, 'error', 'viewer');
-                
-                // Show error state in Contract Information
-                document.getElementById('network').innerHTML = `Network: <span style="color: #ff6b6b">Connection Error</span>`;
-                document.getElementById('nft-address').innerHTML = `BankedNFT Contract: <span style="color: #4caf50; font-family: monospace">${BANKED_NFT_ADDRESS || 'Not set'}</span>`;
-                document.getElementById('metadata-address').innerHTML = `MetadataBank: <span style="color: #ff6b6b">Not loaded</span>`;
-                document.getElementById('total-supply').innerHTML = `Total Minted: <span style="color: #ff6b6b">-</span>`;
-                document.getElementById('max-supply').innerHTML = `Max Supply: <span style="color: #ff6b6b">-</span>`;
-                document.getElementById('remaining-supply').innerHTML = `Remaining: <span style="color: #ff6b6b">-</span>`;
             }
         }
         
@@ -987,63 +806,41 @@
                 <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 30px; margin: 20px 0;">
                     <h3 style="color: #ff6b6b; margin-bottom: 20px;">🚀 BankedNFT System Ready</h3>
                     <p style="margin-bottom: 15px;">The BankedNFT system is deployed and ready to use!</p>
-                    <p style="color: #4caf50;">BankedNFT: ${BANKED_NFT_ADDRESS}</p>
-                    <p style="color: #4caf50;">MetadataBank: ${METADATA_BANK_ADDRESS || 'Loading...'}</p>
+                    <p style="color: #4caf50;">BankedNFT: 0x930Fc003DD8989E8d64b9Bba7673180C369178C5</p>
+                    <p style="color: #4caf50;">MetadataBank: 0x32fB3362690D2233e56D2d058C4943b7cAa7e80e</p>
                 </div>
             `;
         }
         
         async function loadContractInfo() {
             try {
-                // Try to load each value individually to handle partial failures
-                let totalMinted = '-';
-                let maxSupply = '-';
-                let remaining = '-';
+                const [name, symbol, owner, maxSupply, mintFee, royaltyRate, totalMinted, metadataBankAddr] = await Promise.all([
+                    bankedNft.name(),
+                    bankedNft.symbol(),
+                    bankedNft.owner(),
+                    bankedNft.maxSupply(),
+                    bankedNft.mintFee(),
+                    bankedNft.royaltyRate(),
+                    bankedNft.totalMinted(),
+                    bankedNft.metadataBank()
+                ]);
                 
-                try {
-                    totalMinted = await bankedNft.totalMinted();
-                    document.getElementById('total-supply').innerHTML = `Total Minted: <span style="color: #4caf50">${totalMinted}</span>`;
-                } catch (e) {
-                    console.error('Error loading totalMinted:', e);
-                }
+                const remaining = await bankedNft.remainingSupply();
                 
-                try {
-                    maxSupply = await bankedNft.maxSupply();
-                    document.getElementById('max-supply').innerHTML = `Max Supply: <span style="color: #4caf50">${maxSupply}</span>`;
-                } catch (e) {
-                    console.error('Error loading maxSupply:', e);
-                }
+                // Update UI
+                document.getElementById('network').innerHTML = `Network: <span style="color: #4caf50">Bon-Soleil Testnet</span>`;
+                document.getElementById('nft-address').innerHTML = `BankedNFT Contract: <span style="color: #4caf50; font-family: monospace">${BANKED_NFT_ADDRESS}</span>`;
+                document.getElementById('metadata-address').innerHTML = `MetadataBank: <span style="color: #4caf50; font-family: monospace">${metadataBankAddr}</span>`;
+                document.getElementById('total-supply').innerHTML = `Total Minted: <span style="color: #4caf50">${totalMinted}</span>`;
+                document.getElementById('max-supply').innerHTML = `Max Supply: <span style="color: #4caf50">${maxSupply}</span>`;
+                document.getElementById('remaining-supply').innerHTML = `Remaining: <span style="color: #4caf50">${remaining}</span>`;
                 
-                try {
-                    remaining = await bankedNft.remainingSupply();
-                    document.getElementById('remaining-supply').innerHTML = `Remaining: <span style="color: #4caf50">${remaining}</span>`;
-                } catch (e) {
-                    console.error('Error loading remainingSupply:', e);
-                }
-                
-                // Try to load other info
-                try {
-                    const [name, symbol, owner, mintFee, royaltyRate] = await Promise.all([
-                        bankedNft.name(),
-                        bankedNft.symbol(),
-                        bankedNft.owner(),
-                        bankedNft.mintFee(),
-                        bankedNft.royaltyRate()
-                    ]);
-                    
-                    console.log(`Loaded ${name} (${symbol}) - Owner: ${owner}`);
-                    console.log(`Mint fee: ${ethers.utils.formatEther(mintFee)} ETH`);
-                    console.log(`Royalty rate: ${royaltyRate.toNumber() / 100}%`);
-                } catch (e) {
-                    console.error('Error loading additional contract info:', e);
-                }
+                console.log(`Loaded ${name} (${symbol}) - Owner: ${owner}`);
+                console.log(`Mint fee: ${ethers.utils.formatEther(mintFee)} ETH`);
+                console.log(`Royalty rate: ${royaltyRate.toNumber() / 100}%`);
                 
             } catch (error) {
-                console.error('Error in loadContractInfo:', error);
-                // Show error state in UI
-                document.getElementById('total-supply').innerHTML = `Total Minted: <span style="color: #ff6b6b">Error</span>`;
-                document.getElementById('max-supply').innerHTML = `Max Supply: <span style="color: #ff6b6b">Error</span>`;
-                document.getElementById('remaining-supply').innerHTML = `Remaining: <span style="color: #ff6b6b">Error</span>`;
+                console.error('Error loading contract info:', error);
             }
         }
         
@@ -1255,11 +1052,6 @@
                     
                     const soulBoundBadge = isSoulBound ? '<span style="background: #ff6b6b; color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px; margin-left: 10px;">SOUL-BOUND</span>' : '';
                     
-                    // Store SVG data in a data attribute to avoid escaping issues
-                    card.setAttribute('data-svg', svg || '');
-                    card.setAttribute('data-name', metadata.name || '');
-                    card.setAttribute('data-tokenid', tokenId || '');
-                    
                     card.innerHTML = `
                         <div class="nft-image">
                             ${svg || '<div style="color: #666;">No image available</div>'}
@@ -1268,7 +1060,6 @@
                             <h4>${metadata.name}${soulBoundBadge}</h4>
                             <p style="color: #888; font-size: 12px; margin-bottom: 10px;">
                                 Owner: ${owner.slice(0, 6)}...${owner.slice(-4)}
-                                <button class="preview-toggle" onclick="showPreviewFromCard(this.closest('.nft-card'))">Preview</button>
                             </p>
                             <p style="color: #aaa; font-size: 13px; margin-bottom: 10px;">
                                 ${metadata.description || 'No description'}
@@ -1393,9 +1184,6 @@
                         const base64Svg = metadata.image.replace('data:image/svg+xml;base64,', '');
                         const svg = atob(base64Svg);
                         document.getElementById('metadata-svg-container').innerHTML = svg;
-                        
-                        // Show floating preview with full metadata
-                        showFloatingPreview(svg, metadata.name, 'Metadata Preview', metadata);
                     }
                     
                 } catch (error) {
@@ -1683,106 +1471,8 @@
             }
         }
         
-        // Floating Preview Functions
-        let currentPreviewData = null;
-        
-        function showFloatingPreview(svg, name, tokenId, metadata) {
-            currentPreviewData = { svg, name, tokenId, metadata };
-            const preview = document.getElementById('floating-preview');
-            const svgContainer = document.getElementById('floating-preview-svg');
-            const nameSpan = document.getElementById('floating-preview-name');
-            const idSpan = document.getElementById('floating-preview-id');
-            
-            if (svg) {
-                // Parse the SVG and update its size attributes for larger display
-                const parser = new DOMParser();
-                const svgDoc = parser.parseFromString(svg, 'image/svg+xml');
-                const svgElement = svgDoc.querySelector('svg');
-                
-                if (svgElement) {
-                    // Set larger display size while maintaining aspect ratio
-                    svgElement.setAttribute('width', '450');
-                    svgElement.setAttribute('height', '450');
-                    svgContainer.innerHTML = new XMLSerializer().serializeToString(svgElement);
-                } else {
-                    svgContainer.innerHTML = svg;
-                }
-            } else {
-                svgContainer.innerHTML = '<p style="color: #666;">No preview available</p>';
-            }
-            
-            nameSpan.textContent = name || 'Unknown';
-            idSpan.textContent = tokenId || '-';
-            
-            // Show description and attributes if metadata is provided
-            const descDiv = document.getElementById('floating-preview-description');
-            const attrsDiv = document.getElementById('floating-preview-attributes');
-            
-            if (metadata) {
-                // Show description
-                if (metadata.description) {
-                    document.getElementById('floating-preview-desc-text').textContent = metadata.description;
-                    descDiv.style.display = 'block';
-                } else {
-                    descDiv.style.display = 'none';
-                }
-                
-                // Show attributes
-                if (metadata.attributes && metadata.attributes.length > 0) {
-                    document.getElementById('floating-preview-attrs').innerHTML = metadata.attributes.map(attr => `
-                        <div style="margin: 2px 0;">
-                            <span style="color: #888;">${attr.trait_type}:</span>
-                            <span style="color: #4caf50;">${attr.value}</span>
-                        </div>
-                    `).join('');
-                    attrsDiv.style.display = 'block';
-                } else {
-                    attrsDiv.style.display = 'none';
-                }
-            } else {
-                descDiv.style.display = 'none';
-                attrsDiv.style.display = 'none';
-            }
-            
-            preview.classList.add('active');
-        }
-        
-        function closeFloatingPreview() {
-            const preview = document.getElementById('floating-preview');
-            preview.classList.remove('active');
-        }
-        
-        function toggleFloatingPreview() {
-            const preview = document.getElementById('floating-preview');
-            if (preview.classList.contains('active')) {
-                closeFloatingPreview();
-            } else if (currentPreviewData) {
-                showFloatingPreview(currentPreviewData.svg, currentPreviewData.name, currentPreviewData.tokenId);
-            }
-        }
-        
-        function showPreviewFromCard(card) {
-            const svg = card.getAttribute('data-svg');
-            const name = card.getAttribute('data-name');
-            const tokenId = card.getAttribute('data-tokenid');
-            showFloatingPreview(svg, name, tokenId);
-        }
-        
         // Initialize on load
-        window.addEventListener('load', () => {
-            // Wait a bit for ethers to fully load
-            setTimeout(() => {
-                if (typeof ethers !== 'undefined') {
-                    init();
-                } else {
-                    console.error('ethers.js failed to load');
-                    document.getElementById('network').innerHTML = `Network: <span style="color: #ff6b6b">Library Load Error</span>`;
-                    document.getElementById('nft-address').innerHTML = `BankedNFT Contract: <span style="color: #ff6b6b">Cannot Initialize</span>`;
-                    document.getElementById('metadata-address').innerHTML = `MetadataBank: <span style="color: #ff6b6b">Cannot Initialize</span>`;
-                    showStatus('Failed to load ethers.js library. Check internet connection.', 'error', 'viewer');
-                }
-            }, 100);
-        });
+        window.addEventListener('load', init);
     </script>
 </body>
 </html>
