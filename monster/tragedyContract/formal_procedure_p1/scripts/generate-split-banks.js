@@ -15,7 +15,7 @@ const monsterMapping = [
     'skeleton'     // 9
 ];
 
-// Item mapping (0-9)
+// Item mapping (0-11)
 const itemMapping = [
     'crown',       // 0
     'sword',       // 1
@@ -26,7 +26,9 @@ const itemMapping = [
     'scythe',      // 6
     'staff',       // 7
     'shoulder',    // 8
-    'amulet'       // 9
+    'amulet',      // 9
+    'head',        // 10
+    'arm'          // 11
 ];
 
 // Monster names for the contract
@@ -54,7 +56,9 @@ const itemNames = [
     'Scythe',
     'Staff',
     'Shoulder',
-    'Amulet'
+    'Amulet',
+    'Head',
+    'Arm'
 ];
 
 function readSVG(filePath) {
@@ -181,7 +185,7 @@ function generateItemBanks() {
         return svg;
     });
     
-    // Split into two contracts (0-4 and 5-9)
+    // Split into two contracts (0-5 and 6-11)
     const firstContract = `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -192,6 +196,7 @@ contract ArweaveItemBank1 {
         if (itemId == 2) return '${itemSVGs[2]}';
         if (itemId == 3) return '${itemSVGs[3]}';
         if (itemId == 4) return '${itemSVGs[4]}';
+        if (itemId == 5) return '${itemSVGs[5]}';
         revert("Item ID not in this bank");
     }
     
@@ -201,6 +206,7 @@ contract ArweaveItemBank1 {
         if (itemId == 2) return "${itemNames[2]}";
         if (itemId == 3) return "${itemNames[3]}";
         if (itemId == 4) return "${itemNames[4]}";
+        if (itemId == 5) return "${itemNames[5]}";
         revert("Item ID not in this bank");
     }
 }`;
@@ -210,20 +216,22 @@ pragma solidity ^0.8.20;
 
 contract ArweaveItemBank2 {
     function getItemSVG(uint8 itemId) public pure returns (string memory) {
-        if (itemId == 5) return '${itemSVGs[5]}';
         if (itemId == 6) return '${itemSVGs[6]}';
         if (itemId == 7) return '${itemSVGs[7]}';
         if (itemId == 8) return '${itemSVGs[8]}';
         if (itemId == 9) return '${itemSVGs[9]}';
+        if (itemId == 10) return '${itemSVGs[10]}';
+        if (itemId == 11) return '${itemSVGs[11]}';
         revert("Item ID not in this bank");
     }
     
     function getItemName(uint8 itemId) public pure returns (string memory) {
-        if (itemId == 5) return "${itemNames[5]}";
         if (itemId == 6) return "${itemNames[6]}";
         if (itemId == 7) return "${itemNames[7]}";
         if (itemId == 8) return "${itemNames[8]}";
         if (itemId == 9) return "${itemNames[9]}";
+        if (itemId == 10) return "${itemNames[10]}";
+        if (itemId == 11) return "${itemNames[11]}";
         revert("Item ID not in this bank");
     }
 }`;

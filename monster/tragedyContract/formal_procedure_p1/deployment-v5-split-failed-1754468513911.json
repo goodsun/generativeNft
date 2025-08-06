@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-08-06T08:21:52.365Z",
+  "network": "bonsoleil",
+  "deployer": "0xCf20a6EcBBedB403DB466D669229d9Ee379C433f",
+  "contracts": {
+    "itemBank1": "0x61ca441983332bb1749E7f12f4d00f376e2f9780",
+    "itemBank2": "0x81f5E3b37Ccf3C8D85309ab4Db491303d0Ed3edC",
+    "itemBankV3": "0x37c213f69f46de87384774f3b1F8f45D5412cdf1",
+    "monsterBank1": "0xa91866537ac43377Fc4CAefd2C2E75817FCfE3Ec",
+    "monsterBank2": "0xD1B32FA2768E3889AE77920AEfB23fEfDFBF51a9",
+    "monsterBankV3": "0xc98546e5E01150A8C663724A1f489D36670F3Ea9",
+    "backgroundBank": "0xb1c1d65d1ecC7B133Ad97d603721903f7dd961Ae",
+    "effectBank": "0xC3a2515A8623BCB35A9ec583E68eCf849F9d8b77",
+    "composerV5": "0x52Ee612d0365bC7a45BCb19bA217DD70780e2c74",
+    "metadataV5": "0x75cC4233448D6C0Cc69b4c8261b879fBDdB45411",
+    "bankedNFT": "0x7979dCB6F77E969deCA9F8c0ae39b2c2DfF0aC70"
+  },
+  "error": "call revert exception; VM Exception while processing transaction: reverted with reason string \"Item ID not in this bank\" [ See: https://links.ethers.org/v5-errors-CALL_EXCEPTION ] (method=\"getItemName(uint8)\", data=\"0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000184974656d204944206e6f7420696e20746869732062616e6b0000000000000000\", errorArgs=[\"Item ID not in this bank\"], errorName=\"Error\", errorSignature=\"Error(string)\", reason=\"Item ID not in this bank\", code=CALL_EXCEPTION, version=abi/5.8.0)"
+}
