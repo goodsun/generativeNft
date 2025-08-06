@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "./MetadataBank.sol";
+interface IMetadataBank {
+    function getMetadataCount() external view returns (uint256);
+    function getMetadata(uint256 index) external view returns (string memory);
+}
 
 /**
  * @title MetadataBankV5
