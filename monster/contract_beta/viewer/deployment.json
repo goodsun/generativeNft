@@ -1,7 +1,7 @@
 {
   "network": "bonsoleil",
   "timestamp": "2025-08-06T23:10:25.458Z",
-  "note": "V5 production deployment with individual banks",
+  "note": "Production deployment with final gateway URLs",
   "contracts": {
     "bankedNFT": "0xdEa70EcCd1eb4CbCD8ff55Ca6233bf90C7c1f171",
     "metadata": "0x446697246d89Ac256a48359a5b6DeAEb29D192Db",

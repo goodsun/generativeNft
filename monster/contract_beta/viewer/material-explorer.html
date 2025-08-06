@@ -156,12 +156,12 @@
                 if (deployment.contracts) {
                     BANKS = {
                         monster: {
-                            v3: deployment.contracts.monsterBank || BANKS.monster.v3,
+                            main: deployment.contracts.monsterBank || BANKS.monster.v3,
                             bank1: deployment.contracts.monsterBank1 || BANKS.monster.bank1,
                             bank2: deployment.contracts.monsterBank2 || BANKS.monster.bank2
                         },
                         item: {
-                            v3: deployment.contracts.itemBank || BANKS.item.v3,
+                            main: deployment.contracts.itemBank || BANKS.item.v3,
                             bank1: deployment.contracts.itemBank1 || BANKS.item.bank1,
                             bank2: deployment.contracts.itemBank2 || BANKS.item.bank2
                         },
@@ -193,8 +193,8 @@
             
             if (monsterInfo) {
                 monsterInfo.innerHTML = `
-                    <h3>Monster Bank V3</h3>
-                    <div>Address: ${BANKS.monster.v3}</div>
+                    <h3>Monster Bank</h3>
+                    <div>Address: ${BANKS.monster.main}</div>
                     <div>Bank1: ${BANKS.monster.bank1}</div>
                     <div>Bank2: ${BANKS.monster.bank2}</div>
                 `;
@@ -202,8 +202,8 @@
             
             if (itemInfo) {
                 itemInfo.innerHTML = `
-                    <h3>Item Bank V3</h3>
-                    <div>Address: ${BANKS.item.v3}</div>
+                    <h3>Item Bank</h3>
+                    <div>Address: ${BANKS.item.main}</div>
                     <div>Bank1: ${BANKS.item.bank1}</div>
                     <div>Bank2: ${BANKS.item.bank2}</div>
                 `;
@@ -299,11 +299,11 @@
                 
                 // Determine which contract and method to use
                 if (type === 'monster') {
-                    contract = new ethers.Contract(bankAddresses.v3, BANK_ABI, provider);
+                    contract = new ethers.Contract(bankAddresses.main, BANK_ABI, provider);
                     svgMethod = 'getMonsterSVG';
                     nameMethod = 'getMonsterName';
                 } else if (type === 'item') {
-                    contract = new ethers.Contract(bankAddresses.v3, BANK_ABI, provider);
+                    contract = new ethers.Contract(bankAddresses.main, BANK_ABI, provider);
                     svgMethod = 'getItemSVG';
                     nameMethod = 'getItemName';
                 } else if (type === 'background') {

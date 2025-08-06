@@ -127,6 +127,26 @@
             margin-top: 0;
         }
         
+        .result-container {
+            margin-top: 30px;
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        
+        .result-container h2 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+        
+        #result {
+            min-height: 300px;
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 5px;
+            overflow: auto;
+        }
+        
         .address {
             font-family: monospace;
             font-size: 12px;
@@ -230,7 +250,10 @@
         <button onclick="composeSVG()">Compose SVG</button>
     </div>
     
-    <div id="result"></div>
+    <div class="result-container">
+        <h2>Composed Result</h2>
+        <div id="result"></div>
+    </div>
     
     <script>
         const RPC_URL = "https://dev2.bon-soleil.com/rpc";
@@ -282,11 +305,11 @@
             try {
                 const composer = new ethers.Contract(COMPOSERS.original, COMPOSER_ABI, provider);
                 await composer.filterParams(0, 0);
-                document.getElementById('composerV5Status').textContent = '✅ Active';
-                document.getElementById('composerV5Status').style.color = '#4CAF50';
+                document.getElementById('composerStatus').textContent = '✅ Active';
+                document.getElementById('composerStatus').style.color = '#4CAF50';
             } catch (e) {
-                document.getElementById('composerV5Status').textContent = '❌ Error';
-                document.getElementById('composerV5Status').style.color = '#ff4444';
+                document.getElementById('composerStatus').textContent = '❌ Error';
+                document.getElementById('composerStatus').style.color = '#ff4444';
             }
             
             // Check fixed composer

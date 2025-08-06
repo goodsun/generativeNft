@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Tragedy V5: The Mythical Cursed-Nightmare</title>
+    <title>Tragedy NFT: The Mythical Cursed-Nightmare</title>
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
     <style>
       * {
@@ -560,7 +560,7 @@
     <div class="container">
       <header>
         <h1>Tragedy: The Mythical Cursed-Nightmare</h1>
-        <p class="subtitle">V5 System with Synergy Transformations</p>
+        <p class="subtitle">Dynamic NFT System with Synergy Transformations</p>
         <button
           class="preview-toggle"
           onclick="toggleFloatingPreview()"
@@ -822,7 +822,7 @@
         <h2>Composer Explorer</h2>
         <div class="deployment-info">
           <h3>📋 Contract Information</h3>
-          <p>ComposerV5: <span id="composer-address-info">Not loaded</span></p>
+          <p>Composer: <span id="composer-address-info">Not loaded</span></p>
           <p>MonsterBank: <span id="composer-monster-bank">Not loaded</span></p>
           <p>ItemBank: <span id="composer-item-bank">Not loaded</span></p>
           <p>BackgroundBank: <span id="composer-background-bank">Not loaded</span></p>
@@ -1012,7 +1012,7 @@
       </div>
 
       <footer>
-        <p>Tragedy V5 System © 2025 - Generative Tragedy Literature</p>
+        <p>Tragedy NFT System © 2025 - Generative Tragedy Literature</p>
       </footer>
     </div>
 
@@ -1050,7 +1050,7 @@
           METADATA_BANK_ADDRESS = DEPLOYMENT.contracts.metadata;
           COMPOSER_ADDRESS = DEPLOYMENT.contracts.composer;
           console.log("Loaded deployment:", DEPLOYMENT);
-          console.log("MetadataV5 address:", METADATA_BANK_ADDRESS);
+          console.log("Metadata address:", METADATA_BANK_ADDRESS);
           
           // Update Material Explorer contract info
           updateContractDisplay("material-monster-bank", DEPLOYMENT.contracts.monsterBank);
@@ -1186,7 +1186,7 @@
                     BANKED_NFT_ADDRESS = deployment.contracts.bankedNFT;
                     METADATA_BANK_ADDRESS = deployment.contracts.metadataV5;
                     COMPOSER_ADDRESS = deployment.contracts.composerV5;
-                    console.log("Loaded V5 deployment from", file);
+                    console.log("Loaded deployment from", file);
                     break;
                   }
                 }
@@ -1374,11 +1374,11 @@
         const container = document.getElementById("nft-container");
         container.innerHTML = `
                 <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 30px; margin: 20px 0;">
-                    <h3 style="color: #ff6b6b; margin-bottom: 20px;">🚀 Tragedy V5 System Ready</h3>
+                    <h3 style="color: #ff6b6b; margin-bottom: 20px;">🚀 Tragedy NFT System Ready</h3>
                     <p style="margin-bottom: 15px;">The BankedNFT system is deployed and ready to use!</p>
                     <p style="color: #4caf50;">BankedNFT: ${BANKED_NFT_ADDRESS}</p>
-                    <p style="color: #4caf50;">MetadataV5: ${METADATA_BANK_ADDRESS}</p>
-                    <p style="color: #4caf50;">ComposerV5: ${COMPOSER_ADDRESS}</p>
+                    <p style="color: #4caf50;">Metadata: ${METADATA_BANK_ADDRESS}</p>
+                    <p style="color: #4caf50;">Composer: ${COMPOSER_ADDRESS}</p>
                 </div>
             `;
       }
@@ -2373,11 +2373,11 @@
 
           const BANKS = {
             monster: {
-              v3: DEPLOYMENT.contracts.monsterBank,
+              main: DEPLOYMENT.contracts.monsterBank,
               type: "svg",
             },
             item: {
-              v3: DEPLOYMENT.contracts.itemBank,
+              main: DEPLOYMENT.contracts.itemBank,
               type: "svg",
             },
             background: {
@@ -2393,7 +2393,7 @@
           // Test each bank
           await testMaterialBank(
             "Monsters (SVG stored on-chain)",
-            BANKS.monster.v3,
+            BANKS.monster.main,
             "svg",
             "getMonsterSVG",
             "getMonsterName",
@@ -2402,7 +2402,7 @@
           );
           await testMaterialBank(
             "Items (SVG stored on-chain)",
-            BANKS.item.v3,
+            BANKS.item.main,
             "svg",
             "getItemSVG",
             "getItemName",
