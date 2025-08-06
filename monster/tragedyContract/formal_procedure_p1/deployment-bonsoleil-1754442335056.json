@@ -1,0 +1,16 @@
+{
+  "network": "bonsoleil",
+  "deployer": "0xCf20a6EcBBedB403DB466D669229d9Ee379C433f",
+  "timestamp": "2025-08-06T00:56:38.932Z",
+  "contracts": {
+    "base64": "0x552B3F94727AcdAfbD7564682F2EA8F4275D1267",
+    "monsterBank": "0xa07edc0A9c26B34dc77a7125ad3441d1DdE3483a",
+    "itemBank": "0x0D72B5DCFc97b7fE8c15cE1c7c68A1c0dDC446bd",
+    "backgroundBank": "0xC2d0142F4748D3373BcA7BE31B1AD6bB676b66df",
+    "effectBank": "0xBD3E0Cc596a35e6cECD4C95e41DFf572Af2eb4db",
+    "composer": "0x0c687b850B572845EF88903d78a804B3f46E611b",
+    "metadata": "0x18b613006C7921d6a4b9272c3ECCF5057FD395f6",
+    "nft": "0xCd3272E5016Ac392c7dA55b7AeA2e0714571cA4F"
+  },
+  "nftDeployTime": "2025-08-06T01:05:35.056Z"
+}

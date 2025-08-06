@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arweave NFT Composer - Fixed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 8px;
+        }
+        select {
+            padding: 8px;
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+        .display-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .display-box {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .display-box h3 {
+            color: #ff6b6b;
+            margin: 0 0 15px 0;
+            text-align: center;
+        }
+        .svg-container {
+            background: #000;
+            border-radius: 4px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        svg {
+            border: 1px solid #333;
+        }
+        .debug {
+            background: #1a1a1a;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 11px;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Arweave NFT Composer (Fixed)</h1>
+    
+    <div class="controls">
+        <label>
+            Background:
+            <select id="bg-select">
+                <option value="">None</option>
+                <option value="Bloodmoon">Bloodmoon</option>
+                <option value="Venom">Venom</option>
+                <option value="Frost">Frost</option>
+                <option value="Corruption">Corruption</option>
+            </select>
+        </label>
+        <label>
+            Monster:
+            <select id="monster-select">
+                <option value="">None</option>
+                <option value="Werewolf">Werewolf</option>
+                <option value="Goblin">Goblin</option>
+                <option value="Vampire">Vampire</option>
+            </select>
+        </label>
+        <label>
+            Item:
+            <select id="item-select">
+                <option value="">None</option>
+                <option value="Crown">Crown</option>
+                <option value="Sword">Sword</option>
+            </select>
+        </label>
+        <label>
+            Effect:
+            <select id="effect-select">
+                <option value="">None</option>
+            </select>
+        </label>
+    </div>
+
+    <div class="display-grid">
+        <div class="display-box">
+            <h3>Composed NFT (Left: With Filter | Right: Without Filter)</h3>
+            <div id="composed-display" class="svg-container"></div>
+            <div id="svg-debug" class="debug"></div>
+        </div>
+    </div>
+
+    <script>
+        // Filter definitions - using hue rotation for more vivid color changes
+        const filterDefs = {
+            bloodmoon: {
+                // 赤色調へ（色相はそのまま、彩度と明度を上げる）
+                hueRotate: 0,      // 赤のまま
+                saturate: 1.5,     // 彩度を上げる
+                brightness: 1.2
+            },
+            abyss: {
+                // 深い青紫色へ（色相を青紫に回転）
+                hueRotate: 240,    // 青紫色へ
+                saturate: 1.3,     
+                brightness: 0.9
+            },
+            decay: {
+                // 病的な黄緑色へ（色相を黄緑に回転）
+                hueRotate: 80,     // 黄緑色へ
+                saturate: 1.2,
+                brightness: 0.95
+            },
+            corruption: {
+                // 紫色へ（色相を紫に回転）
+                hueRotate: 280,    // 紫色へ
+                saturate: 1.4,
+                brightness: 1.0
+            },
+            venom: {
+                // 毒々しい緑へ（色相を緑に回転）
+                hueRotate: 120,    // 純粋な緑へ
+                saturate: 1.8,     // 高彩度
+                brightness: 1.1
+            },
+            void: {
+                // 彩度を下げて暗く
+                hueRotate: 0,      
+                saturate: 0.2,     // 彩度を大幅に下げる
+                brightness: 0.7
+            },
+            inferno: {
+                // オレンジ赤へ（色相を少し黄色寄りに）
+                hueRotate: 20,     // オレンジ寄りの赤
+                saturate: 1.6,
+                brightness: 1.2
+            },
+            frost: {
+                // 氷のような青へ（色相を青に回転）
+                hueRotate: 200,    // シアン寄りの青
+                saturate: 1.4,
+                brightness: 1.2
+            },
+            ragnarok: {
+                // 暗い赤オレンジ
+                hueRotate: 15,     // 少しオレンジ寄り
+                saturate: 1.3,
+                brightness: 0.85
+            },
+            shadow: {
+                // 暗い青みがかった影
+                hueRotate: 220,    // 暗い青
+                saturate: 0.5,     // 彩度を下げる
+                brightness: 0.6
+            }
+        };
+
+        let backgroundData = {};
+        let monsterData = {};
+        let itemData = {};
+        let effectData = {};
+
+        async function loadData() {
+            try {
+                const [bg, monster, item, effect] = await Promise.all([
+                    fetch('./background.json').then(r => r.json()),
+                    fetch('./monster.json').then(r => r.json()),
+                    fetch('./item.json').then(r => r.json()),
+                    fetch('./effect.json').then(r => r.json())
+                ]);
+                
+                backgroundData = bg;
+                monsterData = monster;
+                itemData = item;
+                effectData = effect;
+                
+                // Populate selects with actual data
+                populateSelect('bg-select', backgroundData);
+                populateSelect('monster-select', monsterData);
+                populateSelect('item-select', itemData);
+                populateSelect('effect-select', effectData);
+                
+                updateDisplay();
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        function populateSelect(selectId, data) {
+            const select = document.getElementById(selectId);
+            const currentValue = select.value;
+            select.innerHTML = '<option value="">None</option>';
+            
+            Object.keys(data).forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = key;
+                select.appendChild(option);
+            });
+            
+            if (currentValue) select.value = currentValue;
+        }
+
+        async function fetchAndConvertToBase64(url) {
+            const response = await fetch(url);
+            const text = await response.text();
+            return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(text)))}`;
+        }
+
+        async function updateDisplay() {
+            const bgKey = document.getElementById('bg-select').value;
+            const monsterKey = document.getElementById('monster-select').value;
+            const itemKey = document.getElementById('item-select').value;
+            const effectKey = document.getElementById('effect-select').value;
+
+            if (!bgKey && !monsterKey && !itemKey && !effectKey) {
+                document.getElementById('composed-display').innerHTML = '<p>Select layers to compose</p>';
+                document.getElementById('svg-debug').textContent = '';
+                return;
+            }
+
+            // Prepare data
+            const bgUrl = bgKey && backgroundData[bgKey] ? backgroundData[bgKey] : null;
+            const monsterBase64 = monsterKey && monsterData[monsterKey] ? 
+                await fetchAndConvertToBase64(monsterData[monsterKey]) : null;
+            const itemBase64 = itemKey && itemData[itemKey] ? 
+                await fetchAndConvertToBase64(itemData[itemKey]) : null;
+            const effectUrl = effectKey && effectData[effectKey] ? effectData[effectKey] : null;
+
+            // Create WITH filter version
+            let svgWithFilter = '<svg width="300" height="300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">';
+            
+            // Debug logging
+            console.log('bgKey:', bgKey);
+            console.log('filterDefs[bgKey]:', filterDefs[bgKey]);
+            
+            // Add filter definition if background is selected
+            const filterId = bgKey ? `filter-${bgKey.toLowerCase()}-${Date.now()}` : '';
+            if (bgKey && filterDefs[bgKey]) {
+                const filter = filterDefs[bgKey];
+                const defsString = `
+                    <defs>
+                        <filter id="${filterId}">
+                            <feColorMatrix type="hueRotate" values="${filter.hueRotate}"/>
+                            <feColorMatrix type="saturate" values="${filter.saturate}"/>
+                            <feComponentTransfer>
+                                <feFuncR type="linear" slope="${filter.brightness}"/>
+                                <feFuncG type="linear" slope="${filter.brightness}"/>
+                                <feFuncB type="linear" slope="${filter.brightness}"/>
+                            </feComponentTransfer>
+                        </filter>
+                    </defs>
+                `;
+                console.log('Adding defs:', defsString);
+                svgWithFilter += defsString;
+            } else {
+                console.log('No filter added. bgKey:', bgKey, 'filterDefs has key:', filterDefs.hasOwnProperty(bgKey));
+            }
+
+            // Add layers
+            if (bgUrl) {
+                svgWithFilter += `<image href="${bgUrl}" x="0" y="0" width="24" height="24"/>`;
+            }
+            if (monsterBase64) {
+                if (bgKey && filterId) {
+                    svgWithFilter += `<image href="${monsterBase64}" x="0" y="0" width="24" height="24" filter="url(#${filterId})"/>`;
+                } else {
+                    svgWithFilter += `<image href="${monsterBase64}" x="0" y="0" width="24" height="24"/>`;
+                }
+            }
+            if (itemBase64) {
+                svgWithFilter += `<image href="${itemBase64}" x="0" y="0" width="24" height="24"/>`;
+            }
+            if (effectUrl) {
+                svgWithFilter += `<image href="${effectUrl}" x="0" y="0" width="24" height="24"/>`;
+            }
+            svgWithFilter += '</svg>';
+
+            // Create WITHOUT filter version
+            let svgWithoutFilter = '<svg width="300" height="300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">';
+            if (bgUrl) {
+                svgWithoutFilter += `<image href="${bgUrl}" x="0" y="0" width="24" height="24"/>`;
+            }
+            if (monsterBase64) {
+                svgWithoutFilter += `<image href="${monsterBase64}" x="0" y="0" width="24" height="24"/>`;
+            }
+            if (itemBase64) {
+                svgWithoutFilter += `<image href="${itemBase64}" x="0" y="0" width="24" height="24"/>`;
+            }
+            if (effectUrl) {
+                svgWithoutFilter += `<image href="${effectUrl}" x="0" y="0" width="24" height="24"/>`;
+            }
+            svgWithoutFilter += '</svg>';
+
+            // Display both versions
+            document.getElementById('composed-display').innerHTML = svgWithFilter + svgWithoutFilter;
+
+            // Debug info
+            const debugInfo = `WITH FILTER SVG:
+${svgWithFilter}
+
+WITHOUT FILTER SVG:
+${svgWithoutFilter}
+
+Filter ID: ${filterId}
+Has defs: ${svgWithFilter.includes('<defs>') ? 'YES' : 'NO'}`;
+            
+            document.getElementById('svg-debug').textContent = debugInfo;
+        }
+
+        // Event listeners
+        document.getElementById('bg-select').addEventListener('change', updateDisplay);
+        document.getElementById('monster-select').addEventListener('change', updateDisplay);
+        document.getElementById('item-select').addEventListener('change', updateDisplay);
+        document.getElementById('effect-select').addEventListener('change', updateDisplay);
+
+        // Load data on start
+        loadData();
+    </script>
+</body>
+</html>

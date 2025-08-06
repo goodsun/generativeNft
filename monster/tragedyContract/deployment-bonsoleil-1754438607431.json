@@ -1,0 +1,13 @@
+{
+  "network": "bonsoleil",
+  "deployer": "0xCf20a6EcBBedB403DB466D669229d9Ee379C433f",
+  "timestamp": "2025-08-06T00:03:26.463Z",
+  "contracts": {
+    "base64Library": "0x3E696D21f07E3cA88901BFE89F97Dd3ebf1410fc",
+    "monsterBank": "0xD7C12a83a3d4fBf5285bB6F668f517eE131081FE",
+    "itemBank": "0xa0c9178E06d3872509a5bD96D66F8B5d14182521",
+    "backgroundBank": "0xdab2daE6338cA3b69dE67ee60Bd7C99fBD870E38",
+    "effectBank": "0x32F4B2b7F1e40a9323e75929761182ce0afB0CC9",
+    "composer": "0x1B858071864b0eb2dB55650B5667e950B258a5Ef"
+  }
+}

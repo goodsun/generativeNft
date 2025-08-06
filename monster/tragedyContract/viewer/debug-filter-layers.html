@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Debug Filter Layers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .test {
+            margin: 20px 0;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+        h3 {
+            color: #ff6b6b;
+            margin: 0 0 10px 0;
+        }
+        svg {
+            border: 1px solid #444;
+            background: #000;
+            margin: 10px;
+        }
+        .code {
+            background: #333;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 11px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+    <h1>Debug: Filter + Layers Issue</h1>
+
+    <div class="test">
+        <h3>Test 1: Filter works on single element</h3>
+        <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="greenFilter1">
+                    <feColorMatrix type="matrix" values="0.8 0.2 0 0 0.1 0.2 1.5 0.2 0 0 0 0.3 0.7 0 0 0 0 0 1 0"/>
+                </filter>
+            </defs>
+            <circle cx="12" cy="12" r="8" fill="#ff6b6b" filter="url(#greenFilter1)"/>
+        </svg>
+        <div class="code">Single circle with filter - should be green</div>
+    </div>
+
+    <div class="test">
+        <h3>Test 2: Filter on second layer</h3>
+        <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="greenFilter2">
+                    <feColorMatrix type="matrix" values="0.8 0.2 0 0 0.1 0.2 1.5 0.2 0 0 0 0.3 0.7 0 0 0 0 0 1 0"/>
+                </filter>
+            </defs>
+            <rect x="0" y="0" width="24" height="24" fill="#333"/>
+            <circle cx="12" cy="12" r="8" fill="#ff6b6b" filter="url(#greenFilter2)"/>
+        </svg>
+        <div class="code">Background rect + filtered circle - circle should be green</div>
+    </div>
+
+    <div class="test">
+        <h3>Test 3: Multiple image layers</h3>
+        <div id="test3"></div>
+    </div>
+
+    <div class="test">
+        <h3>Test 4: Filter with Arweave URL background</h3>
+        <div id="test4"></div>
+    </div>
+
+    <div class="test">
+        <h3>Test 5: Complete composition (step by step)</h3>
+        <div id="test5"></div>
+    </div>
+
+    <script>
+        // Test 3: Multiple local images
+        async function test3() {
+            try {
+                const response = await fetch('./assets/monsters/werewolf.svg');
+                const svgText = await response.text();
+                const base64 = btoa(unescape(encodeURIComponent(svgText)));
+                const monsterUri = `data:image/svg+xml;base64,${base64}`;
+
+                const itemResponse = await fetch('./assets/items/crown.svg');
+                const itemText = await itemResponse.text();
+                const itemBase64 = btoa(unescape(encodeURIComponent(itemText)));
+                const itemUri = `data:image/svg+xml;base64,${itemBase64}`;
+
+                const svg = `
+                    <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="greenFilter3">
+                                <feColorMatrix type="matrix" values="0.8 0.2 0 0 0.1 0.2 1.5 0.2 0 0 0 0.3 0.7 0 0 0 0 0 1 0"/>
+                            </filter>
+                        </defs>
+                        <rect x="0" y="0" width="24" height="24" fill="#222"/>
+                        <image href="${monsterUri}" x="0" y="0" width="24" height="24" filter="url(#greenFilter3)"/>
+                        <image href="${itemUri}" x="0" y="0" width="24" height="24"/>
+                    </svg>
+                `;
+                
+                document.getElementById('test3').innerHTML = svg;
+                document.getElementById('test3').innerHTML += '<div class="code">Background + Monster (filtered) + Item - monster should be green</div>';
+                
+            } catch (error) {
+                document.getElementById('test3').innerHTML = `<div class="code">Error: ${error.message}</div>`;
+            }
+        }
+
+        // Test 4: With Arweave URL
+        async function test4() {
+            try {
+                const bgData = await fetch('./background.json').then(r => r.json());
+                const monsterData = await fetch('./monster.json').then(r => r.json());
+                
+                const bgUrl = bgData['Bloodmoon']; // Get first background
+                const monsterUrl = monsterData['Werewolf'];
+                
+                const response = await fetch(monsterUrl);
+                const svgText = await response.text();
+                const base64 = btoa(unescape(encodeURIComponent(svgText)));
+                const monsterUri = `data:image/svg+xml;base64,${base64}`;
+
+                const svg = `
+                    <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="greenFilter4">
+                                <feColorMatrix type="matrix" values="0.8 0.2 0 0 0.1 0.2 1.5 0.2 0 0 0 0.3 0.7 0 0 0 0 0 1 0"/>
+                            </filter>
+                        </defs>
+                        <image href="${bgUrl}" x="0" y="0" width="24" height="24"/>
+                        <image href="${monsterUri}" x="0" y="0" width="24" height="24" filter="url(#greenFilter4)"/>
+                    </svg>
+                `;
+                
+                document.getElementById('test4').innerHTML = svg;
+                document.getElementById('test4').innerHTML += '<div class="code">Arweave background + Filtered monster - monster should be green</div>';
+                
+            } catch (error) {
+                document.getElementById('test4').innerHTML = `<div class="code">Error: ${error.message}</div>`;
+            }
+        }
+
+        // Test 5: Step by step composition
+        async function test5() {
+            try {
+                const monsterData = await fetch('./monster.json').then(r => r.json());
+                const monsterUrl = monsterData['Werewolf'];
+                
+                const response = await fetch(monsterUrl);
+                const svgText = await response.text();
+                const base64 = btoa(unescape(encodeURIComponent(svgText)));
+                const monsterUri = `data:image/svg+xml;base64,${base64}`;
+
+                let html = '';
+                
+                // Step 1: Just monster with filter
+                html += `
+                    <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="step1Filter">
+                                <feColorMatrix type="matrix" values="0.8 0.2 0 0 0.1 0.2 1.5 0.2 0 0 0 0.3 0.7 0 0 0 0 0 1 0"/>
+                            </filter>
+                        </defs>
+                        <image href="${monsterUri}" x="0" y="0" width="24" height="24" filter="url(#step1Filter)"/>
+                    </svg>
+                `;
+                
+                // Step 2: Add background
+                html += `
+                    <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="step2Filter">
+                                <feColorMatrix type="matrix" values="0.8 0.2 0 0 0.1 0.2 1.5 0.2 0 0 0 0.3 0.7 0 0 0 0 0 1 0"/>
+                            </filter>
+                        </defs>
+                        <rect x="0" y="0" width="24" height="24" fill="#333"/>
+                        <image href="${monsterUri}" x="0" y="0" width="24" height="24" filter="url(#step2Filter)"/>
+                    </svg>
+                `;
+                
+                // Step 3: Try with group
+                html += `
+                    <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="step3Filter">
+                                <feColorMatrix type="matrix" values="0.8 0.2 0 0 0.1 0.2 1.5 0.2 0 0 0 0.3 0.7 0 0 0 0 0 1 0"/>
+                            </filter>
+                        </defs>
+                        <rect x="0" y="0" width="24" height="24" fill="#333"/>
+                        <g filter="url(#step3Filter)">
+                            <image href="${monsterUri}" x="0" y="0" width="24" height="24"/>
+                        </g>
+                    </svg>
+                `;
+                
+                document.getElementById('test5').innerHTML = html;
+                document.getElementById('test5').innerHTML += '<div class="code">Step 1: Monster only | Step 2: With background | Step 3: Using group</div>';
+                
+            } catch (error) {
+                document.getElementById('test5').innerHTML = `<div class="code">Error: ${error.message}</div>`;
+            }
+        }
+
+        // Run all tests
+        test3();
+        test4();
+        test5();
+    </script>
+</body>
+</html>

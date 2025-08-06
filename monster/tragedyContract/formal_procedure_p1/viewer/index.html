@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tragedy NFT Arweave Composer - Formal Implementation</title>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid #222;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #ff6b6b, #dc143c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #999;
+            font-size: 1.2em;
+        }
+        
+        .deployment-info {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .deployment-info h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        
+        .deployment-info p {
+            margin: 5px 0;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        .controls {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .control-group label {
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        select {
+            background: #0a0a0a;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        select:hover {
+            border-color: #ff6b6b;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        button {
+            background: #ff6b6b;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #dc143c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background: #444;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .display-area {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .svg-container {
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+        
+        .svg-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .status.success {
+            background: #1a3a1a;
+            border: 1px solid #4caf50;
+            color: #4caf50;
+            display: block;
+        }
+        
+        .status.error {
+            background: #3a1a1a;
+            border: 1px solid #f44336;
+            color: #f44336;
+            display: block;
+        }
+        
+        .status.info {
+            background: #1a2a3a;
+            border: 1px solid #2196f3;
+            color: #2196f3;
+            display: block;
+        }
+        
+        .info-panel {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .info-item {
+            background: #0a0a0a;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #222;
+        }
+        
+        .info-item h4 {
+            color: #ff6b6b;
+            margin-bottom: 8px;
+        }
+        
+        .info-item p {
+            color: #ccc;
+            font-size: 0.9em;
+        }
+        
+        .code-display {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+        
+        .toggle-code {
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        
+        .toggle-code:hover {
+            background: #444;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid #222;
+            color: #666;
+        }
+        
+        .tab-container {
+            margin-bottom: 30px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .tab {
+            background: #333;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 10px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background: #444;
+        }
+        
+        .tab.active {
+            background: #ff6b6b;
+            border-color: #ff6b6b;
+        }
+        
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .nft-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .nft-card {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .nft-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff6b6b;
+        }
+        
+        .nft-image {
+            width: 100%;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+        
+        .nft-image svg {
+            max-width: 240px;
+            max-height: 240px;
+        }
+        
+        .nft-details {
+            padding: 20px;
+        }
+        
+        .nft-details h4 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        
+        .trait {
+            display: inline-block;
+            background: #1a1a1a;
+            padding: 4px 12px;
+            border-radius: 16px;
+            margin: 4px 4px 4px 0;
+            font-size: 12px;
+            border: 1px solid #333;
+        }
+        
+        .trait-label {
+            color: #888;
+        }
+        
+        .trait-value {
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        .viewer-controls {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .viewer-controls input {
+            background: #0a0a0a;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        
+        .loading-message {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .admin-section {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .admin-section h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        
+        .function-group {
+            background: #0a0a0a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .function-group h4 {
+            color: #ffa500;
+            margin-bottom: 10px;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .input-group label {
+            min-width: 120px;
+            color: #aaa;
+            display: flex;
+            align-items: center;
+        }
+        
+        .input-group input, .input-group select {
+            flex: 1;
+            min-width: 200px;
+            background: #0a0a0a;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        
+        .tx-button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .tx-button:hover {
+            background: #dc143c;
+        }
+        
+        .tx-button:disabled {
+            background: #444;
+            cursor: not-allowed;
+        }
+        
+        .tx-result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            display: none;
+        }
+        
+        .tx-result.success {
+            border-color: #4caf50;
+            color: #4caf50;
+        }
+        
+        .tx-result.error {
+            border-color: #f44336;
+            color: #f44336;
+        }
+        
+        .wallet-connect {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .connect-button {
+            background: #ffa500;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .connect-button:hover {
+            background: #ff8c00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tragedy NFT System</h1>
+            <p class="subtitle">Arweave Hybrid Implementation - Complete Suite</p>
+        </header>
+        
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('composer')">🎨 Composer</button>
+                <button class="tab" onclick="switchTab('viewer')">🖼️ NFT Viewer</button>
+                <button class="tab" onclick="switchTab('admin')">⚙️ Admin</button>
+            </div>
+        </div>
+        
+        <div id="composer-section" class="content-section active">
+        <div class="deployment-info">
+            <h3>📋 Deployment Information</h3>
+            <p id="network">Network: <span>Not connected</span></p>
+            <p id="composer-address">Composer: <span>Not loaded</span></p>
+            <p id="connection-status">Status: <span>Initializing...</span></p>
+        </div>
+        
+        <div class="controls">
+            <h3 style="color: #ff6b6b; margin-bottom: 20px;">🎨 Compose Your NFT</h3>
+            
+            <div class="control-grid">
+                <div class="control-group">
+                    <label>
+                        <span>👾</span> Monster
+                    </label>
+                    <select id="species">
+                        <option value="0">Werewolf</option>
+                        <option value="1">Goblin</option>
+                        <option value="2">Frankenstein</option>
+                        <option value="3">Demon</option>
+                        <option value="4">Dragon</option>
+                        <option value="5">Zombie</option>
+                        <option value="6">Vampire</option>
+                        <option value="7">Mummy</option>
+                        <option value="8">Succubus</option>
+                        <option value="9">Skeleton</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>
+                        <span>🌍</span> Background
+                    </label>
+                    <select id="background">
+                        <option value="0">Bloodmoon</option>
+                        <option value="1">Abyss</option>
+                        <option value="2">Decay</option>
+                        <option value="3">Corruption</option>
+                        <option value="4">Venom</option>
+                        <option value="5">Void</option>
+                        <option value="6">Inferno</option>
+                        <option value="7">Frost</option>
+                        <option value="8">Ragnarok</option>
+                        <option value="9">Shadow</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>
+                        <span>⚔️</span> Item
+                    </label>
+                    <select id="item">
+                        <option value="0">Crown</option>
+                        <option value="1">Sword</option>
+                        <option value="2">Shield</option>
+                        <option value="3">Poison</option>
+                        <option value="4">Torch</option>
+                        <option value="5">Wine</option>
+                        <option value="6">Scythe</option>
+                        <option value="7">Staff</option>
+                        <option value="8">Shoulder</option>
+                        <option value="9">Amulet</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>
+                        <span>✨</span> Effect
+                    </label>
+                    <select id="effect">
+                        <option value="0">Seizure</option>
+                        <option value="1">Mindblast</option>
+                        <option value="2">Confusion</option>
+                        <option value="3">Meteor</option>
+                        <option value="4">Bats</option>
+                        <option value="5">Poisoning</option>
+                        <option value="6">Lightning</option>
+                        <option value="7">Blizzard</option>
+                        <option value="8">Burning</option>
+                        <option value="9">Brainwash</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button onclick="generateSVG()" id="generate-btn">Generate NFT</button>
+                <button onclick="randomize()">🎲 Randomize</button>
+            </div>
+        </div>
+        
+        <div id="status" class="status"></div>
+        
+        <div class="display-area">
+            <h3 style="color: #ff6b6b; margin-bottom: 20px;">🖼️ Generated NFT</h3>
+            <div class="svg-container" id="svg-container">
+                <p style="color: #666;">Select options and click Generate to create your NFT</p>
+            </div>
+            <button class="toggle-code" onclick="toggleCode()">View SVG Code</button>
+            <div id="svg-code" class="code-display"></div>
+        </div>
+        
+        <div class="info-panel">
+            <h3 style="color: #ff6b6b;">🎨 Filter Information</h3>
+            <div class="info-grid" id="filter-info">
+                <div class="info-item">
+                    <h4>Background Theme</h4>
+                    <p id="theme-name">-</p>
+                </div>
+                <div class="info-item">
+                    <h4>Hue Rotation</h4>
+                    <p id="hue-value">-</p>
+                </div>
+                <div class="info-item">
+                    <h4>Saturation</h4>
+                    <p id="sat-value">-</p>
+                </div>
+                <div class="info-item">
+                    <h4>Brightness</h4>
+                    <p id="bright-value">-</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Tragedy NFT © 2025 - Powered by Arweave & Ethereum</p>
+        </footer>
+        </div>
+        
+        <div id="viewer-section" class="content-section">
+            <div class="deployment-info">
+                <h3>📋 NFT Contract Information</h3>
+                <p id="nft-network">Network: <span>Not connected</span></p>
+                <p id="nft-address">NFT Contract: <span>Not loaded</span></p>
+                <p id="total-supply">Total Supply: <span>-</span></p>
+            </div>
+            
+            <div class="viewer-controls">
+                <h3 style="color: #ff6b6b; margin-bottom: 20px;">🔍 View NFTs</h3>
+                <div>
+                    <input type="text" id="wallet-address" placeholder="Enter wallet address (0x...)" style="width: 400px;">
+                    <button onclick="loadWalletNFTs()">View Wallet</button>
+                    <button onclick="loadAllNFTs()">View All</button>
+                </div>
+                <div style="margin-top: 15px;">
+                    <input type="number" id="token-id" placeholder="Token ID" min="1" style="width: 150px;">
+                    <button onclick="loadSingleNFT()">View NFT</button>
+                </div>
+            </div>
+            
+            <div id="status-viewer" class="status"></div>
+            
+            <div id="nft-container">
+                <div class="loading-message">Select an option above to view NFTs</div>
+            </div>
+        </div>
+        
+        <div id="admin-section" class="content-section">
+            <div class="wallet-connect" id="wallet-section">
+                <h3>Connect Wallet to Execute Transactions</h3>
+                <button class="connect-button" onclick="connectWallet()">🦊 Connect MetaMask</button>
+                <p id="wallet-status" style="margin-top: 10px; color: #888;">Not connected</p>
+            </div>
+            
+            <div id="admin-controls" style="display: none;">
+                <!-- NFT Minting -->
+                <div class="admin-section">
+                    <h3>🎨 NFT Minting</h3>
+                    <div class="function-group">
+                        <h4>Mint Single NFT</h4>
+                        <div class="input-group">
+                            <label>Species (0-9):</label>
+                            <input type="number" id="mint-species" min="0" max="9" value="0">
+                        </div>
+                        <div class="input-group">
+                            <label>Background (0-9):</label>
+                            <input type="number" id="mint-background" min="0" max="9" value="0">
+                        </div>
+                        <div class="input-group">
+                            <label>Item (0-9):</label>
+                            <input type="number" id="mint-item" min="0" max="9" value="0">
+                        </div>
+                        <div class="input-group">
+                            <label>Effect (0-9):</label>
+                            <input type="number" id="mint-effect" min="0" max="9" value="0">
+                        </div>
+                        <button class="tx-button" onclick="mintNFT()">Mint NFT</button>
+                        <div id="mint-result" class="tx-result"></div>
+                    </div>
+                </div>
+                
+                <!-- URL Management -->
+                <div class="admin-section">
+                    <h3>🌐 Arweave URL Management (Owner Only)</h3>
+                    <div class="function-group">
+                        <h4>Update Background URL</h4>
+                        <div class="input-group">
+                            <label>Background ID:</label>
+                            <select id="bg-id">
+                                <option value="0">0 - Bloodmoon</option>
+                                <option value="1">1 - Abyss</option>
+                                <option value="2">2 - Decay</option>
+                                <option value="3">3 - Corruption</option>
+                                <option value="4">4 - Venom</option>
+                                <option value="5">5 - Void</option>
+                                <option value="6">6 - Inferno</option>
+                                <option value="7">7 - Frost</option>
+                                <option value="8">8 - Ragnarok</option>
+                                <option value="9">9 - Shadow</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Arweave URL:</label>
+                            <input type="text" id="bg-url" placeholder="https://arweave.net/...">
+                        </div>
+                        <button class="tx-button" onclick="updateBackgroundURL()">Update URL</button>
+                        <div id="bg-url-result" class="tx-result"></div>
+                    </div>
+                    
+                    <div class="function-group">
+                        <h4>Update Effect URL</h4>
+                        <div class="input-group">
+                            <label>Effect ID:</label>
+                            <select id="effect-id">
+                                <option value="0">0 - Seizure</option>
+                                <option value="1">1 - Mindblast</option>
+                                <option value="2">2 - Confusion</option>
+                                <option value="3">3 - Meteor</option>
+                                <option value="4">4 - Bats</option>
+                                <option value="5">5 - Poisoning</option>
+                                <option value="6">6 - Lightning</option>
+                                <option value="7">7 - Blizzard</option>
+                                <option value="8">8 - Burning</option>
+                                <option value="9">9 - Brainwash</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Arweave URL:</label>
+                            <input type="text" id="effect-url" placeholder="https://arweave.net/...">
+                        </div>
+                        <button class="tx-button" onclick="updateEffectURL()">Update URL</button>
+                        <div id="effect-url-result" class="tx-result"></div>
+                    </div>
+                </div>
+                
+                <!-- Filter Parameters -->
+                <div class="admin-section">
+                    <h3>🎨 Filter Parameters (Owner Only)</h3>
+                    <div class="function-group">
+                        <h4>Update Filter Settings</h4>
+                        <div class="input-group">
+                            <label>Background:</label>
+                            <select id="filter-bg-id">
+                                <option value="0">0 - Bloodmoon</option>
+                                <option value="1">1 - Abyss</option>
+                                <option value="2">2 - Decay</option>
+                                <option value="3">3 - Corruption</option>
+                                <option value="4">4 - Venom</option>
+                                <option value="5">5 - Void</option>
+                                <option value="6">6 - Inferno</option>
+                                <option value="7">7 - Frost</option>
+                                <option value="8">8 - Ragnarok</option>
+                                <option value="9">9 - Shadow</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Hue Rotate:</label>
+                            <input type="number" id="filter-hue" min="0" max="360" value="0">
+                        </div>
+                        <div class="input-group">
+                            <label>Saturation (%):</label>
+                            <input type="number" id="filter-sat" min="0" max="300" value="100">
+                        </div>
+                        <div class="input-group">
+                            <label>Brightness (%):</label>
+                            <input type="number" id="filter-bright" min="0" max="300" value="100">
+                        </div>
+                        <button class="tx-button" onclick="updateFilterParams()">Update Filter</button>
+                        <div id="filter-result" class="tx-result"></div>
+                    </div>
+                </div>
+                
+                <!-- Contract Info -->
+                <div class="admin-section">
+                    <h3>📋 Contract Information</h3>
+                    <div class="function-group">
+                        <h4>Read Contract States</h4>
+                        <button class="tx-button" onclick="refreshContractInfo()">Refresh Info</button>
+                        <div id="contract-info" style="margin-top: 15px; font-family: monospace; font-size: 12px; color: #aaa;">
+                            Click refresh to load contract information...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration - UPDATE THESE WITH YOUR DEPLOYMENT
+        const RPC_URL = "https://dev2.bon-soleil.com/rpc";
+        let COMPOSER_ADDRESS = null;
+        let NFT_ADDRESS = null;
+        let BACKGROUND_BANK_ADDRESS = null;
+        let EFFECT_BANK_ADDRESS = null;
+        
+        const COMPOSER_ABI = [
+            "function composeSVG(uint8 species, uint8 background, uint8 item, uint8 effect) view returns (string)",
+            "function filterParams(uint8) view returns (uint16 hueRotate, uint16 saturate, uint16 brightness)"
+        ];
+        
+        const NFT_ABI = [
+            "function tokenURI(uint256 tokenId) view returns (string)",
+            "function tokenParams(uint256) view returns (uint8 species, uint8 background, uint8 item, uint8 effect)",
+            "function nextTokenId() view returns (uint256)",
+            "function ownerOf(uint256 tokenId) view returns (address)",
+            "function balanceOf(address owner) view returns (uint256)",
+            "function tokenOfOwnerByIndex(address owner, uint256 index) view returns (uint256)",
+            "function mint(uint8 species, uint8 background, uint8 item, uint8 effect) returns (uint256)"
+        ];
+        
+        const BACKGROUND_BANK_ABI = [
+            "function setBackgroundUrl(uint8 backgroundId, string memory url) external",
+            "function getBackgroundUrl(uint8 backgroundId) view returns (string)",
+            "function owner() view returns (address)"
+        ];
+        
+        const EFFECT_BANK_ABI = [
+            "function setEffectUrl(uint8 effectId, string memory url) external",
+            "function getEffectUrl(uint8 effectId) view returns (string)",
+            "function owner() view returns (address)"
+        ];
+        
+        const FILTER_ABI = [
+            "function setFilterParams(uint8 backgroundId, uint16 hueRotate, uint16 saturate, uint16 brightness) external",
+            "function filterParams(uint8) view returns (uint16 hueRotate, uint16 saturate, uint16 brightness)",
+            "function owner() view returns (address)"
+        ];
+        
+        let provider;
+        let composer;
+        let nft;
+        let signer;
+        let backgroundBank;
+        let effectBank;
+        
+        async function init() {
+            try {
+                showStatus('Initializing...', 'info');
+                
+                // Load deployment info
+                try {
+                    // Try to find the latest deployment file
+                    const files = ['deployment-bonsoleil-1754442335056.json', 'deployment-bonsoleil-1754441799868.json'];
+                    let deployment = null;
+                    
+                    for (const file of files) {
+                        try {
+                            const response = await fetch('../' + file);
+                            if (response.ok) {
+                                deployment = await response.json();
+                                break;
+                            }
+                        } catch (e) {
+                            continue;
+                        }
+                    }
+                    
+                    if (deployment) {
+                        COMPOSER_ADDRESS = deployment.contracts.composer;
+                        NFT_ADDRESS = deployment.contracts.nft;
+                        BACKGROUND_BANK_ADDRESS = deployment.contracts.backgroundBank;
+                        EFFECT_BANK_ADDRESS = deployment.contracts.effectBank;
+                    } else {
+                        throw new Error('No deployment file found');
+                    }
+                } catch (e) {
+                    // If no deployment file, use hardcoded addresses
+                    COMPOSER_ADDRESS = "0x0c687b850B572845EF88903d78a804B3f46E611b";
+                    NFT_ADDRESS = "0xCd3272E5016Ac392c7dA55b7AeA2e0714571cA4F";
+                    BACKGROUND_BANK_ADDRESS = "0xC2d0142F4748D3373BcA7BE31B1AD6bB676b66df";
+                    EFFECT_BANK_ADDRESS = "0xBD3E0Cc596a35e6cECD4C95e41DFf572Af2eb4db";
+                }
+                
+                // Connect to network
+                provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+                await provider.ready;
+                
+                composer = new ethers.Contract(COMPOSER_ADDRESS, COMPOSER_ABI, provider);
+                
+                // Initialize NFT contract if available
+                if (NFT_ADDRESS) {
+                    nft = new ethers.Contract(NFT_ADDRESS, NFT_ABI, provider);
+                    const totalSupply = await nft.nextTokenId();
+                    document.getElementById('nft-address').innerHTML = `NFT Contract: <span style="color: #4caf50; font-family: monospace">${NFT_ADDRESS}</span>`;
+                    document.getElementById('total-supply').innerHTML = `Total Supply: <span style="color: #4caf50">${totalSupply.sub(1).toString()}</span>`;
+                }
+                
+                // Update UI
+                document.getElementById('network').innerHTML = `Network: <span style="color: #4caf50">Bon-Soleil Testnet</span>`;
+                document.getElementById('composer-address').innerHTML = `Composer: <span style="color: #4caf50; font-family: monospace">${COMPOSER_ADDRESS}</span>`;
+                document.getElementById('connection-status').innerHTML = `Status: <span style="color: #4caf50">Connected</span>`;
+                
+                document.getElementById('nft-network').innerHTML = `Network: <span style="color: #4caf50">Bon-Soleil Testnet</span>`;
+                
+                showStatus('Connected successfully!', 'success');
+                document.getElementById('generate-btn').disabled = false;
+                
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showStatus('Failed to connect: ' + error.message, 'error');
+                document.getElementById('connection-status').innerHTML = `Status: <span style="color: #f44336">Error</span>`;
+            }
+        }
+        
+        async function generateSVG() {
+            const species = parseInt(document.getElementById('species').value);
+            const background = parseInt(document.getElementById('background').value);
+            const item = parseInt(document.getElementById('item').value);
+            const effect = parseInt(document.getElementById('effect').value);
+            
+            showStatus('Generating NFT...', 'info');
+            document.getElementById('generate-btn').disabled = true;
+            
+            try {
+                // Get SVG from contract
+                const svg = await composer.composeSVG(species, background, item, effect);
+                
+                // Display SVG
+                document.getElementById('svg-container').innerHTML = svg;
+                document.getElementById('svg-code').textContent = svg;
+                
+                // Get and display filter params
+                const filterParams = await composer.filterParams(background);
+                const bgNames = ['Bloodmoon', 'Abyss', 'Decay', 'Corruption', 'Venom', 'Void', 'Inferno', 'Frost', 'Ragnarok', 'Shadow'];
+                
+                document.getElementById('theme-name').textContent = bgNames[background];
+                document.getElementById('hue-value').textContent = filterParams.hueRotate + '°';
+                document.getElementById('sat-value').textContent = (filterParams.saturate / 100).toFixed(2) + 'x';
+                document.getElementById('bright-value').textContent = (filterParams.brightness / 100).toFixed(2) + 'x';
+                
+                showStatus('NFT generated successfully!', 'success');
+                
+            } catch (error) {
+                console.error('Generation error:', error);
+                showStatus('Error: ' + error.message, 'error');
+            } finally {
+                document.getElementById('generate-btn').disabled = false;
+            }
+        }
+        
+        function randomize() {
+            document.getElementById('species').value = Math.floor(Math.random() * 10);
+            document.getElementById('background').value = Math.floor(Math.random() * 10);
+            document.getElementById('item').value = Math.floor(Math.random() * 10);
+            document.getElementById('effect').value = Math.floor(Math.random() * 10);
+        }
+        
+        function toggleCode() {
+            const codeDisplay = document.getElementById('svg-code');
+            codeDisplay.style.display = codeDisplay.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = 'status ' + type;
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
+        function showViewerStatus(message, type) {
+            const status = document.getElementById('status-viewer');
+            status.textContent = message;
+            status.className = 'status ' + type;
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
+        function switchTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update content sections
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(tab + '-section').classList.add('active');
+        }
+        
+        async function loadWalletNFTs() {
+            const address = document.getElementById('wallet-address').value.trim();
+            if (!address || !ethers.utils.isAddress(address)) {
+                showViewerStatus('Please enter a valid wallet address', 'error');
+                return;
+            }
+            
+            showViewerStatus('Loading wallet NFTs...', 'info');
+            const container = document.getElementById('nft-container');
+            container.innerHTML = '<div class="loading-message">Loading...</div>';
+            
+            try {
+                const balance = await nft.balanceOf(address);
+                if (balance.eq(0)) {
+                    container.innerHTML = '<div class="loading-message">No NFTs found in this wallet</div>';
+                    return;
+                }
+                
+                const nfts = [];
+                for (let i = 0; i < balance.toNumber(); i++) {
+                    const tokenId = await nft.tokenOfOwnerByIndex(address, i);
+                    nfts.push(tokenId);
+                }
+                
+                await displayNFTs(nfts);
+                showViewerStatus(`Found ${nfts.length} NFTs`, 'success');
+                
+            } catch (error) {
+                console.error('Error loading wallet NFTs:', error);
+                showViewerStatus('Error loading NFTs: ' + error.message, 'error');
+                container.innerHTML = '<div class="loading-message">Error loading NFTs</div>';
+            }
+        }
+        
+        async function loadAllNFTs() {
+            showViewerStatus('Loading all NFTs...', 'info');
+            const container = document.getElementById('nft-container');
+            container.innerHTML = '<div class="loading-message">Loading...</div>';
+            
+            try {
+                const totalSupply = await nft.nextTokenId();
+                const total = totalSupply.sub(1).toNumber();
+                
+                if (total === 0) {
+                    container.innerHTML = '<div class="loading-message">No NFTs minted yet</div>';
+                    return;
+                }
+                
+                const nfts = [];
+                for (let i = 1; i <= Math.min(total, 20); i++) { // Limit to 20 for performance
+                    nfts.push(ethers.BigNumber.from(i));
+                }
+                
+                await displayNFTs(nfts);
+                showViewerStatus(`Showing ${nfts.length} of ${total} NFTs`, 'success');
+                
+            } catch (error) {
+                console.error('Error loading all NFTs:', error);
+                showViewerStatus('Error loading NFTs: ' + error.message, 'error');
+            }
+        }
+        
+        async function loadSingleNFT() {
+            const tokenId = document.getElementById('token-id').value;
+            if (!tokenId || tokenId < 1) {
+                showViewerStatus('Please enter a valid token ID', 'error');
+                return;
+            }
+            
+            showViewerStatus(`Loading NFT #${tokenId}...`, 'info');
+            
+            try {
+                await displayNFTs([ethers.BigNumber.from(tokenId)]);
+                showViewerStatus(`Loaded NFT #${tokenId}`, 'success');
+            } catch (error) {
+                console.error('Error loading NFT:', error);
+                showViewerStatus('Error: NFT not found or not minted yet', 'error');
+            }
+        }
+        
+        async function displayNFTs(tokenIds) {
+            const container = document.getElementById('nft-container');
+            container.innerHTML = '';
+            
+            const grid = document.createElement('div');
+            grid.className = 'nft-grid';
+            
+            for (const tokenId of tokenIds) {
+                try {
+                    // Get token URI
+                    const tokenURI = await nft.tokenURI(tokenId);
+                    
+                    // Decode metadata
+                    const base64Json = tokenURI.replace('data:application/json;base64,', '');
+                    const jsonString = atob(base64Json);
+                    const metadata = JSON.parse(jsonString);
+                    
+                    // Get owner
+                    const owner = await nft.ownerOf(tokenId);
+                    
+                    // Decode SVG
+                    const base64Svg = metadata.image.replace('data:image/svg+xml;base64,', '');
+                    const svg = atob(base64Svg);
+                    
+                    // Create card
+                    const card = document.createElement('div');
+                    card.className = 'nft-card';
+                    
+                    card.innerHTML = `
+                        <div class="nft-image">
+                            ${svg}
+                        </div>
+                        <div class="nft-details">
+                            <h4>${metadata.name}</h4>
+                            <p style="color: #888; font-size: 12px; margin-bottom: 10px;">
+                                Owner: ${owner.slice(0, 6)}...${owner.slice(-4)}
+                            </p>
+                            <div>
+                                ${metadata.attributes.map(attr => `
+                                    <span class="trait">
+                                        <span class="trait-label">${attr.trait_type}:</span>
+                                        <span class="trait-value">${attr.value}</span>
+                                    </span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    
+                    grid.appendChild(card);
+                    
+                } catch (error) {
+                    console.error(`Error loading NFT ${tokenId}:`, error);
+                }
+            }
+            
+            container.appendChild(grid);
+        }
+        
+        // Admin functions
+        async function connectWallet() {
+            try {
+                if (!window.ethereum) {
+                    alert('Please install MetaMask!');
+                    return;
+                }
+                
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = web3Provider.getSigner();
+                const address = await signer.getAddress();
+                
+                // Update contracts with signer
+                nft = new ethers.Contract(NFT_ADDRESS, NFT_ABI, signer);
+                composer = new ethers.Contract(COMPOSER_ADDRESS, [...COMPOSER_ABI, ...FILTER_ABI], signer);
+                backgroundBank = new ethers.Contract(BACKGROUND_BANK_ADDRESS, BACKGROUND_BANK_ABI, signer);
+                effectBank = new ethers.Contract(EFFECT_BANK_ADDRESS, EFFECT_BANK_ABI, signer);
+                
+                document.getElementById('wallet-status').innerHTML = `Connected: ${address.slice(0, 6)}...${address.slice(-4)}`;
+                document.getElementById('wallet-section').style.display = 'none';
+                document.getElementById('admin-controls').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Wallet connection error:', error);
+                alert('Failed to connect wallet: ' + error.message);
+            }
+        }
+        
+        async function mintNFT() {
+            const species = document.getElementById('mint-species').value;
+            const background = document.getElementById('mint-background').value;
+            const item = document.getElementById('mint-item').value;
+            const effect = document.getElementById('mint-effect').value;
+            const resultDiv = document.getElementById('mint-result');
+            
+            try {
+                resultDiv.textContent = 'Sending transaction...';
+                resultDiv.className = 'tx-result';
+                resultDiv.style.display = 'block';
+                
+                const tx = await nft.mint(species, background, item, effect);
+                resultDiv.textContent = `Transaction sent: ${tx.hash}`;
+                
+                const receipt = await tx.wait();
+                
+                // Find event safely
+                let tokenId = 'Unknown';
+                if (receipt.events) {
+                    const event = receipt.events.find(e => e.event === 'TragedyMinted');
+                    if (event && event.args && event.args.tokenId) {
+                        tokenId = event.args.tokenId.toString();
+                    }
+                }
+                
+                // Even if we can't get the tokenId from event, the mint was successful
+                resultDiv.textContent = `Success! Minted NFT${tokenId !== 'Unknown' ? ' #' + tokenId : ''} - TX: ${tx.hash}`;
+                resultDiv.className = 'tx-result success';
+                
+            } catch (error) {
+                console.error('Mint error:', error);
+                resultDiv.textContent = `Error: ${error.reason || error.message}`;
+                resultDiv.className = 'tx-result error';
+            }
+        }
+        
+        async function updateBackgroundURL() {
+            const bgId = document.getElementById('bg-id').value;
+            const url = document.getElementById('bg-url').value;
+            const resultDiv = document.getElementById('bg-url-result');
+            
+            if (!url.startsWith('https://arweave.net/')) {
+                resultDiv.textContent = 'URL must start with https://arweave.net/';
+                resultDiv.className = 'tx-result error';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            try {
+                resultDiv.textContent = 'Sending transaction...';
+                resultDiv.className = 'tx-result';
+                resultDiv.style.display = 'block';
+                
+                const tx = await backgroundBank.setBackgroundUrl(bgId, url);
+                resultDiv.textContent = `Transaction sent: ${tx.hash}`;
+                
+                await tx.wait();
+                resultDiv.textContent = `Success! Updated background ${bgId} URL - TX: ${tx.hash}`;
+                resultDiv.className = 'tx-result success';
+                
+            } catch (error) {
+                console.error('Update error:', error);
+                resultDiv.textContent = `Error: ${error.reason || error.message}`;
+                resultDiv.className = 'tx-result error';
+            }
+        }
+        
+        async function updateEffectURL() {
+            const effectId = document.getElementById('effect-id').value;
+            const url = document.getElementById('effect-url').value;
+            const resultDiv = document.getElementById('effect-url-result');
+            
+            if (!url.startsWith('https://arweave.net/')) {
+                resultDiv.textContent = 'URL must start with https://arweave.net/';
+                resultDiv.className = 'tx-result error';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            try {
+                resultDiv.textContent = 'Sending transaction...';
+                resultDiv.className = 'tx-result';
+                resultDiv.style.display = 'block';
+                
+                const tx = await effectBank.setEffectUrl(effectId, url);
+                resultDiv.textContent = `Transaction sent: ${tx.hash}`;
+                
+                await tx.wait();
+                resultDiv.textContent = `Success! Updated effect ${effectId} URL - TX: ${tx.hash}`;
+                resultDiv.className = 'tx-result success';
+                
+            } catch (error) {
+                console.error('Update error:', error);
+                resultDiv.textContent = `Error: ${error.reason || error.message}`;
+                resultDiv.className = 'tx-result error';
+            }
+        }
+        
+        async function updateFilterParams() {
+            const bgId = document.getElementById('filter-bg-id').value;
+            const hue = document.getElementById('filter-hue').value;
+            const sat = document.getElementById('filter-sat').value;
+            const bright = document.getElementById('filter-bright').value;
+            const resultDiv = document.getElementById('filter-result');
+            
+            try {
+                resultDiv.textContent = 'Sending transaction...';
+                resultDiv.className = 'tx-result';
+                resultDiv.style.display = 'block';
+                
+                const tx = await composer.setFilterParams(bgId, hue, sat, bright);
+                resultDiv.textContent = `Transaction sent: ${tx.hash}`;
+                
+                await tx.wait();
+                resultDiv.textContent = `Success! Updated filter for background ${bgId} - TX: ${tx.hash}`;
+                resultDiv.className = 'tx-result success';
+                
+            } catch (error) {
+                console.error('Update error:', error);
+                resultDiv.textContent = `Error: ${error.reason || error.message}`;
+                resultDiv.className = 'tx-result error';
+            }
+        }
+        
+        async function refreshContractInfo() {
+            const infoDiv = document.getElementById('contract-info');
+            
+            try {
+                infoDiv.innerHTML = 'Loading...';
+                
+                const totalSupply = await nft.nextTokenId();
+                const nftOwner = await nft.owner();
+                const composerOwner = await composer.owner();
+                const bgBankOwner = await backgroundBank.owner();
+                
+                const currentAccount = signer ? await signer.getAddress() : 'Not connected';
+                
+                infoDiv.innerHTML = `
+                    <strong>Connected Account:</strong> ${currentAccount}<br>
+                    <strong>Total NFTs Minted:</strong> ${totalSupply.sub(1).toString()}<br>
+                    <strong>NFT Contract Owner:</strong> ${nftOwner}<br>
+                    <strong>Composer Owner:</strong> ${composerOwner}<br>
+                    <strong>Bank Contracts Owner:</strong> ${bgBankOwner}<br>
+                    <br>
+                    <strong>Contract Addresses:</strong><br>
+                    NFT: ${NFT_ADDRESS}<br>
+                    Composer: ${COMPOSER_ADDRESS}<br>
+                    Background Bank: ${BACKGROUND_BANK_ADDRESS}<br>
+                    Effect Bank: ${EFFECT_BANK_ADDRESS}
+                `;
+                
+            } catch (error) {
+                console.error('Info refresh error:', error);
+                infoDiv.innerHTML = `Error loading info: ${error.message}`;
+            }
+        }
+        
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
