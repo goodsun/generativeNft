@@ -1047,21 +1047,21 @@
           console.log("Response text:", text);
           DEPLOYMENT = JSON.parse(text);
           BANKED_NFT_ADDRESS = DEPLOYMENT.contracts.bankedNFT;
-          METADATA_BANK_ADDRESS = DEPLOYMENT.contracts.metadataV5;
-          COMPOSER_ADDRESS = DEPLOYMENT.contracts.composerV5;
+          METADATA_BANK_ADDRESS = DEPLOYMENT.contracts.metadata;
+          COMPOSER_ADDRESS = DEPLOYMENT.contracts.composer;
           console.log("Loaded deployment:", DEPLOYMENT);
           console.log("MetadataV5 address:", METADATA_BANK_ADDRESS);
           
           // Update Material Explorer contract info
-          updateContractDisplay("material-monster-bank", DEPLOYMENT.contracts.monsterBankV3);
-          updateContractDisplay("material-item-bank", DEPLOYMENT.contracts.itemBankV3);
+          updateContractDisplay("material-monster-bank", DEPLOYMENT.contracts.monsterBank);
+          updateContractDisplay("material-item-bank", DEPLOYMENT.contracts.itemBank);
           updateContractDisplay("material-background-bank", DEPLOYMENT.contracts.backgroundBank);
           updateContractDisplay("material-effect-bank", DEPLOYMENT.contracts.effectBank);
           
           // Update Composer Explorer contract info
-          updateContractDisplay("composer-address-info", DEPLOYMENT.contracts.composerV5);
-          updateContractDisplay("composer-monster-bank", DEPLOYMENT.contracts.monsterBankV3);
-          updateContractDisplay("composer-item-bank", DEPLOYMENT.contracts.itemBankV3);
+          updateContractDisplay("composer-address-info", DEPLOYMENT.contracts.composer);
+          updateContractDisplay("composer-monster-bank", DEPLOYMENT.contracts.monsterBank);
+          updateContractDisplay("composer-item-bank", DEPLOYMENT.contracts.itemBank);
           updateContractDisplay("composer-background-bank", DEPLOYMENT.contracts.backgroundBank);
           updateContractDisplay("composer-effect-bank", DEPLOYMENT.contracts.effectBank);
         } catch (error) {
@@ -1080,18 +1080,18 @@
             },
           };
           BANKED_NFT_ADDRESS = DEPLOYMENT.contracts.bankedNFT;
-          METADATA_BANK_ADDRESS = DEPLOYMENT.contracts.metadataV5;
-          COMPOSER_ADDRESS = DEPLOYMENT.contracts.composerV5;
+          METADATA_BANK_ADDRESS = DEPLOYMENT.contracts.metadata;
+          COMPOSER_ADDRESS = DEPLOYMENT.contracts.composer;
           console.log("Fallback deployment loaded:", DEPLOYMENT);
           
           // Update contract displays with fallback values
-          updateContractDisplay("material-monster-bank", DEPLOYMENT.contracts.monsterBankV3);
-          updateContractDisplay("material-item-bank", DEPLOYMENT.contracts.itemBankV3);
+          updateContractDisplay("material-monster-bank", DEPLOYMENT.contracts.monsterBank);
+          updateContractDisplay("material-item-bank", DEPLOYMENT.contracts.itemBank);
           updateContractDisplay("material-background-bank", DEPLOYMENT.contracts.backgroundBank);
           updateContractDisplay("material-effect-bank", DEPLOYMENT.contracts.effectBank);
-          updateContractDisplay("composer-address-info", DEPLOYMENT.contracts.composerV5);
-          updateContractDisplay("composer-monster-bank", DEPLOYMENT.contracts.monsterBankV3);
-          updateContractDisplay("composer-item-bank", DEPLOYMENT.contracts.itemBankV3);
+          updateContractDisplay("composer-address-info", DEPLOYMENT.contracts.composer);
+          updateContractDisplay("composer-monster-bank", DEPLOYMENT.contracts.monsterBank);
+          updateContractDisplay("composer-item-bank", DEPLOYMENT.contracts.itemBank);
           updateContractDisplay("composer-background-bank", DEPLOYMENT.contracts.backgroundBank);
           updateContractDisplay("composer-effect-bank", DEPLOYMENT.contracts.effectBank);
         }
@@ -1258,8 +1258,8 @@
           } catch (error) {
             console.error("Error getting MetadataBank:", error);
             // Fallback to deployment.json value if available
-            if (DEPLOYMENT && DEPLOYMENT.contracts.metadataV5) {
-              METADATA_BANK_ADDRESS = DEPLOYMENT.contracts.metadataV5;
+            if (DEPLOYMENT && DEPLOYMENT.contracts.metadata) {
+              METADATA_BANK_ADDRESS = DEPLOYMENT.contracts.metadata;
               console.log(
                 "Using MetadataBank from deployment.json:",
                 METADATA_BANK_ADDRESS
@@ -2373,11 +2373,11 @@
 
           const BANKS = {
             monster: {
-              v3: DEPLOYMENT.contracts.monsterBankV3,
+              v3: DEPLOYMENT.contracts.monsterBank,
               type: "svg",
             },
             item: {
-              v3: DEPLOYMENT.contracts.itemBankV3,
+              v3: DEPLOYMENT.contracts.itemBank,
               type: "svg",
             },
             background: {
@@ -2626,7 +2626,7 @@
               '<div class="error">Deployment not loaded</div>';
             return;
           }
-          const composerAddress = DEPLOYMENT.contracts.composerV5;
+          const composerAddress = DEPLOYMENT.contracts.composer;
           const composerAbi = [
             "function composeSVG(uint8 species, uint8 background, uint8 item, uint8 effect) view returns (string)",
           ];
