@@ -2,25 +2,34 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Monster Manifesto - The Mythical Cursed-Nightmare</title>
-    
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Manifesto - The Mythical Cursed-Nightmare</title>
+
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="alternate icon" href="favicon.svg">
-    
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="alternate icon" href="favicon.svg" />
+
     <!-- Apple Touch Icon (180x180 for iOS) -->
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.svg" />
-    
+
     <!-- PWA対応 -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
     <!-- Additional Meta Tags -->
-    <meta name="theme-color" content="#6B46C1">
-    <meta name="description" content="The Monster Manifesto - Why We Create Monsters Onchain. A declaration of fully onchain NFT philosophy.">
-    
-    <link rel="stylesheet" href="css/styles.css">
+    <meta name="theme-color" content="#6B46C1" />
+    <meta
+      name="description"
+      content="The Monster Manifesto - Why We Create Monsters Onchain. A declaration of fully onchain NFT philosophy."
+    />
+
+    <link rel="stylesheet" href="css/styles.css" />
     <style>
       .language-tabs {
         display: flex;
@@ -29,7 +38,7 @@
         margin: 20px 0;
         flex-wrap: wrap;
       }
-      
+
       .lang-tab {
         background: rgba(107, 70, 193, 0.2);
         border: 1px solid rgba(107, 70, 193, 0.3);
@@ -37,57 +46,69 @@
         border-radius: 20px;
         cursor: pointer;
         transition: all 0.3s;
-        color: #C084FC;
+        color: #c084fc;
         font-size: 14px;
         display: flex;
         align-items: center;
         gap: 6px;
       }
-      
+
       .lang-tab:hover {
         background: rgba(107, 70, 193, 0.3);
         transform: translateY(-2px);
       }
-      
+
       .lang-tab.active {
-        background: linear-gradient(45deg, #6B46C1, #9333EA);
+        background: linear-gradient(45deg, #6b46c1, #9333ea);
         color: white;
         border-color: transparent;
       }
-      
+
       .lang-flag {
         font-size: 18px;
       }
-      
+
       .manifest-content {
         max-width: 800px;
         margin: 0 auto;
         padding: 40px 0;
       }
-      
+
       .section {
         margin-bottom: 60px;
         opacity: 0;
         transform: translateY(20px);
         animation: fadeInUp 0.8s ease forwards;
       }
-      
-      .section:nth-child(1) { animation-delay: 0.2s; }
-      .section:nth-child(2) { animation-delay: 0.4s; }
-      .section:nth-child(3) { animation-delay: 0.6s; }
-      .section:nth-child(4) { animation-delay: 0.8s; }
-      .section:nth-child(5) { animation-delay: 1.0s; }
-      .section:nth-child(6) { animation-delay: 1.2s; }
-      
+
+      .section:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .section:nth-child(2) {
+        animation-delay: 0.4s;
+      }
+      .section:nth-child(3) {
+        animation-delay: 0.6s;
+      }
+      .section:nth-child(4) {
+        animation-delay: 0.8s;
+      }
+      .section:nth-child(5) {
+        animation-delay: 1s;
+      }
+      .section:nth-child(6) {
+        animation-delay: 1.2s;
+      }
+
       @keyframes fadeInUp {
         to {
           opacity: 1;
           transform: translateY(0);
         }
       }
-      
+
       .section-title {
-        color: #C084FC;
+        color: #c084fc;
         font-size: 1.8em;
         margin-bottom: 20px;
         text-transform: uppercase;
@@ -95,31 +116,31 @@
         position: relative;
         padding-left: 30px;
       }
-      
+
       .section-title::before {
         content: "#";
         position: absolute;
         left: 0;
         top: 50%;
         transform: translateY(-50%);
-        color: #6B46C1;
+        color: #6b46c1;
         font-weight: bold;
       }
-      
+
       .manifest-text {
-        color: #E9D5FF;
+        color: #e9d5ff;
         line-height: 1.8;
         font-size: 1.1em;
         text-align: justify;
         margin-bottom: 20px;
       }
-      
+
       .highlight {
-        color: #FFD700;
+        color: #ffd700;
         font-weight: bold;
         text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
       }
-      
+
       .principle-box {
         background: rgba(107, 70, 193, 0.1);
         border: 1px solid rgba(107, 70, 193, 0.3);
@@ -129,7 +150,7 @@
         position: relative;
         overflow: hidden;
       }
-      
+
       .principle-box::before {
         content: "";
         position: absolute;
@@ -137,76 +158,91 @@
         left: -50%;
         width: 200%;
         height: 200%;
-        background: radial-gradient(circle, rgba(147, 51, 234, 0.1) 0%, transparent 70%);
+        background: radial-gradient(
+          circle,
+          rgba(147, 51, 234, 0.1) 0%,
+          transparent 70%
+        );
         animation: pulse 4s ease-in-out infinite;
       }
-      
+
       @keyframes pulse {
-        0%, 100% { transform: scale(1); opacity: 0.5; }
-        50% { transform: scale(1.1); opacity: 0.8; }
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.5;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 0.8;
+        }
       }
-      
+
       .principle-list {
         list-style: none;
         padding: 0;
         margin: 20px 0;
       }
-      
+
       .principle-list li {
-        color: #C084FC;
+        color: #c084fc;
         margin: 15px 0;
         padding-left: 30px;
         position: relative;
       }
-      
+
       .principle-list li::before {
         content: "•";
         position: absolute;
         left: 10px;
-        color: #9333EA;
+        color: #9333ea;
         font-weight: bold;
       }
-      
+
       .quote {
         font-style: italic;
-        color: #C084FC;
-        border-left: 3px solid #6B46C1;
+        color: #c084fc;
+        border-left: 3px solid #6b46c1;
         padding-left: 20px;
         margin: 30px 0;
         font-size: 1.2em;
       }
-      
+
       .divider {
         text-align: center;
         margin: 40px 0;
-        color: #6B46C1;
+        color: #6b46c1;
         font-size: 24px;
       }
-      
+
       .call-to-action {
-        background: linear-gradient(45deg, rgba(220, 38, 38, 0.2), rgba(239, 68, 68, 0.2));
-        border: 1px solid #EF4444;
+        background: linear-gradient(
+          45deg,
+          rgba(220, 38, 38, 0.2),
+          rgba(239, 68, 68, 0.2)
+        );
+        border: 1px solid #ef4444;
         border-radius: 15px;
         padding: 30px;
         margin: 40px 0;
         text-align: center;
       }
-      
+
       .call-to-action h3 {
-        color: #EF4444;
+        color: #ef4444;
         font-size: 1.5em;
         margin-bottom: 15px;
       }
-      
+
       @media (max-width: 768px) {
         .manifest-content {
           padding: 20px 0;
         }
-        
+
         .section-title {
           font-size: 1.5em;
         }
-        
+
         .manifest-text {
           font-size: 1em;
           text-align: left;
@@ -217,17 +253,34 @@
   <body>
     <div class="container">
       <h1>The Monster Manifesto</h1>
-      <p style="font-size: 20px; color: #ddd; margin-top: 8px; text-align: center; font-weight: 500;">
+      <p
+        style="
+          font-size: 20px;
+          color: #ddd;
+          margin-top: 8px;
+          text-align: center;
+          font-weight: 500;
+        "
+      >
         モンスター・マニフェスト
       </p>
-      <p style="font-size: 14px; color: #666; margin-top: 15px; text-align: center;">
+      <p
+        style="
+          font-size: 14px;
+          color: #666;
+          margin-top: 15px;
+          text-align: center;
+        "
+      >
         Why We Create Monsters Onchain
       </p>
-      
+
       <div class="button-group">
-        <button onclick="window.location.href='index.html'">← Back to Home</button>
+        <button onclick="window.location.href='index.html'">
+          ← Back to Home
+        </button>
       </div>
-      
+
       <div class="language-tabs">
         <div class="lang-tab active" onclick="switchLanguage('ja')">
           <span class="lang-flag">🇯🇵</span> 日本語
@@ -248,7 +301,7 @@
           <span class="lang-flag">🇩🇪</span> Deutsch
         </div>
       </div>
-      
+
       <div class="manifest-content" id="manifestContent">
         <!-- Japanese Version (Default) -->
         <div id="ja-content">
@@ -259,39 +312,49 @@
               画像は消え、URIは404となり、「誰が、なぜ作ったか」は風化した。
             </p>
             <p class="manifest-text">
-              そこで、我々は問い直す。<br>
-              <span class="highlight">「NFTにとって本当に大切なものは何か？」</span>
+              そこで、我々は問い直す。<br />
+              <span class="highlight"
+                >「NFTにとって本当に大切なものは何か？」</span
+              >
             </p>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">なぜ"完全オンチェーン"か</h2>
             <div class="principle-box">
               <ul class="principle-list">
                 <li>データが存在する場所こそが、文化の生死線</li>
                 <li>ブロックチェーンは記録製稿ではなく、証明製稿</li>
-                <li>アートは「鑑賞される」ものではなく、「読み解かれるべきもの」</li>
+                <li>
+                  アートは「鑑賞される」ものではなく、「読み解かれるべきもの」
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">なぜSVGか？なぜピクセルアートか？</h2>
             <div class="principle-box">
               <ul class="principle-list">
-                <li>SVGは「人間が読める構造」を持つ、唯一のオンチェーン画像形式</li>
-                <li>ピクセルアートは「情報量のミニマリズム」であり、最大の自由を持つ</li>
-                <li>オンチェーンSVGは「目に見えるコード」であり、「書き換え不能なストーリー」</li>
+                <li>
+                  SVGは「人間が読める構造」を持つ、唯一のオンチェーン画像形式
+                </li>
+                <li>
+                  ピクセルアートは「情報量のミニマリズム」であり、最大の自由を持つ
+                </li>
+                <li>
+                  オンチェーンSVGは「目に見えるコード」であり、「書き換え不能なストーリー」
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">なぜArweave使用か？</h2>
             <div class="quote">
@@ -301,15 +364,19 @@
               <ul class="principle-list">
                 <li>Arweaveは「永遠に書かれる図書館」</li>
                 <li>Ethereumは「その図書の意味を保証する裏付け」</li>
-                <li>この2つのチェーンによって我々のNFTは、「意味と永続性の交差点」になる</li>
+                <li>
+                  この2つのチェーンによって我々のNFTは、「意味と永続性の交差点」になる
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
-            <h2 class="section-title">我々が作るもの：モンスターという"物語エンジン"</h2>
+            <h2 class="section-title">
+              我々が作るもの：モンスターという"物語エンジン"
+            </h2>
             <div class="principle-box">
               <ul class="principle-list">
                 <li>各モンスターは構造を持ち、属性を持ち、解釈を持つ</li>
@@ -318,64 +385,86 @@
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">呼びかけ：読み解く者たちへ</h2>
             <div class="call-to-action">
               <p class="manifest-text">
-                これは買うNFTではない。<span class="highlight">「読むNFT」</span>であり、<span class="highlight">「語るNFT」</span>である。
+                これは買うNFTではない。<span class="highlight">「読むNFT」</span
+                >であり、<span class="highlight">「語るNFT」</span>である。
               </p>
               <p class="manifest-text">
-                これはただのモンスターではない。<span class="highlight">「意味の断片」</span>であり、<span class="highlight">「永遠に消えない神話」</span>である。
+                これはただのモンスターではない。<span class="highlight"
+                  >「意味の断片」</span
+                >であり、<span class="highlight">「永遠に消えない神話」</span
+                >である。
               </p>
             </div>
           </div>
         </div>
-        
+
         <!-- English Version (Hidden by default) -->
-        <div id="en-content" style="display: none;">
+        <div id="en-content" style="display: none">
           <div class="section">
             <h2 class="section-title">The End and Rebirth of NFTs</h2>
             <p class="manifest-text">
-              Mass-produced, burned, and forgotten. Countless NFTs lost to 404 errors.
-              No one remembers who created them, or why.
+              Mass-produced, burned, and forgotten. Countless NFTs lost to 404
+              errors. No one remembers who created them, or why.
             </p>
             <p class="manifest-text">
-              So we ask:<br>
+              So we ask:<br />
               <span class="highlight">What truly matters in an NFT?</span>
             </p>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">Why "Fully Onchain"?</h2>
             <div class="principle-box">
               <ul class="principle-list">
-                <li>Where the data <em>lives</em> is where culture <em>survives</em></li>
-                <li>A blockchain is not a record book, but a <strong>proving ground</strong></li>
-                <li>Art is not just to be viewed, but to be <strong>interpreted</strong></li>
+                <li>
+                  Where the data <em>lives</em> is where culture
+                  <em>survives</em>
+                </li>
+                <li>
+                  A blockchain is not a record book, but a
+                  <strong>proving ground</strong>
+                </li>
+                <li>
+                  Art is not just to be viewed, but to be
+                  <strong>interpreted</strong>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">Why SVG? Why Pixel Art?</h2>
             <div class="principle-box">
               <ul class="principle-list">
-                <li>SVG is the <strong>only image format natively readable</strong> on-chain</li>
-                <li>Pixel art is a <strong>minimalist form</strong> that holds <strong>maximum expressiveness</strong></li>
-                <li>Onchain SVG is <strong>visible code</strong> and <strong>immutable narrative</strong></li>
+                <li>
+                  SVG is the
+                  <strong>only image format natively readable</strong> on-chain
+                </li>
+                <li>
+                  Pixel art is a <strong>minimalist form</strong> that holds
+                  <strong>maximum expressiveness</strong>
+                </li>
+                <li>
+                  Onchain SVG is <strong>visible code</strong> and
+                  <strong>immutable narrative</strong>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">Why Arweave?</h2>
             <div class="quote">
@@ -385,46 +474,55 @@
               <ul class="principle-list">
                 <li>Arweave is an <strong>eternal library</strong></li>
                 <li>Ethereum is the <strong>notary</strong> of that meaning</li>
-                <li>Together, they form a <strong>crossroad of permanence and proof</strong></li>
+                <li>
+                  Together, they form a
+                  <strong>crossroad of permanence and proof</strong>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
-            <h2 class="section-title">What We Build: Monsters as Narrative Engines</h2>
+            <h2 class="section-title">
+              What We Build: Monsters as Narrative Engines
+            </h2>
             <div class="principle-box">
               <ul class="principle-list">
-                <li>Each monster has structure, attributes, and latent meaning</li>
+                <li>
+                  Each monster has structure, attributes, and latent meaning
+                </li>
                 <li>To own one is to <strong>inherit its story</strong></li>
-                <li>Interpretation is left to holders, and <strong>ownership becomes legacy</strong></li>
+                <li>
+                  Interpretation is left to holders, and
+                  <strong>ownership becomes legacy</strong>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">To the Interpreters</h2>
             <div class="call-to-action">
+              <p class="manifest-text">This is not an NFT to collect.</p>
               <p class="manifest-text">
-                This is not an NFT to collect.
-              </p>
-              <p class="manifest-text">
-                This is an NFT to <span class="highlight">read</span>.<br>
+                This is an NFT to <span class="highlight">read</span>.<br />
                 An NFT to <span class="highlight">narrate</span>.
               </p>
               <p class="manifest-text">
-                Not just a monster, but a <span class="highlight">fragment of meaning</span>.<br>
+                Not just a monster, but a
+                <span class="highlight">fragment of meaning</span>.<br />
                 An <span class="highlight">eternal myth</span>, sealed onchain.
               </p>
             </div>
           </div>
         </div>
-        
+
         <!-- Chinese Version -->
-        <div id="zh-content" style="display: none;">
+        <div id="zh-content" style="display: none">
           <div class="section">
             <h2 class="section-title">NFT的终结与重生</h2>
             <p class="manifest-text">
@@ -432,13 +530,13 @@
               没有人记得是谁创造了它们，或为什么。
             </p>
             <p class="manifest-text">
-              所以我们要问：<br>
+              所以我们要问：<br />
               <span class="highlight">NFT真正重要的是什么？</span>
             </p>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">为什么"完全链上"？</h2>
             <div class="principle-box">
@@ -449,27 +547,33 @@
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">为什么选择SVG？为什么选择像素艺术？</h2>
             <div class="principle-box">
               <ul class="principle-list">
                 <li>SVG是<strong>唯一可在链上原生读取的图像格式</strong></li>
-                <li>像素艺术是一种<strong>极简形式</strong>，蕴含<strong>最大表现力</strong></li>
-                <li>链上SVG是<strong>可见代码</strong>和<strong>不可变叙事</strong></li>
+                <li>
+                  像素艺术是一种<strong>极简形式</strong>，蕴含<strong
+                    >最大表现力</strong
+                  >
+                </li>
+                <li>
+                  链上SVG是<strong>可见代码</strong>和<strong
+                    >不可变叙事</strong
+                  >
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">为什么选择Arweave？</h2>
-            <div class="quote">
-              完全链上并不意味着一切都必须存在于EVM上。
-            </div>
+            <div class="quote">完全链上并不意味着一切都必须存在于EVM上。</div>
             <div class="principle-box">
               <ul class="principle-list">
                 <li>Arweave是一个<strong>永恒的图书馆</strong></li>
@@ -478,9 +582,9 @@
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">我们构建的：作为叙事引擎的怪物</h2>
             <div class="principle-box">
@@ -491,69 +595,90 @@
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">致解读者</h2>
             <div class="call-to-action">
+              <p class="manifest-text">这不是用来收藏的NFT。</p>
               <p class="manifest-text">
-                这不是用来收藏的NFT。
-              </p>
-              <p class="manifest-text">
-                这是用来<span class="highlight">阅读</span>的NFT。<br>
+                这是用来<span class="highlight">阅读</span>的NFT。<br />
                 是用来<span class="highlight">叙述</span>的NFT。
               </p>
               <p class="manifest-text">
-                不仅仅是怪物，而是<span class="highlight">意义的碎片</span>。<br>
+                不仅仅是怪物，而是<span class="highlight">意义的碎片</span
+                >。<br />
                 是<span class="highlight">永恒的神话</span>，封印在链上。
               </p>
             </div>
           </div>
         </div>
-        
+
         <!-- Korean Version -->
-        <div id="ko-content" style="display: none;">
+        <div id="ko-content" style="display: none">
           <div class="section">
             <h2 class="section-title">NFT의 종말과 재탄생</h2>
             <p class="manifest-text">
-              대량 생산되고, 소각되고, 잊혀진 수많은 NFT들.
-              404 오류로 사라진 이미지들. 누가, 왜 만들었는지 아무도 기억하지 못한다.
+              대량 생산되고, 소각되고, 잊혀진 수많은 NFT들. 404 오류로 사라진
+              이미지들. 누가, 왜 만들었는지 아무도 기억하지 못한다.
             </p>
             <p class="manifest-text">
-              그래서 우리는 묻는다:<br>
-              <span class="highlight">NFT에서 진정으로 중요한 것은 무엇인가?</span>
+              그래서 우리는 묻는다:<br />
+              <span class="highlight"
+                >NFT에서 진정으로 중요한 것은 무엇인가?</span
+              >
             </p>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">왜 "완전 온체인"인가?</h2>
             <div class="principle-box">
               <ul class="principle-list">
-                <li>데이터가 <em>존재하는</em> 곳이 문화가 <em>생존하는</em> 곳이다</li>
-                <li>블록체인은 기록부가 아니라 <strong>증명의 장</strong>이다</li>
-                <li>예술은 단지 보는 것이 아니라 <strong>해석되어야</strong> 하는 것이다</li>
+                <li>
+                  데이터가 <em>존재하는</em> 곳이 문화가
+                  <em>생존하는</em> 곳이다
+                </li>
+                <li>
+                  블록체인은 기록부가 아니라 <strong>증명의 장</strong>이다
+                </li>
+                <li>
+                  예술은 단지 보는 것이 아니라 <strong>해석되어야</strong> 하는
+                  것이다
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">왜 SVG인가? 왜 픽셀 아트인가?</h2>
             <div class="principle-box">
               <ul class="principle-list">
-                <li>SVG는 <strong>온체인에서 원시적으로 읽을 수 있는 유일한 이미지 형식</strong>이다</li>
-                <li>픽셀 아트는 <strong>최대한의 표현력</strong>을 담은 <strong>미니멀리스트 형식</strong>이다</li>
-                <li>온체인 SVG는 <strong>보이는 코드</strong>이자 <strong>불변의 서사</strong>이다</li>
+                <li>
+                  SVG는
+                  <strong
+                    >온체인에서 원시적으로 읽을 수 있는 유일한 이미지
+                    형식</strong
+                  >이다
+                </li>
+                <li>
+                  픽셀 아트는 <strong>최대한의 표현력</strong>을 담은
+                  <strong>미니멀리스트 형식</strong>이다
+                </li>
+                <li>
+                  온체인 SVG는 <strong>보이는 코드</strong>이자
+                  <strong>불변의 서사</strong>이다
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">왜 Arweave인가?</h2>
             <div class="quote">
@@ -563,274 +688,367 @@
               <ul class="principle-list">
                 <li>Arweave는 <strong>영원한 도서관</strong>이다</li>
                 <li>이더리움은 그 의미의 <strong>공증인</strong>이다</li>
-                <li>함께 그들은 <strong>영속성과 증명의 교차점</strong>을 형성한다</li>
+                <li>
+                  함께 그들은 <strong>영속성과 증명의 교차점</strong>을 형성한다
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
-            <h2 class="section-title">우리가 만드는 것: 서사 엔진으로서의 몬스터</h2>
+            <h2 class="section-title">
+              우리가 만드는 것: 서사 엔진으로서의 몬스터
+            </h2>
             <div class="principle-box">
               <ul class="principle-list">
                 <li>각 몬스터는 구조, 속성, 잠재된 의미를 가진다</li>
-                <li>소유한다는 것은 <strong>그 이야기를 계승하는</strong> 것이다</li>
-                <li>해석은 홀더에게 맡겨지며, <strong>소유권은 유산이 된다</strong></li>
+                <li>
+                  소유한다는 것은 <strong>그 이야기를 계승하는</strong> 것이다
+                </li>
+                <li>
+                  해석은 홀더에게 맡겨지며,
+                  <strong>소유권은 유산이 된다</strong>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">해석자들에게</h2>
             <div class="call-to-action">
+              <p class="manifest-text">이것은 수집하는 NFT가 아니다.</p>
               <p class="manifest-text">
-                이것은 수집하는 NFT가 아니다.
-              </p>
-              <p class="manifest-text">
-                이것은 <span class="highlight">읽는</span> NFT다.<br>
+                이것은 <span class="highlight">읽는</span> NFT다.<br />
                 <span class="highlight">서술하는</span> NFT다.
               </p>
               <p class="manifest-text">
-                단순한 몬스터가 아닌, <span class="highlight">의미의 파편</span>이다.<br>
+                단순한 몬스터가 아닌,
+                <span class="highlight">의미의 파편</span>이다.<br />
                 온체인에 봉인된 <span class="highlight">영원한 신화</span>다.
               </p>
             </div>
           </div>
         </div>
-        
+
         <!-- French Version -->
-        <div id="fr-content" style="display: none;">
+        <div id="fr-content" style="display: none">
           <div class="section">
             <h2 class="section-title">La Fin et la Renaissance des NFT</h2>
             <p class="manifest-text">
-              Produits en masse, brûlés et oubliés. D'innombrables NFT perdus dans des erreurs 404.
-              Personne ne se souvient de qui les a créés, ou pourquoi.
+              Produits en masse, brûlés et oubliés. D'innombrables NFT perdus
+              dans des erreurs 404. Personne ne se souvient de qui les a créés,
+              ou pourquoi.
             </p>
             <p class="manifest-text">
-              Alors nous demandons :<br>
-              <span class="highlight">Qu'est-ce qui compte vraiment dans un NFT ?</span>
+              Alors nous demandons :<br />
+              <span class="highlight"
+                >Qu'est-ce qui compte vraiment dans un NFT ?</span
+              >
             </p>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">Pourquoi "Entièrement On-Chain" ?</h2>
             <div class="principle-box">
               <ul class="principle-list">
-                <li>Là où les données <em>vivent</em>, c'est là où la culture <em>survit</em></li>
-                <li>Une blockchain n'est pas un livre de comptes, mais un <strong>terrain de preuve</strong></li>
-                <li>L'art n'est pas seulement à voir, mais à <strong>interpréter</strong></li>
+                <li>
+                  Là où les données <em>vivent</em>, c'est là où la culture
+                  <em>survit</em>
+                </li>
+                <li>
+                  Une blockchain n'est pas un livre de comptes, mais un
+                  <strong>terrain de preuve</strong>
+                </li>
+                <li>
+                  L'art n'est pas seulement à voir, mais à
+                  <strong>interpréter</strong>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
-            <h2 class="section-title">Pourquoi le SVG ? Pourquoi le Pixel Art ?</h2>
+            <h2 class="section-title">
+              Pourquoi le SVG ? Pourquoi le Pixel Art ?
+            </h2>
             <div class="principle-box">
               <ul class="principle-list">
-                <li>Le SVG est le <strong>seul format d'image lisible nativement</strong> on-chain</li>
-                <li>Le pixel art est une <strong>forme minimaliste</strong> qui contient une <strong>expressivité maximale</strong></li>
-                <li>Le SVG on-chain est un <strong>code visible</strong> et un <strong>récit immuable</strong></li>
+                <li>
+                  Le SVG est le
+                  <strong>seul format d'image lisible nativement</strong>
+                  on-chain
+                </li>
+                <li>
+                  Le pixel art est une <strong>forme minimaliste</strong> qui
+                  contient une <strong>expressivité maximale</strong>
+                </li>
+                <li>
+                  Le SVG on-chain est un <strong>code visible</strong> et un
+                  <strong>récit immuable</strong>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">Pourquoi Arweave ?</h2>
             <div class="quote">
-              Entièrement on-chain ne signifie pas que tout doit vivre sur l'EVM.
+              Entièrement on-chain ne signifie pas que tout doit vivre sur
+              l'EVM.
             </div>
             <div class="principle-box">
               <ul class="principle-list">
                 <li>Arweave est une <strong>bibliothèque éternelle</strong></li>
                 <li>Ethereum est le <strong>notaire</strong> de ce sens</li>
-                <li>Ensemble, ils forment un <strong>carrefour de permanence et de preuve</strong></li>
+                <li>
+                  Ensemble, ils forment un
+                  <strong>carrefour de permanence et de preuve</strong>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
-            <h2 class="section-title">Ce Que Nous Construisons : Les Monstres comme Moteurs Narratifs</h2>
+            <h2 class="section-title">
+              Ce Que Nous Construisons : Les Monstres comme Moteurs Narratifs
+            </h2>
             <div class="principle-box">
               <ul class="principle-list">
-                <li>Chaque monstre a une structure, des attributs et un sens latent</li>
-                <li>En posséder un, c'est <strong>hériter de son histoire</strong></li>
-                <li>L'interprétation est laissée aux détenteurs, et <strong>la propriété devient héritage</strong></li>
+                <li>
+                  Chaque monstre a une structure, des attributs et un sens
+                  latent
+                </li>
+                <li>
+                  En posséder un, c'est <strong>hériter de son histoire</strong>
+                </li>
+                <li>
+                  L'interprétation est laissée aux détenteurs, et
+                  <strong>la propriété devient héritage</strong>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">Aux Interprètes</h2>
             <div class="call-to-action">
+              <p class="manifest-text">Ce n'est pas un NFT à collectionner.</p>
               <p class="manifest-text">
-                Ce n'est pas un NFT à collectionner.
-              </p>
-              <p class="manifest-text">
-                C'est un NFT à <span class="highlight">lire</span>.<br>
+                C'est un NFT à <span class="highlight">lire</span>.<br />
                 Un NFT à <span class="highlight">narrer</span>.
               </p>
               <p class="manifest-text">
-                Pas seulement un monstre, mais un <span class="highlight">fragment de sens</span>.<br>
-                Un <span class="highlight">mythe éternel</span>, scellé on-chain.
+                Pas seulement un monstre, mais un
+                <span class="highlight">fragment de sens</span>.<br />
+                Un <span class="highlight">mythe éternel</span>, scellé
+                on-chain.
               </p>
             </div>
           </div>
         </div>
-        
+
         <!-- German Version -->
-        <div id="de-content" style="display: none;">
+        <div id="de-content" style="display: none">
           <div class="section">
-            <h2 class="section-title">Das Ende und die Wiedergeburt der NFTs</h2>
+            <h2 class="section-title">
+              Das Ende und die Wiedergeburt der NFTs
+            </h2>
             <p class="manifest-text">
-              Massenproduziert, verbrannt und vergessen. Unzählige NFTs verloren in 404-Fehlern.
-              Niemand erinnert sich, wer sie erschaffen hat oder warum.
+              Massenproduziert, verbrannt und vergessen. Unzählige NFTs verloren
+              in 404-Fehlern. Niemand erinnert sich, wer sie erschaffen hat oder
+              warum.
             </p>
             <p class="manifest-text">
-              Also fragen wir:<br>
+              Also fragen wir:<br />
               <span class="highlight">Was zählt wirklich bei einem NFT?</span>
             </p>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">Warum "Vollständig On-Chain"?</h2>
             <div class="principle-box">
               <ul class="principle-list">
-                <li>Wo die Daten <em>leben</em>, dort <em>überlebt</em> die Kultur</li>
-                <li>Eine Blockchain ist kein Protokollbuch, sondern ein <strong>Beweisgrund</strong></li>
-                <li>Kunst ist nicht nur zum Anschauen, sondern zum <strong>Interpretieren</strong></li>
+                <li>
+                  Wo die Daten <em>leben</em>, dort <em>überlebt</em> die Kultur
+                </li>
+                <li>
+                  Eine Blockchain ist kein Protokollbuch, sondern ein
+                  <strong>Beweisgrund</strong>
+                </li>
+                <li>
+                  Kunst ist nicht nur zum Anschauen, sondern zum
+                  <strong>Interpretieren</strong>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">Warum SVG? Warum Pixel Art?</h2>
             <div class="principle-box">
               <ul class="principle-list">
-                <li>SVG ist das <strong>einzige nativ lesbare Bildformat</strong> on-chain</li>
-                <li>Pixel Art ist eine <strong>minimalistische Form</strong> mit <strong>maximaler Ausdruckskraft</strong></li>
-                <li>On-Chain SVG ist <strong>sichtbarer Code</strong> und <strong>unveränderliche Erzählung</strong></li>
+                <li>
+                  SVG ist das
+                  <strong>einzige nativ lesbare Bildformat</strong> on-chain
+                </li>
+                <li>
+                  Pixel Art ist eine <strong>minimalistische Form</strong> mit
+                  <strong>maximaler Ausdruckskraft</strong>
+                </li>
+                <li>
+                  On-Chain SVG ist <strong>sichtbarer Code</strong> und
+                  <strong>unveränderliche Erzählung</strong>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">Warum Arweave?</h2>
             <div class="quote">
-              Vollständig on-chain bedeutet nicht, dass alles auf der EVM leben muss.
+              Vollständig on-chain bedeutet nicht, dass alles auf der EVM leben
+              muss.
             </div>
             <div class="principle-box">
               <ul class="principle-list">
                 <li>Arweave ist eine <strong>ewige Bibliothek</strong></li>
-                <li>Ethereum ist der <strong>Notar</strong> dieser Bedeutung</li>
-                <li>Zusammen bilden sie eine <strong>Kreuzung von Beständigkeit und Beweis</strong></li>
+                <li>
+                  Ethereum ist der <strong>Notar</strong> dieser Bedeutung
+                </li>
+                <li>
+                  Zusammen bilden sie eine
+                  <strong>Kreuzung von Beständigkeit und Beweis</strong>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
-            <h2 class="section-title">Was Wir Bauen: Monster als Narrative Motoren</h2>
+            <h2 class="section-title">
+              Was Wir Bauen: Monster als Narrative Motoren
+            </h2>
             <div class="principle-box">
               <ul class="principle-list">
-                <li>Jedes Monster hat Struktur, Attribute und latente Bedeutung</li>
-                <li>Eines zu besitzen bedeutet, <strong>seine Geschichte zu erben</strong></li>
-                <li>Die Interpretation bleibt den Besitzern überlassen, und <strong>Eigentum wird zum Vermächtnis</strong></li>
+                <li>
+                  Jedes Monster hat Struktur, Attribute und latente Bedeutung
+                </li>
+                <li>
+                  Eines zu besitzen bedeutet,
+                  <strong>seine Geschichte zu erben</strong>
+                </li>
+                <li>
+                  Die Interpretation bleibt den Besitzern überlassen, und
+                  <strong>Eigentum wird zum Vermächtnis</strong>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div class="divider">✦ ✦ ✦</div>
-          
+
           <div class="section">
             <h2 class="section-title">An die Interpreten</h2>
             <div class="call-to-action">
+              <p class="manifest-text">Dies ist kein NFT zum Sammeln.</p>
               <p class="manifest-text">
-                Dies ist kein NFT zum Sammeln.
-              </p>
-              <p class="manifest-text">
-                Dies ist ein NFT zum <span class="highlight">Lesen</span>.<br>
+                Dies ist ein NFT zum <span class="highlight">Lesen</span>.<br />
                 Ein NFT zum <span class="highlight">Erzählen</span>.
               </p>
               <p class="manifest-text">
-                Nicht nur ein Monster, sondern ein <span class="highlight">Fragment der Bedeutung</span>.<br>
-                Ein <span class="highlight">ewiger Mythos</span>, versiegelt on-chain.
+                Nicht nur ein Monster, sondern ein
+                <span class="highlight">Fragment der Bedeutung</span>.<br />
+                Ein <span class="highlight">ewiger Mythos</span>, versiegelt
+                on-chain.
               </p>
             </div>
           </div>
         </div>
       </div>
-      
-      <footer style="text-align: center; margin-top: 40px; padding-top: 20px; color: #C084FC; font-size: 14px;">
+
+      <footer
+        style="
+          text-align: center;
+          margin-top: 40px;
+          padding-top: 20px;
+          color: #c084fc;
+          font-size: 14px;
+        "
+      >
         © 2025 The Mythical Cursed-Nightmare
       </footer>
     </div>
 
     <script>
-      let currentLang = 'ja';
-      
+      let currentLang = "ja";
+
       // Switch language function
       function switchLanguage(lang) {
         currentLang = lang;
-        
+
         // Update active tab
-        document.querySelectorAll('.lang-tab').forEach(tab => {
-          tab.classList.remove('active');
+        document.querySelectorAll(".lang-tab").forEach((tab) => {
+          tab.classList.remove("active");
         });
-        event.target.closest('.lang-tab').classList.add('active');
-        
+        event.target.closest(".lang-tab").classList.add("active");
+
         // Hide all content
-        document.querySelectorAll('[id$="-content"]').forEach(content => {
-          content.style.display = 'none';
+        document.querySelectorAll('[id$="-content"]').forEach((content) => {
+          content.style.display = "none";
         });
-        
+
         // Show selected language content
-        const selectedContent = document.getElementById(lang + '-content');
+        const selectedContent = document.getElementById(lang + "-content");
         if (selectedContent) {
-          selectedContent.style.display = 'block';
+          selectedContent.style.display = "block";
         }
-        
+
         // Reset animations
-        document.querySelectorAll('.section').forEach(section => {
-          section.style.animation = 'none';
+        document.querySelectorAll(".section").forEach((section) => {
+          section.style.animation = "none";
           setTimeout(() => {
-            section.style.animation = '';
+            section.style.animation = "";
           }, 10);
         });
       }
-      
+
       // Add some interactive effects
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
         // Animate text on scroll
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.style.opacity = '1';
-              entry.target.style.transform = 'translateY(0)';
-            }
-          });
-        }, { threshold: 0.1 });
-        
-        document.querySelectorAll('.section').forEach(section => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        document.querySelectorAll(".section").forEach((section) => {
           observer.observe(section);
         });
       });
