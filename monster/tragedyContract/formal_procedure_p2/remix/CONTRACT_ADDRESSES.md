@@ -1,59 +1,49 @@
-# Tragedy NFT Contract Addresses
+# Tragedy NFT V5 - Contract Addresses
 
-## Bon-Soleil Testnet Deployment
+## Deployment Date: 2025-08-06
+## Network: Bon-Soleil Testnet (Chain ID: 21201)
 
-### Deployment Information
-- **Network**: Bon-Soleil Testnet
-- **Chain ID**: 21201
-- **RPC URL**: https://dev2.bon-soleil.com/rpc
-- **Initial Deployment**: 2025-01-02
-- **BankedNFT Deployment**: 2025-08-06
+### Main Contracts
 
-### Contract Addresses
+| Contract | Address |
+|----------|---------|
+| **BankedNFT** | `0x96a960FA0c267dc9fa64f61C849d6D0e88801d34` |
+| **MetadataV5** | `0xd5a61216F7E97798bE5Dbc9Fd8D72C8Fd468b705` |
+| **ComposerV5** | `0x078b4d91BA92177c2a01d4A84aE78e24b603d10E` |
 
-#### Core Infrastructure
-| Contract | Address | Description |
-|----------|---------|-------------|
-| Base64 Library | `0x552B3F94727AcdAfbD7564682F2EA8F4275D1267` | Base64 encoding library |
+### Bank Contracts (V3 - Combined)
 
-#### Bank Contracts (Data Storage)
-| Contract | Address | Description |
-|----------|---------|-------------|
-| ArweaveMonsterBank | `0xa07edc0A9c26B34dc77a7125ad3441d1DdE3483a` | On-chain monster SVG storage |
-| ArweaveItemBank | `0x0D72B5DCFc97b7fE8c15cE1c7c68A1c0dDC446bd` | On-chain item SVG storage |
-| ArweaveBackgroundBank | `0xC2d0142F4748D3373BcA7BE31B1AD6bB676b66df` | Arweave background URL management |
-| ArweaveEffectBank | `0xBD3E0Cc596a35e6cECD4C95e41DFf572Af2eb4db` | Arweave effect URL management |
+| Contract | Address |
+|----------|---------|
+| **MonsterBankV3** | `0xc5dC1c5F923edA5eBe4765fE5A2E10Ae03D8b123` |
+| **ItemBankV3** | `0x7485194fCeB774f1eb5Dc12CF852ED0541FcfF22` |
+| **BackgroundBank** | `0xf368EB1eD47121B445F92E0Cc49a3F7Ceb96E64C` |
+| **EffectBank** | `0xFc0F05BfC0cd5e7e066b78879c32Efa518468dce` |
 
-#### Composition & Metadata Contracts
-| Contract | Address | Description |
-|----------|---------|-------------|
-| ArweaveTragedyComposerV2 | `0x0c687b850B572845EF88903d78a804B3f46E611b` | SVG composition engine |
-| TragedyMetadata | `0x18b613006C7921d6a4b9272c3ECCF5057FD395f6` | Legacy metadata generation |
-| TragedyMetadataV2 | `0x7537eBe80Ef1D4a57DbB22B6bE6B9C9a4dAff4b2` | MetadataBank implementation |
+### Individual Bank Contracts (Referenced by V3)
 
-#### NFT Contracts
-| Contract | Address | Description |
-|----------|---------|-------------|
-| TragedyMythNFT | `0xCd3272E5016Ac392c7dA55b7AeA2e0714571cA4F` | Legacy NFT contract (ERC721) |
-| TragedyBankedNFT | `0x930Fc003DD8989E8d64b9Bba7673180C369178C5` | BankedNFT implementation |
+| Contract | Address |
+|----------|---------|
+| **MonsterBank1** | `0xc6E63bC65201BeBEa01a975e02f6c5C2B8f68cc9` |
+| **MonsterBank2** | `0xBfd8838C25608c7DF82DaC5B95be004a8a7D3114` |
+| **ItemBank1** | `0xC449009B332c68b6Bf688Dd15b39cA4B7521c3e1` |
+| **ItemBank2** | `0x76a5F990bCe8946b380DB5E0ae2CCD26d0472B01` |
 
-### Quick Access for Remix
+## Contract Parameters
 
-To interact with these contracts in Remix:
-
-1. Copy the interface files from this directory
-2. Go to Remix IDE
-3. Deploy -> "At Address" with the addresses above
-4. Make sure you're connected to Bon-Soleil testnet
-
-### Current Status
-- TragedyMythNFT: 5 NFTs minted
-- TragedyBankedNFT: 1 NFT minted (test mint)
-- All systems operational
-- Arweave URLs configured and working
-
-### BankedNFT System Details
+### BankedNFT
+- **Name**: Tragedy NFT
+- **Symbol**: TRAGEDY
 - **Max Supply**: 10,000
 - **Mint Fee**: 0.01 ETH
-- **Royalty Rate**: 5%
-- **Metadata Count**: 10,000 unique combinations
+- **Royalty Rate**: 2.5% (250 basis points)
+
+## How to Use in Remix
+
+1. Open Remix IDE (https://remix.ethereum.org)
+2. Copy the interface files from this directory
+3. Compile the interfaces
+4. In "Deploy & Run Transactions" tab:
+   - Set Environment to "Injected Provider" (MetaMask)
+   - Make sure you're connected to Bon-Soleil Testnet
+   - Load contract at address using the addresses above

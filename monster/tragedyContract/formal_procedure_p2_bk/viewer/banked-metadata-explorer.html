@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Tragedy V5: The Mythical Cursed-Nightmare</title>
+    <title>BankedNFT System with Metadata Explorer</title>
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
     <style>
       * {
@@ -420,170 +420,23 @@
         max-width: 100%;
         height: auto;
       }
-
-      /* Floating preview styles */
-      .floating-preview {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        width: 500px;
-        background: #0a0a0a;
-        border: 2px solid #ff6b6b;
-        border-radius: 8px;
-        padding: 20px;
-        z-index: 1000;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
-        display: none;
-      }
-
-      .floating-preview.active {
-        display: block;
-      }
-
-      .floating-preview-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-      }
-
-      .floating-preview-title {
-        color: #ff6b6b;
-        font-weight: bold;
-        font-size: 14px;
-      }
-
-      .floating-preview-close {
-        background: #ff6b6b;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 2px 8px;
-        cursor: pointer;
-        font-size: 12px;
-      }
-
-      .floating-preview-close:hover {
-        background: #dc143c;
-      }
-
-      .floating-preview-content {
-        background: #000;
-        border: 1px solid #333;
-        border-radius: 6px;
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 450px;
-      }
-
-      .floating-preview-content svg {
-        width: 100%;
-        height: auto;
-        max-width: 450px;
-        max-height: 450px;
-      }
-
-      .floating-preview-info {
-        margin-top: 10px;
-        font-size: 12px;
-        color: #aaa;
-      }
-
-      .floating-preview-info p {
-        margin: 2px 0;
-      }
-
-      .preview-toggle {
-        background: #333;
-        color: #fff;
-        border: 1px solid #444;
-        padding: 5px 10px;
-        border-radius: 4px;
-        font-size: 12px;
-        cursor: pointer;
-        margin-left: 10px;
-      }
-
-      .preview-toggle:hover {
-        background: #444;
-      }
-
-      .preview-toggle.active {
-        background: #ff6b6b;
-        border-color: #ff6b6b;
-      }
     </style>
   </head>
   <body>
-    <!-- Floating Preview -->
-    <div id="floating-preview" class="floating-preview">
-      <div class="floating-preview-header">
-        <span class="floating-preview-title">NFT Preview</span>
-        <button class="floating-preview-close" onclick="closeFloatingPreview()">
-          ✕
-        </button>
-      </div>
-      <div class="floating-preview-content" id="floating-preview-svg">
-        <p style="color: #666">No preview available</p>
-      </div>
-      <div class="floating-preview-info" id="floating-preview-info">
-        <p><strong>Name:</strong> <span id="floating-preview-name">-</span></p>
-        <p>
-          <strong>Token ID:</strong> <span id="floating-preview-id">-</span>
-        </p>
-        <div id="floating-preview-description" style="display: none">
-          <p><strong>Description:</strong></p>
-          <p
-            id="floating-preview-desc-text"
-            style="
-              font-size: 12px;
-              line-height: 1.4;
-              color: #ccc;
-              margin: 5px 0;
-            "
-          >
-            -
-          </p>
-        </div>
-        <div
-          id="floating-preview-attributes"
-          style="display: none; margin-top: 10px"
-        >
-          <p><strong>Attributes:</strong></p>
-          <div id="floating-preview-attrs" style="font-size: 12px"></div>
-        </div>
-      </div>
-    </div>
-
     <div class="container">
       <header>
-        <h1>Tragedy: The Mythical Cursed-Nightmare</h1>
-        <p class="subtitle">V5 System with Synergy Transformations</p>
-        <button
-          class="preview-toggle"
-          onclick="toggleFloatingPreview()"
-          style="margin-top: 10px"
-        >
-          Toggle Preview
-        </button>
+        <h1>BankedNFT System</h1>
+        <p class="subtitle">Tragedy NFT with MetadataBank Architecture</p>
       </header>
 
       <div class="tab-container">
         <div class="tabs">
           <button class="tab active" onclick="switchTab('viewer')">
-            ️ NFT Viewer
+            NFT Viewer
           </button>
           <button class="tab" onclick="switchTab('minting')">Minting</button>
           <button class="tab" onclick="switchTab('metadata')">
             Metadata Explorer
-          </button>
-          <button class="tab" onclick="switchTab('composer')">
-            Composer Explorer
-          </button>
-          <button class="tab" onclick="switchTab('materials')">
-            Material Explorer
           </button>
           <button class="tab" onclick="switchTab('admin')">Admin</button>
         </div>
@@ -652,26 +505,6 @@
               <h4>Minting Information</h4>
               <div class="info-grid">
                 <div class="info-item">
-                  <h4>Collection Name</h4>
-                  <p id="collection-name">Loading...</p>
-                </div>
-                <div class="info-item">
-                  <h4>Symbol</h4>
-                  <p id="collection-symbol">Loading...</p>
-                </div>
-                <div class="info-item">
-                  <h4>Total Supply</h4>
-                  <p id="mint-total-supply">Loading...</p>
-                </div>
-                <div class="info-item">
-                  <h4>Max Supply</h4>
-                  <p id="mint-max-supply">Loading...</p>
-                </div>
-                <div class="info-item">
-                  <h4>Remaining</h4>
-                  <p id="mint-remaining">Loading...</p>
-                </div>
-                <div class="info-item">
                   <h4>Mint Fee</h4>
                   <p id="mint-fee">Loading...</p>
                 </div>
@@ -682,14 +515,6 @@
                 <div class="info-item">
                   <h4>Can Mint</h4>
                   <p id="can-mint">Loading...</p>
-                </div>
-                <div class="info-item">
-                  <h4>Royalty Rate</h4>
-                  <p id="royalty-rate">Loading...</p>
-                </div>
-                <div class="info-item">
-                  <h4>Owner</h4>
-                  <p id="contract-owner">Loading...</p>
                 </div>
               </div>
             </div>
@@ -801,104 +626,6 @@
         </div>
       </div>
 
-      <!-- Material Explorer Section -->
-      <div id="materials-section" class="content-section">
-        <h2>Material Explorer</h2>
-        <div class="deployment-info">
-          <h3>📋 Contract Information</h3>
-          <p>MonsterBank: <span id="material-monster-bank">Not loaded</span></p>
-          <p>ItemBank: <span id="material-item-bank">Not loaded</span></p>
-          <p>BackgroundBank: <span id="material-background-bank">Not loaded</span></p>
-          <p>EffectBank: <span id="material-effect-bank">Not loaded</span></p>
-        </div>
-        <div class="status" id="materials-status">
-          <span class="loading">Loading materials...</span>
-        </div>
-        <div id="materials-container"></div>
-      </div>
-
-      <!-- Composer Explorer Section -->
-      <div id="composer-section" class="content-section">
-        <h2>Composer Explorer</h2>
-        <div class="deployment-info">
-          <h3>📋 Contract Information</h3>
-          <p>ComposerV5: <span id="composer-address-info">Not loaded</span></p>
-          <p>MonsterBank: <span id="composer-monster-bank">Not loaded</span></p>
-          <p>ItemBank: <span id="composer-item-bank">Not loaded</span></p>
-          <p>BackgroundBank: <span id="composer-background-bank">Not loaded</span></p>
-          <p>EffectBank: <span id="composer-effect-bank">Not loaded</span></p>
-        </div>
-        <div class="admin-section">
-          <h3>Test Composition</h3>
-          <div class="function-group">
-            <label>Species:</label>
-            <select id="composer-species" class="input-field">
-              <option value="0">0 - Werewolf</option>
-              <option value="1">1 - Goblin</option>
-              <option value="2">2 - Frankenstein</option>
-              <option value="3">3 - Demon</option>
-              <option value="4">4 - Dragon</option>
-              <option value="5">5 - Zombie</option>
-              <option value="6">6 - Vampire</option>
-              <option value="7">7 - Mummy</option>
-              <option value="8">8 - Succubus</option>
-              <option value="9">9 - Skeleton</option>
-            </select>
-          </div>
-          <div class="function-group">
-            <label>Background:</label>
-            <select id="composer-background" class="input-field">
-              <option value="0">0 - Bloodmoon</option>
-              <option value="1">1 - Abyss</option>
-              <option value="2">2 - Decay</option>
-              <option value="3">3 - Corruption</option>
-              <option value="4">4 - Venom</option>
-              <option value="5">5 - Void</option>
-              <option value="6">6 - Inferno</option>
-              <option value="7">7 - Frost</option>
-              <option value="8">8 - Ragnarok</option>
-              <option value="9">9 - Shadow</option>
-            </select>
-          </div>
-          <div class="function-group">
-            <label>Item:</label>
-            <select id="composer-item" class="input-field">
-              <option value="0">0 - Crown</option>
-              <option value="1">1 - Sword</option>
-              <option value="2">2 - Shield</option>
-              <option value="3">3 - Poison</option>
-              <option value="4">4 - Torch</option>
-              <option value="5">5 - Wine</option>
-              <option value="6">6 - Scythe</option>
-              <option value="7">7 - Staff</option>
-              <option value="8">8 - Shoulder</option>
-              <option value="9">9 - Amulet</option>
-              <option value="10">10 - Head</option>
-              <option value="11">11 - Arm</option>
-            </select>
-          </div>
-          <div class="function-group">
-            <label>Effect:</label>
-            <select id="composer-effect" class="input-field">
-              <option value="0">0 - Seizure</option>
-              <option value="1">1 - Mindblast</option>
-              <option value="2">2 - Confusion</option>
-              <option value="3">3 - Meteor</option>
-              <option value="4">4 - Bats</option>
-              <option value="5">5 - Poisoning</option>
-              <option value="6">6 - Lightning</option>
-              <option value="7">7 - Blizzard</option>
-              <option value="8">8 - Burning</option>
-              <option value="9">9 - Brainwash</option>
-            </select>
-          </div>
-          <button class="btn-action" onclick="testComposer()">
-            Compose SVG
-          </button>
-        </div>
-        <div id="composer-result"></div>
-      </div>
-
       <!-- Admin Section -->
       <div id="admin-section" class="content-section">
         <div class="wallet-connect" id="wallet-section-admin">
@@ -955,15 +682,13 @@
 
             <div class="function-group">
               <h4>Set MetadataBank</h4>
-              <p style="color: #888; font-size: 12px; margin-bottom: 10px">
-                Current: <span id="current-metadata-bank" style="color: #4caf50; font-family: monospace">Loading...</span>
-              </p>
               <div class="input-group">
                 <label>Bank Address:</label>
                 <input
                   type="text"
                   id="bank-address"
                   placeholder="0x..."
+                  value="0x32fB3362690D2233e56D2d058C4943b7cAa7e80e"
                 />
               </div>
               <button onclick="setMetadataBank()">Set MetadataBank</button>
@@ -1012,90 +737,19 @@
       </div>
 
       <footer>
-        <p>Tragedy V5 System © 2025 - Generative Tragedy Literature</p>
+        <p>BankedNFT System © 2025 - Modular NFT Architecture</p>
       </footer>
     </div>
 
     <script>
-      // Configuration
+      // Configuration - UPDATE THESE WITH YOUR DEPLOYMENT
       const RPC_URL = "https://dev2.bon-soleil.com/rpc";
 
-      // Contract addresses will be loaded from deployment.json
-      let DEPLOYMENT = null;
+      // Contract addresses - will be loaded from deployment file or hardcoded
       let BANKED_NFT_ADDRESS = null;
       let METADATA_BANK_ADDRESS = null;
-      let COMPOSER_ADDRESS = null;
-
-      // Helper function to update contract display
-      function updateContractDisplay(elementId, address) {
-        const element = document.getElementById(elementId);
-        if (element && address) {
-          element.innerHTML = `<span style="color: #4caf50; font-family: monospace">${address}</span>`;
-        }
-      }
-      
-      // Load deployment data
-      async function loadDeployment() {
-        try {
-          console.log("Loading deployment.json...");
-          const response = await fetch("deployment.json");
-          console.log("Response status:", response.status);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const text = await response.text();
-          console.log("Response text:", text);
-          DEPLOYMENT = JSON.parse(text);
-          BANKED_NFT_ADDRESS = DEPLOYMENT.contracts.bankedNFT;
-          METADATA_BANK_ADDRESS = DEPLOYMENT.contracts.metadataV5;
-          COMPOSER_ADDRESS = DEPLOYMENT.contracts.composerV5;
-          console.log("Loaded deployment:", DEPLOYMENT);
-          console.log("MetadataV5 address:", METADATA_BANK_ADDRESS);
-          
-          // Update Material Explorer contract info
-          updateContractDisplay("material-monster-bank", DEPLOYMENT.contracts.monsterBankV3);
-          updateContractDisplay("material-item-bank", DEPLOYMENT.contracts.itemBankV3);
-          updateContractDisplay("material-background-bank", DEPLOYMENT.contracts.backgroundBank);
-          updateContractDisplay("material-effect-bank", DEPLOYMENT.contracts.effectBank);
-          
-          // Update Composer Explorer contract info
-          updateContractDisplay("composer-address-info", DEPLOYMENT.contracts.composerV5);
-          updateContractDisplay("composer-monster-bank", DEPLOYMENT.contracts.monsterBankV3);
-          updateContractDisplay("composer-item-bank", DEPLOYMENT.contracts.itemBankV3);
-          updateContractDisplay("composer-background-bank", DEPLOYMENT.contracts.backgroundBank);
-          updateContractDisplay("composer-effect-bank", DEPLOYMENT.contracts.effectBank);
-        } catch (error) {
-          console.error("Failed to load deployment.json:", error);
-          // Fallback to hardcoded values
-          console.log("Using fallback deployment configuration");
-          DEPLOYMENT = {
-            contracts: {
-              bankedNFT: "0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796",
-              metadataV5: "0xa2D2d62E7B5dDE4864bf44F70eD350064723c1c5",
-              composerV5: "0x1D845b157b5C4D9C3cA4d0BA9Fc52c97E214DCd0",
-              monsterBankV3: "0x41717f85854D631F7cb856D634fBf396beb68C93",
-              itemBankV3: "0x2A76B76D2024bDf8018459cbf789A5B0bd277Fdc",
-              backgroundBank: "0x6046CaAe3899Aea62A75584781F47BF1BD1700A3",
-              effectBank: "0xC280F8Ef799011c2E47d667E68ea968f10894f35",
-            },
-          };
-          BANKED_NFT_ADDRESS = DEPLOYMENT.contracts.bankedNFT;
-          METADATA_BANK_ADDRESS = DEPLOYMENT.contracts.metadataV5;
-          COMPOSER_ADDRESS = DEPLOYMENT.contracts.composerV5;
-          console.log("Fallback deployment loaded:", DEPLOYMENT);
-          
-          // Update contract displays with fallback values
-          updateContractDisplay("material-monster-bank", DEPLOYMENT.contracts.monsterBankV3);
-          updateContractDisplay("material-item-bank", DEPLOYMENT.contracts.itemBankV3);
-          updateContractDisplay("material-background-bank", DEPLOYMENT.contracts.backgroundBank);
-          updateContractDisplay("material-effect-bank", DEPLOYMENT.contracts.effectBank);
-          updateContractDisplay("composer-address-info", DEPLOYMENT.contracts.composerV5);
-          updateContractDisplay("composer-monster-bank", DEPLOYMENT.contracts.monsterBankV3);
-          updateContractDisplay("composer-item-bank", DEPLOYMENT.contracts.itemBankV3);
-          updateContractDisplay("composer-background-bank", DEPLOYMENT.contracts.backgroundBank);
-          updateContractDisplay("composer-effect-bank", DEPLOYMENT.contracts.effectBank);
-        }
-      }
+      const FINAL_METADATA_BANK_ADDRESS =
+        "0x32fB3362690D2233e56D2d058C4943b7cAa7e80e"; // Latest deployment
 
       // ABIs
       const BANKED_NFT_ABI = [
@@ -1106,7 +760,7 @@
         "function maxSupply() view returns (uint256)",
         "function mintFee() view returns (uint256)",
         "function royaltyRate() view returns (uint256)",
-        "function totalSupply() view returns (uint256)",
+        "function totalMinted() view returns (uint256)",
         "function metadataBank() view returns (address)",
         "function tokenURI(uint256 tokenId) view returns (string)",
         "function remainingSupply() view returns (uint256)",
@@ -1146,47 +800,38 @@
       let finalMetadataBank;
       let signer;
       let currentAccount;
-      let materialsLoaded = false;
 
       async function init() {
         try {
           console.log("Initializing BankedNFT viewer...");
-          console.log("ethers loaded:", typeof ethers !== "undefined");
-          if (typeof ethers === "undefined") {
-            throw new Error(
-              "ethers.js library not loaded. Please check your internet connection."
-            );
-          }
-
-          // Load deployment configuration first
-          await loadDeployment();
-          if (!DEPLOYMENT) {
-            throw new Error("Failed to load deployment configuration");
-          }
-          console.log("RPC URL:", RPC_URL);
           showStatus("Initializing...", "info", "viewer");
 
           // Try to load deployment info
           try {
             // Look for BankedNFT deployment file
             const files = [
-              "deployment.json",
-              "../deployment-v5-split-bonsoleil-1754468768707.json",
-              "../deployment-banked-bonsoleil-1754448863092.json",
-              "../deployment-final-bonsoleil-1754451453632.json",
+              "deployment-banked-bonsoleil-1754448863092.json",
+              "deployment-banked-nft.json",
+              "deployment-bonsoleil.json",
             ];
             let deployment = null;
 
             for (const file of files) {
               try {
-                const response = await fetch(file);
+                const response = await fetch("../" + file);
                 if (response.ok) {
                   deployment = await response.json();
-                  if (deployment.contracts.bankedNFT) {
-                    BANKED_NFT_ADDRESS = deployment.contracts.bankedNFT;
-                    METADATA_BANK_ADDRESS = deployment.contracts.metadataV5;
-                    COMPOSER_ADDRESS = deployment.contracts.composerV5;
-                    console.log("Loaded V5 deployment from", file);
+                  if (
+                    deployment.contracts.bankedNft ||
+                    deployment.contracts.tragedyBankedNft
+                  ) {
+                    BANKED_NFT_ADDRESS =
+                      deployment.contracts.bankedNft ||
+                      deployment.contracts.tragedyBankedNft;
+                    METADATA_BANK_ADDRESS =
+                      deployment.contracts.metadataBank ||
+                      deployment.contracts.tragedyMetadata;
+                    console.log("Loaded deployment from", file);
                     break;
                   }
                 }
@@ -1196,36 +841,22 @@
               }
             }
 
-            // Always use V5 addresses
-            BANKED_NFT_ADDRESS = "0xb0C8bCef9bBEd995b18E0fe6cB7029cB7c90E796";
-            METADATA_BANK_ADDRESS =
-              "0xbFD4e357e0552Dd26b1A4877a5DB8DDC2E4198C4";
-            COMPOSER_ADDRESS = "0x4036C601b705d68cA91281fdD1D665236ABbFde7";
-            console.log("Using V5 deployment addresses");
+            if (!BANKED_NFT_ADDRESS) {
+              // Fallback to hardcoded addresses
+              BANKED_NFT_ADDRESS = "0x930Fc003DD8989E8d64b9Bba7673180C369178C5";
+              METADATA_BANK_ADDRESS =
+                "0x7537eBe80Ef1D4a57DbB22B6bE6B9C9a4dAff4b2";
+              console.log("Using hardcoded addresses");
+            }
           } catch (e) {
             console.error("Error loading deployment:", e);
-            console.log("Using hardcoded BankedNFT address");
-            // Continue with hardcoded address instead of returning
+            showDeploymentInstructions();
+            return;
           }
 
           // Connect to network
-          console.log("Connecting to network...");
-          try {
-            provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-            await provider.ready;
-            console.log("Connected to network successfully");
-
-            // Update network status immediately
-            document.getElementById(
-              "network"
-            ).innerHTML = `Network: <span style="color: #4caf50">Bon-Soleil Testnet</span>`;
-          } catch (networkError) {
-            console.error("Network connection error:", networkError);
-            document.getElementById(
-              "network"
-            ).innerHTML = `Network: <span style="color: #ff6b6b">Connection Failed</span>`;
-            throw networkError;
-          }
+          provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+          await provider.ready;
 
           // Initialize contracts
           bankedNft = new ethers.Contract(
@@ -1233,21 +864,8 @@
             BANKED_NFT_ABI,
             provider
           );
-          document.getElementById(
-            "nft-address"
-          ).innerHTML = `BankedNFT Contract: <span style="color: #4caf50; font-family: monospace">${BANKED_NFT_ADDRESS}</span>`;
 
-          // Get current MetadataBank from BankedNFT
-          try {
-            METADATA_BANK_ADDRESS = await bankedNft.metadataBank();
-            console.log(
-              "Current MetadataBank from contract:",
-              METADATA_BANK_ADDRESS
-            );
-            document.getElementById(
-              "metadata-address"
-            ).innerHTML = `MetadataBank: <span style="color: #4caf50; font-family: monospace">${METADATA_BANK_ADDRESS}</span>`;
-
+          if (METADATA_BANK_ADDRESS) {
             metadataBank = new ethers.Contract(
               METADATA_BANK_ADDRESS,
               METADATA_BANK_ABI,
@@ -1259,118 +877,34 @@
               metadataCount.toString(),
               "metadata entries"
             );
-          } catch (error) {
-            console.error("Error getting MetadataBank:", error);
-            // Fallback to deployment.json value if available
-            if (DEPLOYMENT && DEPLOYMENT.contracts.metadataV5) {
-              METADATA_BANK_ADDRESS = DEPLOYMENT.contracts.metadataV5;
-              console.log(
-                "Using MetadataBank from deployment.json:",
-                METADATA_BANK_ADDRESS
-              );
-              try {
-                metadataBank = new ethers.Contract(
-                  METADATA_BANK_ADDRESS,
-                  METADATA_BANK_ABI,
-                  provider
-                );
-                const metadataCount = await metadataBank.getMetadataCount();
-                console.log(
-                  "MetadataBank has",
-                  metadataCount.toString(),
-                  "metadata entries"
-                );
-                document.getElementById(
-                  "metadata-address"
-                ).innerHTML = `MetadataBank: <span style="color: #4caf50; font-family: monospace">${METADATA_BANK_ADDRESS}</span> (from deployment.json)`;
-              } catch (e) {
-                console.error("Error with fallback MetadataBank:", e);
-                document.getElementById(
-                  "metadata-address"
-                ).innerHTML = `MetadataBank: <span style="color: #ff6b6b">Error loading</span>`;
-              }
-            } else {
-              document.getElementById(
-                "metadata-address"
-              ).innerHTML = `MetadataBank: <span style="color: #ff6b6b">Error loading</span>`;
-            }
           }
 
-          // Initialize final metadata bank for explorer (use current MetadataBank)
-          let finalCount = 0;
-          let composerAddr;
-
-          if (METADATA_BANK_ADDRESS) {
-            finalMetadataBank = metadataBank;
-            try {
-              finalCount = await finalMetadataBank.getMetadataCount();
-              console.log("Metadata count:", finalCount.toString());
-            } catch (e) {
-              console.error("Error getting metadata count:", e);
-            }
-
-            try {
-              composerAddr = await finalMetadataBank.composer();
-            } catch (e) {
-              console.log("MetadataBank does not have composer method");
-            }
-          }
-
-          // Update Metadata Explorer tab info if elements exist
-          const metadataBankElement = document.getElementById(
-            "metadata-bank-address"
+          // Initialize final metadata bank for explorer
+          finalMetadataBank = new ethers.Contract(
+            FINAL_METADATA_BANK_ADDRESS,
+            METADATA_BANK_ABI,
+            provider
           );
-          if (metadataBankElement) {
-            metadataBankElement.innerHTML = `MetadataBank: <span style="color: #4caf50; font-family: monospace">${
-              METADATA_BANK_ADDRESS || "Not set"
-            }</span>`;
-          }
+          const finalCount = await finalMetadataBank.getMetadataCount();
+          const composerAddr = await finalMetadataBank.composer();
 
-          const metadataCountElement =
-            document.getElementById("metadata-count");
-          if (metadataCountElement && METADATA_BANK_ADDRESS && finalCount > 0) {
-            metadataCountElement.innerHTML = `Total Metadata Entries: <span style="color: #4caf50">${finalCount}</span>`;
-          }
-
-          const composerElement = document.getElementById("metadata-composer");
-          if (composerElement && typeof composerAddr !== "undefined") {
-            composerElement.innerHTML = `Composer Address: <span style="color: #4caf50; font-family: monospace">${composerAddr}</span>`;
-          }
+          document.getElementById(
+            "metadata-bank-address"
+          ).innerHTML = `MetadataBank: <span style="color: #4caf50; font-family: monospace">${FINAL_METADATA_BANK_ADDRESS}</span>`;
+          document.getElementById(
+            "metadata-count"
+          ).innerHTML = `Total Metadata Entries: <span style="color: #4caf50">${finalCount}</span>`;
+          document.getElementById(
+            "metadata-composer"
+          ).innerHTML = `Composer Address: <span style="color: #4caf50; font-family: monospace">${composerAddr}</span>`;
 
           // Load contract info
-          try {
-            await loadContractInfo();
-          } catch (error) {
-            console.error("Error loading contract info:", error);
-            // Continue with initialization even if contract info fails
-          }
+          await loadContractInfo();
 
           showStatus("Connected successfully!", "success", "viewer");
         } catch (error) {
           console.error("Initialization error:", error);
           showStatus("Failed to connect: " + error.message, "error", "viewer");
-
-          // Show error state in Contract Information
-          document.getElementById(
-            "network"
-          ).innerHTML = `Network: <span style="color: #ff6b6b">Connection Error</span>`;
-          document.getElementById(
-            "nft-address"
-          ).innerHTML = `BankedNFT Contract: <span style="color: #4caf50; font-family: monospace">${
-            BANKED_NFT_ADDRESS || "Not set"
-          }</span>`;
-          document.getElementById(
-            "metadata-address"
-          ).innerHTML = `MetadataBank: <span style="color: #ff6b6b">Not loaded</span>`;
-          document.getElementById(
-            "total-supply"
-          ).innerHTML = `Total Minted: <span style="color: #ff6b6b">-</span>`;
-          document.getElementById(
-            "max-supply"
-          ).innerHTML = `Max Supply: <span style="color: #ff6b6b">-</span>`;
-          document.getElementById(
-            "remaining-supply"
-          ).innerHTML = `Remaining: <span style="color: #ff6b6b">-</span>`;
         }
       }
 
@@ -1378,78 +912,63 @@
         const container = document.getElementById("nft-container");
         container.innerHTML = `
                 <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 30px; margin: 20px 0;">
-                    <h3 style="color: #ff6b6b; margin-bottom: 20px;">🚀 Tragedy V5 System Ready</h3>
+                    <h3 style="color: #ff6b6b; margin-bottom: 20px;">🚀 BankedNFT System Ready</h3>
                     <p style="margin-bottom: 15px;">The BankedNFT system is deployed and ready to use!</p>
-                    <p style="color: #4caf50;">BankedNFT: ${BANKED_NFT_ADDRESS}</p>
-                    <p style="color: #4caf50;">MetadataV5: ${METADATA_BANK_ADDRESS}</p>
-                    <p style="color: #4caf50;">ComposerV5: ${COMPOSER_ADDRESS}</p>
+                    <p style="color: #4caf50;">BankedNFT: 0x930Fc003DD8989E8d64b9Bba7673180C369178C5</p>
+                    <p style="color: #4caf50;">MetadataBank: 0x32fB3362690D2233e56D2d058C4943b7cAa7e80e</p>
                 </div>
             `;
       }
 
       async function loadContractInfo() {
         try {
-          // Try to load each value individually to handle partial failures
-          let totalMinted = "-";
-          let maxSupply = "-";
-          let remaining = "-";
+          const [
+            name,
+            symbol,
+            owner,
+            maxSupply,
+            mintFee,
+            royaltyRate,
+            totalMinted,
+            metadataBankAddr,
+          ] = await Promise.all([
+            bankedNft.name(),
+            bankedNft.symbol(),
+            bankedNft.owner(),
+            bankedNft.maxSupply(),
+            bankedNft.mintFee(),
+            bankedNft.royaltyRate(),
+            bankedNft.totalMinted(),
+            bankedNft.metadataBank(),
+          ]);
 
-          try {
-            totalMinted = await bankedNft.totalSupply();
-            document.getElementById(
-              "total-supply"
-            ).innerHTML = `Total Minted: <span style="color: #4caf50">${totalMinted}</span>`;
-          } catch (e) {
-            console.error("Error loading totalMinted:", e);
-          }
+          const remaining = await bankedNft.remainingSupply();
 
-          try {
-            maxSupply = await bankedNft.maxSupply();
-            document.getElementById(
-              "max-supply"
-            ).innerHTML = `Max Supply: <span style="color: #4caf50">${maxSupply}</span>`;
-          } catch (e) {
-            console.error("Error loading maxSupply:", e);
-          }
-
-          try {
-            remaining = await bankedNft.remainingSupply();
-            document.getElementById(
-              "remaining-supply"
-            ).innerHTML = `Remaining: <span style="color: #4caf50">${remaining}</span>`;
-          } catch (e) {
-            console.error("Error loading remainingSupply:", e);
-          }
-
-          // Try to load other info
-          try {
-            const [name, symbol, owner, mintFee, royaltyRate] =
-              await Promise.all([
-                bankedNft.name(),
-                bankedNft.symbol(),
-                bankedNft.owner(),
-                bankedNft.mintFee(),
-                bankedNft.royaltyRate(),
-              ]);
-
-            console.log(`Loaded ${name} (${symbol}) - Owner: ${owner}`);
-            console.log(`Mint fee: ${ethers.utils.formatEther(mintFee)} ETH`);
-            console.log(`Royalty rate: ${royaltyRate.toNumber() / 100}%`);
-          } catch (e) {
-            console.error("Error loading additional contract info:", e);
-          }
-        } catch (error) {
-          console.error("Error in loadContractInfo:", error);
-          // Show error state in UI
+          // Update UI
+          document.getElementById(
+            "network"
+          ).innerHTML = `Network: <span style="color: #4caf50">Bon-Soleil Testnet</span>`;
+          document.getElementById(
+            "nft-address"
+          ).innerHTML = `BankedNFT Contract: <span style="color: #4caf50; font-family: monospace">${BANKED_NFT_ADDRESS}</span>`;
+          document.getElementById(
+            "metadata-address"
+          ).innerHTML = `MetadataBank: <span style="color: #4caf50; font-family: monospace">${metadataBankAddr}</span>`;
           document.getElementById(
             "total-supply"
-          ).innerHTML = `Total Minted: <span style="color: #ff6b6b">Error</span>`;
+          ).innerHTML = `Total Minted: <span style="color: #4caf50">${totalMinted}</span>`;
           document.getElementById(
             "max-supply"
-          ).innerHTML = `Max Supply: <span style="color: #ff6b6b">Error</span>`;
+          ).innerHTML = `Max Supply: <span style="color: #4caf50">${maxSupply}</span>`;
           document.getElementById(
             "remaining-supply"
-          ).innerHTML = `Remaining: <span style="color: #ff6b6b">Error</span>`;
+          ).innerHTML = `Remaining: <span style="color: #4caf50">${remaining}</span>`;
+
+          console.log(`Loaded ${name} (${symbol}) - Owner: ${owner}`);
+          console.log(`Mint fee: ${ethers.utils.formatEther(mintFee)} ETH`);
+          console.log(`Royalty rate: ${royaltyRate.toNumber() / 100}%`);
+        } catch (error) {
+          console.error("Error loading contract info:", error);
         }
       }
 
@@ -1483,12 +1002,6 @@
           .querySelectorAll(".content-section")
           .forEach((s) => s.classList.remove("active"));
         document.getElementById(tab + "-section").classList.add("active");
-
-        // Load content for specific tabs
-        if (tab === "materials" && !materialsLoaded) {
-          loadMaterials();
-          materialsLoaded = true;
-        }
       }
 
       async function connectWallet() {
@@ -1551,40 +1064,10 @@
 
       async function loadMintingInfo() {
         try {
-          // Get all contract information
-          const [
-            name,
-            symbol,
-            totalSupply,
-            maxSupply,
-            remainingSupply,
-            mintFee,
-            canMint,
-            royaltyRate,
-            owner,
-            metadataBank
-          ] = await Promise.all([
-            bankedNft.name(),
-            bankedNft.symbol(),
-            bankedNft.totalSupply(),
-            bankedNft.maxSupply(),
-            bankedNft.remainingSupply(),
-            bankedNft.mintFee(),
-            bankedNft.canMint(),
-            bankedNft.royaltyRate(),
-            bankedNft.owner(),
-            bankedNft.metadataBank()
-          ]);
-
-          // Get user balance
+          const mintFee = await bankedNft.mintFee();
           const balance = await provider.getBalance(currentAccount);
+          const canMint = await bankedNft.canMint();
 
-          // Update all display elements
-          document.getElementById("collection-name").textContent = name;
-          document.getElementById("collection-symbol").textContent = symbol;
-          document.getElementById("mint-total-supply").textContent = totalSupply.toString();
-          document.getElementById("mint-max-supply").textContent = maxSupply.toString();
-          document.getElementById("mint-remaining").textContent = remainingSupply.toString();
           document.getElementById("mint-fee").textContent =
             ethers.utils.formatEther(mintFee) + " ETH";
           document.getElementById("user-balance").textContent =
@@ -1592,21 +1075,11 @@
           document.getElementById("can-mint").textContent = canMint
             ? "Yes ✅"
             : "No ❌";
-          document.getElementById("royalty-rate").textContent = 
-            (royaltyRate.toNumber() / 100) + "%";
-          document.getElementById("contract-owner").textContent = 
-            owner.slice(0, 6) + "..." + owner.slice(-4);
 
           // Update contract balance for admin
           const contractBalance = await provider.getBalance(BANKED_NFT_ADDRESS);
           document.getElementById("contract-balance").textContent =
             ethers.utils.formatEther(contractBalance) + " ETH";
-          
-          // Update current MetadataBank display
-          const currentMetadataBankElement = document.getElementById("current-metadata-bank");
-          if (currentMetadataBankElement) {
-            currentMetadataBankElement.textContent = metadataBank;
-          }
         } catch (error) {
           console.error("Error loading minting info:", error);
         }
@@ -1653,23 +1126,23 @@
         container.innerHTML = '<div class="loading-message">Loading...</div>';
 
         try {
-          const totalSupply = await bankedNft.totalSupply();
+          const totalMinted = await bankedNft.totalMinted();
 
-          if (totalSupply.eq(0)) {
+          if (totalMinted.eq(0)) {
             container.innerHTML =
               '<div class="loading-message">No NFTs minted yet</div>';
             return;
           }
 
           const nfts = [];
-          for (let i = 1; i <= Math.min(totalSupply.toNumber(), 20); i++) {
+          for (let i = 1; i <= Math.min(totalMinted.toNumber(), 20); i++) {
             // Limit to 20 for performance
             nfts.push(ethers.BigNumber.from(i));
           }
 
           await displayNFTs(nfts);
           showStatus(
-            `Showing ${nfts.length} of ${totalSupply} NFTs`,
+            `Showing ${nfts.length} of ${totalMinted} NFTs`,
             "success"
           );
         } catch (error) {
@@ -1753,11 +1226,6 @@
               ? '<span style="background: #ff6b6b; color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px; margin-left: 10px;">SOUL-BOUND</span>'
               : "";
 
-            // Store SVG data in a data attribute to avoid escaping issues
-            card.setAttribute("data-svg", svg || "");
-            card.setAttribute("data-name", metadata.name || "");
-            card.setAttribute("data-tokenid", tokenId || "");
-
             card.innerHTML = `
                         <div class="nft-image">
                             ${
@@ -1769,7 +1237,6 @@
                             <h4>${metadata.name}${soulBoundBadge}</h4>
                             <p style="color: #888; font-size: 12px; margin-bottom: 10px;">
                                 Owner: ${owner.slice(0, 6)}...${owner.slice(-4)}
-                                <button class="preview-toggle" onclick="showPreviewFromCard(this.closest('.nft-card'))">Preview</button>
                             </p>
                             <p style="color: #aaa; font-size: 13px; margin-bottom: 10px;">
                                 ${metadata.description || "No description"}
@@ -1966,14 +1433,6 @@
               );
               const svg = atob(base64Svg);
               document.getElementById("metadata-svg-container").innerHTML = svg;
-
-              // Show floating preview with full metadata
-              showFloatingPreview(
-                svg,
-                metadata.name,
-                "Metadata Preview",
-                metadata
-              );
             }
           } catch (error) {
             console.error("Error parsing metadata:", error);
@@ -2216,7 +1675,7 @@
             bankedNft.maxSupply(),
             bankedNft.mintFee(),
             bankedNft.royaltyRate(),
-            bankedNft.totalSupply(),
+            bankedNft.totalMinted(),
             bankedNft.metadataBank(),
             bankedNft.canMint(),
           ]);
@@ -2260,432 +1719,8 @@
         }
       }
 
-      // Floating Preview Functions
-      let currentPreviewData = null;
-
-      function showFloatingPreview(svg, name, tokenId, metadata) {
-        currentPreviewData = { svg, name, tokenId, metadata };
-        const preview = document.getElementById("floating-preview");
-        const svgContainer = document.getElementById("floating-preview-svg");
-        const nameSpan = document.getElementById("floating-preview-name");
-        const idSpan = document.getElementById("floating-preview-id");
-
-        if (svg) {
-          // Parse the SVG and update its size attributes for larger display
-          const parser = new DOMParser();
-          const svgDoc = parser.parseFromString(svg, "image/svg+xml");
-          const svgElement = svgDoc.querySelector("svg");
-
-          if (svgElement) {
-            // Set larger display size while maintaining aspect ratio
-            svgElement.setAttribute("width", "450");
-            svgElement.setAttribute("height", "450");
-            svgContainer.innerHTML = new XMLSerializer().serializeToString(
-              svgElement
-            );
-          } else {
-            svgContainer.innerHTML = svg;
-          }
-        } else {
-          svgContainer.innerHTML =
-            '<p style="color: #666;">No preview available</p>';
-        }
-
-        nameSpan.textContent = name || "Unknown";
-        idSpan.textContent = tokenId || "-";
-
-        // Show description and attributes if metadata is provided
-        const descDiv = document.getElementById("floating-preview-description");
-        const attrsDiv = document.getElementById("floating-preview-attributes");
-
-        if (metadata) {
-          // Show description
-          if (metadata.description) {
-            document.getElementById("floating-preview-desc-text").textContent =
-              metadata.description;
-            descDiv.style.display = "block";
-          } else {
-            descDiv.style.display = "none";
-          }
-
-          // Show attributes
-          if (metadata.attributes && metadata.attributes.length > 0) {
-            document.getElementById("floating-preview-attrs").innerHTML =
-              metadata.attributes
-                .map(
-                  (attr) => `
-                        <div style="margin: 2px 0;">
-                            <span style="color: #888;">${attr.trait_type}:</span>
-                            <span style="color: #4caf50;">${attr.value}</span>
-                        </div>
-                    `
-                )
-                .join("");
-            attrsDiv.style.display = "block";
-          } else {
-            attrsDiv.style.display = "none";
-          }
-        } else {
-          descDiv.style.display = "none";
-          attrsDiv.style.display = "none";
-        }
-
-        preview.classList.add("active");
-      }
-
-      function closeFloatingPreview() {
-        const preview = document.getElementById("floating-preview");
-        preview.classList.remove("active");
-      }
-
-      function toggleFloatingPreview() {
-        const preview = document.getElementById("floating-preview");
-        if (preview.classList.contains("active")) {
-          closeFloatingPreview();
-        } else if (currentPreviewData) {
-          showFloatingPreview(
-            currentPreviewData.svg,
-            currentPreviewData.name,
-            currentPreviewData.tokenId
-          );
-        }
-      }
-
-      function showPreviewFromCard(card) {
-        const svg = card.getAttribute("data-svg");
-        const name = card.getAttribute("data-name");
-        const tokenId = card.getAttribute("data-tokenid");
-        showFloatingPreview(svg, name, tokenId);
-      }
-
-      // Material Explorer Functions
-      async function loadMaterials() {
-        const container = document.getElementById("materials-container");
-        const status = document.getElementById("materials-status");
-
-        try {
-          status.innerHTML =
-            '<span class="loading">Loading materials...</span>';
-          container.innerHTML = "";
-
-          // Material Banks from deployment
-          if (!DEPLOYMENT) {
-            status.innerHTML =
-              '<span class="error">Deployment not loaded</span>';
-            return;
-          }
-
-          const BANKS = {
-            monster: {
-              v3: DEPLOYMENT.contracts.monsterBankV3,
-              type: "svg",
-            },
-            item: {
-              v3: DEPLOYMENT.contracts.itemBankV3,
-              type: "svg",
-            },
-            background: {
-              main: DEPLOYMENT.contracts.backgroundBank,
-              type: "url",
-            },
-            effect: {
-              main: DEPLOYMENT.contracts.effectBank,
-              type: "url",
-            },
-          };
-
-          // Test each bank
-          await testMaterialBank(
-            "Monsters (SVG stored on-chain)",
-            BANKS.monster.v3,
-            "svg",
-            "getMonsterSVG",
-            "getMonsterName",
-            10,
-            container
-          );
-          await testMaterialBank(
-            "Items (SVG stored on-chain)",
-            BANKS.item.v3,
-            "svg",
-            "getItemSVG",
-            "getItemName",
-            12,
-            container
-          );
-          await testMaterialBank(
-            "Backgrounds (URL stored, expecting Arweave)",
-            BANKS.background.main,
-            "url",
-            "getBackgroundUrl",
-            "getBackgroundName",
-            10,
-            container
-          );
-          await testMaterialBank(
-            "Effects (URL stored, expecting Arweave)",
-            BANKS.effect.main,
-            "url",
-            "getEffectUrl",
-            "getEffectName",
-            10,
-            container
-          );
-
-          status.innerHTML =
-            '<span style="color: #4caf50;">Material status check complete</span>';
-        } catch (error) {
-          status.innerHTML =
-            '<span style="color: #ff6b6b;">Error loading materials: ' +
-            error.message +
-            "</span>";
-        }
-      }
-
-      async function testMaterialBank(
-        title,
-        address,
-        dataType,
-        dataMethod,
-        nameMethod,
-        count,
-        container
-      ) {
-        const section = document.createElement("div");
-        section.className = "admin-section";
-        section.innerHTML = `<h3>${title}</h3><div class="info-text" style="margin-bottom: 10px;">Contract: ${address}</div><div class="material-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px;"></div>`;
-
-        const grid = section.querySelector(".material-grid");
-
-        // Create contract with appropriate methods
-        const abi = [`function ${nameMethod}(uint8 id) view returns (string)`];
-
-        if (dataType === "svg") {
-          abi.push(`function ${dataMethod}(uint8 id) view returns (string)`);
-          // Also check if getBackgroundSVG/getEffectSVG exists
-          if (
-            dataMethod === "getBackgroundUrl" ||
-            dataMethod === "getEffectUrl"
-          ) {
-            const svgMethod = dataMethod.replace("Url", "SVG");
-            abi.push(`function ${svgMethod}(uint8 id) view returns (string)`);
-          }
-        } else {
-          abi.push(`function ${dataMethod}(uint8 id) view returns (string)`);
-        }
-
-        const contract = new ethers.Contract(address, abi, provider);
-
-        for (let i = 0; i < count; i++) {
-          const item = document.createElement("div");
-          item.style.cssText =
-            "background: #2a2a2a; padding: 10px; border-radius: 5px; text-align: center;";
-
-          try {
-            const name = await contract[nameMethod](i);
-
-            if (dataType === "svg") {
-              const svg = await contract[dataMethod](i);
-              // Force SVG to be 96x96px
-              const svgFixed = svg.replace(
-                /<svg/,
-                '<svg width="96px" height="96px"'
-              );
-              item.innerHTML = `
-                            <div style="background: #555555; padding: 5px; border-radius: 5px; margin-bottom: 5px; min-height: 48px; display: flex; align-items: center; justify-content: center;">${svgFixed}</div>
-                            <div style="font-size: 12px; font-weight: bold;">${name}</div>
-                            <div style="font-size: 10px; color: #888;">ID: ${i}</div>
-                            <div style="font-size: 10px; color: #4caf50;">✓ SVG Data</div>
-                        `;
-            } else {
-              // It's a URL type, try to get URL
-              let hasUrl = false;
-              let hasSvg = false;
-              let url = "";
-
-              try {
-                url = await contract[dataMethod](i);
-                hasUrl = true;
-              } catch (e) {
-                // URL method failed
-              }
-
-              // Check if SVG method exists
-              const svgMethod = dataMethod.replace("Url", "SVG");
-              try {
-                const svg = await contract[svgMethod](i);
-                hasSvg = true;
-                // Force SVG to be 96x96px
-                const svgFixed = svg.replace(
-                  /<svg/,
-                  '<svg width="96px" height="96px"'
-                );
-                item.innerHTML = `
-                                <div style="background: white; padding: 5px; border-radius: 5px; margin-bottom: 5px; min-height: 48px; display: flex; align-items: center; justify-content: center;">${svgFixed}</div>
-                                <div style="font-size: 12px; font-weight: bold;">${name}</div>
-                                <div style="font-size: 10px; color: #888;">ID: ${i}</div>
-                                <div style="font-size: 10px; color: #4caf50;">✓ Has SVG method</div>
-                            `;
-              } catch (e) {
-                // SVG method doesn't exist
-                if (hasUrl) {
-                  // Check if URL is an SVG by trying to fetch it
-                  let svgContent = null;
-                  let isValidSvg = false;
-
-                  try {
-                    // Check if it's a data URL
-                    if (url.startsWith("data:")) {
-                      const [header, data] = url.split(",");
-                      if (header.includes("image/svg+xml")) {
-                        // It's an SVG data URL
-                        if (header.includes("base64")) {
-                          svgContent = atob(data);
-                        } else {
-                          svgContent = decodeURIComponent(data);
-                        }
-                        isValidSvg = true;
-                      }
-                    } else if (url.startsWith("http")) {
-                      // For HTTP URLs, we can't fetch directly from browser due to CORS
-                      // But we can check if it looks like an SVG URL
-                      if (url.includes(".svg") || url.includes("image/svg")) {
-                        isValidSvg = true;
-                      }
-                    }
-                  } catch (e) {
-                    console.error("Error checking URL content:", e);
-                  }
-
-                  if (isValidSvg && svgContent) {
-                    // Force SVG to be 96x96px
-                    const svgFixed = svgContent.replace(
-                      /<svg/,
-                      '<svg width="96px" height="96px"'
-                    );
-                    item.innerHTML = `
-                                        <div style="background: white; padding: 5px; border-radius: 5px; margin-bottom: 5px; min-height: 48px; display: flex; align-items: center; justify-content: center;">${svgFixed}</div>
-                                        <div style="font-size: 12px; font-weight: bold;">${name}</div>
-                                        <div style="font-size: 10px; color: #888;">ID: ${i}</div>
-                                        <div style="font-size: 10px; color: #4caf50;">✓ SVG from URL</div>
-                                        <a href="${url}" target="_blank" style="font-size: 9px; color: #66b3ff; text-decoration: none;">View on Arweave →</a>
-                                    `;
-                  } else {
-                    item.innerHTML = `
-                                        <div style="background: #333; padding: 5px; border-radius: 5px; margin-bottom: 5px; min-height: 48px; display: flex; align-items: center; justify-content: center;">
-                                            <span style="color: #ff6b6b; font-size: 24px;"><img src="${url}" width="96px" height="96px"></span>
-                                        </div>
-                                        <div style="font-size: 12px; font-weight: bold;">${name}</div>
-                                        <div style="font-size: 10px; color: #888;">ID: ${i}</div>
-                                        <div style="font-size: 10px; color: #ffaa00;">⚠ URL only</div>
-                                        <a href="${url}" target="_blank" style="font-size: 9px; color: #66b3ff; word-break: break-all; text-decoration: none;">${url.substring(
-                      0,
-                      30
-                    )}...</a>
-                                        ${
-                                          isValidSvg
-                                            ? '<div style="font-size: 9px; color: #999;">SVG URL (CORS blocked)</div>'
-                                            : ""
-                                        }
-                                    `;
-                  }
-                } else {
-                  throw new Error("No data method found");
-                }
-              }
-            }
-
-            grid.appendChild(item);
-          } catch (error) {
-            item.style.cssText =
-              "background: #330000; padding: 10px; border-radius: 5px; text-align: center;";
-            item.innerHTML = `
-                        <div style="color: #ff6b6b; font-size: 12px;">Error ID: ${i}</div>
-                        <div style="font-size: 10px; color: #ff9999;">${error.message.substring(
-                          0,
-                          50
-                        )}</div>
-                    `;
-            grid.appendChild(item);
-          }
-        }
-
-        container.appendChild(section);
-      }
-
-      // Composer Explorer Functions
-      async function testComposer() {
-        const species = document.getElementById("composer-species").value;
-        const background = document.getElementById("composer-background").value;
-        const item = document.getElementById("composer-item").value;
-        const effect = document.getElementById("composer-effect").value;
-
-        const resultDiv = document.getElementById("composer-result");
-        resultDiv.innerHTML = '<div class="status">Composing...</div>';
-
-        try {
-          // Use the fixed composer
-          if (!DEPLOYMENT) {
-            resultDiv.innerHTML =
-              '<div class="error">Deployment not loaded</div>';
-            return;
-          }
-          const composerAddress = DEPLOYMENT.contracts.composerV5;
-          const composerAbi = [
-            "function composeSVG(uint8 species, uint8 background, uint8 item, uint8 effect) view returns (string)",
-          ];
-          const composer = new ethers.Contract(
-            composerAddress,
-            composerAbi,
-            provider
-          );
-
-          const svg = await composer.composeSVG(
-            species,
-            background,
-            item,
-            effect
-          );
-
-          resultDiv.innerHTML = `
-                    <div class="admin-section">
-                        <h3>Result</h3>
-                        <div style="background: white; padding: 20px; border-radius: 10px; margin: 10px 0;">
-                            ${svg}
-                        </div>
-                        <div class="info-text">SVG Length: ${svg.length} characters</div>
-                    </div>
-                `;
-        } catch (error) {
-          resultDiv.innerHTML = `<div class="error-message">Error: ${error.message}</div>`;
-        }
-      }
-
       // Initialize on load
-      window.addEventListener("load", () => {
-        // Wait a bit for ethers to fully load
-        setTimeout(() => {
-          if (typeof ethers !== "undefined") {
-            init();
-          } else {
-            console.error("ethers.js failed to load");
-            document.getElementById(
-              "network"
-            ).innerHTML = `Network: <span style="color: #ff6b6b">Library Load Error</span>`;
-            document.getElementById(
-              "nft-address"
-            ).innerHTML = `BankedNFT Contract: <span style="color: #ff6b6b">Cannot Initialize</span>`;
-            document.getElementById(
-              "metadata-address"
-            ).innerHTML = `MetadataBank: <span style="color: #ff6b6b">Cannot Initialize</span>`;
-            showStatus(
-              "Failed to load ethers.js library. Check internet connection.",
-              "error",
-              "viewer"
-            );
-          }
-        }, 100);
-      });
+      window.addEventListener("load", init);
     </script>
   </body>
 </html>
