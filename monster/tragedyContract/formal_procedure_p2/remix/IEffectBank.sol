@@ -1,7 +1,0 @@
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-interface IEffectBank {
-    function getEffectUrl(uint8 effectId) external pure returns (string memory);
-    function getEffectName(uint8 effectId) external pure returns (string memory);
-}
