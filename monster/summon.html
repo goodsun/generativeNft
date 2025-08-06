@@ -783,9 +783,17 @@
         async function mintNFT() {
             // Check if contract is deployed
             const contractAddress = window.web3Integration.getContractAddress();
-            if (!contractAddress || contractAddress === '0x0000000000000000000000000000000000000000') {
-                showComingSoonModal();
-                return;
+            
+            // Get current chain ID
+            const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+            const chainIdDecimal = parseInt(chainId, 16);
+            
+            // Allow minting on Bon Soleil testnet (21201) even if contract check fails
+            if (chainIdDecimal !== 21201) {
+                if (!contractAddress || contractAddress === '0x0000000000000000000000000000000000000000') {
+                    showComingSoonModal();
+                    return;
+                }
             }
             
             const mintBtn = document.getElementById('mintBtn');
